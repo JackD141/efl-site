@@ -1,8 +1,8 @@
 const COGNITO_CLIENT_ID = '4q60ebh5rv8aduhnfh383epu8u';
-const COGNITO_USER_ID = process.env.COGNITO_USER_ID || 'a171833f-3556-4f4b-83ed-6eaa4318d371';
+const COGNITO_USER_ID = 'a171833f-3556-4f4b-83ed-6eaa4318d371';
 const EFL_API_URL = 'https://fantasy.efl.com/api/en/season/ranking/overall_ladder?leagueId=38';
 
-async function getIdToken(refreshToken) {
+async function getIdToken(email, password) {
   const response = await fetch('https://cognito-idp.eu-west-1.amazonaws.com/', {
     method: 'POST',
     headers: {
@@ -10,10 +10,11 @@ async function getIdToken(refreshToken) {
       'X-Amz-Target': 'AWSCognitoIdentityProviderService.InitiateAuth',
     },
     body: JSON.stringify({
-      AuthFlow: 'REFRESH_TOKEN_AUTH',
+      AuthFlow: 'USER_PASSWORD_AUTH',
       ClientId: COGNITO_CLIENT_ID,
       AuthParameters: {
-        REFRESH_TOKEN: refreshToken,
+        USERNAME: email,
+        PASSWORD: password,
       },
     }),
   });
@@ -30,14 +31,15 @@ async function getIdToken(refreshToken) {
 module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
 
-  const refreshToken = process.env.COGNITO_REFRESH_TOKEN;
-  if (!refreshToken) {
-    return res.status(500).json({ error: 'COGNITO_REFRESH_TOKEN environment variable is not set.' });
+  const email = process.env.EFL_EMAIL;
+  const password = process.env.EFL_PASSWORD;
+  if (!email || !password) {
+    return res.status(500).json({ error: 'EFL_EMAIL or EFL_PASSWORD environment variable is not set.' });
   }
 
   let idToken;
   try {
-    idToken = await getIdToken(refreshToken);
+    idToken = await getIdToken(email, password);
   } catch (err) {
     return res.status(500).json({ error: 'Failed to authenticate with EFL.', details: err.message });
   }

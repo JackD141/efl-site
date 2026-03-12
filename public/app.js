@@ -13,7 +13,8 @@ async function loadTable() {
 
     if (!response.ok) {
       const err = await response.json().catch(() => ({ error: 'Unknown error' }));
-      throw new Error((err.error || `Server error ${response.status}`) + (err.details ? `: ${err.details}` : ''));
+      const detail = err.details || (err.debug ? JSON.stringify(err.debug) : '');
+      throw new Error((err.error || `Server error ${response.status}`) + (detail ? `: ${detail}` : ''));
     }
 
     const data = await response.json();

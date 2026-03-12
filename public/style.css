@@ -115,6 +115,140 @@ td.advantage.dash {
   color: #555;
 }
 
+/* Navigation */
+nav {
+  display: flex;
+  gap: 8px;
+}
+
+.nav-link {
+  color: #ccc;
+  text-decoration: none;
+  padding: 6px 14px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  transition: background 0.2s, color 0.2s;
+}
+
+.nav-link:hover {
+  background: #1e3a5f;
+  color: #fff;
+}
+
+.nav-link.active {
+  background: #00a651;
+  color: #fff;
+}
+
+/* Player search */
+.search-area {
+  margin-bottom: 24px;
+  position: relative;
+}
+
+#search-input {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px 14px;
+  font-size: 1rem;
+  border: 2px solid #1e3a5f;
+  border-radius: 6px;
+  background: #112240;
+  color: #f0f0f0;
+  outline: none;
+}
+
+#search-input:focus {
+  border-color: #00a651;
+}
+
+#search-results {
+  margin-top: 8px;
+  max-width: 400px;
+  background: #112240;
+  border: 1px solid #1e3a5f;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.result-item {
+  padding: 10px 14px;
+  cursor: pointer;
+  border-bottom: 1px solid #1e3a5f;
+  font-size: 0.9rem;
+  transition: background 0.15s;
+}
+
+.result-item:last-child {
+  border-bottom: none;
+}
+
+.result-item:hover {
+  background: #1a3460;
+}
+
+/* Player stats */
+.player-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.player-header h2 {
+  font-size: 1.3rem;
+  color: #fff;
+}
+
+.player-pos {
+  background: #00a651;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: bold;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.season-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.stat-pill {
+  background: #112240;
+  border: 1px solid #1e3a5f;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 0.85rem;
+  color: #aaa;
+}
+
+.stat-pill strong {
+  color: #fff;
+  margin-left: 4px;
+}
+
+.stats-table-wrap {
+  overflow-x: auto;
+}
+
+.pts-col {
+  font-weight: bold;
+  color: #ffd700;
+}
+
+.loading-msg {
+  color: #aaa;
+  font-size: 0.9rem;
+}
+
+.error-msg {
+  color: #ff6b6b;
+  font-size: 0.9rem;
+}
+
 @media (max-width: 600px) {
   header {
     flex-direction: column;

@@ -1,6 +1,5 @@
 const COGNITO_CLIENT_ID = '4q60ebh5rv8aduhnfh383epu8u';
 const COGNITO_USER_ID = 'a171833f-3556-4f4b-83ed-6eaa4318d371';
-const EFL_USER_URL = 'https://fantasy.efl.com/api/en/user';
 const EFL_API_URL = 'https://fantasy.efl.com/api/en/season/ranking/overall_ladder?leagueId=38';
 
 const BASE_HEADERS = {
@@ -29,29 +28,21 @@ async function getCognitoTokens(email, password) {
   }
 
   const data = await response.json();
-  const { IdToken, AccessToken } = data.AuthenticationResult;
-  return { IdToken, AccessToken };
+  const { IdToken, AccessToken, RefreshToken } = data.AuthenticationResult;
+  return { IdToken, AccessToken, RefreshToken };
 }
 
-function buildCognitoCookies(idToken, accessToken) {
+function buildCognitoCookies(idToken, accessToken, refreshToken) {
   const prefix = `CognitoIdentityServiceProvider.${COGNITO_CLIENT_ID}.${COGNITO_USER_ID}`;
   return [
     `${prefix}.idToken=${idToken}`,
     `${prefix}.accessToken=${accessToken}`,
+    `${prefix}.refreshToken=${refreshToken}`,
     `${prefix}.clockDrift=0`,
     `CognitoIdentityServiceProvider.${COGNITO_CLIENT_ID}.LastAuthUser=${COGNITO_USER_ID}`,
   ].join('; ');
 }
 
-function extractSetCookies(response) {
-  // getSetCookie() is available in Node 18.14+ / undici
-  if (typeof response.headers.getSetCookie === 'function') {
-    return response.headers.getSetCookie().map(c => c.split(';')[0]).join('; ');
-  }
-  // fallback: single set-cookie header
-  const sc = response.headers.get('set-cookie');
-  return sc ? sc.split(';')[0] : '';
-}
 
 module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -62,55 +53,29 @@ module.exports = async function handler(req, res) {
     return res.status(500).json({ error: 'EFL_EMAIL or EFL_PASSWORD environment variable is not set.' });
   }
 
-  // Step 1: Authenticate with Cognito
-  let idToken, accessToken;
+  // Step 1: Authenticate with Cognito — get all three tokens
+  let idToken, accessToken, refreshToken;
   try {
-    ({ IdToken: idToken, AccessToken: accessToken } = await getCognitoTokens(email, password));
+    ({ IdToken: idToken, AccessToken: accessToken, RefreshToken: refreshToken } = await getCognitoTokens(email, password));
   } catch (err) {
     return res.status(500).json({ error: 'Failed to authenticate with EFL.', details: err.message });
   }
 
-  const cognitoCookies = buildCognitoCookies(idToken, accessToken);
+  const cookies = buildCognitoCookies(idToken, accessToken, refreshToken);
 
-  // Step 2: Get an anonymous PHPSESSID from the main site
-  let anonSessionCookies = '';
-  try {
-    const anonRes = await fetch('https://fantasy.efl.com/', { headers: BASE_HEADERS });
-    anonSessionCookies = extractSetCookies(anonRes);
-  } catch (err) { /* non-fatal */ }
-
-  // Step 3: Hit the user endpoint with Cognito + anonymous session to activate auth session
-  let authSessionCookies = '';
-  let userStatus = 0;
-  try {
-    const initCookies = anonSessionCookies ? `${cognitoCookies}; ${anonSessionCookies}` : cognitoCookies;
-    const userRes = await fetch(EFL_USER_URL, {
-      headers: { ...BASE_HEADERS, 'Cookie': initCookies },
-    });
-    userStatus = userRes.status;
-    const newCookies = extractSetCookies(userRes);
-    authSessionCookies = newCookies || anonSessionCookies;
-  } catch (err) { /* non-fatal */ }
-
-  const allCookies = authSessionCookies
-    ? `${cognitoCookies}; ${authSessionCookies}`
-    : cognitoCookies;
-
-  // Step 4: Fetch the league table
+  // Step 2: Fetch the league table
   let eflResponse;
   try {
     eflResponse = await fetch(EFL_API_URL, {
-      headers: { ...BASE_HEADERS, 'Cookie': allCookies },
+      headers: { ...BASE_HEADERS, 'Cookie': cookies },
     });
   } catch (err) {
     return res.status(500).json({ error: 'Failed to reach EFL Fantasy API.', details: err.message });
   }
 
   if (!eflResponse.ok) {
-    // Return debug info so we can diagnose
     return res.status(eflResponse.status).json({
       error: `EFL API returned ${eflResponse.status}`,
-      debug: { userStatus, hadAnonSession: !!anonSessionCookies, hadAuthSession: !!authSessionCookies },
     });
   }
 

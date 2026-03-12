@@ -72,20 +72,31 @@ module.exports = async function handler(req, res) {
 
   const cognitoCookies = buildCognitoCookies(idToken, accessToken);
 
-  // Step 2: Hit the EFL user endpoint to establish a server-side session (PHPSESSID)
-  let sessionCookies = '';
+  // Step 2: Get an anonymous PHPSESSID from the main site
+  let anonSessionCookies = '';
   try {
-    const sessionRes = await fetch(EFL_USER_URL, {
-      headers: { ...BASE_HEADERS, 'Cookie': cognitoCookies },
+    const anonRes = await fetch('https://fantasy.efl.com/', { headers: BASE_HEADERS });
+    anonSessionCookies = extractSetCookies(anonRes);
+  } catch (err) { /* non-fatal */ }
+
+  // Step 3: Hit the user endpoint with Cognito + anonymous session to activate auth session
+  let authSessionCookies = '';
+  let userStatus = 0;
+  try {
+    const initCookies = anonSessionCookies ? `${cognitoCookies}; ${anonSessionCookies}` : cognitoCookies;
+    const userRes = await fetch(EFL_USER_URL, {
+      headers: { ...BASE_HEADERS, 'Cookie': initCookies },
     });
-    sessionCookies = extractSetCookies(sessionRes);
-  } catch (err) {
-    // Non-fatal — proceed without session cookies and see if it works
-  }
+    userStatus = userRes.status;
+    const newCookies = extractSetCookies(userRes);
+    authSessionCookies = newCookies || anonSessionCookies;
+  } catch (err) { /* non-fatal */ }
 
-  const allCookies = sessionCookies ? `${cognitoCookies}; ${sessionCookies}` : cognitoCookies;
+  const allCookies = authSessionCookies
+    ? `${cognitoCookies}; ${authSessionCookies}`
+    : cognitoCookies;
 
-  // Step 3: Fetch the league table
+  // Step 4: Fetch the league table
   let eflResponse;
   try {
     eflResponse = await fetch(EFL_API_URL, {
@@ -96,7 +107,11 @@ module.exports = async function handler(req, res) {
   }
 
   if (!eflResponse.ok) {
-    return res.status(eflResponse.status).json({ error: `EFL API returned ${eflResponse.status}` });
+    // Return debug info so we can diagnose
+    return res.status(eflResponse.status).json({
+      error: `EFL API returned ${eflResponse.status}`,
+      debug: { userStatus, hadAnonSession: !!anonSessionCookies, hadAuthSession: !!authSessionCookies },
+    });
   }
 
   const data = await eflResponse.json();

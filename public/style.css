@@ -6,30 +6,31 @@
 
 body {
   font-family: Arial, sans-serif;
-  background: #0d1b2a;
+  background: #0a1628;
   color: #f0f0f0;
   min-height: 100vh;
 }
 
 header {
-  background: #112240;
-  padding: 20px 24px;
+  background: #0e1e38;
+  padding: 16px 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 12px;
-  border-bottom: 3px solid #00a651;
+  border-bottom: 3px solid #f05a28;
 }
 
 h1 {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   color: #ffffff;
   letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
 
 #refresh-btn {
-  background: #00a651;
+  background: #f05a28;
   color: #ffffff;
   border: none;
   padding: 10px 20px;
@@ -38,20 +39,22 @@ h1 {
   border-radius: 6px;
   cursor: pointer;
   transition: background 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
 }
 
 #refresh-btn:hover {
-  background: #008c44;
+  background: #d44d22;
 }
 
 #refresh-btn:disabled {
-  background: #555;
+  background: #444;
   cursor: not-allowed;
 }
 
 main {
   padding: 24px;
-  max-width: 900px;
+  max-width: 1100px;
   margin: 0 auto;
 }
 
@@ -66,49 +69,63 @@ main {
   color: #ff6b6b;
 }
 
+/* Tables */
 table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
 }
 
 thead tr {
-  background: #00a651;
+  background: #f05a28;
   color: #fff;
   text-align: left;
 }
 
 thead th {
-  padding: 12px 14px;
+  padding: 11px 12px;
   font-weight: bold;
   white-space: nowrap;
 }
 
+/* Sortable column headers */
+thead th.sortable {
+  cursor: pointer;
+  user-select: none;
+}
+
+thead th.sortable:hover {
+  background: #d44d22;
+}
+
+thead th.sort-asc::after  { content: ' ▲'; font-size: 0.7em; }
+thead th.sort-desc::after { content: ' ▼'; font-size: 0.7em; }
+
 tbody tr {
-  border-bottom: 1px solid #1e3a5f;
+  border-bottom: 1px solid #1a3050;
 }
 
 tbody tr:nth-child(even) {
-  background: #112240;
+  background: #0e1e38;
 }
 
 tbody tr:hover {
-  background: #1a3460;
+  background: #162840;
 }
 
 tbody td {
-  padding: 11px 14px;
+  padding: 10px 12px;
 }
 
 td.pos {
   font-weight: bold;
-  color: #00a651;
+  color: #f05a28;
   width: 40px;
 }
 
 td.advantage {
   font-weight: bold;
-  color: #ffd700;
+  color: #ffb700;
 }
 
 td.advantage.dash {
@@ -126,17 +143,20 @@ nav {
   text-decoration: none;
   padding: 6px 14px;
   border-radius: 4px;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
   transition: background 0.2s, color 0.2s;
 }
 
 .nav-link:hover {
-  background: #1e3a5f;
+  background: #1a3050;
   color: #fff;
 }
 
 .nav-link.active {
-  background: #00a651;
+  background: #f05a28;
   color: #fff;
 }
 
@@ -148,25 +168,25 @@ nav {
 
 #search-input {
   width: 100%;
-  max-width: 400px;
+  max-width: 420px;
   padding: 10px 14px;
   font-size: 1rem;
-  border: 2px solid #1e3a5f;
+  border: 2px solid #1a3050;
   border-radius: 6px;
-  background: #112240;
+  background: #0e1e38;
   color: #f0f0f0;
   outline: none;
 }
 
 #search-input:focus {
-  border-color: #00a651;
+  border-color: #f05a28;
 }
 
 #search-results {
-  margin-top: 8px;
-  max-width: 400px;
-  background: #112240;
-  border: 1px solid #1e3a5f;
+  margin-top: 6px;
+  max-width: 420px;
+  background: #0e1e38;
+  border: 1px solid #1a3050;
   border-radius: 6px;
   overflow: hidden;
 }
@@ -174,7 +194,7 @@ nav {
 .result-item {
   padding: 10px 14px;
   cursor: pointer;
-  border-bottom: 1px solid #1e3a5f;
+  border-bottom: 1px solid #1a3050;
   font-size: 0.9rem;
   transition: background 0.15s;
 }
@@ -184,7 +204,7 @@ nav {
 }
 
 .result-item:hover {
-  background: #1a3460;
+  background: #162840;
 }
 
 /* Player stats */
@@ -192,7 +212,7 @@ nav {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 
 .player-header h2 {
@@ -201,13 +221,18 @@ nav {
 }
 
 .player-pos {
-  background: #00a651;
-  color: #fff;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: bold;
-  padding: 3px 8px;
+  padding: 3px 9px;
   border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
+
+.pos-GK  { background: #f5a623; color: #000; }
+.pos-DEF { background: #1c6ed1; color: #fff; }
+.pos-MID { background: #27ae60; color: #fff; }
+.pos-FWD { background: #e74c3c; color: #fff; }
 
 .season-summary {
   display: flex;
@@ -217,8 +242,8 @@ nav {
 }
 
 .stat-pill {
-  background: #112240;
-  border: 1px solid #1e3a5f;
+  background: #0e1e38;
+  border: 1px solid #1a3050;
   border-radius: 6px;
   padding: 8px 14px;
   font-size: 0.85rem;
@@ -234,9 +259,9 @@ nav {
   overflow-x: auto;
 }
 
-.pts-col {
+td.pts-col {
   font-weight: bold;
-  color: #ffd700;
+  color: #ffb700;
 }
 
 .loading-msg {
@@ -260,10 +285,10 @@ nav {
   }
 
   table {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
   }
 
   thead th, tbody td {
-    padding: 9px 10px;
+    padding: 8px 8px;
   }
 }

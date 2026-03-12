@@ -274,6 +274,85 @@ td.pts-col {
   font-size: 0.9rem;
 }
 
+/* Points-in-brackets spans */
+.stat-pts-pos {
+  font-size: 0.8em;
+  color: #27ae60;
+  white-space: nowrap;
+}
+
+.stat-pts-neg {
+  font-size: 0.8em;
+  color: #e74c3c;
+  white-space: nowrap;
+}
+
+/* Points per 90 section */
+.per90-section {
+  margin-bottom: 20px;
+}
+
+.per90-label {
+  font-size: 0.8rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+  font-weight: normal;
+}
+
+.per90-mins {
+  color: #555;
+  font-size: 0.85em;
+}
+
+.per90-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.per90-pill {
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  border: 1px solid #333;
+  color: #aaa;
+}
+
+.per90-pill strong {
+  margin-left: 3px;
+}
+
+.per90-total {
+  border-color: #f05a28;
+  color: #f05a28;
+}
+
+.per90-pos {
+  border-color: #27ae60;
+  color: #27ae60;
+}
+
+.per90-neg {
+  border-color: #e74c3c;
+  color: #e74c3c;
+}
+
+/* Leaderboard */
+.section-heading {
+  font-size: 0.85rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: normal;
+  margin-bottom: 12px;
+}
+
+.lb-row {
+  cursor: pointer;
+}
+
 @media (max-width: 600px) {
   header {
     flex-direction: column;

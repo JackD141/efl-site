@@ -1,18 +1,15 @@
 const PLAYERS_URL = '/api/players';
 const PROFILE_URL = id => `/api/player?id=${id}`;
 
-const searchInput = document.getElementById('search-input');
-const searchResults = document.getElementById('search-results');
-const playerStats = document.getElementById('player-stats');
+const searchInput    = document.getElementById('search-input');
+const searchResults  = document.getElementById('search-results');
+const leaderboardDiv = document.getElementById('leaderboard');
+const playerStats    = document.getElementById('player-stats');
 
 let allPlayers = [];
 const profileCache = {};
 
 // ─── Column definitions by position ──────────────────────────────────────────
-// Based on official EFL Fantasy scoring rules.
-// Keys map directly to fields in the player_profiles results array.
-
-// Stats that score for ALL positions
 const BASE_COLS = [
   { label: 'GW',       key: 'roundId',        title: 'Game Week' },
   { label: 'Mins',     key: 'minutesPlayed',   title: 'Minutes Played (+1 if <60, +2 if 60+)' },
@@ -26,7 +23,6 @@ const BASE_COLS = [
 ];
 
 const COLS_BY_POS = {
-  // GK: base + saves (every 3 = +2), pen save (+5), clean sheet (+5), goals conceded (every 2 = -1)
   GK: [
     ...BASE_COLS,
     { label: 'Saves',    key: 'saves',          title: 'Saves (every 3 = +2)' },
@@ -35,7 +31,6 @@ const COLS_BY_POS = {
     { label: 'GC',       key: 'goalsConceded',  title: 'Goals Conceded (every 2 = -1)' },
     { label: 'Pts',      key: 'points',         title: 'Total Points' },
   ],
-  // DEF: base + clean sheet (+5), goals conceded (every 2 = -1), clearances (every 4 = +1), blocks (every 2 = +1), tackles (every 2 = +1)
   DEF: [
     ...BASE_COLS,
     { label: 'CS',         key: 'cleanSheet',    title: 'Clean Sheet — 60+ mins (+5)' },
@@ -45,8 +40,6 @@ const COLS_BY_POS = {
     { label: 'Tackles',    key: 'tackles',       title: 'Tackles (every 2 = +1)' },
     { label: 'Pts',        key: 'points',        title: 'Total Points' },
   ],
-  // MID: base + interceptions (+2 each), key passes (every 2 = +1), shots on target (+1 each)
-  // No clean sheet or goals conceded for MID
   MID: [
     ...BASE_COLS,
     { label: 'Intercepts', key: 'interceptions', title: 'Interceptions (+2 each)' },
@@ -54,7 +47,6 @@ const COLS_BY_POS = {
     { label: 'SOT',        key: 'shotsOnTarget', title: 'Shots on Target (+1 each)' },
     { label: 'Pts',        key: 'points',        title: 'Total Points' },
   ],
-  // FWD: base + key passes (every 2 = +1), shots on target (+1 each)
   FWD: [
     ...BASE_COLS,
     { label: 'KP',  key: 'keyPasses',     title: 'Key Passes (every 2 = +1)' },
@@ -63,31 +55,173 @@ const COLS_BY_POS = {
   ],
 };
 
+// ─── Points calculation ───────────────────────────────────────────────────────
+// Returns the points this stat contributed in a single game, or null if
+// this column should not show a points bracket (GW, Pts).
+function calcStatPoints(key, val, pos, minsPlayed) {
+  val = val || 0;
+  switch (key) {
+    case 'minutesPlayed':  return val >= 60 ? 2 : val > 0 ? 1 : 0;
+    case 'goalsScored':    return val * ({ GK: 10, DEF: 7, MID: 6, FWD: 5 }[pos] || 0);
+    case 'hatTricks':      return val * 5;
+    case 'assists':        return val * 3;
+    case 'penaltyMisses':  return val * -3;
+    case 'ownGoals':       return val * -3;
+    case 'yellowCards':    return val * -1;
+    case 'redCards':       return val * -3;
+    case 'saves':          return Math.floor(val / 3) * 2;
+    case 'penaltySaves':   return val * 5;
+    case 'cleanSheet':     return (val && minsPlayed >= 60) ? 5 : 0;
+    case 'goalsConceded':  return -Math.floor(val / 2);
+    case 'clearances':     return Math.floor(val / 4);
+    case 'blocks':         return Math.floor(val / 2);
+    case 'tackles':        return Math.floor(val / 2);
+    case 'interceptions':  return val * 2;
+    case 'keyPasses':      return Math.floor(val / 2);
+    case 'shotsOnTarget':  return val;
+    default:               return null; // roundId, points — no bracket
+  }
+}
+
+function formatCell(key, val, pos, minsPlayed) {
+  if (key === 'roundId' || key === 'points') return val;
+  const pts = calcStatPoints(key, val, pos, minsPlayed);
+  if (pts === null || val === 0) return val;
+  if (pts === 0) return val; // stat happened but worth 0pts (e.g. CS with <60 mins)
+  const sign = pts > 0 ? '+' : '';
+  const cls  = pts > 0 ? 'stat-pts-pos' : 'stat-pts-neg';
+  return `${val} <span class="${cls}">(${sign}${pts})</span>`;
+}
+
+// ─── Points per 90 calculation ────────────────────────────────────────────────
+function calcPer90(games, cols, pos) {
+  const totalMins = games.reduce((s, g) => s + (g.minutesPlayed || 0), 0);
+  if (totalMins === 0) return null;
+
+  const overallPts = games.reduce((s, g) => s + (g.points || 0), 0);
+  const overallPer90 = (overallPts / totalMins) * 90;
+
+  const perNinety = {};
+  for (const col of cols) {
+    if (col.key === 'roundId' || col.key === 'points') continue;
+    const total = games.reduce((s, g) =>
+      s + calcStatPoints(col.key, g[col.key] || 0, pos, g.minutesPlayed || 0), 0);
+    const per90 = (total / totalMins) * 90;
+    if (Math.abs(per90) >= 0.01) perNinety[col.key] = per90;
+  }
+
+  return { totalMins, overallPer90, perNinety };
+}
+
+function buildPer90Section(per90Data, cols) {
+  if (!per90Data) return '';
+
+  const { overallPer90, perNinety, totalMins } = per90Data;
+  const totalMinsLabel = `${Math.round(totalMins)} mins played`;
+
+  const pills = cols
+    .filter(c => c.key !== 'roundId' && c.key !== 'points' && perNinety[c.key] !== undefined)
+    .map(c => {
+      const val = perNinety[c.key];
+      const cls = val > 0 ? 'per90-pos' : 'per90-neg';
+      const sign = val > 0 ? '+' : '';
+      return `<div class="per90-pill ${cls}">${c.label} <strong>${sign}${val.toFixed(2)}</strong></div>`;
+    });
+
+  const overallSign = overallPer90 > 0 ? '+' : '';
+  const totalPill = `<div class="per90-pill per90-total">Total <strong>${overallSign}${overallPer90.toFixed(2)}</strong></div>`;
+
+  return `
+    <div class="per90-section">
+      <h3 class="per90-label">Points per 90 min <span class="per90-mins">(${totalMinsLabel})</span></h3>
+      <div class="per90-pills">${totalPill}${pills.join('')}</div>
+    </div>
+  `;
+}
+
 // ─── Sort state ───────────────────────────────────────────────────────────────
 let sortKey = 'roundId';
-let sortDir = 'desc'; // default: latest GW first
+let sortDir = 'desc';
+
+// ─── Module-level player/profile refs for sort re-render ─────────────────────
+let currentPlayer  = null;
+let currentProfile = null;
 
 // ─── Data loading ─────────────────────────────────────────────────────────────
 async function loadPlayers() {
   try {
     const res = await fetch(PLAYERS_URL);
     allPlayers = await res.json();
+    showLeaderboard();
   } catch (e) {
-    searchResults.textContent = 'Failed to load player list.';
+    leaderboardDiv.innerHTML = '<p class="error-msg">Failed to load player list.</p>';
   }
 }
 
+// ─── Leaderboard ─────────────────────────────────────────────────────────────
+function showLeaderboard() {
+  const MIN_APPS = 12;
+  const top = allPlayers
+    .filter(p => p.appearances >= MIN_APPS)
+    .sort((a, b) => (b.averagePoints || 0) - (a.averagePoints || 0))
+    .slice(0, 30);
+
+  if (top.length === 0) {
+    leaderboardDiv.innerHTML = '<p class="loading-msg">No player data yet.</p>';
+    return;
+  }
+
+  const rows = top.map((p, i) => {
+    const name = p.displayName || `${p.firstName} ${p.lastName}`;
+    return `
+      <tr class="lb-row" data-id="${p.id}">
+        <td class="pos">${i + 1}</td>
+        <td>${name}</td>
+        <td><span class="player-pos pos-${p.position}">${p.position}</span></td>
+        <td>${p.appearances}</td>
+        <td>${p.totalPoints}</td>
+        <td class="pts-col">${(p.averagePoints || 0).toFixed(2)}</td>
+      </tr>`;
+  }).join('');
+
+  leaderboardDiv.innerHTML = `
+    <h2 class="section-heading">Top Players — pts/game (min. 12 apps)</h2>
+    <div class="stats-table-wrap">
+      <table>
+        <thead><tr>
+          <th>#</th><th>Player</th><th>Pos</th><th>Apps</th><th>Pts</th><th>Pts/Game</th>
+        </tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+  `;
+
+  leaderboardDiv.querySelectorAll('.lb-row').forEach(row => {
+    row.addEventListener('click', () => {
+      const player = allPlayers.find(p => p.id === Number(row.dataset.id));
+      if (player) showPlayer(player);
+    });
+  });
+
+  leaderboardDiv.style.display = '';
+}
+
+// ─── Search ───────────────────────────────────────────────────────────────────
 function positionOrder(pos) {
   return { GK: 0, DEF: 1, MID: 2, FWD: 3 }[pos] ?? 4;
 }
 
-// ─── Search ───────────────────────────────────────────────────────────────────
 searchInput.addEventListener('input', () => {
   const query = searchInput.value.trim().toLowerCase();
   searchResults.innerHTML = '';
   playerStats.innerHTML = '';
 
-  if (query.length < 2) return;
+  if (query.length < 2) {
+    leaderboardDiv.style.display = '';
+    return;
+  }
+
+  leaderboardDiv.style.display = 'none';
 
   const matches = allPlayers
     .filter(p => (p.displayName || `${p.firstName} ${p.lastName}`).toLowerCase().includes(query))
@@ -95,14 +229,14 @@ searchInput.addEventListener('input', () => {
     .slice(0, 20);
 
   if (matches.length === 0) {
-    searchResults.textContent = 'No players found.';
+    searchResults.innerHTML = '<div class="result-item">No players found.</div>';
     return;
   }
 
   matches.forEach(player => {
     const name = player.displayName || `${player.firstName} ${player.lastName}`;
-    const div = document.createElement('div');
-    div.className = 'result-item';
+    const div  = document.createElement('div');
+    div.className   = 'result-item';
     div.textContent = `${name} — ${player.position} — ${player.totalPoints} pts`;
     div.addEventListener('click', () => showPlayer(player));
     searchResults.appendChild(div);
@@ -112,11 +246,11 @@ searchInput.addEventListener('input', () => {
 // ─── Show player ──────────────────────────────────────────────────────────────
 async function showPlayer(player) {
   const name = player.displayName || `${player.firstName} ${player.lastName}`;
-  playerStats.innerHTML = `<p class="loading-msg">Loading stats for ${name}...</p>`;
+  leaderboardDiv.style.display = 'none';
   searchResults.innerHTML = '';
   searchInput.value = name;
+  playerStats.innerHTML = `<p class="loading-msg">Loading stats for ${name}...</p>`;
 
-  // Reset sort to default when switching player
   sortKey = 'roundId';
   sortDir = 'desc';
 
@@ -124,32 +258,28 @@ async function showPlayer(player) {
     let profile = profileCache[player.id];
     if (!profile) {
       const res = await fetch(PROFILE_URL(player.id));
-      profile = await res.json();
+      profile   = await res.json();
       profileCache[player.id] = profile;
     }
+    currentPlayer  = player;
+    currentProfile = profile;
     renderPlayerStats(player, profile);
   } catch (e) {
     playerStats.innerHTML = `<p class="error-msg">Failed to load stats for ${name}.</p>`;
   }
 }
 
-// ─── Render ───────────────────────────────────────────────────────────────────
-let currentPlayer = null;
-let currentProfile = null;
-
+// ─── Render player stats ──────────────────────────────────────────────────────
 function renderPlayerStats(player, profile) {
-  currentPlayer = player;
-  currentProfile = profile;
-
-  const name = player.displayName || `${player.firstName} ${player.lastName}`;
+  const name  = player.displayName || `${player.firstName} ${player.lastName}`;
   const games = profile.results || [];
+  const pos   = player.position;
 
   if (games.length === 0) {
     playerStats.innerHTML = `<p class="loading-msg">No game data found for ${name}.</p>`;
     return;
   }
 
-  const pos = player.position;
   const cols = COLS_BY_POS[pos] || [...BASE_COLS, { label: 'Pts', key: 'points', title: 'Total Points' }];
 
   const summaryHtml = `
@@ -159,24 +289,32 @@ function renderPlayerStats(player, profile) {
     </div>
     <div class="season-summary">
       <div class="stat-pill">Total Pts <strong>${player.totalPoints}</strong></div>
-      <div class="stat-pill">Avg Pts <strong>${player.averagePoints?.toFixed(1) ?? '—'}</strong></div>
+      <div class="stat-pill">Avg Pts <strong>${(player.averagePoints || 0).toFixed(1)}</strong></div>
       <div class="stat-pill">Apps <strong>${player.appearances}</strong></div>
       <div class="stat-pill">Goals <strong>${player.goalsScored}</strong></div>
       <div class="stat-pill">Assists <strong>${player.assists}</strong></div>
       ${pos === 'GK' || pos === 'DEF' ? `<div class="stat-pill">Clean Sheets <strong>${player.cleanSheets}</strong></div>` : ''}
-      ${pos === 'GK' ? `<div class="stat-pill">Saves <strong>${player.saves}</strong></div>` : ''}
+      ${pos === 'GK'  ? `<div class="stat-pill">Saves <strong>${player.saves}</strong></div>` : ''}
       ${pos === 'MID' ? `<div class="stat-pill">Intercepts <strong>${player.interceptions}</strong></div>` : ''}
       ${pos === 'MID' || pos === 'FWD' ? `<div class="stat-pill">SOT <strong>${player.shotsOnTarget}</strong></div>` : ''}
       ${pos === 'DEF' ? `<div class="stat-pill">Tackles <strong>${player.tackles}</strong></div>` : ''}
     </div>
   `;
 
-  playerStats.innerHTML = summaryHtml + buildTable(games, cols);
-  attachSortHandlers(cols);
+  const per90Data = calcPer90(games, cols, pos);
+  const per90Html = buildPer90Section(per90Data, cols);
+
+  playerStats.innerHTML = summaryHtml + per90Html + buildTable(games, cols, pos);
+  attachSortHandlers(cols, pos);
 }
 
-function buildTable(games, cols) {
-  const sorted = sortGames([...games], sortKey, sortDir);
+// ─── Table ────────────────────────────────────────────────────────────────────
+function buildTable(games, cols, pos) {
+  const sorted = [...games].sort((a, b) => {
+    const av = a[sortKey] ?? 0;
+    const bv = b[sortKey] ?? 0;
+    return sortDir === 'asc' ? av - bv : bv - av;
+  });
 
   const headers = cols.map(c => {
     const isActive = c.key === sortKey;
@@ -184,11 +322,15 @@ function buildTable(games, cols) {
     return `<th class="sortable${dirClass}" data-key="${c.key}" title="${c.title}">${c.label}</th>`;
   }).join('');
 
-  const rows = sorted.map(g => cols.map(c => {
-    const val = g[c.key] ?? 0;
-    const cls = c.key === 'points' ? ' class="pts-col"' : '';
-    return `<td${cls}>${val}</td>`;
-  }).join('')).map(cells => `<tr>${cells}</tr>`).join('');
+  const rows = sorted.map(g => {
+    const cells = cols.map(c => {
+      const raw = g[c.key] ?? 0;
+      const content = formatCell(c.key, raw, pos, g.minutesPlayed || 0);
+      const tdCls = c.key === 'points' ? ' class="pts-col"' : '';
+      return `<td${tdCls}>${content}</td>`;
+    }).join('');
+    return `<tr>${cells}</tr>`;
+  }).join('');
 
   return `
     <div class="stats-table-wrap">
@@ -200,15 +342,7 @@ function buildTable(games, cols) {
   `;
 }
 
-function sortGames(games, key, dir) {
-  return games.sort((a, b) => {
-    const av = a[key] ?? 0;
-    const bv = b[key] ?? 0;
-    return dir === 'asc' ? av - bv : bv - av;
-  });
-}
-
-function attachSortHandlers(cols) {
+function attachSortHandlers(cols, pos) {
   document.querySelectorAll('#stats-table thead th.sortable').forEach(th => {
     th.addEventListener('click', () => {
       const key = th.dataset.key;
@@ -216,15 +350,14 @@ function attachSortHandlers(cols) {
         sortDir = sortDir === 'asc' ? 'desc' : 'asc';
       } else {
         sortKey = key;
-        sortDir = key === 'roundId' ? 'desc' : 'desc';
+        sortDir = 'desc';
       }
-      // Re-render just the table portion
-      const games = currentProfile.results || [];
-      const pos = currentPlayer.position;
-      const colsToUse = COLS_BY_POS[pos] || [...BASE_COLS, { label: 'Pts', key: 'points', title: 'Total Points' }];
       const wrap = document.querySelector('.stats-table-wrap');
-      wrap.outerHTML = buildTable(games, colsToUse);
-      attachSortHandlers(colsToUse);
+      if (wrap) {
+        const games = currentProfile.results || [];
+        wrap.outerHTML = buildTable(games, cols, pos);
+        attachSortHandlers(cols, pos);
+      }
     });
   });
 }

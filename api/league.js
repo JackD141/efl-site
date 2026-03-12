@@ -27,7 +27,7 @@ async function getIdToken(refreshToken) {
   return data.AuthenticationResult.IdToken;
 }
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
 
   const refreshToken = process.env.COGNITO_REFRESH_TOKEN;

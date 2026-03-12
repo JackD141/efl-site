@@ -67,7 +67,7 @@ module.exports = async function handler(req, res) {
   let eflResponse;
   try {
     eflResponse = await fetch(EFL_API_URL, {
-      headers: { ...BASE_HEADERS, 'Cookie': cookies },
+      headers: { ...BASE_HEADERS, 'Cookie': cookies, 'Authorization': `Bearer ${idToken}` },
     });
   } catch (err) {
     return res.status(500).json({ error: 'Failed to reach EFL Fantasy API.', details: err.message });

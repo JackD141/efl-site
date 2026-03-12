@@ -1,5 +1,5 @@
-const PLAYERS_URL = 'https://fantasy.efl.com/json/fantasy/players.json';
-const PROFILE_URL = id => `https://fantasy.efl.com/json/fantasy/player_profiles/${id}.json`;
+const PLAYERS_URL = '/api/players';
+const PROFILE_URL = id => `/api/player?id=${id}`;
 
 const searchInput = document.getElementById('search-input');
 const searchResults = document.getElementById('search-results');

@@ -9,54 +9,57 @@ let allPlayers = [];
 const profileCache = {};
 
 // ─── Column definitions by position ──────────────────────────────────────────
-// All positions share a base set; each position adds its own extras.
+// Based on official EFL Fantasy scoring rules.
 // Keys map directly to fields in the player_profiles results array.
 
+// Stats that score for ALL positions
 const BASE_COLS = [
   { label: 'GW',       key: 'roundId',        title: 'Game Week' },
-  { label: 'Mins',     key: 'minutesPlayed',   title: 'Minutes Played' },
-  { label: 'Goals',    key: 'goalsScored',     title: 'Goals Scored' },
-  { label: 'Hat-T',   key: 'hatTricks',       title: 'Hat-Tricks' },
-  { label: 'Assists',  key: 'assists',         title: 'Assists' },
-  { label: 'Pen Miss', key: 'penaltyMisses',   title: 'Penalty Misses' },
-  { label: 'OG',       key: 'ownGoals',        title: 'Own Goals' },
-  { label: 'YC',       key: 'yellowCards',     title: 'Yellow Cards' },
-  { label: 'RC',       key: 'redCards',        title: 'Red Cards' },
+  { label: 'Mins',     key: 'minutesPlayed',   title: 'Minutes Played (+1 if <60, +2 if 60+)' },
+  { label: 'Goals',    key: 'goalsScored',     title: 'Goals Scored (GK +10, DEF +7, MID +6, FWD +5)' },
+  { label: 'Hat-T',    key: 'hatTricks',       title: 'Hat-Tricks (+5 bonus)' },
+  { label: 'Assists',  key: 'assists',         title: 'Assists (+3)' },
+  { label: 'Pen Miss', key: 'penaltyMisses',   title: 'Penalty Misses (-3)' },
+  { label: 'OG',       key: 'ownGoals',        title: 'Own Goals (-3)' },
+  { label: 'YC',       key: 'yellowCards',     title: 'Yellow Cards (-1)' },
+  { label: 'RC',       key: 'redCards',        title: 'Red Cards (-3)' },
 ];
 
 const COLS_BY_POS = {
+  // GK: base + saves (every 3 = +2), pen save (+5), clean sheet (+5), goals conceded (every 2 = -1)
   GK: [
     ...BASE_COLS,
-    { label: 'CS',        key: 'cleanSheet',      title: 'Clean Sheet' },
-    { label: 'GC',        key: 'goalsConceded',   title: 'Goals Conceded' },
-    { label: 'Saves',     key: 'saves',           title: 'Saves' },
-    { label: 'Pen Save',  key: 'penaltySaves',    title: 'Penalty Saves' },
-    { label: 'Pts',       key: 'points',          title: 'Total Points' },
+    { label: 'Saves',    key: 'saves',          title: 'Saves (every 3 = +2)' },
+    { label: 'Pen Save', key: 'penaltySaves',   title: 'Penalty Saves (+5)' },
+    { label: 'CS',       key: 'cleanSheet',     title: 'Clean Sheet — 60+ mins (+5)' },
+    { label: 'GC',       key: 'goalsConceded',  title: 'Goals Conceded (every 2 = -1)' },
+    { label: 'Pts',      key: 'points',         title: 'Total Points' },
   ],
+  // DEF: base + clean sheet (+5), goals conceded (every 2 = -1), clearances (every 4 = +1), blocks (every 2 = +1), tackles (every 2 = +1)
   DEF: [
     ...BASE_COLS,
-    { label: 'CS',        key: 'cleanSheet',      title: 'Clean Sheet' },
-    { label: 'GC',        key: 'goalsConceded',   title: 'Goals Conceded' },
-    { label: 'Clearances',key: 'clearances',      title: 'Clearances' },
-    { label: 'Blocks',    key: 'blocks',          title: 'Blocks' },
-    { label: 'Tackles',   key: 'tackles',         title: 'Tackles' },
-    { label: 'Intercepts',key: 'interceptions',   title: 'Interceptions' },
-    { label: 'Pts',       key: 'points',          title: 'Total Points' },
+    { label: 'CS',         key: 'cleanSheet',    title: 'Clean Sheet — 60+ mins (+5)' },
+    { label: 'GC',         key: 'goalsConceded', title: 'Goals Conceded (every 2 = -1)' },
+    { label: 'Clearances', key: 'clearances',    title: 'Clearances (every 4 = +1)' },
+    { label: 'Blocks',     key: 'blocks',        title: 'Blocks (every 2 = +1)' },
+    { label: 'Tackles',    key: 'tackles',       title: 'Tackles (every 2 = +1)' },
+    { label: 'Pts',        key: 'points',        title: 'Total Points' },
   ],
+  // MID: base + interceptions (+2 each), key passes (every 2 = +1), shots on target (+1 each)
+  // No clean sheet or goals conceded for MID
   MID: [
     ...BASE_COLS,
-    { label: 'CS',        key: 'cleanSheet',      title: 'Clean Sheet' },
-    { label: 'KP',        key: 'keyPasses',       title: 'Key Passes' },
-    { label: 'SOT',       key: 'shotsOnTarget',   title: 'Shots on Target' },
-    { label: 'Tackles',   key: 'tackles',         title: 'Tackles' },
-    { label: 'Intercepts',key: 'interceptions',   title: 'Interceptions' },
-    { label: 'Pts',       key: 'points',          title: 'Total Points' },
+    { label: 'Intercepts', key: 'interceptions', title: 'Interceptions (+2 each)' },
+    { label: 'KP',         key: 'keyPasses',     title: 'Key Passes (every 2 = +1)' },
+    { label: 'SOT',        key: 'shotsOnTarget', title: 'Shots on Target (+1 each)' },
+    { label: 'Pts',        key: 'points',        title: 'Total Points' },
   ],
+  // FWD: base + key passes (every 2 = +1), shots on target (+1 each)
   FWD: [
     ...BASE_COLS,
-    { label: 'SOT',       key: 'shotsOnTarget',   title: 'Shots on Target' },
-    { label: 'KP',        key: 'keyPasses',       title: 'Key Passes' },
-    { label: 'Pts',       key: 'points',          title: 'Total Points' },
+    { label: 'KP',  key: 'keyPasses',     title: 'Key Passes (every 2 = +1)' },
+    { label: 'SOT', key: 'shotsOnTarget', title: 'Shots on Target (+1 each)' },
+    { label: 'Pts', key: 'points',        title: 'Total Points' },
   ],
 };
 
@@ -162,6 +165,9 @@ function renderPlayerStats(player, profile) {
       <div class="stat-pill">Assists <strong>${player.assists}</strong></div>
       ${pos === 'GK' || pos === 'DEF' ? `<div class="stat-pill">Clean Sheets <strong>${player.cleanSheets}</strong></div>` : ''}
       ${pos === 'GK' ? `<div class="stat-pill">Saves <strong>${player.saves}</strong></div>` : ''}
+      ${pos === 'MID' ? `<div class="stat-pill">Intercepts <strong>${player.interceptions}</strong></div>` : ''}
+      ${pos === 'MID' || pos === 'FWD' ? `<div class="stat-pill">SOT <strong>${player.shotsOnTarget}</strong></div>` : ''}
+      ${pos === 'DEF' ? `<div class="stat-pill">Tackles <strong>${player.tackles}</strong></div>` : ''}
     </div>
   `;
 

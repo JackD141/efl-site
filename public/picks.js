@@ -156,6 +156,12 @@ async function enrichPlayerGameData(players, gamesByRound, squadsMap) {
           if (!res.ok) return null;
           const profile = await res.json();
 
+          // Debug: log first player's response structure
+          if (player.id === playersToFetch[0].id) {
+            console.log('[API-RESPONSE] Sample profile keys:', Object.keys(profile));
+            console.log('[API-RESPONSE] Sample profile:', profile);
+          }
+
           if (!profile.games || !Array.isArray(profile.games)) return null;
 
           player.games = profile.games;

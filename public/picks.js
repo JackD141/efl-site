@@ -78,8 +78,18 @@ async function loadPicks() {
       fixturesBySquad[game.awayId]?.push({ ...game, isHome: false });
     }
 
+    // Build fixture lookup for home/away determination (same as players.js)
+    const gamesByRound = {};
+    for (const round of allRounds) {
+      gamesByRound[round.roundId] = {};
+      for (const game of round.games) {
+        gamesByRound[round.roundId][game.homeId] = { ...game, isHome: true };
+        gamesByRound[round.roundId][game.awayId] = { ...game, isHome: false };
+      }
+    }
+
     // Fetch game data to calculate empirical home/away and recent mins
-    await enrichPlayerGameData(allPlayers);
+    await enrichPlayerGameData(allPlayers, gamesByRound, squadsMap);
 
     // Enrich players with fixtures and projected pts (uses empirical home/away per-90)
     enrichPlayers(allPlayers, allRounds, squads);
@@ -104,7 +114,7 @@ function getFixtureDifficulty(squadId) {
 }
 
 // Enrich players with actual game data: recentAvgMins and empirical home/away per-90
-async function enrichPlayerGameData(players) {
+async function enrichPlayerGameData(players, gamesByRound, squadsMap) {
   // Check if we have fresh cached data (within 24 hours)
   const cacheKey = 'picks_game_data_cache';
   const cacheTimestampKey = 'picks_game_data_timestamp';
@@ -159,22 +169,35 @@ async function enrichPlayerGameData(players) {
             player.recentAvgMins = 0;
           }
 
-          // Calculate empirical home/away per-90
-          const homeGames = profile.games.filter(g => g.isHome);
-          const awayGames = profile.games.filter(g => !g.isHome);
+          // Calculate empirical home/away per-90 using fixture schedule
+          let homeMins = 0, homePts = 0, awayMins = 0, awayPts = 0;
+          let homeCount = 0, awayCount = 0;
 
-          console.log(`[GAME-DATA] Player ${player.id}: ${profile.games.length} games, ${homeGames.length} home, ${awayGames.length} away`);
+          for (const game of profile.games) {
+            const roundNum = game.round || game.roundId || game.roundNumber;
+            const gameInfo = gamesByRound[roundNum]?.[player.squadId];
+            const mins = game.minutesPlayed || game.minutes || 0;
+            const pts = game.points || 0;
 
-          if (homeGames.length > 0) {
-            const homePoints = homeGames.reduce((sum, g) => sum + (g.points || 0), 0);
-            const homeMins = homeGames.reduce((sum, g) => sum + (g.minutes || 0), 0);
-            player.homePer90 = homeMins > 0 ? (homePoints / homeMins) * 90 : player.homePer90;
+            if (gameInfo && gameInfo.isHome) {
+              homeMins += mins;
+              homePts += pts;
+              homeCount++;
+            } else if (gameInfo && !gameInfo.isHome) {
+              awayMins += mins;
+              awayPts += pts;
+              awayCount++;
+            }
           }
 
-          if (awayGames.length > 0) {
-            const awayPoints = awayGames.reduce((sum, g) => sum + (g.points || 0), 0);
-            const awayMins = awayGames.reduce((sum, g) => sum + (g.minutes || 0), 0);
-            player.awayPer90 = awayMins > 0 ? (awayPoints / awayMins) * 90 : player.awayPer90;
+          console.log(`[GAME-DATA] Player ${player.id}: ${profile.games.length} games, ${homeCount} home, ${awayCount} away`);
+
+          if (homeMins > 0) {
+            player.homePer90 = (homePts / homeMins) * 90;
+          }
+
+          if (awayMins > 0) {
+            player.awayPer90 = (awayPts / awayMins) * 90;
           }
 
           // Cache this player's data

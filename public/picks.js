@@ -156,18 +156,14 @@ async function enrichPlayerGameData(players, gamesByRound, squadsMap) {
           if (!res.ok) return null;
           const profile = await res.json();
 
-          // Debug: log first player's response structure
-          if (player.id === playersToFetch[0].id) {
-            console.log('[API-RESPONSE] Sample profile keys:', Object.keys(profile));
-            console.log('[API-RESPONSE] Sample profile:', profile);
-          }
+          // Games are in 'results' field, not 'games'
+          const games = profile.results || [];
+          if (!Array.isArray(games) || games.length === 0) return null;
 
-          if (!profile.games || !Array.isArray(profile.games)) return null;
-
-          player.games = profile.games;
+          player.games = games;
 
           // Calculate recent avg mins (last 5 games)
-          const recentGames = profile.games.slice(-5);
+          const recentGames = games.slice(-5);
           if (recentGames.length > 0) {
             const totalMins = recentGames.reduce((sum, g) => sum + (g.minutes || 0), 0);
             player.recentAvgMins = totalMins / recentGames.length;
@@ -179,7 +175,7 @@ async function enrichPlayerGameData(players, gamesByRound, squadsMap) {
           let homeMins = 0, homePts = 0, awayMins = 0, awayPts = 0;
           let homeCount = 0, awayCount = 0;
 
-          for (const game of profile.games) {
+          for (const game of games) {
             const roundNum = game.round || game.roundId || game.roundNumber;
             const gameInfo = gamesByRound[roundNum]?.[player.squadId];
             const mins = game.minutesPlayed || game.minutes || 0;
@@ -196,7 +192,7 @@ async function enrichPlayerGameData(players, gamesByRound, squadsMap) {
             }
           }
 
-          console.log(`[GAME-DATA] Player ${player.id}: ${profile.games.length} games, ${homeCount} home, ${awayCount} away`);
+          console.log(`[GAME-DATA] Player ${player.id}: ${games.length} games, ${homeCount} home, ${awayCount} away`);
 
           if (homeMins > 0) {
             player.homePer90 = (homePts / homeMins) * 90;

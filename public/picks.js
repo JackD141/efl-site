@@ -118,73 +118,95 @@ async function enrichPlayerGameData(players) {
     return;
   }
 
-  statusEl.textContent = 'Loading game data for filter...';
+  statusEl.textContent = 'Loading game data...';
   const cachedData = {};
   let loaded = 0;
+  let timedOut = false;
 
-  // Fetch in parallel batches of 5 to avoid overwhelming the API
-  const batchSize = 5;
-  for (let i = 0; i < players.length; i += batchSize) {
-    const batch = players.slice(i, i + batchSize);
+  // Timeout after 30 seconds - if API is slow, just render with what we have
+  const timeoutId = setTimeout(() => {
+    timedOut = true;
+    console.log('[TIMEOUT] Game data fetch took too long, rendering with partial data');
+  }, 30000);
 
-    await Promise.all(batch.map(async (player) => {
-      try {
-        const res = await fetch(`/api/players/${player.id}`);
-        if (!res.ok) return;
-        const profile = await res.json();
-
-        if (!profile.games || !Array.isArray(profile.games)) return;
-
-        player.games = profile.games;
-
-        // Calculate recent avg mins (last 5 games)
-        const recentGames = profile.games.slice(-5);
-        if (recentGames.length > 0) {
-          const totalMins = recentGames.reduce((sum, g) => sum + (g.minutes || 0), 0);
-          player.recentAvgMins = totalMins / recentGames.length;
-        } else {
-          player.recentAvgMins = 0;
-        }
-
-        // Calculate empirical home/away per-90
-        const homeGames = profile.games.filter(g => g.isHome);
-        const awayGames = profile.games.filter(g => !g.isHome);
-
-        if (homeGames.length > 0) {
-          const homePoints = homeGames.reduce((sum, g) => sum + (g.points || 0), 0);
-          const homeMins = homeGames.reduce((sum, g) => sum + (g.minutes || 0), 0);
-          player.homePer90 = homeMins > 0 ? (homePoints / homeMins) * 90 : player.homePer90;
-        }
-
-        if (awayGames.length > 0) {
-          const awayPoints = awayGames.reduce((sum, g) => sum + (g.points || 0), 0);
-          const awayMins = awayGames.reduce((sum, g) => sum + (g.minutes || 0), 0);
-          player.awayPer90 = awayMins > 0 ? (awayPoints / awayMins) * 90 : player.awayPer90;
-        }
-
-        // Cache this player's data
-        cachedData[player.id] = {
-          games: player.games,
-          recentAvgMins: player.recentAvgMins,
-          homePer90: player.homePer90,
-          awayPer90: player.awayPer90
-        };
-      } catch (err) {
-        console.log(`Could not fetch game data for player ${player.id}`);
-      }
-
-      loaded++;
-      statusEl.textContent = `Loading game data: ${loaded}/${players.length}`;
-    }));
-  }
-
-  // Store cache
   try {
-    localStorage.setItem(cacheKey, JSON.stringify(cachedData));
-    localStorage.setItem(cacheTimestampKey, now.toString());
-    console.log('[CACHE] Saved game data cache');
-  } catch (err) {
-    console.log('Could not save cache to localStorage');
+    // Only fetch for players who have appeared (to avoid unnecessary API calls)
+    const playersToFetch = players.filter(p => p.appearances > 0);
+    const batchSize = 3; // Reduced from 5 to avoid overwhelming API
+
+    for (let i = 0; i < playersToFetch.length && !timedOut; i += batchSize) {
+      const batch = playersToFetch.slice(i, i + batchSize);
+
+      const batchPromises = batch.map(async (player) => {
+        try {
+          const res = await fetch(`/api/players/${player.id}`, {
+            signal: AbortSignal.timeout(5000) // 5 second timeout per player
+          });
+          if (!res.ok) return null;
+          const profile = await res.json();
+
+          if (!profile.games || !Array.isArray(profile.games)) return null;
+
+          player.games = profile.games;
+
+          // Calculate recent avg mins (last 5 games)
+          const recentGames = profile.games.slice(-5);
+          if (recentGames.length > 0) {
+            const totalMins = recentGames.reduce((sum, g) => sum + (g.minutes || 0), 0);
+            player.recentAvgMins = totalMins / recentGames.length;
+          } else {
+            player.recentAvgMins = 0;
+          }
+
+          // Calculate empirical home/away per-90
+          const homeGames = profile.games.filter(g => g.isHome);
+          const awayGames = profile.games.filter(g => !g.isHome);
+
+          if (homeGames.length > 0) {
+            const homePoints = homeGames.reduce((sum, g) => sum + (g.points || 0), 0);
+            const homeMins = homeGames.reduce((sum, g) => sum + (g.minutes || 0), 0);
+            player.homePer90 = homeMins > 0 ? (homePoints / homeMins) * 90 : player.homePer90;
+          }
+
+          if (awayGames.length > 0) {
+            const awayPoints = awayGames.reduce((sum, g) => sum + (g.points || 0), 0);
+            const awayMins = awayGames.reduce((sum, g) => sum + (g.minutes || 0), 0);
+            player.awayPer90 = awayMins > 0 ? (awayPoints / awayMins) * 90 : player.awayPer90;
+          }
+
+          // Cache this player's data
+          cachedData[player.id] = {
+            games: player.games,
+            recentAvgMins: player.recentAvgMins,
+            homePer90: player.homePer90,
+            awayPer90: player.awayPer90
+          };
+
+          return true;
+        } catch (err) {
+          console.warn(`Could not fetch game data for player ${player.id}: ${err.message}`);
+          return null;
+        }
+      });
+
+      await Promise.all(batchPromises);
+
+      loaded += batch.length;
+      statusEl.textContent = `Loading game data: ${loaded}/${playersToFetch.length}`;
+    }
+
+    // Store cache if we got some data
+    if (Object.keys(cachedData).length > 0) {
+      try {
+        localStorage.setItem(cacheKey, JSON.stringify(cachedData));
+        localStorage.setItem(cacheTimestampKey, now.toString());
+        console.log(`[CACHE] Saved game data for ${Object.keys(cachedData).length} players`);
+      } catch (err) {
+        console.warn('Could not save cache to localStorage:', err.message);
+      }
+    }
+  } finally {
+    clearTimeout(timeoutId);
   }
 }
 

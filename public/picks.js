@@ -120,27 +120,18 @@ async function enrichPlayerGameData(players) {
   statusEl.textContent = 'Loading game data...';
   const cachedData = {};
   let loaded = 0;
-  let timedOut = false;
-
-  // Timeout after 30 seconds - if API is slow, just render with what we have
-  const timeoutId = setTimeout(() => {
-    timedOut = true;
-    console.log('[TIMEOUT] Game data fetch took too long, rendering with partial data');
-  }, 30000);
 
   try {
     // Only fetch for players who have appeared (to avoid unnecessary API calls)
     const playersToFetch = players.filter(p => p.appearances > 0);
-    const batchSize = 3; // Reduced from 5 to avoid overwhelming API
+    const batchSize = 3;
 
-    for (let i = 0; i < playersToFetch.length && !timedOut; i += batchSize) {
+    for (let i = 0; i < playersToFetch.length; i += batchSize) {
       const batch = playersToFetch.slice(i, i + batchSize);
 
       const batchPromises = batch.map(async (player) => {
         try {
-          const res = await fetch(`/api/player?id=${player.id}`, {
-            signal: AbortSignal.timeout(5000) // 5 second timeout per player
-          });
+          const res = await fetch(`/api/player?id=${player.id}`);
           if (!res.ok) return null;
           const profile = await res.json();
 
@@ -204,8 +195,8 @@ async function enrichPlayerGameData(players) {
         console.warn('Could not save cache to localStorage:', err.message);
       }
     }
-  } finally {
-    clearTimeout(timeoutId);
+  } catch (err) {
+    console.warn('Error during game data fetch:', err.message);
   }
 }
 
@@ -348,7 +339,13 @@ function renderPicks(round, optimalTeam, squads) {
     </div>
 
     <div style="margin-bottom: 16px; padding: 12px; background: #f5f5f5; border-radius: 6px;">
-      <div style="font-size: 0.85rem; color: #666; text-transform: uppercase; font-weight: bold; margin-bottom: 12px;">Include Teams</div>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+        <div style="font-size: 0.85rem; color: #666; text-transform: uppercase; font-weight: bold;">Include Teams</div>
+        <div style="display: flex; gap: 8px;">
+          <button id="include-all-teams" style="padding: 4px 12px; font-size: 0.8rem; background: #f05a28; color: white; border: none; border-radius: 4px; cursor: pointer;">Include All</button>
+          <button id="exclude-all-teams" style="padding: 4px 12px; font-size: 0.8rem; background: #999; color: white; border: none; border-radius: 4px; cursor: pointer;">Exclude All</button>
+        </div>
+      </div>
       <div style="display: flex; flex-wrap: wrap; gap: 12px;">
         ${teamOptions}
       </div>
@@ -432,6 +429,65 @@ function renderPicks(round, optimalTeam, squads) {
 
   html += '</div>'; // close picks-formation
 
+  // Build Teams to Target section
+  const leagueMap = {};
+  const leagueNames = { 'League 2': 'League 2', 'League 1': 'League 1', 'Championship': 'Championship' };
+  for (const leagueKey of Object.keys(leagueNames)) {
+    leagueMap[leagueKey] = [];
+  }
+
+  for (const squad of Object.values(squadsMap)) {
+    const league = squad.league || 'Unknown';
+    if (leagueMap[league]) {
+      leagueMap[league].push(squad);
+    }
+  }
+
+  // Sort squads by name within each league
+  for (const league of Object.keys(leagueMap)) {
+    leagueMap[league].sort((a, b) => (a.shortName || a.name).localeCompare(b.shortName || b.name));
+  }
+
+  let teamsHtml = '<div style="margin-top: 40px; padding-top: 24px; border-top: 2px solid #ddd;"><h3 style="margin-bottom: 20px; font-size: 1.2rem;">Teams to Target</h3>';
+  teamsHtml += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;">';
+
+  for (const leagueKey of ['League 2', 'League 1', 'Championship']) {
+    const league = leagueKey;
+    const squads = leagueMap[league] || [];
+
+    teamsHtml += `<div style="border: 1px solid #ddd; border-radius: 8px; padding: 16px;">`;
+    teamsHtml += `<h4 style="margin-bottom: 12px; color: #f05a28; font-size: 0.95rem;">${league}</h4>`;
+
+    for (const squad of squads) {
+      const fixtures = fixturesBySquad[squad.id] || [];
+      const fixtureCount = fixtures.length;
+      const isExcluded = filters.excludeTeams.includes(squad.id);
+
+      let fixturesDisplay = '';
+      for (const fixture of fixtures) {
+        const opp = fixture.isHome ? fixture.awayId : fixture.homeId;
+        const oppSquad = squadsMap[opp];
+        const oppName = oppSquad?.shortName || '?';
+        const difficulty = getFixtureDifficulty(opp);
+        const fixtureBadgeClass = `fixture-${difficulty}`;
+        fixturesDisplay += `<span class="fixture-badge ${fixtureBadgeClass}" style="margin-right: 4px; display: inline-block;">${oppName}</span>`;
+      }
+
+      const label = fixtureCount === 2 ? '2️⃣ ' : '';
+      teamsHtml += `
+        <div style="margin-bottom: 12px; padding: 8px; background: ${isExcluded ? '#f0f0f0' : '#fafafa'}; border-radius: 4px; cursor: pointer;" class="team-target-row" data-squad-id="${squad.id}">
+          <div style="font-weight: bold; margin-bottom: 4px; ${isExcluded ? 'opacity: 0.5;' : ''}">${label}${squad.shortName || squad.name}</div>
+          <div style="font-size: 0.8rem; ${isExcluded ? 'opacity: 0.5;' : ''}">${fixturesDisplay}</div>
+        </div>
+      `;
+    }
+
+    teamsHtml += '</div>';
+  }
+
+  teamsHtml += '</div></div>';
+  html += teamsHtml;
+
   html += `
     <div id="games-modal" class="games-modal" style="display: none;">
       <div class="games-modal-content">
@@ -482,6 +538,38 @@ function renderPicks(round, optimalTeam, squads) {
         filters.excludeTeams = filters.excludeTeams.filter(id => id !== squadId);
       } else {
         filters.excludeTeams.push(squadId);
+      }
+      renderWithFilters();
+    });
+  });
+
+  // Include/Exclude All buttons
+  document.getElementById('include-all-teams').addEventListener('click', () => {
+    filters.excludeTeams = [];
+    document.querySelectorAll('.team-filter').forEach(cb => { cb.checked = true; });
+    renderWithFilters();
+  });
+
+  document.getElementById('exclude-all-teams').addEventListener('click', () => {
+    const allTeamIds = Array.from(document.querySelectorAll('.team-filter')).map(cb => parseInt(cb.value, 10));
+    filters.excludeTeams = allTeamIds;
+    document.querySelectorAll('.team-filter').forEach(cb => { cb.checked = false; });
+    renderWithFilters();
+  });
+
+  // Team target rows (click to toggle)
+  document.querySelectorAll('.team-target-row').forEach(row => {
+    row.addEventListener('click', () => {
+      const squadId = parseInt(row.getAttribute('data-squad-id'), 10);
+      if (filters.excludeTeams.includes(squadId)) {
+        filters.excludeTeams = filters.excludeTeams.filter(id => id !== squadId);
+      } else {
+        filters.excludeTeams.push(squadId);
+      }
+      // Also toggle the corresponding checkbox
+      const checkbox = document.querySelector(`.team-filter[value="${squadId}"]`);
+      if (checkbox) {
+        checkbox.checked = !checkbox.checked;
       }
       renderWithFilters();
     });

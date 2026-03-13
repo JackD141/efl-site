@@ -175,15 +175,18 @@ async function enrichPlayerGameData(players, gamesByRound, squadsMap) {
           let homeMins = 0, homePts = 0, awayMins = 0, awayPts = 0;
           let homeCount = 0, awayCount = 0;
 
-          // Debug: log structure of first game
-          if (games.length > 0 && player.id === playersToFetch[0].id) {
-            console.log('[GAME-STRUCTURE] First game keys:', Object.keys(games[0]));
-            console.log('[GAME-STRUCTURE] First game:', games[0]);
-            console.log('[GAMEBYROUND-KEYS] gamesByRound keys:', Object.keys(gamesByRound).slice(0, 5));
-          }
-
           for (const game of games) {
             const roundNum = game.round || game.roundId || game.roundNumber;
+
+            // Debug: log first game structure and lookup
+            if (!window.__loggedGameStructure) {
+              window.__loggedGameStructure = true;
+              console.log('[GAME-STRUCTURE] First game keys:', Object.keys(game));
+              console.log('[GAME-STRUCTURE] First game:', game);
+              console.log('[GAMEBYROUND-KEYS] gamesByRound keys:', Object.keys(gamesByRound).slice(0, 10));
+              console.log('[ROUND-NUM-LOOKUP] Trying to find roundNum:', roundNum, 'in gamesByRound[roundNum]:', gamesByRound[roundNum]);
+            }
+
             const gameInfo = gamesByRound[roundNum]?.[player.squadId];
             const mins = game.minutesPlayed || game.minutes || 0;
             const pts = game.points || 0;

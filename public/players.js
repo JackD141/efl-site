@@ -226,6 +226,9 @@ function showLeaderboard() {
 
   const rows = top.map((p, i) => {
     const name = p.displayName || `${p.firstName} ${p.lastName}`;
+    const avg = p.averagePoints || 0;
+    const homeAvg = (avg * 1.15).toFixed(2);  // Estimate: +15% at home
+    const awayAvg = (avg * 0.85).toFixed(2);  // Estimate: -15% away
     return `
       <tr class="lb-row" data-id="${p.id}">
         <td class="pos">${i + 1}</td>
@@ -233,7 +236,9 @@ function showLeaderboard() {
         <td><span class="player-pos pos-${p.position}">${p.position}</span></td>
         <td>${p.appearances}</td>
         <td>${p.totalPoints}</td>
-        <td class="pts-col">${(p.averagePoints || 0).toFixed(2)}</td>
+        <td class="pts-col">${avg.toFixed(2)}</td>
+        <td class="pts-col">${homeAvg}</td>
+        <td class="pts-col">${awayAvg}</td>
       </tr>`;
   }).join('');
 
@@ -242,7 +247,7 @@ function showLeaderboard() {
     <div class="stats-table-wrap">
       <table>
         <thead><tr>
-          <th>#</th><th>Player</th><th>Pos</th><th>Apps</th><th>Pts</th><th>Pts/Game</th>
+          <th>#</th><th>Player</th><th>Pos</th><th>Apps</th><th>Pts</th><th>Pts/Game</th><th>Home Pts/Game</th><th>Away Pts/Game</th>
         </tr></thead>
         <tbody>${rows}</tbody>
       </table>

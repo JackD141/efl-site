@@ -19,6 +19,7 @@ let filters = {
   min1000mins: true,
   oneClubChip: false,
   excludeTeams: [],
+  minRecentAvgMins: 60,
 };
 
 async function loadPicks() {
@@ -83,9 +84,23 @@ function getFixtureDifficulty(squadId) {
   if (!squad) return 'neutral';
 
   const pos = squad.leaguePosition || 999;
+  console.log(`[DEBUG] Fixture for ${squad.shortName} (ID: ${squadId}): position=${pos}`);
   if (pos <= 8) return 'hard';    // red: top 8
   if (pos <= 16) return 'medium'; // grey: mid table
   return 'easy';                  // green: bottom 8
+}
+
+function getRecentAvgMins(player) {
+  // If player has games array, calculate average of last 5 games
+  if (player.games && Array.isArray(player.games)) {
+    const recentGames = player.games.slice(-5);
+    if (recentGames.length > 0) {
+      const totalMins = recentGames.reduce((sum, g) => sum + (g.minutes || 0), 0);
+      return totalMins / recentGames.length;
+    }
+  }
+  // Fallback: estimate based on appearances (assume ~45 mins per appearance on average)
+  return (player.appearances || 0) > 0 ? 45 : 0;
 }
 
 function enrichPlayers(players, rounds, squads) {
@@ -100,6 +115,9 @@ function enrichPlayers(players, rounds, squads) {
 
     const fixtures = fixturesBySquad[p.squadId] || [];
     p.fixtures = fixtures;
+
+    // Calculate recent average minutes
+    p.recentAvgMins = getRecentAvgMins(p);
 
     // Calculate projected pts for next GW
     let projectedPts = 0;
@@ -144,6 +162,7 @@ function solveForFormation(players, formation, filters) {
     if (filters.excludeInjured && p.injuryDetails) return false;
     if (filters.min1000mins && (p.appearances * 90 < 1000)) return false;
     if (filters.excludeTeams.includes(p.squadId)) return false;
+    if (p.recentAvgMins < filters.minRecentAvgMins) return false;
     return true;
   });
 
@@ -185,7 +204,13 @@ function renderPicks(round, optimalTeam, squads) {
 
   // Build team filter checkboxes
   const teamOptions = Array.from(new Set(allPlayers.map(p => p.squadId)))
-    .sort()
+    .sort((a, b) => {
+      const squadA = squadsMap[a];
+      const squadB = squadsMap[b];
+      const nameA = (squadA?.shortName || squadA?.name || '').toUpperCase();
+      const nameB = (squadB?.shortName || squadB?.name || '').toUpperCase();
+      return nameA.localeCompare(nameB);
+    })
     .map(squadId => {
       const squad = squadsMap[squadId];
       const isChecked = !filters.excludeTeams.includes(squadId);
@@ -207,6 +232,12 @@ function renderPicks(round, optimalTeam, squads) {
         <input type="checkbox" id="one-club-chip" ${filters.oneClubChip ? 'checked' : ''} />
         One Club Chip
       </label>
+      <div style="margin-top: 12px;">
+        <label style="display: block; margin-bottom: 6px;">
+          Min Recent Avg Mins: <strong id="recent-mins-value">${filters.minRecentAvgMins}</strong>
+        </label>
+        <input type="range" id="recent-mins-slider" min="0" max="90" value="${filters.minRecentAvgMins}" style="width: 200px;" />
+      </div>
     </div>
 
     <div style="margin-bottom: 16px; padding: 12px; background: #f5f5f5; border-radius: 6px;">
@@ -261,10 +292,13 @@ function renderPicks(round, optimalTeam, squads) {
         fixturesHtml += '</div>';
       }
 
+      const hasGames = player.games && player.games.length > 0;
+      const infoButtonHtml = hasGames ? `<button class="pick-info-btn" data-player-id="${player.id}" title="View last 5 games">ℹ️</button>` : '';
+
       html += `
         <div class="pick-card pick-${pos} ${captainClass}">
           <div class="pick-header">
-            <div class="pick-name">${name}</div>
+            <div class="pick-name">${name} ${infoButtonHtml}</div>
             <div class="pick-squad">${squadName}</div>
           </div>
           <div class="pick-stats">
@@ -289,7 +323,27 @@ function renderPicks(round, optimalTeam, squads) {
     html += '</div>';
   }
 
-  html += '</div>';
+  html += '</div>'; // close picks-formation
+
+  html += `
+    <div id="games-modal" class="games-modal" style="display: none;">
+      <div class="games-modal-content">
+        <span class="games-modal-close">&times;</span>
+        <h3 id="games-modal-title"></h3>
+        <table class="games-table">
+          <thead>
+            <tr>
+              <th>GW</th>
+              <th>Minutes</th>
+              <th>Points</th>
+            </tr>
+          </thead>
+          <tbody id="games-table-body">
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
 
   picksContainer.innerHTML = html;
 
@@ -308,6 +362,12 @@ function renderPicks(round, optimalTeam, squads) {
     renderWithFilters();
   });
 
+  document.getElementById('recent-mins-slider').addEventListener('input', (e) => {
+    filters.minRecentAvgMins = parseInt(e.target.value, 10);
+    document.getElementById('recent-mins-value').textContent = filters.minRecentAvgMins;
+    renderWithFilters();
+  });
+
   document.querySelectorAll('.team-filter').forEach(checkbox => {
     checkbox.addEventListener('change', (e) => {
       const squadId = parseInt(e.target.value, 10);
@@ -317,6 +377,45 @@ function renderPicks(round, optimalTeam, squads) {
         filters.excludeTeams.push(squadId);
       }
       renderWithFilters();
+    });
+  });
+
+  // Modal functionality
+  const modal = document.getElementById('games-modal');
+  const closeBtn = document.querySelector('.games-modal-close');
+
+  closeBtn.addEventListener('click', () => {
+    modal.style.display = 'none';
+  });
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.style.display = 'none';
+    }
+  });
+
+  document.querySelectorAll('.pick-info-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const playerId = parseInt(btn.getAttribute('data-player-id'), 10);
+      const player = allPlayers.find(p => p.id === playerId);
+
+      if (player && player.games && player.games.length > 0) {
+        const recentGames = player.games.slice(-5).reverse(); // Last 5, most recent first
+        const playerName = player.displayName || `${player.firstName} ${player.lastName}`;
+        document.getElementById('games-modal-title').textContent = `${playerName} - Last 5 Games`;
+
+        const tableBody = document.getElementById('games-table-body');
+        tableBody.innerHTML = recentGames.map((game, idx) => `
+          <tr>
+            <td>${game.round || game.roundId || game.roundNumber || 'N/A'}</td>
+            <td>${game.minutes || 0}</td>
+            <td>${game.points || 0}</td>
+          </tr>
+        `).join('');
+
+        modal.style.display = 'block';
+      }
     });
   });
 }

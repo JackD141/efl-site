@@ -162,10 +162,7 @@ function solveForFormation(players, formation, filters) {
     if (filters.excludeInjured && p.injuryDetails) return false;
     if (filters.min1000mins && (p.appearances * 90 < 1000)) return false;
     if (filters.excludeTeams.includes(p.squadId)) return false;
-    // Only apply recent mins filter if player has actual game data
-    if (filters.minRecentAvgMins > 0 && p.games && p.games.length > 0) {
-      if (p.recentAvgMins < filters.minRecentAvgMins) return false;
-    }
+    if (filters.minRecentAvgMins > 0 && p.recentAvgMins < filters.minRecentAvgMins) return false;
     return true;
   });
 

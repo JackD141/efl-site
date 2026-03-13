@@ -65,8 +65,8 @@ async function loadPicks() {
       fixturesBySquad[game.awayId]?.push({ ...game, isHome: false });
     }
 
-    // Enrich players with per-90 stats by home/away (from ALL previous rounds)
-    enrichPlayers(allPlayers, allRounds, squads);
+    // Enrich players with actual per-90 stats by home/away
+    await enrichPlayers(allPlayers, allRounds, squads);
 
     renderWithFilters();
     statusEl.textContent = '';
@@ -87,55 +87,83 @@ function getFixtureDifficulty(squadId) {
   return 'easy';                  // green: bottom 8
 }
 
-function enrichPlayers(players, rounds, squads) {
-  // First pass: calculate home/away per-90 from historical data
-  const homeAwayStats = {};
-
-  for (const player of players) {
-    homeAwayStats[player.id] = {
-      homeMins: 0,
-      homePts: 0,
-      awayMins: 0,
-      awayPts: 0,
-    };
-  }
-
-  // Iterate through all completed rounds to build home/away averages
+// Build a map of squad to games played (to match player games to home/away)
+function buildGamesByRound(rounds) {
+  const gamesByRound = {};
   for (const round of rounds) {
     if (round.status !== 'completed') continue;
-
+    gamesByRound[round.roundNumber] = {};
     for (const game of round.games) {
-      const homeTeam = game.homeId;
-      const awayTeam = game.awayId;
-
-      // Look for players from each team in this game
-      for (const result of round.games[0].gameEvents || []) {
-        // Games don't have embedded player results, so we skip this approach
-      }
+      gamesByRound[round.roundNumber][game.homeId] = { ...game, isHome: true };
+      gamesByRound[round.roundNumber][game.awayId] = { ...game, isHome: false };
     }
   }
+  return gamesByRound;
+}
 
-  // Since we don't have per-game home/away breakdown in the API,
-  // use a simpler heuristic: estimate per-90 from season average,
-  // then assume home games are ~15% better, away ~15% worse
-  for (const p of players) {
-    const totalMins = p.appearances * 90; // estimate
-    const basePer90 = totalMins > 0 ? (p.totalPoints / totalMins) * 90 : (p.averagePoints || 0);
+async function enrichPlayers(players, rounds, squads) {
+  const gamesByRound = buildGamesByRound(rounds);
 
-    p.homePer90 = basePer90 * 1.15;  // +15% at home
-    p.awayPer90 = basePer90 * 0.85;  // -15% away
+  for (const player of players) {
+    let homeMins = 0, homePts = 0, awayMins = 0, awayPts = 0;
+    const recentGames = [];
 
-    const fixtures = fixturesBySquad[p.squadId] || [];
-    p.fixtures = fixtures;
+    try {
+      // Fetch player's per-game stats
+      const profileRes = await fetch(`/api/player?id=${player.id}`);
+      if (!profileRes.ok) continue;
 
-    // Calculate projected pts for next GW
-    let projectedPts = 0;
-    for (const fixture of fixtures) {
-      const per90 = fixture.isHome ? p.homePer90 : p.awayPer90;
-      projectedPts += (per90 / 90);
+      const profile = await profileRes.json();
+      const games = profile.games || [];
+
+      // Match each game to determine home/away
+      for (const game of games) {
+        const roundNum = game.round;
+        const gameInfo = gamesByRound[roundNum]?.[player.squadId];
+
+        if (gameInfo) {
+          const mins = game.minutes || 0;
+          const pts = game.points || 0;
+
+          if (gameInfo.isHome) {
+            homeMins += mins;
+            homePts += pts;
+          } else {
+            awayMins += mins;
+            awayPts += pts;
+          }
+        }
+
+        // Store for last 5 games popup
+        recentGames.push({
+          round: roundNum,
+          minutes: game.minutes || 0,
+          points: game.points || 0,
+        });
+      }
+
+      // Calculate per-90 values
+      player.homePer90 = homeMins > 0 ? (homePts / homeMins) * 90 : 0;
+      player.awayPer90 = awayMins > 0 ? (awayPts / awayMins) * 90 : 0;
+      player.recentGames = recentGames.slice(-5);
+    } catch (err) {
+      // Fallback if profile fetch fails
+      player.homePer90 = 0;
+      player.awayPer90 = 0;
+      player.recentGames = [];
     }
 
-    p.projectedPts = projectedPts;
+    // Get next GW fixtures and calculate projection
+    const fixtures = fixturesBySquad[player.squadId] || [];
+    player.fixtures = fixtures;
+
+    let projectedPts = 0;
+    for (const fixture of fixtures) {
+      const per90 = fixture.isHome ? player.homePer90 : player.awayPer90;
+      projectedPts += per90 / 90;
+    }
+
+    player.projectedPts = projectedPts;
   }
 }
 
@@ -205,6 +233,45 @@ function solveForFormation(players, formation, filters) {
   return { team, formation, totalPts, captain };
 }
 
+function showLastGamesPopup(player) {
+  const games = player.recentGames || [];
+  if (games.length === 0) {
+    alert(`No recent game data for ${player.firstName} ${player.lastName}`);
+    return;
+  }
+
+  let tableHtml = '<table style="width: 100%; border-collapse: collapse;"><tr><th style="border: 1px solid #ddd; padding: 8px;">GW</th><th style="border: 1px solid #ddd; padding: 8px;">Mins</th><th style="border: 1px solid #ddd; padding: 8px;">Pts</th></tr>';
+  for (const game of games) {
+    tableHtml += `<tr><td style="border: 1px solid #ddd; padding: 8px;">${game.round}</td><td style="border: 1px solid #ddd; padding: 8px;">${game.minutes}</td><td style="border: 1px solid #ddd; padding: 8px;">${game.points}</td></tr>`;
+  }
+  tableHtml += '</table>';
+
+  const popup = document.createElement('div');
+  popup.style.position = 'fixed';
+  popup.style.top = '50%';
+  popup.style.left = '50%';
+  popup.style.transform = 'translate(-50%, -50%)';
+  popup.style.background = '#fff';
+  popup.style.padding = '20px';
+  popup.style.borderRadius = '8px';
+  popup.style.boxShadow = '0 4px 12px rgba(0,0,0,0.2)';
+  popup.style.zIndex = '1000';
+  popup.style.maxWidth = '400px';
+  popup.innerHTML = `<h3>${player.firstName} ${player.lastName} - Last 5 Games</h3>${tableHtml}<button onclick="this.parentElement.remove()" style="margin-top: 12px; padding: 8px 16px; background: #f05a28; color: #fff; border: none; border-radius: 4px; cursor: pointer;">Close</button>`;
+  document.body.appendChild(popup);
+
+  const backdrop = document.createElement('div');
+  backdrop.style.position = 'fixed';
+  backdrop.style.top = '0';
+  backdrop.style.left = '0';
+  backdrop.style.width = '100%';
+  backdrop.style.height = '100%';
+  backdrop.style.background = 'rgba(0,0,0,0.4)';
+  backdrop.style.zIndex = '999';
+  backdrop.onclick = () => backdrop.remove() || popup.remove();
+  document.body.appendChild(backdrop);
+}
+
 function renderPicks(round, optimalTeam, squads) {
   const { team, formation, totalPts } = optimalTeam;
   const formationStr = `${formation.gk}-${formation.def}-${formation.mid}-${formation.fwd}`;
@@ -253,7 +320,7 @@ function renderPicks(round, optimalTeam, squads) {
       const captainClass = player.isCaptain ? 'is-captain' : '';
       const projDisplay = player.isCaptain ? `${player.projectedPtsDisplay.toFixed(1)}*` : player.projectedPts.toFixed(1);
 
-      // Build fixtures display (only next GW fixtures)
+      // Build fixtures display with per-90 values
       let fixturesHtml = '';
       if (player.fixtures && player.fixtures.length > 0) {
         fixturesHtml = '<div class="pick-fixtures">';
@@ -264,7 +331,8 @@ function renderPicks(round, optimalTeam, squads) {
           const homeAway = fixture.isHome ? 'H' : 'A';
           const difficulty = getFixtureDifficulty(opp);
           const fixtureBadgeClass = `fixture-${difficulty}`;
-          fixturesHtml += `<span class="fixture-badge ${fixtureBadgeClass}">${oppName}(${homeAway})</span>`;
+          const per90Val = fixture.isHome ? player.homePer90 : player.awayPer90;
+          fixturesHtml += `<span class="fixture-badge ${fixtureBadgeClass}">${oppName}(${homeAway})<span class="fixture-per90">${per90Val.toFixed(1)}</span></span>`;
         }
         fixturesHtml += '</div>';
       }
@@ -290,6 +358,7 @@ function renderPicks(round, optimalTeam, squads) {
             </div>
           </div>
           ${fixturesHtml}
+          <button class="pick-info-btn" onclick="showLastGamesPopup(${JSON.stringify(player).replace(/"/g, '&quot;')})" style="margin-top: 8px; padding: 4px 8px; background: #f05a28; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 0.75rem; width: 100%;">ℹ Last 5 Games</button>
         </div>
       `;
     }

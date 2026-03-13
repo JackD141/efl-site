@@ -1,4 +1,5 @@
 const PLAYERS_URL = '/api/players';
+const ROUNDS_URL = '/api/rounds';
 const PROFILE_URL = id => `/api/player?id=${id}`;
 
 const searchInput    = document.getElementById('search-input');
@@ -7,6 +8,7 @@ const leaderboardDiv = document.getElementById('leaderboard');
 const playerStats    = document.getElementById('player-stats');
 
 let allPlayers = [];
+let allRounds = [];
 const profileCache = {};
 
 // ─── Column definitions by position ──────────────────────────────────────────
@@ -93,13 +95,49 @@ function formatCell(key, val, pos, minsPlayed) {
   return `${val} <span class="${cls}">(${sign}${pts})</span>`;
 }
 
+// ─── Build game lookup by round and squad ─────────────────────────────────────
+function buildGamesByRound(rounds) {
+  const gamesByRound = {};
+  for (const round of rounds) {
+    if (round.status !== 'completed') continue;
+    gamesByRound[round.roundNumber] = {};
+    for (const game of round.games) {
+      gamesByRound[round.roundNumber][game.homeId] = { ...game, isHome: true };
+      gamesByRound[round.roundNumber][game.awayId] = { ...game, isHome: false };
+    }
+  }
+  return gamesByRound;
+}
+
 // ─── Points per 90 calculation ────────────────────────────────────────────────
-function calcPer90(games, cols, pos) {
+function calcPer90(games, cols, pos, squadId) {
   const totalMins = games.reduce((s, g) => s + (g.minutesPlayed || 0), 0);
   if (totalMins === 0) return null;
 
   const overallPts = games.reduce((s, g) => s + (g.points || 0), 0);
   const overallPer90 = (overallPts / totalMins) * 90;
+
+  // Calculate home/away per-90
+  const gamesByRound = buildGamesByRound(allRounds);
+  let homeMins = 0, homePts = 0, awayMins = 0, awayPts = 0;
+
+  for (const game of games) {
+    const roundNum = game.round || game.roundId;
+    const gameInfo = gamesByRound[roundNum]?.[squadId];
+    const mins = game.minutesPlayed || 0;
+    const pts = game.points || 0;
+
+    if (gameInfo && gameInfo.isHome) {
+      homeMins += mins;
+      homePts += pts;
+    } else if (gameInfo && !gameInfo.isHome) {
+      awayMins += mins;
+      awayPts += pts;
+    }
+  }
+
+  const homePer90 = homeMins > 0 ? (homePts / homeMins) * 90 : 0;
+  const awayPer90 = awayMins > 0 ? (awayPts / awayMins) * 90 : 0;
 
   const perNinety = {};
   for (const col of cols) {
@@ -110,31 +148,36 @@ function calcPer90(games, cols, pos) {
     if (Math.abs(per90) >= 0.01) perNinety[col.key] = per90;
   }
 
-  return { totalMins, overallPer90, perNinety };
+  return { totalMins, overallPer90, homePer90, awayPer90, perNinety };
 }
 
 function buildPer90Section(per90Data, cols) {
   if (!per90Data) return '';
 
-  const { overallPer90, perNinety, totalMins } = per90Data;
+  const { overallPer90, homePer90, awayPer90, totalMins } = per90Data;
   const totalMinsLabel = `${Math.round(totalMins)} mins played`;
 
   const pills = cols
-    .filter(c => c.key !== 'roundId' && c.key !== 'points' && perNinety[c.key] !== undefined)
+    .filter(c => c.key !== 'roundId' && c.key !== 'points' && per90Data.perNinety[c.key] !== undefined)
     .map(c => {
-      const val = perNinety[c.key];
+      const val = per90Data.perNinety[c.key];
       const cls = val > 0 ? 'per90-pos' : 'per90-neg';
       const sign = val > 0 ? '+' : '';
       return `<div class="per90-pill ${cls}">${c.label} <strong>${sign}${val.toFixed(2)}</strong></div>`;
     });
 
   const overallSign = overallPer90 > 0 ? '+' : '';
-  const totalPill = `<div class="per90-pill per90-total">Total <strong>${overallSign}${overallPer90.toFixed(2)}</strong></div>`;
+  const homeSign = homePer90 > 0 ? '+' : '';
+  const awaySign = awayPer90 > 0 ? '+' : '';
+
+  const totalPill = `<div class="per90-pill per90-total">Overall <strong>${overallSign}${overallPer90.toFixed(1)}</strong></div>`;
+  const homePill = `<div class="per90-pill">Home <strong>${homeSign}${homePer90.toFixed(1)}</strong></div>`;
+  const awayPill = `<div class="per90-pill">Away <strong>${awaySign}${awayPer90.toFixed(1)}</strong></div>`;
 
   return `
     <div class="per90-section">
       <h3 class="per90-label">Points per 90 min <span class="per90-mins">(${totalMinsLabel})</span></h3>
-      <div class="per90-pills">${totalPill}${pills.join('')}</div>
+      <div class="per90-pills">${totalPill}${homePill}${awayPill}${pills.join('')}</div>
     </div>
   `;
 }
@@ -150,8 +193,12 @@ let currentProfile = null;
 // ─── Data loading ─────────────────────────────────────────────────────────────
 async function loadPlayers() {
   try {
-    const res = await fetch(PLAYERS_URL);
-    allPlayers = await res.json();
+    const [playersRes, roundsRes] = await Promise.all([
+      fetch(PLAYERS_URL),
+      fetch(ROUNDS_URL),
+    ]);
+    allPlayers = await playersRes.json();
+    allRounds = await roundsRes.json();
     showLeaderboard();
   } catch (e) {
     leaderboardDiv.innerHTML = '<p class="error-msg">Failed to load player list.</p>';
@@ -282,6 +329,10 @@ function renderPlayerStats(player, profile) {
 
   const cols = COLS_BY_POS[pos] || [...BASE_COLS, { label: 'Pts', key: 'points', title: 'Total Points' }];
 
+  // Calculate per-90 stats
+  const per90Data = calcPer90(games, cols, pos, player.squadId);
+  const per90Overall = per90Data ? per90Data.overallPer90.toFixed(1) : '—';
+
   const summaryHtml = `
     <div class="player-header">
       <h2>${name}</h2>
@@ -289,7 +340,7 @@ function renderPlayerStats(player, profile) {
     </div>
     <div class="season-summary">
       <div class="stat-pill">Total Pts <strong>${player.totalPoints}</strong></div>
-      <div class="stat-pill">Avg Pts <strong>${(player.averagePoints || 0).toFixed(1)}</strong></div>
+      <div class="stat-pill">Pts/90 <strong>${per90Overall}</strong></div>
       <div class="stat-pill">Apps <strong>${player.appearances}</strong></div>
       <div class="stat-pill">Goals <strong>${player.goalsScored}</strong></div>
       <div class="stat-pill">Assists <strong>${player.assists}</strong></div>
@@ -301,7 +352,6 @@ function renderPlayerStats(player, profile) {
     </div>
   `;
 
-  const per90Data = calcPer90(games, cols, pos);
   const per90Html = buildPer90Section(per90Data, cols);
 
   playerStats.innerHTML = summaryHtml + per90Html + buildTable(games, cols, pos);

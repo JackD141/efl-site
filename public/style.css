@@ -415,6 +415,7 @@ td.pts-col {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .pick-card {
@@ -522,14 +523,29 @@ td.pts-col {
   margin-bottom: 2px;
 }
 
-.fixture-home {
-  background: #e3f2fd;
-  color: #01579b;
+.fixture-hard {
+  background: #ffcdd2;
+  color: #b71c1c;
+  font-weight: bold;
 }
 
-.fixture-away {
-  background: #f3e5f5;
-  color: #4a148c;
+.fixture-medium {
+  background: #f5f5f5;
+  color: #666;
+  font-weight: bold;
+}
+
+.fixture-easy {
+  background: #c8e6c9;
+  color: #1b5e20;
+  font-weight: bold;
+}
+
+.fixture-per90 {
+  display: block;
+  font-size: 0.65rem;
+  margin-top: 2px;
+  opacity: 0.9;
 }
 
 @media (max-width: 600px) {

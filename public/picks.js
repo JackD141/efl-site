@@ -138,7 +138,7 @@ async function enrichPlayerGameData(players) {
 
       const batchPromises = batch.map(async (player) => {
         try {
-          const res = await fetch(`/api/players/${player.id}`, {
+          const res = await fetch(`/api/player?id=${player.id}`, {
             signal: AbortSignal.timeout(5000) // 5 second timeout per player
           });
           if (!res.ok) return null;

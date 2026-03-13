@@ -13,12 +13,6 @@ let nextRound = null;
 let squadsMap = {};
 let allRounds = [];
 let fixturesBySquad = {};
-let positionMultipliers = {
-  GK: { home: 1.0, away: 1.0 },
-  DEF: { home: 1.0, away: 1.0 },
-  MID: { home: 1.0, away: 1.0 },
-  FWD: { home: 1.0, away: 1.0 },
-};
 
 let filters = {
   excludeInjured: true,
@@ -87,10 +81,7 @@ async function loadPicks() {
     // Fetch game data to calculate empirical home/away and recent mins
     await enrichPlayerGameData(allPlayers);
 
-    // Calculate position-specific home/away multipliers from game data
-    calculatePositionMultipliers(allPlayers);
-
-    // Enrich players with per-90 stats by home/away (uses position multipliers)
+    // Enrich players with fixtures and projected pts (uses empirical home/away per-90)
     enrichPlayers(allPlayers, allRounds, squads);
 
     renderWithFilters();
@@ -225,84 +216,20 @@ async function enrichPlayerGameData(players) {
   }
 }
 
-function calculatePositionMultipliers(players) {
-  // Calculate empirical home/away multipliers by position from game data
-  const posStats = {
-    GK: { homeTotal: 0, homeCount: 0, awayTotal: 0, awayCount: 0 },
-    DEF: { homeTotal: 0, homeCount: 0, awayTotal: 0, awayCount: 0 },
-    MID: { homeTotal: 0, homeCount: 0, awayTotal: 0, awayCount: 0 },
-    FWD: { homeTotal: 0, homeCount: 0, awayTotal: 0, awayCount: 0 },
-  };
-
-  let globalTotal = 0;
-  let globalCount = 0;
-
-  // Count how many players have games data for debugging
-  let playersWithGames = 0;
-  let totalGamesProcessed = 0;
-
-  // Aggregate game data by position and home/away
-  for (const p of players) {
-    if (!p.games || p.games.length === 0) continue;
-    playersWithGames++;
-    totalGamesProcessed += p.games.length;
-
-    const pos = p.position;
-    if (!posStats[pos]) continue;
-
-    for (const game of p.games) {
-      if (game.minutes === 0) continue; // Skip games where player didn't play
-
-      const per90 = game.minutes > 0 ? (game.points / game.minutes) * 90 : 0;
-
-      globalTotal += per90;
-      globalCount++;
-
-      if (game.isHome) {
-        posStats[pos].homeTotal += per90;
-        posStats[pos].homeCount++;
-      } else {
-        posStats[pos].awayTotal += per90;
-        posStats[pos].awayCount++;
-      }
-    }
-  }
-
-  // Calculate global average and then position multipliers relative to it
-  const globalAvg = globalCount > 0 ? globalTotal / globalCount : 1;
-
-  for (const pos of ['GK', 'DEF', 'MID', 'FWD']) {
-    const stats = posStats[pos];
-
-    if (stats.homeCount > 0 && stats.awayCount > 0) {
-      const homeAvg = stats.homeTotal / stats.homeCount;
-      const awayAvg = stats.awayTotal / stats.awayCount;
-
-      positionMultipliers[pos].home = globalAvg > 0 ? homeAvg / globalAvg : 1.0;
-      positionMultipliers[pos].away = globalAvg > 0 ? awayAvg / globalAvg : 1.0;
-    }
-  }
-
-  console.log('[MULTIPLIER-CALC]', {
-    playersWithGames,
-    totalGamesProcessed,
-    globalCount,
-    globalAvg: globalCount > 0 ? globalTotal / globalCount : 'N/A'
-  });
-  console.log('[POSITION-MULTIPLIERS]', positionMultipliers);
-}
-
 function enrichPlayers(players, rounds, squads) {
-  // Use season average as base, apply position-specific home/away multipliers
+  // Use empirical home/away per-90 from actual game data if available
+  // (already calculated in enrichPlayerGameData from each player's game history)
   for (const p of players) {
     const totalMins = p.appearances * 90; // estimate
     const basePer90 = totalMins > 0 ? (p.totalPoints / totalMins) * 90 : (p.averagePoints || 0);
 
-    const pos = p.position;
-    const mult = positionMultipliers[pos] || { home: 1.15, away: 0.85 };
-
-    p.homePer90 = basePer90 * mult.home;
-    p.awayPer90 = basePer90 * mult.away;
+    // Only set homePer90/awayPer90 if not already populated from game data
+    if (!p.homePer90) {
+      p.homePer90 = basePer90;
+    }
+    if (!p.awayPer90) {
+      p.awayPer90 = basePer90;
+    }
 
     const fixtures = fixturesBySquad[p.squadId] || [];
     p.fixtures = fixtures;
@@ -680,18 +607,6 @@ function renderPicks(round, optimalTeam, squads) {
     </div>
   `;
 
-  // Build methodology modal HTML with position multipliers
-  const multiplierRows = ['GK', 'DEF', 'MID', 'FWD'].map(pos => {
-    const mult = positionMultipliers[pos];
-    return `
-      <tr>
-        <td>${pos}</td>
-        <td>${mult.home.toFixed(2)}</td>
-        <td>${mult.away.toFixed(2)}</td>
-      </tr>
-    `;
-  }).join('');
-
   html += `
     <div id="methodology-modal" class="games-modal" style="display: none;">
       <div class="games-modal-content" style="max-width: 500px;">
@@ -699,22 +614,14 @@ function renderPicks(round, optimalTeam, squads) {
         <h3 style="margin-top: 0;">Methodology</h3>
         <div style="font-size: 0.9rem; line-height: 1.6;">
           <p><strong>Projection Formula:</strong></p>
-          <p>Base Points Per 90 (season average) × Home/Away Multiplier (by position)</p>
+          <p>Each player's empirical Home/Away Points Per 90 (calculated from their actual game history)</p>
 
-          <p style="margin-top: 16px;"><strong>Home/Away Multipliers by Position:</strong></p>
-          <table style="width: 100%; border-collapse: collapse; margin: 8px 0;">
-            <thead>
-              <tr style="background: #f5f5f5; border-bottom: 1px solid #ddd;">
-                <th style="padding: 6px; text-align: left;">Position</th>
-                <th style="padding: 6px; text-align: center;">Home</th>
-                <th style="padding: 6px; text-align: center;">Away</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${multiplierRows}
-            </tbody>
-          </table>
-          <p style="font-size: 0.85rem; color: #666; margin-top: 12px;">Multipliers calculated from actual game data and vary by season.</p>
+          <p style="margin-top: 16px;"><strong>How it works:</strong></p>
+          <ul style="margin: 8px 0; padding-left: 20px;">
+            <li>We analyze each player's actual performance in home vs away games</li>
+            <li>We calculate their average points per 90 minutes for each location</li>
+            <li>These real-world averages are used to project their points for upcoming fixtures</li>
+          </ul>
 
           <p style="margin-top: 16px; padding: 10px; background: #fff3cd; border-radius: 4px; border-left: 3px solid #f0ad4e;">
             <strong>⚠️ Important:</strong> These projections assume normal playing time. <strong>You must check estimated minutes</strong> for each player in the teams themselves, as absences, injuries, or rotation can significantly impact actual performance.

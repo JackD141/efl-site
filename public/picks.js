@@ -234,6 +234,9 @@ function calculatePositionMultipliers(players) {
     FWD: { homeTotal: 0, homeCount: 0, awayTotal: 0, awayCount: 0 },
   };
 
+  let globalTotal = 0;
+  let globalCount = 0;
+
   // Aggregate game data by position and home/away
   for (const p of players) {
     if (!p.games || p.games.length === 0) continue;
@@ -246,6 +249,9 @@ function calculatePositionMultipliers(players) {
 
       const per90 = game.minutes > 0 ? (game.points / game.minutes) * 90 : 0;
 
+      globalTotal += per90;
+      globalCount++;
+
       if (game.isHome) {
         posStats[pos].homeTotal += per90;
         posStats[pos].homeCount++;
@@ -256,19 +262,18 @@ function calculatePositionMultipliers(players) {
     }
   }
 
-  // Calculate multipliers relative to overall average for each position
+  // Calculate global average and then position multipliers relative to it
+  const globalAvg = globalCount > 0 ? globalTotal / globalCount : 1;
+
   for (const pos of ['GK', 'DEF', 'MID', 'FWD']) {
     const stats = posStats[pos];
 
     if (stats.homeCount > 0 && stats.awayCount > 0) {
       const homeAvg = stats.homeTotal / stats.homeCount;
       const awayAvg = stats.awayTotal / stats.awayCount;
-      const overallAvg = (stats.homeTotal + stats.awayTotal) / (stats.homeCount + stats.awayCount);
 
-      if (overallAvg > 0) {
-        positionMultipliers[pos].home = homeAvg / overallAvg;
-        positionMultipliers[pos].away = awayAvg / overallAvg;
-      }
+      positionMultipliers[pos].home = globalAvg > 0 ? homeAvg / globalAvg : 1.0;
+      positionMultipliers[pos].away = globalAvg > 0 ? awayAvg / globalAvg : 1.0;
     }
   }
 
@@ -408,6 +413,10 @@ function renderPicks(round, optimalTeam, squads) {
           Min Recent Avg Mins: <strong id="recent-mins-value">${filters.minRecentAvgMins}</strong>
         </label>
         <input type="range" id="recent-mins-slider" min="0" max="90" value="${filters.minRecentAvgMins}" style="width: 200px;" />
+      </div>
+      <div style="margin-top: 16px; display: flex; gap: 8px;">
+        <button id="save-filters-btn" style="padding: 6px 12px; background: #f05a28; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.9rem;">Save Filters</button>
+        <button id="load-filters-btn" style="padding: 6px 12px; background: #666; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.9rem;">Load Filters</button>
       </div>
     </div>
 
@@ -631,6 +640,34 @@ function renderPicks(round, optimalTeam, squads) {
   teamsHtml += '</div></div>';
   html += teamsHtml;
 
+  // Build save filters modal
+  html += `
+    <div id="save-filters-modal" class="games-modal" style="display: none;">
+      <div class="games-modal-content" style="max-width: 400px;">
+        <span class="games-modal-close" style="cursor: pointer;">&times;</span>
+        <h3 style="margin-top: 0;">Save Filter Set</h3>
+        <input type="text" id="filter-name-input" placeholder="Enter filter name..." style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; font-size: 0.9rem; box-sizing: border-box;" />
+        <div style="margin-top: 16px; display: flex; gap: 8px;">
+          <button id="confirm-save-filters-btn" style="flex: 1; padding: 8px; background: #f05a28; color: white; border: none; border-radius: 4px; cursor: pointer;">Save</button>
+          <button id="cancel-save-filters-btn" style="flex: 1; padding: 8px; background: #999; color: white; border: none; border-radius: 4px; cursor: pointer;">Cancel</button>
+        </div>
+      </div>
+    </div>
+  `;
+
+  // Build load filters modal
+  html += `
+    <div id="load-filters-modal" class="games-modal" style="display: none;">
+      <div class="games-modal-content" style="max-width: 400px;">
+        <span class="games-modal-close" style="cursor: pointer;">&times;</span>
+        <h3 style="margin-top: 0;">Load Filter Set</h3>
+        <div id="filter-list-container" style="max-height: 300px; overflow-y: auto; border: 1px solid #ddd; border-radius: 4px; margin-bottom: 12px;">
+          <!-- Filter list populated by JS -->
+        </div>
+      </div>
+    </div>
+  `;
+
   // Build methodology modal HTML with position multipliers
   const multiplierRows = ['GK', 'DEF', 'MID', 'FWD'].map(pos => {
     const mult = positionMultipliers[pos];
@@ -768,6 +805,108 @@ function renderPicks(round, optimalTeam, squads) {
       }
       renderWithFilters();
     });
+  });
+
+  // Save/Load filters functionality
+  const saveFiltersBtn = document.getElementById('save-filters-btn');
+  const loadFiltersBtn = document.getElementById('load-filters-btn');
+  const saveFiltersModal = document.getElementById('save-filters-modal');
+  const loadFiltersModal = document.getElementById('load-filters-modal');
+  const filterNameInput = document.getElementById('filter-name-input');
+  const confirmSaveBtn = document.getElementById('confirm-save-filters-btn');
+  const cancelSaveBtn = document.getElementById('cancel-save-filters-btn');
+
+  function getSavedFilterSets() {
+    try {
+      const saved = localStorage.getItem('efl_filter_sets');
+      return saved ? JSON.parse(saved) : {};
+    } catch (err) {
+      console.warn('Error loading filter sets:', err);
+      return {};
+    }
+  }
+
+  function saveSavedFilterSets(filterSets) {
+    try {
+      localStorage.setItem('efl_filter_sets', JSON.stringify(filterSets));
+    } catch (err) {
+      console.warn('Error saving filter sets:', err);
+    }
+  }
+
+  saveFiltersBtn.addEventListener('click', () => {
+    filterNameInput.value = '';
+    saveFiltersModal.style.display = 'block';
+    filterNameInput.focus();
+  });
+
+  confirmSaveBtn.addEventListener('click', () => {
+    const name = filterNameInput.value.trim();
+    if (!name) {
+      alert('Please enter a filter set name');
+      return;
+    }
+    const filterSets = getSavedFilterSets();
+    filterSets[name] = JSON.parse(JSON.stringify(filters));
+    saveSavedFilterSets(filterSets);
+    alert(`Filter set "${name}" saved!`);
+    saveFiltersModal.style.display = 'none';
+  });
+
+  cancelSaveBtn.addEventListener('click', () => {
+    saveFiltersModal.style.display = 'none';
+  });
+
+  loadFiltersBtn.addEventListener('click', () => {
+    const filterSets = getSavedFilterSets();
+    const listContainer = document.getElementById('filter-list-container');
+
+    if (Object.keys(filterSets).length === 0) {
+      listContainer.innerHTML = '<div style="padding: 12px; color: #999; text-align: center;">No saved filter sets</div>';
+    } else {
+      listContainer.innerHTML = Object.keys(filterSets).map(name => `
+        <div style="display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; border-bottom: 1px solid #eee;">
+          <button id="load-${name}" style="flex: 1; text-align: left; background: none; border: none; cursor: pointer; padding: 0; color: #0066cc; text-decoration: underline;">${name}</button>
+          <button id="delete-${name}" style="background: #ddd; border: none; cursor: pointer; padding: 4px 8px; border-radius: 3px; color: #d32f2f; font-size: 0.8rem;">Delete</button>
+        </div>
+      `).join('');
+
+      // Add load event listeners
+      Object.keys(filterSets).forEach(name => {
+        document.getElementById(`load-${name}`).addEventListener('click', () => {
+          Object.assign(filters, JSON.parse(JSON.stringify(filterSets[name])));
+          renderWithFilters();
+          loadFiltersModal.style.display = 'none';
+        });
+
+        // Add delete event listeners
+        document.getElementById(`delete-${name}`).addEventListener('click', () => {
+          if (confirm(`Delete "${name}"?`)) {
+            delete filterSets[name];
+            saveSavedFilterSets(filterSets);
+            loadFiltersBtn.click(); // Refresh the list
+          }
+        });
+      });
+    }
+
+    loadFiltersModal.style.display = 'block';
+  });
+
+  // Close modals
+  document.querySelectorAll('#save-filters-modal .games-modal-close, #load-filters-modal .games-modal-close').forEach(btn => {
+    btn.addEventListener('click', () => {
+      saveFiltersModal.style.display = 'none';
+      loadFiltersModal.style.display = 'none';
+    });
+  });
+
+  saveFiltersModal.addEventListener('click', (e) => {
+    if (e.target === saveFiltersModal) saveFiltersModal.style.display = 'none';
+  });
+
+  loadFiltersModal.addEventListener('click', (e) => {
+    if (e.target === loadFiltersModal) loadFiltersModal.style.display = 'none';
   });
 
   // Methodology modal functionality

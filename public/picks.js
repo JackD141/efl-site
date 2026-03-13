@@ -79,12 +79,16 @@ async function loadPicks() {
     }
 
     // Build fixture lookup for home/away determination (same as players.js)
+    console.log('[ALLROUNDS-STRUCTURE] First round keys:', Object.keys(allRounds[0] || {}));
+    console.log('[ALLROUNDS-STRUCTURE] First round:', allRounds[0]);
+
     const gamesByRound = {};
     for (const round of allRounds) {
-      gamesByRound[round.roundId] = {};
+      const roundKey = round.roundId || round.id || round.gameweek;
+      gamesByRound[roundKey] = {};
       for (const game of round.games) {
-        gamesByRound[round.roundId][game.homeId] = { ...game, isHome: true };
-        gamesByRound[round.roundId][game.awayId] = { ...game, isHome: false };
+        gamesByRound[roundKey][game.homeId] = { ...game, isHome: true };
+        gamesByRound[roundKey][game.awayId] = { ...game, isHome: false };
       }
     }
 

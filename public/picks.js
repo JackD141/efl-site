@@ -438,66 +438,71 @@ function renderPicks(round, optimalTeam, squads) {
   html += '</div>'; // close picks-formation
 
   // Build Teams to Target section
-  // Group squads by league - find all unique league values first
-  const leagueMap = {};
-  for (const squad of Object.values(squadsMap)) {
-    // Try multiple possible league property names
-    const league = squad.league || squad.divisionName || squad.leagueName || squad.division || 'Unknown';
-    if (!leagueMap[league]) {
-      leagueMap[league] = [];
+  // Calculate fixture score for each team
+  const teamsWithScores = Object.values(squadsMap).map(squad => {
+    const fixtures = fixturesBySquad[squad.id] || [];
+    let fixtureScore = 0;
+
+    for (const fixture of fixtures) {
+      const opp = fixture.isHome ? fixture.awayId : fixture.homeId;
+      const difficulty = getFixtureDifficulty(opp);
+
+      // Score by difficulty: green=2, neutral=1, red=0
+      let difficultyScore = 0;
+      if (difficulty === 'easy') difficultyScore = 2;
+      else if (difficulty === 'medium') difficultyScore = 1;
+      else if (difficulty === 'hard') difficultyScore = 0;
+
+      // Bonus for home games: home=+1, away=+0
+      const homeBonus = fixture.isHome ? 1 : 0;
+
+      fixtureScore += difficultyScore + homeBonus;
     }
-    leagueMap[league].push(squad);
-  }
 
-  // Sort squads by name within each league
-  for (const league of Object.keys(leagueMap)) {
-    leagueMap[league].sort((a, b) => (a.shortName || a.name).localeCompare(b.shortName || b.name));
-  }
+    return { squad, fixtures, fixtureScore };
+  });
 
-  console.log('[LEAGUES] Found leagues:', Object.keys(leagueMap), 'with squad counts:', Object.fromEntries(Object.entries(leagueMap).map(([k, v]) => [k, v.length])));
+  // Sort by fixture score (highest first), then by number of fixtures, then by name
+  teamsWithScores.sort((a, b) => {
+    if (b.fixtureScore !== a.fixtureScore) return b.fixtureScore - a.fixtureScore;
+    if (b.fixtures.length !== a.fixtures.length) return b.fixtures.length - a.fixtures.length;
+    return (a.squad.shortName || a.squad.name).localeCompare(b.squad.shortName || b.squad.name);
+  });
 
   let teamsHtml = '<div style="margin-top: 40px; padding-top: 24px; border-top: 2px solid #ddd;">';
   teamsHtml += '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">';
-  teamsHtml += '<h3 style="margin: 0; font-size: 1.2rem;">Teams to Target</h3>';
+  teamsHtml += '<h3 style="margin: 0; font-size: 1.2rem;">Teams to Target (Ranked by Fixture Quality)</h3>';
   teamsHtml += '<div style="display: flex; gap: 8px;">';
   teamsHtml += '<button id="include-all-teams" style="padding: 6px 14px; font-size: 0.8rem; background: #f05a28; color: white; border: none; border-radius: 4px; cursor: pointer;">Include All</button>';
   teamsHtml += '<button id="exclude-all-teams" style="padding: 6px 14px; font-size: 0.8rem; background: #999; color: white; border: none; border-radius: 4px; cursor: pointer;">Exclude All</button>';
   teamsHtml += '</div></div>';
-  teamsHtml += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;">';
+  teamsHtml += '<div style="display: flex; flex-direction: column; gap: 8px;">';
 
-  // Get sorted league names
-  const sortedLeagues = Object.keys(leagueMap).sort();
-  for (const league of sortedLeagues) {
-    const squads = leagueMap[league];
+  for (const { squad, fixtures, fixtureScore } of teamsWithScores) {
+    const isExcluded = filters.excludeTeams.includes(squad.id);
+    const fixtureCount = fixtures.length;
 
-    teamsHtml += `<div style="border: 1px solid #ddd; border-radius: 8px; padding: 16px;">`;
-    teamsHtml += `<h4 style="margin-bottom: 12px; color: #f05a28; font-size: 0.95rem;">${league}</h4>`;
-
-    for (const squad of squads) {
-      const fixtures = fixturesBySquad[squad.id] || [];
-      const fixtureCount = fixtures.length;
-      const isExcluded = filters.excludeTeams.includes(squad.id);
-
-      let fixturesDisplay = '';
-      for (const fixture of fixtures) {
-        const opp = fixture.isHome ? fixture.awayId : fixture.homeId;
-        const oppSquad = squadsMap[opp];
-        const oppName = oppSquad?.shortName || '?';
-        const difficulty = getFixtureDifficulty(opp);
-        const fixtureBadgeClass = `fixture-${difficulty}`;
-        fixturesDisplay += `<span class="fixture-badge ${fixtureBadgeClass}" style="margin-right: 4px; display: inline-block;">${oppName}</span>`;
-      }
-
-      const label = fixtureCount === 2 ? '2️⃣ ' : '';
-      teamsHtml += `
-        <div style="margin-bottom: 12px; padding: 8px; background: ${isExcluded ? '#f0f0f0' : '#fafafa'}; border-radius: 4px; cursor: pointer;" class="team-target-row" data-squad-id="${squad.id}">
-          <div style="font-weight: bold; margin-bottom: 4px; ${isExcluded ? 'opacity: 0.5;' : ''}">${label}${squad.shortName || squad.name}</div>
-          <div style="font-size: 0.8rem; ${isExcluded ? 'opacity: 0.5;' : ''}">${fixturesDisplay}</div>
-        </div>
-      `;
+    let fixturesDisplay = '';
+    for (const fixture of fixtures) {
+      const opp = fixture.isHome ? fixture.awayId : fixture.homeId;
+      const oppSquad = squadsMap[opp];
+      const oppName = oppSquad?.shortName || '?';
+      const homeAway = fixture.isHome ? 'H' : 'A';
+      const difficulty = getFixtureDifficulty(opp);
+      const fixtureBadgeClass = `fixture-${difficulty}`;
+      fixturesDisplay += `<span class="fixture-badge ${fixtureBadgeClass}" style="margin-right: 4px; display: inline-block;">${oppName}(${homeAway})</span>`;
     }
 
-    teamsHtml += '</div>';
+    const checkboxId = `team-check-${squad.id}`;
+    teamsHtml += `
+      <div style="display: flex; align-items: center; gap: 12px; padding: 10px; background: ${isExcluded ? '#f0f0f0' : '#fafafa'}; border-radius: 4px; border-left: 3px solid #f05a28;">
+        <input type="checkbox" id="${checkboxId}" class="team-target-checkbox" value="${squad.id}" ${isExcluded ? '' : 'checked'} style="cursor: pointer; width: 18px; height: 18px;" />
+        <div style="flex: 1; ${isExcluded ? 'opacity: 0.5;' : ''}">
+          <div style="font-weight: bold;">${squad.shortName || squad.name} (Score: ${fixtureScore})</div>
+          <div style="font-size: 0.75rem; color: #666;">${fixtures.length} fixture${fixtures.length !== 1 ? 's' : ''} • ${fixturesDisplay}</div>
+        </div>
+      </div>
+    `;
   }
 
   teamsHtml += '</div></div>';
@@ -572,19 +577,14 @@ function renderPicks(round, optimalTeam, squads) {
     renderWithFilters();
   });
 
-  // Team target rows (click to toggle)
-  document.querySelectorAll('.team-target-row').forEach(row => {
-    row.addEventListener('click', () => {
-      const squadId = parseInt(row.getAttribute('data-squad-id'), 10);
-      if (filters.excludeTeams.includes(squadId)) {
+  // Team target checkboxes
+  document.querySelectorAll('.team-target-checkbox').forEach(checkbox => {
+    checkbox.addEventListener('change', (e) => {
+      const squadId = parseInt(e.target.value, 10);
+      if (e.target.checked) {
         filters.excludeTeams = filters.excludeTeams.filter(id => id !== squadId);
       } else {
         filters.excludeTeams.push(squadId);
-      }
-      // Also toggle the corresponding checkbox
-      const checkbox = document.querySelector(`.team-filter[value="${squadId}"]`);
-      if (checkbox) {
-        checkbox.checked = !checkbox.checked;
       }
       renderWithFilters();
     });

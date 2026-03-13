@@ -339,6 +339,21 @@ function renderPlayerStats(player, profile) {
   const per90Data = calcPer90(games, cols, pos, player.squadId);
   const per90Overall = per90Data ? per90Data.overallPer90.toFixed(1) : '—';
 
+  // Calculate home/away minutes
+  const gamesByRound = buildGamesByRound(allRounds);
+  let homeMins = 0, awayMins = 0;
+  for (const game of games) {
+    const roundNum = game.round || game.roundId || game.roundNumber;
+    const gameInfo = gamesByRound[roundNum]?.[player.squadId];
+    const mins = game.minutesPlayed || game.minutes || 0;
+    if (gameInfo && gameInfo.isHome) {
+      homeMins += mins;
+    } else if (gameInfo && !gameInfo.isHome) {
+      awayMins += mins;
+    }
+  }
+  const totalMins = per90Data?.totalMins || 0;
+
   const summaryHtml = `
     <div class="player-header">
       <h2>${name}</h2>
@@ -347,6 +362,9 @@ function renderPlayerStats(player, profile) {
     <div class="season-summary">
       <div class="stat-pill">Total Pts <strong>${player.totalPoints}</strong></div>
       <div class="stat-pill">Pts/90 <strong>${per90Overall}</strong></div>
+      <div class="stat-pill">Total Mins <strong>${Math.round(totalMins)}</strong></div>
+      <div class="stat-pill">Home Mins <strong>${homeMins}</strong></div>
+      <div class="stat-pill">Away Mins <strong>${awayMins}</strong></div>
       <div class="stat-pill">Apps <strong>${player.appearances}</strong></div>
       <div class="stat-pill">Goals <strong>${player.goalsScored}</strong></div>
       <div class="stat-pill">Assists <strong>${player.assists}</strong></div>

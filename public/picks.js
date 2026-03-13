@@ -104,18 +104,46 @@ function buildGamesByRound(rounds) {
 async function enrichPlayers(players, rounds, squads) {
   const gamesByRound = buildGamesByRound(rounds);
 
+  // Fetch profiles with timeout for all players in parallel batches
+  const fetchProfileWithTimeout = async (playerId) => {
+    try {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 3000); // 3 second timeout per player
+
+      const profileRes = await fetch(`/api/player?id=${playerId}`, { signal: controller.signal });
+      clearTimeout(timeout);
+
+      if (!profileRes.ok) return null;
+      return await profileRes.json();
+    } catch (err) {
+      return null;
+    }
+  };
+
+  // Fetch profiles in batches of 5 to avoid overwhelming the server
+  const batchSize = 5;
+  const profiles = {};
+
+  for (let i = 0; i < players.length; i += batchSize) {
+    const batch = players.slice(i, i + batchSize);
+    const promises = batch.map(p => fetchProfileWithTimeout(p.id).then(profile => ({ id: p.id, profile })));
+    const results = await Promise.all(promises);
+
+    for (const result of results) {
+      if (result.profile) {
+        profiles[result.id] = result.profile;
+      }
+    }
+  }
+
+  // Process each player
   for (const player of players) {
     let homeMins = 0, homePts = 0, awayMins = 0, awayPts = 0;
     const recentGames = [];
+    const profile = profiles[player.id];
+    const games = profile ? (profile.results || profile.games || []) : [];
 
-    try {
-      // Fetch player's per-game stats
-      const profileRes = await fetch(`/api/player?id=${player.id}`);
-      if (!profileRes.ok) continue;
-
-      const profile = await profileRes.json();
-      const games = profile.results || profile.games || [];
-
+    if (games.length > 0) {
       // Match each game to determine home/away
       for (const game of games) {
         const roundNum = game.round || game.roundId || game.roundNumber;
@@ -156,12 +184,11 @@ async function enrichPlayers(players, rounds, squads) {
       }
 
       player.recentGames = recentGames.slice(-5);
-    } catch (err) {
-      // Fallback if profile fetch fails
-      player.homePer90 = 0;
-      player.awayPer90 = 0;
+    } else {
+      // No profile data - use sensible defaults
+      player.homePer90 = player.averagePoints || 0;
+      player.awayPer90 = player.averagePoints || 0;
       player.recentGames = [];
-      console.warn(`Failed to load profile for player ${player.id}:`, err);
     }
 
     // Get next GW fixtures and calculate projection

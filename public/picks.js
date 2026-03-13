@@ -118,6 +118,9 @@ function enrichPlayers(players, rounds, squads) {
 
     // Calculate recent average minutes
     p.recentAvgMins = getRecentAvgMins(p);
+    if (p.games && p.games.length > 0) {
+      console.log(`[DEBUG] ${p.firstName} ${p.lastName}: ${p.games.length} games, recentAvgMins=${p.recentAvgMins.toFixed(1)}, games=${p.games.slice(-5).map(g => g.minutes || 0).join(',')}`);
+    }
 
     // Calculate projected pts for next GW
     let projectedPts = 0;
@@ -162,7 +165,10 @@ function solveForFormation(players, formation, filters) {
     if (filters.excludeInjured && p.injuryDetails) return false;
     if (filters.min1000mins && (p.appearances * 90 < 1000)) return false;
     if (filters.excludeTeams.includes(p.squadId)) return false;
-    if (filters.minRecentAvgMins > 0 && p.recentAvgMins < filters.minRecentAvgMins) return false;
+    if (filters.minRecentAvgMins > 0 && p.recentAvgMins < filters.minRecentAvgMins) {
+      console.log(`[FILTER] ${p.firstName} ${p.lastName}: recentAvgMins=${p.recentAvgMins.toFixed(1)} < ${filters.minRecentAvgMins} (filtered out)`);
+      return false;
+    }
     return true;
   });
 

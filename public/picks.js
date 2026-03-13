@@ -244,34 +244,7 @@ function enrichPlayers(players, rounds, squads) {
 }
 
 function renderWithFilters() {
-  // Check if all teams are excluded
-  const allTeamIds = Array.from(Object.values(squadsMap)).map(s => s.id);
-  const allExcluded = filters.excludeTeams.length > 0 && allTeamIds.every(id => filters.excludeTeams.includes(id));
-
-  if (allExcluded) {
-    picksContainer.innerHTML = '<p style="padding: 20px; text-align: center; color: #999;">No teams selected. Use the Teams to Target section to include teams.</p>';
-    return;
-  }
-
   const optimalTeam = solveOptimalTeam(allPlayers, filters);
-
-  if (!optimalTeam) {
-    // Count eligible players to provide helpful feedback
-    const eligible = allPlayers.filter(p => {
-      if (filters.excludeInjured && p.injuryDetails) return false;
-      if (filters.min1000mins && (p.appearances * 90 < 1000)) return false;
-      if (filters.excludeTeams.includes(p.squadId)) return false;
-      if (filters.minRecentAvgMins > 0 && p.recentAvgMins < filters.minRecentAvgMins) return false;
-      return true;
-    });
-
-    const msg = eligible.length === 0
-      ? '<p class="error-msg">No players available with current filters. Try adjusting your selections.</p>'
-      : '<p class="error-msg">Could not form a valid team with current filters. Try adjusting your selections.</p>';
-    picksContainer.innerHTML = msg;
-    return;
-  }
-
   renderPicks(nextRound, optimalTeam, squadsMap);
 }
 
@@ -332,9 +305,6 @@ function solveForFormation(players, formation, filters) {
 }
 
 function renderPicks(round, optimalTeam, squads) {
-  const { team, formation, totalPts } = optimalTeam;
-  const formationStr = `${formation.gk}-${formation.def}-${formation.mid}-${formation.fwd}`;
-
   // Build team filter checkboxes
   const teamOptions = Array.from(new Set(allPlayers.map(p => p.squadId)))
     .sort((a, b) => {
@@ -376,80 +346,90 @@ function renderPicks(round, optimalTeam, squads) {
     <div class="picks-header">
       <h2>Dexter's Optimal Picks</h2>
       <p class="gw-label">Gameweek ${round.roundNumber}</p>
-      <p class="formation-label">Formation ${formationStr} • Projected: <strong>${totalPts.toFixed(1)} pts</strong></p>
-    </div>
-
-    <div class="picks-formation">
   `;
 
-  const byPos = {
-    GK: team.filter(p => p.position === 'GK'),
-    DEF: team.filter(p => p.position === 'DEF'),
-    MID: team.filter(p => p.position === 'MID'),
-    FWD: team.filter(p => p.position === 'FWD'),
-  };
+  if (optimalTeam) {
+    const { team, formation, totalPts } = optimalTeam;
+    const formationStr = `${formation.gk}-${formation.def}-${formation.mid}-${formation.fwd}`;
+    html += `<p class="formation-label">Formation ${formationStr} • Projected: <strong>${totalPts.toFixed(1)} pts</strong></p>`;
+    html += '</div>';
 
-  for (const pos of ['GK', 'DEF', 'MID', 'FWD']) {
-    if (byPos[pos].length === 0) continue;
+    html += `<div class="picks-formation">`;
 
-    html += `<div class="picks-position-group ${pos.toLowerCase()}-group">`;
+    const byPos = {
+      GK: team.filter(p => p.position === 'GK'),
+      DEF: team.filter(p => p.position === 'DEF'),
+      MID: team.filter(p => p.position === 'MID'),
+      FWD: team.filter(p => p.position === 'FWD'),
+    };
 
-    for (const player of byPos[pos]) {
-      const name = player.displayName || `${player.firstName} ${player.lastName}`;
-      const squad = squads[player.squadId];
-      const squadName = squad?.shortName || squad?.name || '?';
-      const captainClass = player.isCaptain ? 'is-captain' : '';
-      const projDisplay = player.isCaptain ? `${player.projectedPtsDisplay.toFixed(1)}*` : player.projectedPts.toFixed(1);
+    for (const pos of ['GK', 'DEF', 'MID', 'FWD']) {
+      if (byPos[pos].length === 0) continue;
 
-      // Build fixtures display with per-90 values
-      let fixturesHtml = '';
-      if (player.fixtures && player.fixtures.length > 0) {
-        fixturesHtml = '<div class="pick-fixtures">';
-        for (const fixture of player.fixtures) {
-          const opp = fixture.isHome ? fixture.awayId : fixture.homeId;
-          const oppSquad = squads[opp];
-          const oppName = oppSquad?.shortName || '?';
-          const homeAway = fixture.isHome ? 'H' : 'A';
-          const difficulty = getFixtureDifficulty(opp);
-          const fixtureBadgeClass = `fixture-${difficulty}`;
-          const per90Val = fixture.isHome ? player.homePer90 : player.awayPer90;
-          fixturesHtml += `<span class="fixture-badge ${fixtureBadgeClass}">${oppName}(${homeAway})<span class="fixture-per90">${per90Val.toFixed(1)}</span></span>`;
+      html += `<div class="picks-position-group ${pos.toLowerCase()}-group">`;
+
+      for (const player of byPos[pos]) {
+        const name = player.displayName || `${player.firstName} ${player.lastName}`;
+        const squad = squads[player.squadId];
+        const squadName = squad?.shortName || squad?.name || '?';
+        const captainClass = player.isCaptain ? 'is-captain' : '';
+        const projDisplay = player.isCaptain ? `${player.projectedPtsDisplay.toFixed(1)}*` : player.projectedPts.toFixed(1);
+
+        // Build fixtures display with per-90 values
+        let fixturesHtml = '';
+        if (player.fixtures && player.fixtures.length > 0) {
+          fixturesHtml = '<div class="pick-fixtures">';
+          for (const fixture of player.fixtures) {
+            const opp = fixture.isHome ? fixture.awayId : fixture.homeId;
+            const oppSquad = squads[opp];
+            const oppName = oppSquad?.shortName || '?';
+            const homeAway = fixture.isHome ? 'H' : 'A';
+            const difficulty = getFixtureDifficulty(opp);
+            const fixtureBadgeClass = `fixture-${difficulty}`;
+            const per90Val = fixture.isHome ? player.homePer90 : player.awayPer90;
+            fixturesHtml += `<span class="fixture-badge ${fixtureBadgeClass}">${oppName}(${homeAway})<span class="fixture-per90">${per90Val.toFixed(1)}</span></span>`;
+          }
+          fixturesHtml += '</div>';
         }
-        fixturesHtml += '</div>';
+
+        const hasGames = player.games && player.games.length > 0;
+        const infoButtonHtml = hasGames ? `<button class="pick-info-btn" data-player-id="${player.id}" title="View last 5 games">ℹ️</button>` : '';
+
+        html += `
+          <div class="pick-card pick-${pos} ${captainClass}">
+            <div class="pick-header">
+              <div class="pick-name">${name} ${infoButtonHtml}</div>
+              <div class="pick-squad">${squadName}</div>
+            </div>
+            <div class="pick-stats">
+              <div class="pick-stat">
+                <span class="pick-label">Avg</span>
+                <span class="pick-value">${(player.averagePoints || 0).toFixed(2)}</span>
+              </div>
+              <div class="pick-stat">
+                <span class="pick-label">Fix</span>
+                <span class="pick-value">${player.fixtures?.length || 0}</span>
+              </div>
+              <div class="pick-stat">
+                <span class="pick-label">Proj</span>
+                <span class="pick-value">${projDisplay}</span>
+              </div>
+            </div>
+            ${fixturesHtml}
+          </div>
+        `;
       }
 
-      const hasGames = player.games && player.games.length > 0;
-      const infoButtonHtml = hasGames ? `<button class="pick-info-btn" data-player-id="${player.id}" title="View last 5 games">ℹ️</button>` : '';
-
-      html += `
-        <div class="pick-card pick-${pos} ${captainClass}">
-          <div class="pick-header">
-            <div class="pick-name">${name} ${infoButtonHtml}</div>
-            <div class="pick-squad">${squadName}</div>
-          </div>
-          <div class="pick-stats">
-            <div class="pick-stat">
-              <span class="pick-label">Avg</span>
-              <span class="pick-value">${(player.averagePoints || 0).toFixed(2)}</span>
-            </div>
-            <div class="pick-stat">
-              <span class="pick-label">Fix</span>
-              <span class="pick-value">${player.fixtures?.length || 0}</span>
-            </div>
-            <div class="pick-stat">
-              <span class="pick-label">Proj</span>
-              <span class="pick-value">${projDisplay}</span>
-            </div>
-          </div>
-          ${fixturesHtml}
-        </div>
-      `;
+      html += '</div>';
     }
 
+    html += '</div>'; // close picks-formation
+  } else {
+    html += '</div>';
+    html += '<div class="picks-formation" style="padding: 20px; text-align: center; color: #666;">';
+    html += '<p>No team can be formed with the current filters. Adjust filters or select different teams.</p>';
     html += '</div>';
   }
-
-  html += '</div>'; // close picks-formation
 
   // Build Teams to Target section
   // Calculate fixture score for each team and group by league

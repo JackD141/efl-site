@@ -14,6 +14,7 @@ const profileCache = {};
 // ─── Column definitions by position ──────────────────────────────────────────
 const BASE_COLS = [
   { label: 'GW',       key: 'roundId',        title: 'Game Week' },
+  { label: 'H/A',      key: 'homeAway',       title: 'Home or Away' },
   { label: 'Mins',     key: 'minutesPlayed',   title: 'Minutes Played (+1 if <60, +2 if 60+)' },
   { label: 'Goals',    key: 'goalsScored',     title: 'Goals Scored (GK +10, DEF +7, MID +6, FWD +5)' },
   { label: 'Hat-T',    key: 'hatTricks',       title: 'Hat-Tricks (+5 bonus)' },
@@ -86,7 +87,7 @@ function calcStatPoints(key, val, pos, minsPlayed) {
 }
 
 function formatCell(key, val, pos, minsPlayed) {
-  if (key === 'roundId' || key === 'points') return val;
+  if (key === 'roundId' || key === 'points' || key === 'homeAway') return val;
   const pts = calcStatPoints(key, val, pos, minsPlayed);
   if (pts === null || val === 0) return val;
   if (pts === 0) return val; // stat happened but worth 0pts (e.g. CS with <60 mins)
@@ -342,7 +343,7 @@ function renderPlayerStats(player, profile) {
   const per90Data = calcPer90(games, cols, pos, player.squadId);
   const per90Overall = per90Data ? per90Data.overallPer90.toFixed(1) : '—';
 
-  // Calculate home/away minutes
+  // Calculate home/away minutes and enrich games with homeAway field
   const gamesByRound = buildGamesByRound(allRounds);
   let homeMins = 0, awayMins = 0;
   for (const game of games) {
@@ -351,8 +352,10 @@ function renderPlayerStats(player, profile) {
     const mins = game.minutesPlayed || game.minutes || 0;
     if (gameInfo && gameInfo.isHome) {
       homeMins += mins;
+      game.homeAway = 'H';
     } else if (gameInfo && !gameInfo.isHome) {
       awayMins += mins;
+      game.homeAway = 'A';
     }
   }
   const totalMins = per90Data?.totalMins || 0;

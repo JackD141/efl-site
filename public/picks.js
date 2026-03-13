@@ -185,12 +185,17 @@ async function enrichPlayerGameData(players) {
       statusEl.textContent = `Loading game data: ${loaded}/${playersToFetch.length}`;
     }
 
+    // Log results
+    const numWithData = Object.keys(cachedData).length;
+    const numFiltered = playersToFetch.filter(p => p.recentAvgMins > 0).length;
+    console.log(`[GAME-DATA] Fetched data for ${numWithData}/${playersToFetch.length} players. ${numFiltered} have recentAvgMins calculated.`);
+
     // Store cache if we got some data
-    if (Object.keys(cachedData).length > 0) {
+    if (numWithData > 0) {
       try {
         localStorage.setItem(cacheKey, JSON.stringify(cachedData));
         localStorage.setItem(cacheTimestampKey, now.toString());
-        console.log(`[CACHE] Saved game data for ${Object.keys(cachedData).length} players`);
+        console.log(`[CACHE] Saved game data for ${numWithData} players`);
       } catch (err) {
         console.warn('Could not save cache to localStorage:', err.message);
       }
@@ -232,8 +237,19 @@ function renderWithFilters() {
   const optimalTeam = solveOptimalTeam(allPlayers, filters);
 
   if (!optimalTeam) {
-    picksContainer.innerHTML =
-      '<p class="error-msg">Could not find valid team with current filters.</p>';
+    // Count eligible players to provide helpful feedback
+    const eligible = allPlayers.filter(p => {
+      if (filters.excludeInjured && p.injuryDetails) return false;
+      if (filters.min1000mins && (p.appearances * 90 < 1000)) return false;
+      if (filters.excludeTeams.includes(p.squadId)) return false;
+      if (filters.minRecentAvgMins > 0 && p.recentAvgMins < filters.minRecentAvgMins) return false;
+      return true;
+    });
+
+    const msg = eligible.length === 0
+      ? '<p class="error-msg">No players available with current filters. Try adjusting your selections.</p>'
+      : '<p class="error-msg">Could not form a valid team with current filters. Try adjusting your selections.</p>';
+    picksContainer.innerHTML = msg;
     return;
   }
 
@@ -338,19 +354,6 @@ function renderPicks(round, optimalTeam, squads) {
       </div>
     </div>
 
-    <div style="margin-bottom: 16px; padding: 12px; background: #f5f5f5; border-radius: 6px;">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-        <div style="font-size: 0.85rem; color: #666; text-transform: uppercase; font-weight: bold;">Include Teams</div>
-        <div style="display: flex; gap: 8px;">
-          <button id="include-all-teams" style="padding: 4px 12px; font-size: 0.8rem; background: #f05a28; color: white; border: none; border-radius: 4px; cursor: pointer;">Include All</button>
-          <button id="exclude-all-teams" style="padding: 4px 12px; font-size: 0.8rem; background: #999; color: white; border: none; border-radius: 4px; cursor: pointer;">Exclude All</button>
-        </div>
-      </div>
-      <div style="display: flex; flex-wrap: wrap; gap: 12px;">
-        ${teamOptions}
-      </div>
-    </div>
-
     <div class="picks-header">
       <h2>Dexter's Optimal Picks</h2>
       <p class="gw-label">Gameweek ${round.roundNumber}</p>
@@ -448,7 +451,13 @@ function renderPicks(round, optimalTeam, squads) {
     leagueMap[league].sort((a, b) => (a.shortName || a.name).localeCompare(b.shortName || b.name));
   }
 
-  let teamsHtml = '<div style="margin-top: 40px; padding-top: 24px; border-top: 2px solid #ddd;"><h3 style="margin-bottom: 20px; font-size: 1.2rem;">Teams to Target</h3>';
+  let teamsHtml = '<div style="margin-top: 40px; padding-top: 24px; border-top: 2px solid #ddd;">';
+  teamsHtml += '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">';
+  teamsHtml += '<h3 style="margin: 0; font-size: 1.2rem;">Teams to Target</h3>';
+  teamsHtml += '<div style="display: flex; gap: 8px;">';
+  teamsHtml += '<button id="include-all-teams" style="padding: 6px 14px; font-size: 0.8rem; background: #f05a28; color: white; border: none; border-radius: 4px; cursor: pointer;">Include All</button>';
+  teamsHtml += '<button id="exclude-all-teams" style="padding: 6px 14px; font-size: 0.8rem; background: #999; color: white; border: none; border-radius: 4px; cursor: pointer;">Exclude All</button>';
+  teamsHtml += '</div></div>';
   teamsHtml += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;">';
 
   for (const leagueKey of ['League 2', 'League 1', 'Championship']) {

@@ -18,6 +18,8 @@ let filters = {
   excludeInjured: true,
   min1000mins: true,
   oneClubChip: false,
+  minRecentAvgMins: 0,
+  excludeTeams: [],
 };
 
 async function loadPicks() {
@@ -104,7 +106,7 @@ function enrichPlayers(players, rounds, squads) {
     let projectedPts = 0;
     for (const fixture of fixtures) {
       const per90 = fixture.isHome ? p.homePer90 : p.awayPer90;
-      projectedPts += (per90 / 90);
+      projectedPts += per90;  // Per-90 is already the expected points for a full match
     }
 
     p.projectedPts = projectedPts;
@@ -142,6 +144,7 @@ function solveForFormation(players, formation, filters) {
   const eligible = players.filter(p => {
     if (filters.excludeInjured && p.injuryDetails) return false;
     if (filters.min1000mins && (p.appearances * 90 < 1000)) return false;
+    if (filters.excludeTeams.includes(p.squadId)) return false;
     return true;
   });
 
@@ -181,6 +184,16 @@ function renderPicks(round, optimalTeam, squads) {
   const { team, formation, totalPts } = optimalTeam;
   const formationStr = `${formation.gk}-${formation.def}-${formation.mid}-${formation.fwd}`;
 
+  // Build team filter checkboxes
+  const teamOptions = Array.from(new Set(allPlayers.map(p => p.squadId)))
+    .sort()
+    .map(squadId => {
+      const squad = squadsMap[squadId];
+      const isChecked = !filters.excludeTeams.includes(squadId);
+      return `<label style="margin-right: 12px; display: inline-block;"><input type="checkbox" class="team-filter" value="${squadId}" ${isChecked ? 'checked' : ''} /> ${squad?.shortName || squad?.name || '?'}</label>`;
+    })
+    .join('');
+
   let html = `
     <div class="picks-filters">
       <label>
@@ -195,6 +208,15 @@ function renderPicks(round, optimalTeam, squads) {
         <input type="checkbox" id="one-club-chip" ${filters.oneClubChip ? 'checked' : ''} />
         One Club Chip
       </label>
+      <label style="display: block; margin-top: 8px;">
+        Last 5 Min Avg: <span id="recent-mins-label">${filters.minRecentAvgMins}</span>
+        <input type="range" id="recent-mins-slider" min="0" max="90" value="${filters.minRecentAvgMins}" style="width: 120px; vertical-align: middle;" />
+      </label>
+    </div>
+
+    <div style="margin-bottom: 16px; padding: 12px; background: #f5f5f5; border-radius: 6px;">
+      <div style="font-size: 0.85rem; color: #666; text-transform: uppercase; font-weight: bold; margin-bottom: 8px;">Exclude Teams</div>
+      ${teamOptions}
     </div>
 
     <div class="picks-header">
@@ -225,7 +247,7 @@ function renderPicks(round, optimalTeam, squads) {
       const captainClass = player.isCaptain ? 'is-captain' : '';
       const projDisplay = player.isCaptain ? `${player.projectedPtsDisplay.toFixed(1)}*` : player.projectedPts.toFixed(1);
 
-      // Build fixtures display (only next GW fixtures)
+      // Build fixtures display with per-90 values
       let fixturesHtml = '';
       if (player.fixtures && player.fixtures.length > 0) {
         fixturesHtml = '<div class="pick-fixtures">';
@@ -236,7 +258,8 @@ function renderPicks(round, optimalTeam, squads) {
           const homeAway = fixture.isHome ? 'H' : 'A';
           const difficulty = getFixtureDifficulty(opp);
           const fixtureBadgeClass = `fixture-${difficulty}`;
-          fixturesHtml += `<span class="fixture-badge ${fixtureBadgeClass}">${oppName}(${homeAway})</span>`;
+          const per90Val = fixture.isHome ? player.homePer90 : player.awayPer90;
+          fixturesHtml += `<span class="fixture-badge ${fixtureBadgeClass}">${oppName}(${homeAway})<span class="fixture-per90">${per90Val.toFixed(1)}</span></span>`;
         }
         fixturesHtml += '</div>';
       }
@@ -286,6 +309,24 @@ function renderPicks(round, optimalTeam, squads) {
   document.getElementById('one-club-chip').addEventListener('change', (e) => {
     filters.oneClubChip = e.target.checked;
     renderWithFilters();
+  });
+
+  document.getElementById('recent-mins-slider').addEventListener('input', (e) => {
+    filters.minRecentAvgMins = parseInt(e.target.value, 10);
+    document.getElementById('recent-mins-label').textContent = filters.minRecentAvgMins;
+    renderWithFilters();
+  });
+
+  document.querySelectorAll('.team-filter').forEach(checkbox => {
+    checkbox.addEventListener('change', (e) => {
+      const squadId = parseInt(e.target.value, 10);
+      if (e.target.checked) {
+        filters.excludeTeams = filters.excludeTeams.filter(id => id !== squadId);
+      } else {
+        filters.excludeTeams.push(squadId);
+      }
+      renderWithFilters();
+    });
   });
 }
 

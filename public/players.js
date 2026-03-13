@@ -335,6 +335,9 @@ function renderPlayerStats(player, profile) {
 
   const cols = COLS_BY_POS[pos] || [...BASE_COLS, { label: 'Pts', key: 'points', title: 'Total Points' }];
 
+  // Add back button
+  const backBtn = `<button style="margin-bottom: 16px; padding: 8px 16px; background: #f05a28; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;" onclick="searchInput.value = ''; searchResults.innerHTML = ''; playerStats.innerHTML = ''; leaderboardDiv.style.display = '';">← Back to Leaderboard</button>`;
+
   // Calculate per-90 stats
   const per90Data = calcPer90(games, cols, pos, player.squadId);
   const per90Overall = per90Data ? per90Data.overallPer90.toFixed(1) : '—';
@@ -378,7 +381,7 @@ function renderPlayerStats(player, profile) {
 
   const per90Html = buildPer90Section(per90Data, cols);
 
-  playerStats.innerHTML = summaryHtml + per90Html + buildTable(games, cols, pos);
+  playerStats.innerHTML = backBtn + summaryHtml + per90Html + buildTable(games, cols, pos);
   attachSortHandlers(cols, pos);
 }
 

@@ -239,6 +239,15 @@ function enrichPlayers(players, rounds, squads) {
 }
 
 function renderWithFilters() {
+  // Check if all teams are excluded
+  const allTeamIds = Array.from(Object.values(squadsMap)).map(s => s.id);
+  const allExcluded = filters.excludeTeams.length > 0 && allTeamIds.every(id => filters.excludeTeams.includes(id));
+
+  if (allExcluded) {
+    picksContainer.innerHTML = '<p style="padding: 20px; text-align: center; color: #999;">No teams selected. Use the Teams to Target section to include teams.</p>';
+    return;
+  }
+
   const optimalTeam = solveOptimalTeam(allPlayers, filters);
 
   if (!optimalTeam) {
@@ -438,8 +447,14 @@ function renderPicks(round, optimalTeam, squads) {
   html += '</div>'; // close picks-formation
 
   // Build Teams to Target section
-  // Calculate fixture score for each team
-  const teamsWithScores = Object.values(squadsMap).map(squad => {
+  // Calculate fixture score for each team and group by league
+  const leagueGroups = {
+    'Championship': [],
+    'League 1': [],
+    'League 2': []
+  };
+
+  for (const squad of Object.values(squadsMap)) {
     const fixtures = fixturesBySquad[squad.id] || [];
     let fixtureScore = 0;
 
@@ -447,62 +462,72 @@ function renderPicks(round, optimalTeam, squads) {
       const opp = fixture.isHome ? fixture.awayId : fixture.homeId;
       const difficulty = getFixtureDifficulty(opp);
 
-      // Score by difficulty: green=2, neutral=1, red=0
       let difficultyScore = 0;
       if (difficulty === 'easy') difficultyScore = 2;
       else if (difficulty === 'medium') difficultyScore = 1;
       else if (difficulty === 'hard') difficultyScore = 0;
 
-      // Bonus for home games: home=+1, away=+0
       const homeBonus = fixture.isHome ? 1 : 0;
-
       fixtureScore += difficultyScore + homeBonus;
     }
 
-    return { squad, fixtures, fixtureScore };
-  });
+    // Determine league by position
+    const pos = squad.leaguePosition || 999;
+    let league = 'League 2';
+    if (pos <= 8) league = 'Championship';
+    else if (pos <= 16) league = 'League 1';
 
-  // Sort by fixture score (highest first), then by number of fixtures, then by name
-  teamsWithScores.sort((a, b) => {
-    if (b.fixtureScore !== a.fixtureScore) return b.fixtureScore - a.fixtureScore;
-    if (b.fixtures.length !== a.fixtures.length) return b.fixtures.length - a.fixtures.length;
-    return (a.squad.shortName || a.squad.name).localeCompare(b.squad.shortName || b.squad.name);
-  });
+    leagueGroups[league].push({ squad, fixtures, fixtureScore });
+  }
+
+  // Sort teams within each league by fixture score
+  for (const league of Object.keys(leagueGroups)) {
+    leagueGroups[league].sort((a, b) => {
+      if (b.fixtureScore !== a.fixtureScore) return b.fixtureScore - a.fixtureScore;
+      if (b.fixtures.length !== a.fixtures.length) return b.fixtures.length - a.fixtures.length;
+      return (a.squad.shortName || a.squad.name).localeCompare(b.squad.shortName || b.squad.name);
+    });
+  }
 
   let teamsHtml = '<div style="margin-top: 40px; padding-top: 24px; border-top: 2px solid #ddd;">';
   teamsHtml += '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">';
-  teamsHtml += '<h3 style="margin: 0; font-size: 1.2rem;">Teams to Target (Ranked by Fixture Quality)</h3>';
-  teamsHtml += '<div style="display: flex; gap: 8px;">';
-  teamsHtml += '<button id="include-all-teams" style="padding: 6px 14px; font-size: 0.8rem; background: #f05a28; color: white; border: none; border-radius: 4px; cursor: pointer;">Include All</button>';
-  teamsHtml += '<button id="exclude-all-teams" style="padding: 6px 14px; font-size: 0.8rem; background: #999; color: white; border: none; border-radius: 4px; cursor: pointer;">Exclude All</button>';
-  teamsHtml += '</div></div>';
-  teamsHtml += '<div style="display: flex; flex-direction: column; gap: 8px;">';
+  teamsHtml += '<h3 style="margin: 0; font-size: 1.2rem;">Teams to Target</h3>';
+  teamsHtml += '<label style="display: flex; align-items: center; gap: 6px; cursor: pointer; font-size: 0.9rem;"><input type="checkbox" id="toggle-all-teams" style="width: 18px; height: 18px; cursor: pointer;" /> Toggle All</label>';
+  teamsHtml += '</div>';
+  teamsHtml += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">';
 
-  for (const { squad, fixtures, fixtureScore } of teamsWithScores) {
-    const isExcluded = filters.excludeTeams.includes(squad.id);
-    const fixtureCount = fixtures.length;
+  for (const league of ['Championship', 'League 1', 'League 2']) {
+    const teams = leagueGroups[league];
+    teamsHtml += `<div><h4 style="margin-bottom: 12px; color: #f05a28;">${league}</h4>`;
+    teamsHtml += '<div style="display: flex; flex-direction: column; gap: 8px;">';
 
-    let fixturesDisplay = '';
-    for (const fixture of fixtures) {
-      const opp = fixture.isHome ? fixture.awayId : fixture.homeId;
-      const oppSquad = squadsMap[opp];
-      const oppName = oppSquad?.shortName || '?';
-      const homeAway = fixture.isHome ? 'H' : 'A';
-      const difficulty = getFixtureDifficulty(opp);
-      const fixtureBadgeClass = `fixture-${difficulty}`;
-      fixturesDisplay += `<span class="fixture-badge ${fixtureBadgeClass}" style="margin-right: 4px; display: inline-block;">${oppName}(${homeAway})</span>`;
+    for (const { squad, fixtures } of teams) {
+      const isExcluded = filters.excludeTeams.includes(squad.id);
+
+      let fixturesDisplay = '';
+      for (const fixture of fixtures) {
+        const opp = fixture.isHome ? fixture.awayId : fixture.homeId;
+        const oppSquad = squadsMap[opp];
+        const oppName = oppSquad?.shortName || '?';
+        const homeAway = fixture.isHome ? 'H' : 'A';
+        const difficulty = getFixtureDifficulty(opp);
+        const fixtureBadgeClass = `fixture-${difficulty}`;
+        fixturesDisplay += `<span class="fixture-badge ${fixtureBadgeClass}" style="margin-right: 4px; display: inline-block;">${oppName}(${homeAway})</span>`;
+      }
+
+      const checkboxId = `team-check-${squad.id}`;
+      teamsHtml += `
+        <label style="display: flex; align-items: flex-start; gap: 10px; padding: 8px; background: ${isExcluded ? '#f0f0f0' : '#fafafa'}; border-radius: 4px; cursor: pointer;">
+          <input type="checkbox" id="${checkboxId}" class="team-target-checkbox" value="${squad.id}" ${isExcluded ? '' : 'checked'} style="cursor: pointer; width: 18px; height: 18px; margin-top: 2px; flex-shrink: 0;" />
+          <div style="flex: 1; ${isExcluded ? 'opacity: 0.5;' : ''}">
+            <div style="font-weight: bold; font-size: 0.95rem;">${squad.shortName || squad.name}</div>
+            <div style="font-size: 0.75rem; color: #666; margin-top: 2px;">${fixtures.length} fixture${fixtures.length !== 1 ? 's' : ''} • ${fixturesDisplay}</div>
+          </div>
+        </label>
+      `;
     }
 
-    const checkboxId = `team-check-${squad.id}`;
-    teamsHtml += `
-      <div style="display: flex; align-items: center; gap: 12px; padding: 10px; background: ${isExcluded ? '#f0f0f0' : '#fafafa'}; border-radius: 4px; border-left: 3px solid #f05a28;">
-        <input type="checkbox" id="${checkboxId}" class="team-target-checkbox" value="${squad.id}" ${isExcluded ? '' : 'checked'} style="cursor: pointer; width: 18px; height: 18px;" />
-        <div style="flex: 1; ${isExcluded ? 'opacity: 0.5;' : ''}">
-          <div style="font-weight: bold;">${squad.shortName || squad.name} (Score: ${fixtureScore})</div>
-          <div style="font-size: 0.75rem; color: #666;">${fixtures.length} fixture${fixtures.length !== 1 ? 's' : ''} • ${fixturesDisplay}</div>
-        </div>
-      </div>
-    `;
+    teamsHtml += '</div></div>';
   }
 
   teamsHtml += '</div></div>';
@@ -563,19 +588,24 @@ function renderPicks(round, optimalTeam, squads) {
     });
   });
 
-  // Include/Exclude All buttons
-  document.getElementById('include-all-teams').addEventListener('click', () => {
-    filters.excludeTeams = [];
-    document.querySelectorAll('.team-filter').forEach(cb => { cb.checked = true; });
-    renderWithFilters();
-  });
-
-  document.getElementById('exclude-all-teams').addEventListener('click', () => {
-    const allTeamIds = Array.from(document.querySelectorAll('.team-filter')).map(cb => parseInt(cb.value, 10));
-    filters.excludeTeams = allTeamIds;
-    document.querySelectorAll('.team-filter').forEach(cb => { cb.checked = false; });
-    renderWithFilters();
-  });
+  // Toggle All checkbox
+  const toggleAllCheckbox = document.getElementById('toggle-all-teams');
+  if (toggleAllCheckbox) {
+    toggleAllCheckbox.addEventListener('change', (e) => {
+      if (e.target.checked) {
+        // Include all
+        filters.excludeTeams = [];
+      } else {
+        // Exclude all
+        const allTeamIds = Array.from(document.querySelectorAll('.team-target-checkbox')).map(cb => parseInt(cb.value, 10));
+        filters.excludeTeams = allTeamIds;
+      }
+      document.querySelectorAll('.team-target-checkbox').forEach(cb => {
+        cb.checked = e.target.checked;
+      });
+      renderWithFilters();
+    });
+  }
 
   // Team target checkboxes
   document.querySelectorAll('.team-target-checkbox').forEach(checkbox => {

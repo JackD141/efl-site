@@ -451,11 +451,7 @@ function renderPicks(round, optimalTeam, squads) {
 
   // Build Teams to Target section
   // Calculate fixture score for each team and group by league
-  const leagueGroups = {
-    'Championship': [],
-    'League 1': [],
-    'League 2': []
-  };
+  const leagueGroups = {};
 
   for (const squad of Object.values(squadsMap)) {
     const fixtures = fixturesBySquad[squad.id] || [];
@@ -474,12 +470,11 @@ function renderPicks(round, optimalTeam, squads) {
       fixtureScore += difficultyScore + homeBonus;
     }
 
-    // Determine league by position
-    const pos = squad.leaguePosition || 999;
-    let league = 'League 2';
-    if (pos <= 8) league = 'Championship';
-    else if (pos <= 16) league = 'League 1';
-
+    // Use the league property from squad
+    const league = squad.league || 'Unknown';
+    if (!leagueGroups[league]) {
+      leagueGroups[league] = [];
+    }
     leagueGroups[league].push({ squad, fixtures, fixtureScore });
   }
 
@@ -492,6 +487,17 @@ function renderPicks(round, optimalTeam, squads) {
     });
   }
 
+  // Sort leagues in a sensible order (Championship first, then League 1, etc)
+  const leagueOrder = ['Championship', 'League 1', 'League 2'];
+  const sortedLeagues = Object.keys(leagueGroups).sort((a, b) => {
+    const aIdx = leagueOrder.indexOf(a);
+    const bIdx = leagueOrder.indexOf(b);
+    if (aIdx !== -1 && bIdx !== -1) return aIdx - bIdx;
+    if (aIdx !== -1) return -1;
+    if (bIdx !== -1) return 1;
+    return a.localeCompare(b);
+  });
+
   let teamsHtml = '<div style="margin-top: 40px; padding-top: 24px; border-top: 2px solid #ddd;">';
   teamsHtml += '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">';
   teamsHtml += '<h3 style="margin: 0; font-size: 1.2rem;">Teams to Target</h3>';
@@ -499,8 +505,10 @@ function renderPicks(round, optimalTeam, squads) {
   teamsHtml += '</div>';
   teamsHtml += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">';
 
-  for (const league of ['Championship', 'League 1', 'League 2']) {
+  for (const league of sortedLeagues) {
     const teams = leagueGroups[league];
+    if (!teams || teams.length === 0) continue;
+
     teamsHtml += `<div><h4 style="margin-bottom: 12px; color: #f05a28;">${league}</h4>`;
     teamsHtml += '<div style="display: flex; flex-direction: column; gap: 8px;">';
 

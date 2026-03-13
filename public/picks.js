@@ -19,7 +19,7 @@ let filters = {
   min1000mins: true,
   oneClubChip: false,
   excludeTeams: [],
-  minRecentAvgMins: 60,
+  minRecentAvgMins: 0,
 };
 
 async function loadPicks() {

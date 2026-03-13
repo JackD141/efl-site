@@ -135,6 +135,7 @@ async function enrichPlayerGameData(players, gamesByRound, squadsMap) {
       if (cachedData[player.id]) {
         const cached = cachedData[player.id];
         player.games = cached.games;
+        player.totalSeasonMins = cached.totalSeasonMins;
         player.recentAvgMins = cached.recentAvgMins;
         player.homePer90 = cached.homePer90;
         player.awayPer90 = cached.awayPer90;
@@ -168,10 +169,13 @@ async function enrichPlayerGameData(players, gamesByRound, squadsMap) {
 
           player.games = games;
 
-          // Calculate recent avg mins (last 5 games)
+          // Calculate total season minutes and recent avg mins (last 5 games)
+          const totalSeasonMins = games.reduce((sum, g) => sum + (g.minutesPlayed || g.minutes || 0), 0);
+          player.totalSeasonMins = totalSeasonMins;
+
           const recentGames = games.slice(-5);
           if (recentGames.length > 0) {
-            const totalMins = recentGames.reduce((sum, g) => sum + (g.minutes || 0), 0);
+            const totalMins = recentGames.reduce((sum, g) => sum + (g.minutesPlayed || g.minutes || 0), 0);
             player.recentAvgMins = totalMins / recentGames.length;
           } else {
             player.recentAvgMins = 0;
@@ -221,6 +225,7 @@ async function enrichPlayerGameData(players, gamesByRound, squadsMap) {
           // Cache this player's data
           cachedData[player.id] = {
             games: player.games,
+            totalSeasonMins: player.totalSeasonMins,
             recentAvgMins: player.recentAvgMins,
             homePer90: player.homePer90,
             awayPer90: player.awayPer90
@@ -320,7 +325,7 @@ function solveOptimalTeam(players, filters) {
 function solveForFormation(players, formation, filters) {
   const eligible = players.filter(p => {
     if (filters.excludeInjured && p.injuryDetails) return false;
-    if (filters.min1000mins && (p.appearances * 90 < 1000)) return false;
+    if (filters.min1000mins && (p.totalSeasonMins || 0) < 1000) return false;
     if (filters.excludeTeams.includes(p.squadId)) return false;
     if (filters.minRecentAvgMins > 0 && p.recentAvgMins < filters.minRecentAvgMins) return false;
     if (filters.excludePlayers.includes(p.id)) return false;

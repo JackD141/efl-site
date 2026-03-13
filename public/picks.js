@@ -95,7 +95,31 @@ function getFixtureDifficulty(squadId) {
 
 // Enrich players with actual game data: recentAvgMins and empirical home/away per-90
 async function enrichPlayerGameData(players) {
+  // Check if we have fresh cached data (within 24 hours)
+  const cacheKey = 'picks_game_data_cache';
+  const cacheTimestampKey = 'picks_game_data_timestamp';
+  const cacheTimestamp = localStorage.getItem(cacheTimestampKey);
+  const now = Date.now();
+  const oneDayMs = 24 * 60 * 60 * 1000;
+
+  if (cacheTimestamp && now - parseInt(cacheTimestamp) < oneDayMs) {
+    // Use cached data
+    const cachedData = JSON.parse(localStorage.getItem(cacheKey) || '{}');
+    for (const player of players) {
+      if (cachedData[player.id]) {
+        const cached = cachedData[player.id];
+        player.games = cached.games;
+        player.recentAvgMins = cached.recentAvgMins;
+        player.homePer90 = cached.homePer90;
+        player.awayPer90 = cached.awayPer90;
+      }
+    }
+    console.log('[CACHE] Using cached game data');
+    return;
+  }
+
   statusEl.textContent = 'Loading game data for filter...';
+  const cachedData = {};
 
   for (const player of players) {
     try {
@@ -131,9 +155,26 @@ async function enrichPlayerGameData(players) {
         const awayMins = awayGames.reduce((sum, g) => sum + (g.minutes || 0), 0);
         player.awayPer90 = awayMins > 0 ? (awayPoints / awayMins) * 90 : player.awayPer90;
       }
+
+      // Cache this player's data
+      cachedData[player.id] = {
+        games: player.games,
+        recentAvgMins: player.recentAvgMins,
+        homePer90: player.homePer90,
+        awayPer90: player.awayPer90
+      };
     } catch (err) {
       console.log(`Could not fetch game data for player ${player.id}`);
     }
+  }
+
+  // Store cache
+  try {
+    localStorage.setItem(cacheKey, JSON.stringify(cachedData));
+    localStorage.setItem(cacheTimestampKey, now.toString());
+    console.log('[CACHE] Saved game data cache');
+  } catch (err) {
+    console.log('Could not save cache to localStorage');
   }
 }
 

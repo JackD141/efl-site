@@ -120,52 +120,62 @@ async function enrichPlayerGameData(players) {
 
   statusEl.textContent = 'Loading game data for filter...';
   const cachedData = {};
+  let loaded = 0;
 
-  for (const player of players) {
-    try {
-      const res = await fetch(`/api/players/${player.id}`);
-      if (!res.ok) continue;
-      const profile = await res.json();
+  // Fetch in parallel batches of 5 to avoid overwhelming the API
+  const batchSize = 5;
+  for (let i = 0; i < players.length; i += batchSize) {
+    const batch = players.slice(i, i + batchSize);
 
-      if (!profile.games || !Array.isArray(profile.games)) continue;
+    await Promise.all(batch.map(async (player) => {
+      try {
+        const res = await fetch(`/api/players/${player.id}`);
+        if (!res.ok) return;
+        const profile = await res.json();
 
-      player.games = profile.games;
+        if (!profile.games || !Array.isArray(profile.games)) return;
 
-      // Calculate recent avg mins (last 5 games)
-      const recentGames = profile.games.slice(-5);
-      if (recentGames.length > 0) {
-        const totalMins = recentGames.reduce((sum, g) => sum + (g.minutes || 0), 0);
-        player.recentAvgMins = totalMins / recentGames.length;
-      } else {
-        player.recentAvgMins = 0;
+        player.games = profile.games;
+
+        // Calculate recent avg mins (last 5 games)
+        const recentGames = profile.games.slice(-5);
+        if (recentGames.length > 0) {
+          const totalMins = recentGames.reduce((sum, g) => sum + (g.minutes || 0), 0);
+          player.recentAvgMins = totalMins / recentGames.length;
+        } else {
+          player.recentAvgMins = 0;
+        }
+
+        // Calculate empirical home/away per-90
+        const homeGames = profile.games.filter(g => g.isHome);
+        const awayGames = profile.games.filter(g => !g.isHome);
+
+        if (homeGames.length > 0) {
+          const homePoints = homeGames.reduce((sum, g) => sum + (g.points || 0), 0);
+          const homeMins = homeGames.reduce((sum, g) => sum + (g.minutes || 0), 0);
+          player.homePer90 = homeMins > 0 ? (homePoints / homeMins) * 90 : player.homePer90;
+        }
+
+        if (awayGames.length > 0) {
+          const awayPoints = awayGames.reduce((sum, g) => sum + (g.points || 0), 0);
+          const awayMins = awayGames.reduce((sum, g) => sum + (g.minutes || 0), 0);
+          player.awayPer90 = awayMins > 0 ? (awayPoints / awayMins) * 90 : player.awayPer90;
+        }
+
+        // Cache this player's data
+        cachedData[player.id] = {
+          games: player.games,
+          recentAvgMins: player.recentAvgMins,
+          homePer90: player.homePer90,
+          awayPer90: player.awayPer90
+        };
+      } catch (err) {
+        console.log(`Could not fetch game data for player ${player.id}`);
       }
 
-      // Calculate empirical home/away per-90
-      const homeGames = profile.games.filter(g => g.isHome);
-      const awayGames = profile.games.filter(g => !g.isHome);
-
-      if (homeGames.length > 0) {
-        const homePoints = homeGames.reduce((sum, g) => sum + (g.points || 0), 0);
-        const homeMins = homeGames.reduce((sum, g) => sum + (g.minutes || 0), 0);
-        player.homePer90 = homeMins > 0 ? (homePoints / homeMins) * 90 : player.homePer90;
-      }
-
-      if (awayGames.length > 0) {
-        const awayPoints = awayGames.reduce((sum, g) => sum + (g.points || 0), 0);
-        const awayMins = awayGames.reduce((sum, g) => sum + (g.minutes || 0), 0);
-        player.awayPer90 = awayMins > 0 ? (awayPoints / awayMins) * 90 : player.awayPer90;
-      }
-
-      // Cache this player's data
-      cachedData[player.id] = {
-        games: player.games,
-        recentAvgMins: player.recentAvgMins,
-        homePer90: player.homePer90,
-        awayPer90: player.awayPer90
-      };
-    } catch (err) {
-      console.log(`Could not fetch game data for player ${player.id}`);
-    }
+      loaded++;
+      statusEl.textContent = `Loading game data: ${loaded}/${players.length}`;
+    }));
   }
 
   // Store cache

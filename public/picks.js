@@ -43,6 +43,11 @@ async function loadPicks() {
 
     squadsMap = Object.fromEntries(squads.map(s => [s.id, s]));
 
+    // Log squad structure for debugging
+    if (squads.length > 0) {
+      console.log('[SQUAD-STRUCTURE] Sample squad:', squads[0]);
+    }
+
     // Find next gameweek
     const now = new Date();
     nextRound = null;

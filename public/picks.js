@@ -18,7 +18,6 @@ let filters = {
   excludeInjured: true,
   min1000mins: true,
   oneClubChip: false,
-  minRecentAvgMins: 0,
 };
 
 async function loadPicks() {
@@ -66,8 +65,8 @@ async function loadPicks() {
       fixturesBySquad[game.awayId]?.push({ ...game, isHome: false });
     }
 
-    // Enrich players with actual per-90 stats by home/away
-    await enrichPlayers(allPlayers, allRounds, squads);
+    // Enrich players with per-90 stats by home/away
+    enrichPlayers(allPlayers, allRounds, squads);
 
     renderWithFilters();
     statusEl.textContent = '';
@@ -88,93 +87,27 @@ function getFixtureDifficulty(squadId) {
   return 'easy';                  // green: bottom 8
 }
 
-// Build a map of squad to games played (to match player games to home/away)
-function buildGamesByRound(rounds) {
-  const gamesByRound = {};
-  for (const round of rounds) {
-    if (round.status !== 'completed') continue;
-    gamesByRound[round.roundNumber] = {};
-    for (const game of round.games) {
-      gamesByRound[round.roundNumber][game.homeId] = { ...game, isHome: true };
-      gamesByRound[round.roundNumber][game.awayId] = { ...game, isHome: false };
-    }
-  }
-  return gamesByRound;
-}
+function enrichPlayers(players, rounds, squads) {
+  // Use simple heuristic: estimate per-90 from season average,
+  // then assume home games are ~15% better, away ~15% worse
+  for (const p of players) {
+    const totalMins = p.appearances * 90; // estimate
+    const basePer90 = totalMins > 0 ? (p.totalPoints / totalMins) * 90 : (p.averagePoints || 0);
 
-async function enrichPlayers(players, rounds, squads) {
-  const gamesByRound = buildGamesByRound(rounds);
+    p.homePer90 = basePer90 * 1.15;  // +15% at home
+    p.awayPer90 = basePer90 * 0.85;  // -15% away
 
-  for (const player of players) {
-    let homeMins = 0, homePts = 0, awayMins = 0, awayPts = 0;
-    const recentGames = [];
+    const fixtures = fixturesBySquad[p.squadId] || [];
+    p.fixtures = fixtures;
 
-    try {
-      // Fetch player's per-game stats
-      const profileRes = await fetch(`/api/player?id=${player.id}`);
-      if (!profileRes.ok) throw new Error('Profile fetch failed');
-
-      const profile = await profileRes.json();
-      const games = profile.results || profile.games || [];
-
-      // Match each game to determine home/away
-      for (const game of games) {
-        const roundNum = game.round || game.roundId || game.roundNumber;
-        const gameInfo = gamesByRound[roundNum]?.[player.squadId];
-
-        if (gameInfo) {
-          const mins = game.minutes || game.minutesPlayed || 0;
-          const pts = game.points || 0;
-
-          if (gameInfo.isHome) {
-            homeMins += mins;
-            homePts += pts;
-          } else {
-            awayMins += mins;
-            awayPts += pts;
-          }
-        }
-
-        // Store for last 5 games popup
-        recentGames.push({
-          round: roundNum,
-          minutes: game.minutes || game.minutesPlayed || 0,
-          points: game.points || 0,
-        });
-      }
-
-      // Calculate per-90 values
-      player.homePer90 = homeMins > 0 ? (homePts / homeMins) * 90 : 0;
-      player.awayPer90 = awayMins > 0 ? (awayPts / awayMins) * 90 : 0;
-
-      // Fallback: if no games matched home/away, use overall per-90
-      if (player.homePer90 === 0 && player.awayPer90 === 0 && games.length > 0) {
-        const totalMins = games.reduce((s, g) => s + (g.minutes || g.minutesPlayed || 0), 0);
-        const totalPts = games.reduce((s, g) => s + (g.points || 0), 0);
-        const overallPer90 = totalMins > 0 ? (totalPts / totalMins) * 90 : 0;
-        player.homePer90 = overallPer90;
-        player.awayPer90 = overallPer90;
-      }
-
-      player.recentGames = recentGames.slice(-5);
-    } catch (err) {
-      // Fallback if profile fetch fails
-      player.homePer90 = player.averagePoints || 0;
-      player.awayPer90 = player.averagePoints || 0;
-      player.recentGames = [];
-    }
-
-    // Get next GW fixtures and calculate projection
-    const fixtures = fixturesBySquad[player.squadId] || [];
-    player.fixtures = fixtures;
-
+    // Calculate projected pts for next GW
     let projectedPts = 0;
     for (const fixture of fixtures) {
-      const per90 = fixture.isHome ? player.homePer90 : player.awayPer90;
-      projectedPts += per90 / 90;
+      const per90 = fixture.isHome ? p.homePer90 : p.awayPer90;
+      projectedPts += (per90 / 90);
     }
 
-    player.projectedPts = projectedPts;
+    p.projectedPts = projectedPts;
   }
 }
 
@@ -209,13 +142,6 @@ function solveForFormation(players, formation, filters) {
   const eligible = players.filter(p => {
     if (filters.excludeInjured && p.injuryDetails) return false;
     if (filters.min1000mins && (p.appearances * 90 < 1000)) return false;
-
-    // Check recent games minutes average
-    if (filters.minRecentAvgMins > 0 && p.recentGames && p.recentGames.length > 0) {
-      const recentMinsAvg = p.recentGames.reduce((s, g) => s + g.minutes, 0) / p.recentGames.length;
-      if (recentMinsAvg < filters.minRecentAvgMins) return false;
-    }
-
     return true;
   });
 
@@ -251,45 +177,6 @@ function solveForFormation(players, formation, filters) {
   return { team, formation, totalPts, captain };
 }
 
-function showLastGamesPopup(player) {
-  const games = player.recentGames || [];
-  if (games.length === 0) {
-    alert(`No recent game data for ${player.firstName} ${player.lastName}`);
-    return;
-  }
-
-  let tableHtml = '<table style="width: 100%; border-collapse: collapse;"><tr><th style="border: 1px solid #ddd; padding: 8px;">GW</th><th style="border: 1px solid #ddd; padding: 8px;">Mins</th><th style="border: 1px solid #ddd; padding: 8px;">Pts</th></tr>';
-  for (const game of games) {
-    tableHtml += `<tr><td style="border: 1px solid #ddd; padding: 8px;">${game.round}</td><td style="border: 1px solid #ddd; padding: 8px;">${game.minutes}</td><td style="border: 1px solid #ddd; padding: 8px;">${game.points}</td></tr>`;
-  }
-  tableHtml += '</table>';
-
-  const popup = document.createElement('div');
-  popup.style.position = 'fixed';
-  popup.style.top = '50%';
-  popup.style.left = '50%';
-  popup.style.transform = 'translate(-50%, -50%)';
-  popup.style.background = '#fff';
-  popup.style.padding = '20px';
-  popup.style.borderRadius = '8px';
-  popup.style.boxShadow = '0 4px 12px rgba(0,0,0,0.2)';
-  popup.style.zIndex = '1000';
-  popup.style.maxWidth = '400px';
-  popup.innerHTML = `<h3>${player.firstName} ${player.lastName} - Last 5 Games</h3>${tableHtml}<button onclick="this.parentElement.remove()" style="margin-top: 12px; padding: 8px 16px; background: #f05a28; color: #fff; border: none; border-radius: 4px; cursor: pointer;">Close</button>`;
-  document.body.appendChild(popup);
-
-  const backdrop = document.createElement('div');
-  backdrop.style.position = 'fixed';
-  backdrop.style.top = '0';
-  backdrop.style.left = '0';
-  backdrop.style.width = '100%';
-  backdrop.style.height = '100%';
-  backdrop.style.background = 'rgba(0,0,0,0.4)';
-  backdrop.style.zIndex = '999';
-  backdrop.onclick = () => backdrop.remove() || popup.remove();
-  document.body.appendChild(backdrop);
-}
-
 function renderPicks(round, optimalTeam, squads) {
   const { team, formation, totalPts } = optimalTeam;
   const formationStr = `${formation.gk}-${formation.def}-${formation.mid}-${formation.fwd}`;
@@ -307,10 +194,6 @@ function renderPicks(round, optimalTeam, squads) {
       <label>
         <input type="checkbox" id="one-club-chip" ${filters.oneClubChip ? 'checked' : ''} />
         One Club Chip
-      </label>
-      <label>
-        Last 5 Min Avg: <span id="recent-mins-label">${filters.minRecentAvgMins}</span>
-        <input type="range" id="recent-mins-slider" min="0" max="90" value="${filters.minRecentAvgMins}" style="width: 120px; vertical-align: middle;" />
       </label>
     </div>
 
@@ -342,7 +225,7 @@ function renderPicks(round, optimalTeam, squads) {
       const captainClass = player.isCaptain ? 'is-captain' : '';
       const projDisplay = player.isCaptain ? `${player.projectedPtsDisplay.toFixed(1)}*` : player.projectedPts.toFixed(1);
 
-      // Build fixtures display with per-90 values
+      // Build fixtures display (only next GW fixtures)
       let fixturesHtml = '';
       if (player.fixtures && player.fixtures.length > 0) {
         fixturesHtml = '<div class="pick-fixtures">';
@@ -353,8 +236,7 @@ function renderPicks(round, optimalTeam, squads) {
           const homeAway = fixture.isHome ? 'H' : 'A';
           const difficulty = getFixtureDifficulty(opp);
           const fixtureBadgeClass = `fixture-${difficulty}`;
-          const per90Val = fixture.isHome ? player.homePer90 : player.awayPer90;
-          fixturesHtml += `<span class="fixture-badge ${fixtureBadgeClass}">${oppName}(${homeAway})<span class="fixture-per90">${per90Val.toFixed(1)}</span></span>`;
+          fixturesHtml += `<span class="fixture-badge ${fixtureBadgeClass}">${oppName}(${homeAway})</span>`;
         }
         fixturesHtml += '</div>';
       }
@@ -380,7 +262,6 @@ function renderPicks(round, optimalTeam, squads) {
             </div>
           </div>
           ${fixturesHtml}
-          <button class="pick-info-btn" onclick="showLastGamesPopup(${JSON.stringify(player).replace(/"/g, '&quot;')})" style="margin-top: 8px; padding: 4px 8px; background: #f05a28; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 0.75rem; width: 100%;">ℹ Last 5 Games</button>
         </div>
       `;
     }
@@ -404,12 +285,6 @@ function renderPicks(round, optimalTeam, squads) {
 
   document.getElementById('one-club-chip').addEventListener('change', (e) => {
     filters.oneClubChip = e.target.checked;
-    renderWithFilters();
-  });
-
-  document.getElementById('recent-mins-slider').addEventListener('input', (e) => {
-    filters.minRecentAvgMins = parseInt(e.target.value, 10);
-    document.getElementById('recent-mins-label').textContent = filters.minRecentAvgMins;
     renderWithFilters();
   });
 }

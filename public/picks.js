@@ -135,7 +135,7 @@ async function enrichPlayerGameData(players) {
   try {
     // Only fetch for players who have appeared (to avoid unnecessary API calls)
     const playersToFetch = players.filter(p => p.appearances > 0);
-    const batchSize = 25;
+    const batchSize = 50;
 
     for (let i = 0; i < playersToFetch.length; i += batchSize) {
       const batch = playersToFetch.slice(i, i + batchSize);
@@ -162,6 +162,8 @@ async function enrichPlayerGameData(players) {
           // Calculate empirical home/away per-90
           const homeGames = profile.games.filter(g => g.isHome);
           const awayGames = profile.games.filter(g => !g.isHome);
+
+          console.log(`[GAME-DATA] Player ${player.id}: ${profile.games.length} games, ${homeGames.length} home, ${awayGames.length} away`);
 
           if (homeGames.length > 0) {
             const homePoints = homeGames.reduce((sum, g) => sum + (g.points || 0), 0);

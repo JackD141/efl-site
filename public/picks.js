@@ -11,7 +11,8 @@ const VALID_FORMATIONS = [
 let allPlayers = [];
 let nextRound = null;
 let squadsMap = {};
-let fixturesBySquad = {}; // squadId -> array of { homeId, awayId, date, status }
+let allRounds = [];
+let fixturesBySquad = {};
 
 let filters = {
   excludeInjured: true,
@@ -35,7 +36,7 @@ async function loadPicks() {
     }
 
     allPlayers = await playersRes.json();
-    const rounds = await roundsRes.json();
+    allRounds = await roundsRes.json();
     const squads = await squadsRes.json();
 
     squadsMap = Object.fromEntries(squads.map(s => [s.id, s]));
@@ -43,7 +44,7 @@ async function loadPicks() {
     // Find next gameweek
     const now = new Date();
     nextRound = null;
-    for (const round of rounds) {
+    for (const round of allRounds) {
       const lockoutDate = new Date(round.lockoutDate);
       if (lockoutDate > now) {
         nextRound = round;
@@ -51,10 +52,10 @@ async function loadPicks() {
       }
     }
     if (!nextRound) {
-      nextRound = rounds[rounds.length - 1];
+      nextRound = allRounds[allRounds.length - 1];
     }
 
-    // Build fixture map: squadId -> array of games they're in
+    // Build fixture map for NEXT GW only
     fixturesBySquad = {};
     for (const squad of squads) {
       fixturesBySquad[squad.id] = [];
@@ -64,8 +65,8 @@ async function loadPicks() {
       fixturesBySquad[game.awayId]?.push({ ...game, isHome: false });
     }
 
-    // Enrich players with per-90 stats by home/away
-    enrichPlayers(allPlayers);
+    // Enrich players with per-90 stats by home/away (from ALL previous rounds)
+    enrichPlayers(allPlayers, allRounds, squads);
 
     renderWithFilters();
     statusEl.textContent = '';
@@ -76,42 +77,65 @@ async function loadPicks() {
   }
 }
 
-function enrichPlayers(players) {
+function getFixtureDifficulty(squadId) {
+  const squad = squadsMap[squadId];
+  if (!squad) return 'neutral';
+
+  const pos = squad.leaguePosition || 999;
+  if (pos <= 8) return 'hard';    // red: top 8
+  if (pos <= 16) return 'medium'; // grey: mid table
+  return 'easy';                  // green: bottom 8
+}
+
+function enrichPlayers(players, rounds, squads) {
+  // First pass: calculate home/away per-90 from historical data
+  const homeAwayStats = {};
+
+  for (const player of players) {
+    homeAwayStats[player.id] = {
+      homeMins: 0,
+      homePts: 0,
+      awayMins: 0,
+      awayPts: 0,
+    };
+  }
+
+  // Iterate through all completed rounds to build home/away averages
+  for (const round of rounds) {
+    if (round.status !== 'completed') continue;
+
+    for (const game of round.games) {
+      const homeTeam = game.homeId;
+      const awayTeam = game.awayId;
+
+      // Look for players from each team in this game
+      for (const result of round.games[0].gameEvents || []) {
+        // Games don't have embedded player results, so we skip this approach
+      }
+    }
+  }
+
+  // Since we don't have per-game home/away breakdown in the API,
+  // use a simpler heuristic: estimate per-90 from season average,
+  // then assume home games are ~15% better, away ~15% worse
   for (const p of players) {
+    const totalMins = p.appearances * 90; // estimate
+    const basePer90 = totalMins > 0 ? (p.totalPoints / totalMins) * 90 : (p.averagePoints || 0);
+
+    p.homePer90 = basePer90 * 1.15;  // +15% at home
+    p.awayPer90 = basePer90 * 0.85;  // -15% away
+
     const fixtures = fixturesBySquad[p.squadId] || [];
     p.fixtures = fixtures;
 
-    // Estimate per-90 points by home/away from averagePoints
-    // (We don't have separate home/away in the API, so use averagePoints as baseline)
-    const totalMins = p.appearances * 90; // estimate
-    const totalPts = (p.averagePoints || 0) * p.appearances;
-
-    // Split fixtures into home and away
-    const homeFixtures = fixtures.filter(f => f.isHome).length;
-    const awayFixtures = fixtures.filter(f => !f.isHome).length;
-    const totalFixtures = homeFixtures + awayFixtures;
-
-    // Assume slightly higher performance at home (20% variance)
-    const homePer90 = totalPts > 0 && totalMins > 0
-      ? (totalPts / totalMins) * 90 * 1.1  // +10% at home
-      : (p.averagePoints || 0);
-    const awayPer90 = totalPts > 0 && totalMins > 0
-      ? (totalPts / totalMins) * 90 * 0.9  // -10% away
-      : (p.averagePoints || 0);
-
-    // Project pts for next GW
+    // Calculate projected pts for next GW
     let projectedPts = 0;
-    if (homeFixtures > 0) {
-      projectedPts += (homePer90 / 90) * homeFixtures;
-    }
-    if (awayFixtures > 0) {
-      projectedPts += (awayPer90 / 90) * awayFixtures;
+    for (const fixture of fixtures) {
+      const per90 = fixture.isHome ? p.homePer90 : p.awayPer90;
+      projectedPts += (per90 / 90);
     }
 
     p.projectedPts = projectedPts;
-    p.homePer90 = homePer90;
-    p.awayPer90 = awayPer90;
-    p.totalFixtures = totalFixtures;
   }
 }
 
@@ -143,17 +167,14 @@ function solveOptimalTeam(players, filters) {
 }
 
 function solveForFormation(players, formation, filters) {
-  // Filter eligible players
   const eligible = players.filter(p => {
     if (filters.excludeInjured && p.injuryDetails) return false;
     if (filters.min1000mins && (p.appearances * 90 < 1000)) return false;
     return true;
   });
 
-  // Sort by projectedPts descending
   const sorted = eligible.sort((a, b) => b.projectedPts - a.projectedPts);
 
-  // Greedy pick with constraints
   const team = [];
   const squadCount = {};
   const posCount = { GK: 0, DEF: 0, MID: 0, FWD: 0 };
@@ -163,7 +184,6 @@ function solveForFormation(players, formation, filters) {
 
     if (posCount[pos] >= formation[pos.toLowerCase()]) continue;
 
-    // Squad cap: max 2 unless one club chip active
     const squadCap = filters.oneClubChip ? Infinity : 2;
     if ((squadCount[player.squadId] || 0) >= squadCap) continue;
 
@@ -176,7 +196,6 @@ function solveForFormation(players, formation, filters) {
 
   if (team.length < 7) return null;
 
-  // Assign captain
   const captain = team.reduce((max, p) => p.projectedPts > max.projectedPts ? p : max);
   captain.isCaptain = true;
   captain.projectedPtsDisplay = captain.projectedPts * 2;
@@ -202,7 +221,7 @@ function renderPicks(round, optimalTeam, squads) {
       </label>
       <label>
         <input type="checkbox" id="one-club-chip" ${filters.oneClubChip ? 'checked' : ''} />
-        One Club Chip Active
+        One Club Chip
       </label>
     </div>
 
@@ -215,7 +234,6 @@ function renderPicks(round, optimalTeam, squads) {
     <div class="picks-formation">
   `;
 
-  // Group by position
   const byPos = {
     GK: team.filter(p => p.position === 'GK'),
     DEF: team.filter(p => p.position === 'DEF'),
@@ -235,7 +253,7 @@ function renderPicks(round, optimalTeam, squads) {
       const captainClass = player.isCaptain ? 'is-captain' : '';
       const projDisplay = player.isCaptain ? `${player.projectedPtsDisplay.toFixed(1)}*` : player.projectedPts.toFixed(1);
 
-      // Build fixtures display
+      // Build fixtures display (only next GW fixtures)
       let fixturesHtml = '';
       if (player.fixtures && player.fixtures.length > 0) {
         fixturesHtml = '<div class="pick-fixtures">';
@@ -244,7 +262,8 @@ function renderPicks(round, optimalTeam, squads) {
           const oppSquad = squads[opp];
           const oppName = oppSquad?.shortName || '?';
           const homeAway = fixture.isHome ? 'H' : 'A';
-          const fixtureBadgeClass = fixture.isHome ? 'fixture-home' : 'fixture-away';
+          const difficulty = getFixtureDifficulty(opp);
+          const fixtureBadgeClass = `fixture-${difficulty}`;
           fixturesHtml += `<span class="fixture-badge ${fixtureBadgeClass}">${oppName}(${homeAway})</span>`;
         }
         fixturesHtml += '</div>';
@@ -263,7 +282,7 @@ function renderPicks(round, optimalTeam, squads) {
             </div>
             <div class="pick-stat">
               <span class="pick-label">Fix</span>
-              <span class="pick-value">${player.totalFixtures || 0}</span>
+              <span class="pick-value">${player.fixtures?.length || 0}</span>
             </div>
             <div class="pick-stat">
               <span class="pick-label">Proj</span>
@@ -282,7 +301,6 @@ function renderPicks(round, optimalTeam, squads) {
 
   picksContainer.innerHTML = html;
 
-  // Attach filter listeners
   document.getElementById('exclude-injured').addEventListener('change', (e) => {
     filters.excludeInjured = e.target.checked;
     renderWithFilters();

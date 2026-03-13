@@ -472,8 +472,12 @@ function renderPicks(round, optimalTeam, squads) {
       fixtureScore += difficultyScore + homeBonus;
     }
 
-    // Use the league property from squad
-    const league = squad.league || 'Unknown';
+    // Determine league from competitionId
+    let league = 'Unknown';
+    if (squad.competitionId === 10) league = 'Championship';
+    else if (squad.competitionId === 11) league = 'League 1';
+    else if (squad.competitionId === 12) league = 'League 2';
+
     if (!leagueGroups[league]) {
       leagueGroups[league] = [];
     }

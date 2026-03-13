@@ -144,7 +144,7 @@ async function enrichPlayerGameData(players) {
   try {
     // Only fetch for players who have appeared (to avoid unnecessary API calls)
     const playersToFetch = players.filter(p => p.appearances > 0);
-    const batchSize = 3;
+    const batchSize = 25;
 
     for (let i = 0; i < playersToFetch.length; i += batchSize) {
       const batch = playersToFetch.slice(i, i + batchSize);
@@ -237,9 +237,15 @@ function calculatePositionMultipliers(players) {
   let globalTotal = 0;
   let globalCount = 0;
 
+  // Count how many players have games data for debugging
+  let playersWithGames = 0;
+  let totalGamesProcessed = 0;
+
   // Aggregate game data by position and home/away
   for (const p of players) {
     if (!p.games || p.games.length === 0) continue;
+    playersWithGames++;
+    totalGamesProcessed += p.games.length;
 
     const pos = p.position;
     if (!posStats[pos]) continue;
@@ -277,6 +283,12 @@ function calculatePositionMultipliers(players) {
     }
   }
 
+  console.log('[MULTIPLIER-CALC]', {
+    playersWithGames,
+    totalGamesProcessed,
+    globalCount,
+    globalAvg: globalCount > 0 ? globalTotal / globalCount : 'N/A'
+  });
   console.log('[POSITION-MULTIPLIERS]', positionMultipliers);
 }
 

@@ -19,7 +19,6 @@ let filters = {
   min1000mins: true,
   oneClubChip: false,
   excludeTeams: [],
-  minRecentAvgMins: 0,
 };
 
 async function loadPicks() {
@@ -90,18 +89,6 @@ function getFixtureDifficulty(squadId) {
   return 'easy';                  // green: bottom 8
 }
 
-function getRecentAvgMins(player) {
-  // If player has games array, calculate average of last 5 games
-  if (player.games && Array.isArray(player.games)) {
-    const recentGames = player.games.slice(-5);
-    if (recentGames.length > 0) {
-      const totalMins = recentGames.reduce((sum, g) => sum + (g.minutes || 0), 0);
-      return totalMins / recentGames.length;
-    }
-  }
-  // Fallback: estimate based on appearances (assume ~60 mins per appearance on average)
-  return (player.appearances || 0) > 0 ? 60 : 0;
-}
 
 function enrichPlayers(players, rounds, squads) {
   // Use simple heuristic: estimate per-90 from season average,
@@ -115,12 +102,6 @@ function enrichPlayers(players, rounds, squads) {
 
     const fixtures = fixturesBySquad[p.squadId] || [];
     p.fixtures = fixtures;
-
-    // Calculate recent average minutes
-    p.recentAvgMins = getRecentAvgMins(p);
-    if (p.games && p.games.length > 0) {
-      console.log(`[DEBUG] ${p.firstName} ${p.lastName}: ${p.games.length} games, recentAvgMins=${p.recentAvgMins.toFixed(1)}, games=${p.games.slice(-5).map(g => g.minutes || 0).join(',')}`);
-    }
 
     // Calculate projected pts for next GW
     let projectedPts = 0;
@@ -165,10 +146,6 @@ function solveForFormation(players, formation, filters) {
     if (filters.excludeInjured && p.injuryDetails) return false;
     if (filters.min1000mins && (p.appearances * 90 < 1000)) return false;
     if (filters.excludeTeams.includes(p.squadId)) return false;
-    if (filters.minRecentAvgMins > 0 && p.recentAvgMins < filters.minRecentAvgMins) {
-      console.log(`[FILTER] ${p.firstName} ${p.lastName}: recentAvgMins=${p.recentAvgMins.toFixed(1)} < ${filters.minRecentAvgMins} (filtered out)`);
-      return false;
-    }
     return true;
   });
 
@@ -238,12 +215,6 @@ function renderPicks(round, optimalTeam, squads) {
         <input type="checkbox" id="one-club-chip" ${filters.oneClubChip ? 'checked' : ''} />
         One Club Chip
       </label>
-      <div style="margin-top: 12px;">
-        <label style="display: block; margin-bottom: 6px;">
-          Min Recent Avg Mins: <strong id="recent-mins-value">${filters.minRecentAvgMins}</strong>
-        </label>
-        <input type="range" id="recent-mins-slider" min="0" max="90" value="${filters.minRecentAvgMins}" style="width: 200px;" />
-      </div>
     </div>
 
     <div style="margin-bottom: 16px; padding: 12px; background: #f5f5f5; border-radius: 6px;">
@@ -365,12 +336,6 @@ function renderPicks(round, optimalTeam, squads) {
 
   document.getElementById('one-club-chip').addEventListener('change', (e) => {
     filters.oneClubChip = e.target.checked;
-    renderWithFilters();
-  });
-
-  document.getElementById('recent-mins-slider').addEventListener('input', (e) => {
-    filters.minRecentAvgMins = parseInt(e.target.value, 10);
-    document.getElementById('recent-mins-value').textContent = filters.minRecentAvgMins;
     renderWithFilters();
   });
 

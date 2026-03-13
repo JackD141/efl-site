@@ -5,14 +5,14 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
-  background: #0a1628;
-  color: #f0f0f0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: #ffffff;
+  color: #1a1a1a;
   min-height: 100vh;
 }
 
 header {
-  background: #0e1e38;
+  background: #f8f9fa;
   padding: 16px 24px;
   display: flex;
   align-items: center;
@@ -20,11 +20,12 @@ header {
   flex-wrap: wrap;
   gap: 12px;
   border-bottom: 3px solid #f05a28;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
 }
 
 h1 {
   font-size: 1.4rem;
-  color: #ffffff;
+  color: #1a1a1a;
   letter-spacing: 0.5px;
   text-transform: uppercase;
 }
@@ -48,7 +49,7 @@ h1 {
 }
 
 #refresh-btn:disabled {
-  background: #444;
+  background: #ccc;
   cursor: not-allowed;
 }
 
@@ -61,12 +62,12 @@ main {
 #status {
   margin-bottom: 16px;
   font-size: 0.9rem;
-  color: #aaa;
+  color: #666;
   min-height: 20px;
 }
 
 #status.error {
-  color: #ff6b6b;
+  color: #d32f2f;
 }
 
 /* Tables */
@@ -102,15 +103,15 @@ thead th.sort-asc::after  { content: ' ▲'; font-size: 0.7em; }
 thead th.sort-desc::after { content: ' ▼'; font-size: 0.7em; }
 
 tbody tr {
-  border-bottom: 1px solid #1a3050;
+  border-bottom: 1px solid #e0e0e0;
 }
 
 tbody tr:nth-child(even) {
-  background: #0e1e38;
+  background: #f5f5f5;
 }
 
 tbody tr:hover {
-  background: #162840;
+  background: #eeeeee;
 }
 
 tbody td {
@@ -125,11 +126,11 @@ td.pos {
 
 td.advantage {
   font-weight: bold;
-  color: #ffb700;
+  color: #f57c00;
 }
 
 td.advantage.dash {
-  color: #555;
+  color: #999;
 }
 
 /* Navigation */
@@ -139,7 +140,7 @@ nav {
 }
 
 .nav-link {
-  color: #ccc;
+  color: #666;
   text-decoration: none;
   padding: 6px 14px;
   border-radius: 4px;
@@ -151,8 +152,8 @@ nav {
 }
 
 .nav-link:hover {
-  background: #1a3050;
-  color: #fff;
+  background: #e8e8e8;
+  color: #1a1a1a;
 }
 
 .nav-link.active {
@@ -171,10 +172,10 @@ nav {
   max-width: 420px;
   padding: 10px 14px;
   font-size: 1rem;
-  border: 2px solid #1a3050;
+  border: 2px solid #ddd;
   border-radius: 6px;
-  background: #0e1e38;
-  color: #f0f0f0;
+  background: #fff;
+  color: #1a1a1a;
   outline: none;
 }
 
@@ -185,16 +186,17 @@ nav {
 #search-results {
   margin-top: 6px;
   max-width: 420px;
-  background: #0e1e38;
-  border: 1px solid #1a3050;
+  background: #fff;
+  border: 1px solid #ddd;
   border-radius: 6px;
   overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .result-item {
   padding: 10px 14px;
   cursor: pointer;
-  border-bottom: 1px solid #1a3050;
+  border-bottom: 1px solid #eee;
   font-size: 0.9rem;
   transition: background 0.15s;
 }
@@ -204,7 +206,7 @@ nav {
 }
 
 .result-item:hover {
-  background: #162840;
+  background: #f5f5f5;
 }
 
 /* Player stats */
@@ -217,7 +219,7 @@ nav {
 
 .player-header h2 {
   font-size: 1.3rem;
-  color: #fff;
+  color: #1a1a1a;
 }
 
 .player-pos {
@@ -229,10 +231,10 @@ nav {
   letter-spacing: 0.5px;
 }
 
-.pos-GK  { background: #f5a623; color: #000; }
-.pos-DEF { background: #1c6ed1; color: #fff; }
-.pos-MID { background: #27ae60; color: #fff; }
-.pos-FWD { background: #e74c3c; color: #fff; }
+.pos-GK  { background: #fff3e0; color: #e65100; }
+.pos-DEF { background: #e3f2fd; color: #01579b; }
+.pos-MID { background: #e8f5e9; color: #1b5e20; }
+.pos-FWD { background: #ffebee; color: #b71c1c; }
 
 .season-summary {
   display: flex;
@@ -242,16 +244,16 @@ nav {
 }
 
 .stat-pill {
-  background: #0e1e38;
-  border: 1px solid #1a3050;
+  background: #f5f5f5;
+  border: 1px solid #ddd;
   border-radius: 6px;
   padding: 8px 14px;
   font-size: 0.85rem;
-  color: #aaa;
+  color: #666;
 }
 
 .stat-pill strong {
-  color: #fff;
+  color: #1a1a1a;
   margin-left: 4px;
 }
 
@@ -261,29 +263,29 @@ nav {
 
 td.pts-col {
   font-weight: bold;
-  color: #ffb700;
+  color: #f57c00;
 }
 
 .loading-msg {
-  color: #aaa;
+  color: #999;
   font-size: 0.9rem;
 }
 
 .error-msg {
-  color: #ff6b6b;
+  color: #d32f2f;
   font-size: 0.9rem;
 }
 
 /* Points-in-brackets spans */
 .stat-pts-pos {
   font-size: 0.8em;
-  color: #27ae60;
+  color: #2e7d32;
   white-space: nowrap;
 }
 
 .stat-pts-neg {
   font-size: 0.8em;
-  color: #e74c3c;
+  color: #c62828;
   white-space: nowrap;
 }
 
@@ -294,15 +296,15 @@ td.pts-col {
 
 .per90-label {
   font-size: 0.8rem;
-  color: #888;
+  color: #666;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-bottom: 8px;
-  font-weight: normal;
+  font-weight: bold;
 }
 
 .per90-mins {
-  color: #555;
+  color: #999;
   font-size: 0.85em;
 }
 
@@ -316,8 +318,8 @@ td.pts-col {
   padding: 5px 10px;
   border-radius: 5px;
   font-size: 0.8rem;
-  border: 1px solid #333;
-  color: #aaa;
+  border: 1px solid #ddd;
+  color: #666;
 }
 
 .per90-pill strong {
@@ -330,22 +332,22 @@ td.pts-col {
 }
 
 .per90-pos {
-  border-color: #27ae60;
-  color: #27ae60;
+  border-color: #2e7d32;
+  color: #2e7d32;
 }
 
 .per90-neg {
-  border-color: #e74c3c;
-  color: #e74c3c;
+  border-color: #c62828;
+  color: #c62828;
 }
 
 /* Leaderboard */
 .section-heading {
   font-size: 0.85rem;
-  color: #888;
+  color: #666;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  font-weight: normal;
+  font-weight: bold;
   margin-bottom: 12px;
 }
 
@@ -361,18 +363,18 @@ td.pts-col {
 
 .picks-header h2 {
   font-size: 1.5rem;
-  color: #fff;
+  color: #1a1a1a;
   margin-bottom: 8px;
 }
 
 .gw-label {
   font-size: 0.9rem;
-  color: #aaa;
+  color: #666;
 }
 
 .formation-label {
   font-size: 0.85rem;
-  color: #888;
+  color: #999;
   margin-top: 6px;
 }
 
@@ -381,7 +383,8 @@ td.pts-col {
   gap: 16px;
   margin-bottom: 20px;
   padding-bottom: 16px;
-  border-bottom: 1px solid #1a3050;
+  border-bottom: 1px solid #ddd;
+  flex-wrap: wrap;
 }
 
 .picks-filters label {
@@ -389,13 +392,16 @@ td.pts-col {
   align-items: center;
   gap: 6px;
   font-size: 0.9rem;
-  color: #aaa;
+  color: #666;
   cursor: pointer;
+  user-select: none;
 }
 
 .picks-filters input[type="checkbox"] {
   cursor: pointer;
   accent-color: #f05a28;
+  width: 18px;
+  height: 18px;
 }
 
 .picks-formation {
@@ -415,10 +421,11 @@ td.pts-col {
   position: relative;
   padding: 12px;
   border-radius: 8px;
-  border: 2px solid #1a3050;
-  background: #0e1e38;
-  transition: transform 0.15s, border-color 0.15s;
+  border: 2px solid #ddd;
+  background: #fafafa;
+  transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
   min-width: 140px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
 .pick-card.is-captain::after {
@@ -441,28 +448,29 @@ td.pts-col {
 .pick-card:hover {
   transform: translateY(-2px);
   border-color: #f05a28;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-.pick-GK  { border-left: 4px solid #f5a623; }
-.pick-DEF { border-left: 4px solid #1c6ed1; }
-.pick-MID { border-left: 4px solid #27ae60; }
-.pick-FWD { border-left: 4px solid #e74c3c; }
+.pick-GK  { border-left: 4px solid #e65100; }
+.pick-DEF { border-left: 4px solid #01579b; }
+.pick-MID { border-left: 4px solid #1b5e20; }
+.pick-FWD { border-left: 4px solid #b71c1c; }
 
 .pick-header {
   margin-bottom: 10px;
-  border-bottom: 1px solid #1a3050;
+  border-bottom: 1px solid #ddd;
   padding-bottom: 8px;
 }
 
 .pick-name {
   font-size: 0.95rem;
   font-weight: bold;
-  color: #fff;
+  color: #1a1a1a;
 }
 
 .pick-squad {
   font-size: 0.75rem;
-  color: #aaa;
+  color: #999;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-top: 3px;
@@ -482,17 +490,46 @@ td.pts-col {
 
 .pick-label {
   display: block;
-  color: #666;
+  color: #999;
   font-size: 0.7rem;
   text-transform: uppercase;
   margin-bottom: 2px;
+  font-weight: bold;
 }
 
 .pick-value {
   display: block;
-  color: #fff;
+  color: #1a1a1a;
   font-size: 0.9rem;
   font-weight: bold;
+}
+
+.pick-fixtures {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #ddd;
+  font-size: 0.75rem;
+  color: #666;
+}
+
+.fixture-badge {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 3px;
+  margin-right: 4px;
+  font-size: 0.7rem;
+  font-weight: bold;
+  margin-bottom: 2px;
+}
+
+.fixture-home {
+  background: #e3f2fd;
+  color: #01579b;
+}
+
+.fixture-away {
+  background: #f3e5f5;
+  color: #4a148c;
 }
 
 @media (max-width: 600px) {

@@ -7,15 +7,16 @@ const VALID_FORMATIONS = [
   { gk: 1, def: 3, mid: 2, fwd: 1, name: '1-3-2-1' },
 ];
 
-// Module-level state for re-solving without re-fetching
+// Module-level state
 let allPlayers = [];
 let nextRound = null;
 let squadsMap = {};
-let fixtureCount = {};
+let fixturesBySquad = {}; // squadId -> array of { homeId, awayId, date, status }
 
 let filters = {
   excludeInjured: true,
   min1000mins: true,
+  oneClubChip: false,
 };
 
 async function loadPicks() {
@@ -53,20 +54,19 @@ async function loadPicks() {
       nextRound = rounds[rounds.length - 1];
     }
 
-    // Build fixture count map
-    fixtureCount = {};
+    // Build fixture map: squadId -> array of games they're in
+    fixturesBySquad = {};
     for (const squad of squads) {
-      fixtureCount[squad.id] = 0;
+      fixturesBySquad[squad.id] = [];
     }
     for (const game of nextRound.games) {
-      fixtureCount[game.homeId] = (fixtureCount[game.homeId] || 0) + 1;
-      fixtureCount[game.awayId] = (fixtureCount[game.awayId] || 0) + 1;
+      fixturesBySquad[game.homeId]?.push({ ...game, isHome: true });
+      fixturesBySquad[game.awayId]?.push({ ...game, isHome: false });
     }
 
-    // Enrich players with projection
+    // Enrich players with per-90 stats by home/away
     enrichPlayers(allPlayers);
 
-    // Solve and render
     renderWithFilters();
     statusEl.textContent = '';
   } catch (err) {
@@ -78,10 +78,40 @@ async function loadPicks() {
 
 function enrichPlayers(players) {
   for (const p of players) {
-    const fixtures = fixtureCount[p.squadId] || 0;
-    const multiplier = fixtures >= 2 ? 2 : fixtures === 1 ? 1 : 0;
+    const fixtures = fixturesBySquad[p.squadId] || [];
     p.fixtures = fixtures;
-    p.projectedPts = (p.averagePoints || 0) * multiplier;
+
+    // Estimate per-90 points by home/away from averagePoints
+    // (We don't have separate home/away in the API, so use averagePoints as baseline)
+    const totalMins = p.appearances * 90; // estimate
+    const totalPts = (p.averagePoints || 0) * p.appearances;
+
+    // Split fixtures into home and away
+    const homeFixtures = fixtures.filter(f => f.isHome).length;
+    const awayFixtures = fixtures.filter(f => !f.isHome).length;
+    const totalFixtures = homeFixtures + awayFixtures;
+
+    // Assume slightly higher performance at home (20% variance)
+    const homePer90 = totalPts > 0 && totalMins > 0
+      ? (totalPts / totalMins) * 90 * 1.1  // +10% at home
+      : (p.averagePoints || 0);
+    const awayPer90 = totalPts > 0 && totalMins > 0
+      ? (totalPts / totalMins) * 90 * 0.9  // -10% away
+      : (p.averagePoints || 0);
+
+    // Project pts for next GW
+    let projectedPts = 0;
+    if (homeFixtures > 0) {
+      projectedPts += (homePer90 / 90) * homeFixtures;
+    }
+    if (awayFixtures > 0) {
+      projectedPts += (awayPer90 / 90) * awayFixtures;
+    }
+
+    p.projectedPts = projectedPts;
+    p.homePer90 = homePer90;
+    p.awayPer90 = awayPer90;
+    p.totalFixtures = totalFixtures;
   }
 }
 
@@ -98,7 +128,6 @@ function renderWithFilters() {
 }
 
 function solveOptimalTeam(players, filters) {
-  // Try each formation, pick the best result
   let bestTeam = null;
   let bestScore = -Infinity;
 
@@ -132,11 +161,11 @@ function solveForFormation(players, formation, filters) {
   for (const player of sorted) {
     const pos = player.position;
 
-    // Check position cap
     if (posCount[pos] >= formation[pos.toLowerCase()]) continue;
 
-    // Check squad cap (max 2 per squad)
-    if ((squadCount[player.squadId] || 0) >= 2) continue;
+    // Squad cap: max 2 unless one club chip active
+    const squadCap = filters.oneClubChip ? Infinity : 2;
+    if ((squadCount[player.squadId] || 0) >= squadCap) continue;
 
     team.push(player);
     squadCount[player.squadId] = (squadCount[player.squadId] || 0) + 1;
@@ -147,7 +176,7 @@ function solveForFormation(players, formation, filters) {
 
   if (team.length < 7) return null;
 
-  // Assign captain: highest projectedPts in the team
+  // Assign captain
   const captain = team.reduce((max, p) => p.projectedPts > max.projectedPts ? p : max);
   captain.isCaptain = true;
   captain.projectedPtsDisplay = captain.projectedPts * 2;
@@ -159,7 +188,6 @@ function solveForFormation(players, formation, filters) {
 
 function renderPicks(round, optimalTeam, squads) {
   const { team, formation, totalPts } = optimalTeam;
-
   const formationStr = `${formation.gk}-${formation.def}-${formation.mid}-${formation.fwd}`;
 
   let html = `
@@ -172,6 +200,10 @@ function renderPicks(round, optimalTeam, squads) {
         <input type="checkbox" id="min-mins" ${filters.min1000mins ? 'checked' : ''} />
         Min 1000 mins
       </label>
+      <label>
+        <input type="checkbox" id="one-club-chip" ${filters.oneClubChip ? 'checked' : ''} />
+        One Club Chip Active
+      </label>
     </div>
 
     <div class="picks-header">
@@ -183,7 +215,7 @@ function renderPicks(round, optimalTeam, squads) {
     <div class="picks-formation">
   `;
 
-  // Group by position for formation display
+  // Group by position
   const byPos = {
     GK: team.filter(p => p.position === 'GK'),
     DEF: team.filter(p => p.position === 'DEF'),
@@ -191,7 +223,6 @@ function renderPicks(round, optimalTeam, squads) {
     FWD: team.filter(p => p.position === 'FWD'),
   };
 
-  // Render in formation order
   for (const pos of ['GK', 'DEF', 'MID', 'FWD']) {
     if (byPos[pos].length === 0) continue;
 
@@ -201,10 +232,23 @@ function renderPicks(round, optimalTeam, squads) {
       const name = player.displayName || `${player.firstName} ${player.lastName}`;
       const squad = squads[player.squadId];
       const squadName = squad?.shortName || squad?.name || '?';
-      const fixtures = player.fixtures || 0;
-      const fixtureLabel = fixtures >= 2 ? `${fixtures}x` : fixtures === 1 ? 'H' : '—';
       const captainClass = player.isCaptain ? 'is-captain' : '';
       const projDisplay = player.isCaptain ? `${player.projectedPtsDisplay.toFixed(1)}*` : player.projectedPts.toFixed(1);
+
+      // Build fixtures display
+      let fixturesHtml = '';
+      if (player.fixtures && player.fixtures.length > 0) {
+        fixturesHtml = '<div class="pick-fixtures">';
+        for (const fixture of player.fixtures) {
+          const opp = fixture.isHome ? fixture.awayId : fixture.homeId;
+          const oppSquad = squads[opp];
+          const oppName = oppSquad?.shortName || '?';
+          const homeAway = fixture.isHome ? 'H' : 'A';
+          const fixtureBadgeClass = fixture.isHome ? 'fixture-home' : 'fixture-away';
+          fixturesHtml += `<span class="fixture-badge ${fixtureBadgeClass}">${oppName}(${homeAway})</span>`;
+        }
+        fixturesHtml += '</div>';
+      }
 
       html += `
         <div class="pick-card pick-${pos} ${captainClass}">
@@ -219,13 +263,14 @@ function renderPicks(round, optimalTeam, squads) {
             </div>
             <div class="pick-stat">
               <span class="pick-label">Fix</span>
-              <span class="pick-value">${fixtureLabel}</span>
+              <span class="pick-value">${player.totalFixtures || 0}</span>
             </div>
             <div class="pick-stat">
               <span class="pick-label">Proj</span>
               <span class="pick-value">${projDisplay}</span>
             </div>
           </div>
+          ${fixturesHtml}
         </div>
       `;
     }
@@ -245,6 +290,11 @@ function renderPicks(round, optimalTeam, squads) {
 
   document.getElementById('min-mins').addEventListener('change', (e) => {
     filters.min1000mins = e.target.checked;
+    renderWithFilters();
+  });
+
+  document.getElementById('one-club-chip').addEventListener('change', (e) => {
+    filters.oneClubChip = e.target.checked;
     renderWithFilters();
   });
 }

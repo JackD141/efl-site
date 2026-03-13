@@ -18,6 +18,7 @@ let filters = {
   excludeInjured: true,
   min1000mins: true,
   oneClubChip: false,
+  minRecentAvgMins: 0,
 };
 
 async function loadPicks() {
@@ -104,46 +105,18 @@ function buildGamesByRound(rounds) {
 async function enrichPlayers(players, rounds, squads) {
   const gamesByRound = buildGamesByRound(rounds);
 
-  // Fetch profiles with timeout for all players in parallel batches
-  const fetchProfileWithTimeout = async (playerId) => {
-    try {
-      const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 3000); // 3 second timeout per player
-
-      const profileRes = await fetch(`/api/player?id=${playerId}`, { signal: controller.signal });
-      clearTimeout(timeout);
-
-      if (!profileRes.ok) return null;
-      return await profileRes.json();
-    } catch (err) {
-      return null;
-    }
-  };
-
-  // Fetch profiles in batches of 5 to avoid overwhelming the server
-  const batchSize = 5;
-  const profiles = {};
-
-  for (let i = 0; i < players.length; i += batchSize) {
-    const batch = players.slice(i, i + batchSize);
-    const promises = batch.map(p => fetchProfileWithTimeout(p.id).then(profile => ({ id: p.id, profile })));
-    const results = await Promise.all(promises);
-
-    for (const result of results) {
-      if (result.profile) {
-        profiles[result.id] = result.profile;
-      }
-    }
-  }
-
-  // Process each player
   for (const player of players) {
     let homeMins = 0, homePts = 0, awayMins = 0, awayPts = 0;
     const recentGames = [];
-    const profile = profiles[player.id];
-    const games = profile ? (profile.results || profile.games || []) : [];
 
-    if (games.length > 0) {
+    try {
+      // Fetch player's per-game stats
+      const profileRes = await fetch(`/api/player?id=${player.id}`);
+      if (!profileRes.ok) throw new Error('Profile fetch failed');
+
+      const profile = await profileRes.json();
+      const games = profile.results || profile.games || [];
+
       // Match each game to determine home/away
       for (const game of games) {
         const roundNum = game.round || game.roundId || game.roundNumber;
@@ -184,8 +157,8 @@ async function enrichPlayers(players, rounds, squads) {
       }
 
       player.recentGames = recentGames.slice(-5);
-    } else {
-      // No profile data - use sensible defaults
+    } catch (err) {
+      // Fallback if profile fetch fails
       player.homePer90 = player.averagePoints || 0;
       player.awayPer90 = player.averagePoints || 0;
       player.recentGames = [];
@@ -236,6 +209,13 @@ function solveForFormation(players, formation, filters) {
   const eligible = players.filter(p => {
     if (filters.excludeInjured && p.injuryDetails) return false;
     if (filters.min1000mins && (p.appearances * 90 < 1000)) return false;
+
+    // Check recent games minutes average
+    if (filters.minRecentAvgMins > 0 && p.recentGames && p.recentGames.length > 0) {
+      const recentMinsAvg = p.recentGames.reduce((s, g) => s + g.minutes, 0) / p.recentGames.length;
+      if (recentMinsAvg < filters.minRecentAvgMins) return false;
+    }
+
     return true;
   });
 
@@ -327,6 +307,10 @@ function renderPicks(round, optimalTeam, squads) {
       <label>
         <input type="checkbox" id="one-club-chip" ${filters.oneClubChip ? 'checked' : ''} />
         One Club Chip
+      </label>
+      <label>
+        Last 5 Min Avg: <span id="recent-mins-label">${filters.minRecentAvgMins}</span>
+        <input type="range" id="recent-mins-slider" min="0" max="90" value="${filters.minRecentAvgMins}" style="width: 120px; vertical-align: middle;" />
       </label>
     </div>
 
@@ -420,6 +404,12 @@ function renderPicks(round, optimalTeam, squads) {
 
   document.getElementById('one-club-chip').addEventListener('change', (e) => {
     filters.oneClubChip = e.target.checked;
+    renderWithFilters();
+  });
+
+  document.getElementById('recent-mins-slider').addEventListener('input', (e) => {
+    filters.minRecentAvgMins = parseInt(e.target.value, 10);
+    document.getElementById('recent-mins-label').textContent = filters.minRecentAvgMins;
     renderWithFilters();
   });
 }

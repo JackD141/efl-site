@@ -353,6 +353,101 @@ td.pts-col {
   cursor: pointer;
 }
 
+/* Optimal Picks page */
+.picks-header {
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.picks-header h2 {
+  font-size: 1.5rem;
+  color: #fff;
+  margin-bottom: 8px;
+}
+
+.gw-label {
+  font-size: 0.9rem;
+  color: #aaa;
+}
+
+.formation-label {
+  font-size: 0.85rem;
+  color: #888;
+  margin-top: 6px;
+}
+
+.picks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.pick-card {
+  padding: 12px;
+  border-radius: 8px;
+  border: 2px solid #1a3050;
+  background: #0e1e38;
+  transition: transform 0.15s, border-color 0.15s;
+}
+
+.pick-card:hover {
+  transform: translateY(-2px);
+  border-color: #f05a28;
+}
+
+.pick-GK  { border-left: 4px solid #f5a623; }
+.pick-DEF { border-left: 4px solid #1c6ed1; }
+.pick-MID { border-left: 4px solid #27ae60; }
+.pick-FWD { border-left: 4px solid #e74c3c; }
+
+.pick-header {
+  margin-bottom: 10px;
+  border-bottom: 1px solid #1a3050;
+  padding-bottom: 8px;
+}
+
+.pick-name {
+  font-size: 0.95rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+.pick-squad {
+  font-size: 0.75rem;
+  color: #aaa;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 3px;
+}
+
+.pick-stats {
+  display: flex;
+  justify-content: space-around;
+  gap: 6px;
+}
+
+.pick-stat {
+  flex: 1;
+  text-align: center;
+  font-size: 0.8rem;
+}
+
+.pick-label {
+  display: block;
+  color: #666;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.pick-value {
+  display: block;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
 @media (max-width: 600px) {
   header {
     flex-direction: column;

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EFL Fantasy League</title>
+  <title>Optimal Picks — EFL Fantasy League</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -11,19 +11,18 @@
   <header>
     <h1>EFL Fantasy League</h1>
     <nav>
-      <a href="index.html" class="nav-link active">League Table</a>
+      <a href="index.html" class="nav-link">League Table</a>
       <a href="players.html" class="nav-link">Player Stats</a>
-      <a href="picks.html" class="nav-link">Optimal Picks</a>
+      <a href="picks.html" class="nav-link active">Optimal Picks</a>
     </nav>
-    <button id="refresh-btn" onclick="loadTable()">Pull Latest League Table</button>
   </header>
 
   <main>
     <div id="status"></div>
-    <div id="table-container"></div>
+    <div id="picks-container"></div>
   </main>
 
-  <script src="app.js"></script>
+  <script src="picks.js"></script>
 
 </body>
 </html>

@@ -249,6 +249,12 @@ function renderWithFilters() {
 }
 
 function solveOptimalTeam(players, filters) {
+  // Clear any existing captain flags
+  for (const p of players) {
+    delete p.isCaptain;
+    delete p.projectedPtsDisplay;
+  }
+
   let bestTeam = null;
   let bestScore = -Infinity;
 

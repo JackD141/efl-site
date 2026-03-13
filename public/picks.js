@@ -87,7 +87,6 @@ function getFixtureDifficulty(squadId) {
   if (!squad) return 'neutral';
 
   const pos = squad.leaguePosition || 999;
-  console.log(`[DEBUG] Fixture for ${squad.shortName} (ID: ${squadId}): position=${pos}`);
   if (pos <= 8) return 'hard';    // red: top 8
   if (pos <= 16) return 'medium'; // grey: mid table
   return 'easy';                  // green: bottom 8

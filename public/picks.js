@@ -433,17 +433,15 @@ function renderPicks(round, optimalTeam, squads) {
   html += '</div>'; // close picks-formation
 
   // Build Teams to Target section
+  // Group squads by league - find all unique league values first
   const leagueMap = {};
-  const leagueNames = { 'League 2': 'League 2', 'League 1': 'League 1', 'Championship': 'Championship' };
-  for (const leagueKey of Object.keys(leagueNames)) {
-    leagueMap[leagueKey] = [];
-  }
-
   for (const squad of Object.values(squadsMap)) {
-    const league = squad.league || 'Unknown';
-    if (leagueMap[league]) {
-      leagueMap[league].push(squad);
+    // Try multiple possible league property names
+    const league = squad.league || squad.divisionName || squad.leagueName || squad.division || 'Unknown';
+    if (!leagueMap[league]) {
+      leagueMap[league] = [];
     }
+    leagueMap[league].push(squad);
   }
 
   // Sort squads by name within each league
@@ -460,9 +458,10 @@ function renderPicks(round, optimalTeam, squads) {
   teamsHtml += '</div></div>';
   teamsHtml += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;">';
 
-  for (const leagueKey of ['League 2', 'League 1', 'Championship']) {
-    const league = leagueKey;
-    const squads = leagueMap[league] || [];
+  // Get sorted league names
+  const sortedLeagues = Object.keys(leagueMap).sort();
+  for (const league of sortedLeagues) {
+    const squads = leagueMap[league];
 
     teamsHtml += `<div style="border: 1px solid #ddd; border-radius: 8px; padding: 16px;">`;
     teamsHtml += `<h4 style="margin-bottom: 12px; color: #f05a28; font-size: 0.95rem;">${league}</h4>`;

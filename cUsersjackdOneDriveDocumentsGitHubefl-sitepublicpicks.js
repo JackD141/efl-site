@@ -18,8 +18,6 @@ let filters = {
   excludeInjured: true,
   min1000mins: true,
   oneClubChip: false,
-  excludeTeams: [],
-  minRecentAvgMins: 0,
 };
 
 async function loadPicks() {
@@ -67,7 +65,7 @@ async function loadPicks() {
       fixturesBySquad[game.awayId]?.push({ ...game, isHome: false });
     }
 
-    // Enrich players with per-90 stats by home/away
+    // Enrich players with per-90 stats by home/away (from ALL previous rounds)
     enrichPlayers(allPlayers, allRounds, squads);
 
     renderWithFilters();
@@ -84,27 +82,41 @@ function getFixtureDifficulty(squadId) {
   if (!squad) return 'neutral';
 
   const pos = squad.leaguePosition || 999;
-  console.log(`[DEBUG] Fixture for ${squad.shortName} (ID: ${squadId}): position=${pos}`);
   if (pos <= 8) return 'hard';    // red: top 8
   if (pos <= 16) return 'medium'; // grey: mid table
   return 'easy';                  // green: bottom 8
 }
 
-function getRecentAvgMins(player) {
-  // If player has games array, calculate average of last 5 games
-  if (player.games && Array.isArray(player.games)) {
-    const recentGames = player.games.slice(-5);
-    if (recentGames.length > 0) {
-      const totalMins = recentGames.reduce((sum, g) => sum + (g.minutes || 0), 0);
-      return totalMins / recentGames.length;
+function enrichPlayers(players, rounds, squads) {
+  // First pass: calculate home/away per-90 from historical data
+  const homeAwayStats = {};
+
+  for (const player of players) {
+    homeAwayStats[player.id] = {
+      homeMins: 0,
+      homePts: 0,
+      awayMins: 0,
+      awayPts: 0,
+    };
+  }
+
+  // Iterate through all completed rounds to build home/away averages
+  for (const round of rounds) {
+    if (round.status !== 'completed') continue;
+
+    for (const game of round.games) {
+      const homeTeam = game.homeId;
+      const awayTeam = game.awayId;
+
+      // Look for players from each team in this game
+      for (const result of round.games[0].gameEvents || []) {
+        // Games don't have embedded player results, so we skip this approach
+      }
     }
   }
-  // Fallback: estimate based on appearances (assume ~45 mins per appearance on average)
-  return (player.appearances || 0) > 0 ? 45 : 0;
-}
 
-function enrichPlayers(players, rounds, squads) {
-  // Use simple heuristic: estimate per-90 from season average,
+  // Since we don't have per-game home/away breakdown in the API,
+  // use a simpler heuristic: estimate per-90 from season average,
   // then assume home games are ~15% better, away ~15% worse
   for (const p of players) {
     const totalMins = p.appearances * 90; // estimate
@@ -116,14 +128,11 @@ function enrichPlayers(players, rounds, squads) {
     const fixtures = fixturesBySquad[p.squadId] || [];
     p.fixtures = fixtures;
 
-    // Calculate recent average minutes
-    p.recentAvgMins = getRecentAvgMins(p);
-
     // Calculate projected pts for next GW
     let projectedPts = 0;
     for (const fixture of fixtures) {
       const per90 = fixture.isHome ? p.homePer90 : p.awayPer90;
-      projectedPts += per90;  // Per-90 is already the expected points for a full match
+      projectedPts += (per90 / 90);
     }
 
     p.projectedPts = projectedPts;
@@ -161,11 +170,6 @@ function solveForFormation(players, formation, filters) {
   const eligible = players.filter(p => {
     if (filters.excludeInjured && p.injuryDetails) return false;
     if (filters.min1000mins && (p.appearances * 90 < 1000)) return false;
-    if (filters.excludeTeams.includes(p.squadId)) return false;
-    // Only apply recent mins filter if player has actual game data
-    if (filters.minRecentAvgMins > 0 && p.games && p.games.length > 0) {
-      if (p.recentAvgMins < filters.minRecentAvgMins) return false;
-    }
     return true;
   });
 
@@ -205,22 +209,6 @@ function renderPicks(round, optimalTeam, squads) {
   const { team, formation, totalPts } = optimalTeam;
   const formationStr = `${formation.gk}-${formation.def}-${formation.mid}-${formation.fwd}`;
 
-  // Build team filter checkboxes
-  const teamOptions = Array.from(new Set(allPlayers.map(p => p.squadId)))
-    .sort((a, b) => {
-      const squadA = squadsMap[a];
-      const squadB = squadsMap[b];
-      const nameA = (squadA?.shortName || squadA?.name || '').toUpperCase();
-      const nameB = (squadB?.shortName || squadB?.name || '').toUpperCase();
-      return nameA.localeCompare(nameB);
-    })
-    .map(squadId => {
-      const squad = squadsMap[squadId];
-      const isChecked = !filters.excludeTeams.includes(squadId);
-      return `<label style="margin-right: 12px; display: inline-block;"><input type="checkbox" class="team-filter" value="${squadId}" ${isChecked ? 'checked' : ''} /> ${squad?.shortName || squad?.name || '?'}</label>`;
-    })
-    .join('');
-
   let html = `
     <div class="picks-filters">
       <label>
@@ -235,19 +223,6 @@ function renderPicks(round, optimalTeam, squads) {
         <input type="checkbox" id="one-club-chip" ${filters.oneClubChip ? 'checked' : ''} />
         One Club Chip
       </label>
-      <div style="margin-top: 12px;">
-        <label style="display: block; margin-bottom: 6px;">
-          Min Recent Avg Mins: <strong id="recent-mins-value">${filters.minRecentAvgMins}</strong>
-        </label>
-        <input type="range" id="recent-mins-slider" min="0" max="90" value="${filters.minRecentAvgMins}" style="width: 200px;" />
-      </div>
-    </div>
-
-    <div style="margin-bottom: 16px; padding: 12px; background: #f5f5f5; border-radius: 6px;">
-      <div style="font-size: 0.85rem; color: #666; text-transform: uppercase; font-weight: bold; margin-bottom: 12px;">Include Teams</div>
-      <div style="display: flex; flex-wrap: wrap; gap: 12px;">
-        ${teamOptions}
-      </div>
     </div>
 
     <div class="picks-header">
@@ -278,7 +253,7 @@ function renderPicks(round, optimalTeam, squads) {
       const captainClass = player.isCaptain ? 'is-captain' : '';
       const projDisplay = player.isCaptain ? `${player.projectedPtsDisplay.toFixed(1)}*` : player.projectedPts.toFixed(1);
 
-      // Build fixtures display with per-90 values
+      // Build fixtures display (only next GW fixtures)
       let fixturesHtml = '';
       if (player.fixtures && player.fixtures.length > 0) {
         fixturesHtml = '<div class="pick-fixtures">';
@@ -289,19 +264,15 @@ function renderPicks(round, optimalTeam, squads) {
           const homeAway = fixture.isHome ? 'H' : 'A';
           const difficulty = getFixtureDifficulty(opp);
           const fixtureBadgeClass = `fixture-${difficulty}`;
-          const per90Val = fixture.isHome ? player.homePer90 : player.awayPer90;
-          fixturesHtml += `<span class="fixture-badge ${fixtureBadgeClass}">${oppName}(${homeAway})<span class="fixture-per90">${per90Val.toFixed(1)}</span></span>`;
+          fixturesHtml += `<span class="fixture-badge ${fixtureBadgeClass}">${oppName}(${homeAway})</span>`;
         }
         fixturesHtml += '</div>';
       }
 
-      const hasGames = player.games && player.games.length > 0;
-      const infoButtonHtml = hasGames ? `<button class="pick-info-btn" data-player-id="${player.id}" title="View last 5 games">ℹ️</button>` : '';
-
       html += `
         <div class="pick-card pick-${pos} ${captainClass}">
           <div class="pick-header">
-            <div class="pick-name">${name} ${infoButtonHtml}</div>
+            <div class="pick-name">${name}</div>
             <div class="pick-squad">${squadName}</div>
           </div>
           <div class="pick-stats">
@@ -326,27 +297,7 @@ function renderPicks(round, optimalTeam, squads) {
     html += '</div>';
   }
 
-  html += '</div>'; // close picks-formation
-
-  html += `
-    <div id="games-modal" class="games-modal" style="display: none;">
-      <div class="games-modal-content">
-        <span class="games-modal-close">&times;</span>
-        <h3 id="games-modal-title"></h3>
-        <table class="games-table">
-          <thead>
-            <tr>
-              <th>GW</th>
-              <th>Minutes</th>
-              <th>Points</th>
-            </tr>
-          </thead>
-          <tbody id="games-table-body">
-          </tbody>
-        </table>
-      </div>
-    </div>
-  `;
+  html += '</div>';
 
   picksContainer.innerHTML = html;
 
@@ -363,63 +314,6 @@ function renderPicks(round, optimalTeam, squads) {
   document.getElementById('one-club-chip').addEventListener('change', (e) => {
     filters.oneClubChip = e.target.checked;
     renderWithFilters();
-  });
-
-  document.getElementById('recent-mins-slider').addEventListener('input', (e) => {
-    filters.minRecentAvgMins = parseInt(e.target.value, 10);
-    document.getElementById('recent-mins-value').textContent = filters.minRecentAvgMins;
-    renderWithFilters();
-  });
-
-  document.querySelectorAll('.team-filter').forEach(checkbox => {
-    checkbox.addEventListener('change', (e) => {
-      const squadId = parseInt(e.target.value, 10);
-      if (e.target.checked) {
-        filters.excludeTeams = filters.excludeTeams.filter(id => id !== squadId);
-      } else {
-        filters.excludeTeams.push(squadId);
-      }
-      renderWithFilters();
-    });
-  });
-
-  // Modal functionality
-  const modal = document.getElementById('games-modal');
-  const closeBtn = document.querySelector('.games-modal-close');
-
-  closeBtn.addEventListener('click', () => {
-    modal.style.display = 'none';
-  });
-
-  modal.addEventListener('click', (e) => {
-    if (e.target === modal) {
-      modal.style.display = 'none';
-    }
-  });
-
-  document.querySelectorAll('.pick-info-btn').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      const playerId = parseInt(btn.getAttribute('data-player-id'), 10);
-      const player = allPlayers.find(p => p.id === playerId);
-
-      if (player && player.games && player.games.length > 0) {
-        const recentGames = player.games.slice(-5).reverse(); // Last 5, most recent first
-        const playerName = player.displayName || `${player.firstName} ${player.lastName}`;
-        document.getElementById('games-modal-title').textContent = `${playerName} - Last 5 Games`;
-
-        const tableBody = document.getElementById('games-table-body');
-        tableBody.innerHTML = recentGames.map((game, idx) => `
-          <tr>
-            <td>${game.round || game.roundId || game.roundNumber || 'N/A'}</td>
-            <td>${game.minutes || 0}</td>
-            <td>${game.points || 0}</td>
-          </tr>
-        `).join('');
-
-        modal.style.display = 'block';
-      }
-    });
   });
 }
 

@@ -122,9 +122,9 @@ function calcPer90(games, cols, pos, squadId) {
   let homeMins = 0, homePts = 0, awayMins = 0, awayPts = 0;
 
   for (const game of games) {
-    const roundNum = game.round || game.roundId;
+    const roundNum = game.round || game.roundId || game.roundNumber;
     const gameInfo = gamesByRound[roundNum]?.[squadId];
-    const mins = game.minutesPlayed || 0;
+    const mins = game.minutesPlayed || game.minutes || 0;
     const pts = game.points || 0;
 
     if (gameInfo && gameInfo.isHome) {
@@ -136,8 +136,14 @@ function calcPer90(games, cols, pos, squadId) {
     }
   }
 
-  const homePer90 = homeMins > 0 ? (homePts / homeMins) * 90 : 0;
-  const awayPer90 = awayMins > 0 ? (awayPts / awayMins) * 90 : 0;
+  let homePer90 = homeMins > 0 ? (homePts / homeMins) * 90 : 0;
+  let awayPer90 = awayMins > 0 ? (awayPts / awayMins) * 90 : 0;
+
+  // Fallback: if no games matched, use overall per-90 for both
+  if (homePer90 === 0 && awayPer90 === 0 && totalMins > 0) {
+    homePer90 = overallPer90;
+    awayPer90 = overallPer90;
+  }
 
   const perNinety = {};
   for (const col of cols) {

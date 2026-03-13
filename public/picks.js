@@ -114,15 +114,15 @@ async function enrichPlayers(players, rounds, squads) {
       if (!profileRes.ok) continue;
 
       const profile = await profileRes.json();
-      const games = profile.games || [];
+      const games = profile.results || profile.games || [];
 
       // Match each game to determine home/away
       for (const game of games) {
-        const roundNum = game.round;
+        const roundNum = game.round || game.roundId || game.roundNumber;
         const gameInfo = gamesByRound[roundNum]?.[player.squadId];
 
         if (gameInfo) {
-          const mins = game.minutes || 0;
+          const mins = game.minutes || game.minutesPlayed || 0;
           const pts = game.points || 0;
 
           if (gameInfo.isHome) {
@@ -137,7 +137,7 @@ async function enrichPlayers(players, rounds, squads) {
         // Store for last 5 games popup
         recentGames.push({
           round: roundNum,
-          minutes: game.minutes || 0,
+          minutes: game.minutes || game.minutesPlayed || 0,
           points: game.points || 0,
         });
       }
@@ -145,12 +145,23 @@ async function enrichPlayers(players, rounds, squads) {
       // Calculate per-90 values
       player.homePer90 = homeMins > 0 ? (homePts / homeMins) * 90 : 0;
       player.awayPer90 = awayMins > 0 ? (awayPts / awayMins) * 90 : 0;
+
+      // Fallback: if no games matched home/away, use overall per-90
+      if (player.homePer90 === 0 && player.awayPer90 === 0 && games.length > 0) {
+        const totalMins = games.reduce((s, g) => s + (g.minutes || g.minutesPlayed || 0), 0);
+        const totalPts = games.reduce((s, g) => s + (g.points || 0), 0);
+        const overallPer90 = totalMins > 0 ? (totalPts / totalMins) * 90 : 0;
+        player.homePer90 = overallPer90;
+        player.awayPer90 = overallPer90;
+      }
+
       player.recentGames = recentGames.slice(-5);
     } catch (err) {
       // Fallback if profile fetch fails
       player.homePer90 = 0;
       player.awayPer90 = 0;
       player.recentGames = [];
+      console.warn(`Failed to load profile for player ${player.id}:`, err);
     }
 
     // Get next GW fixtures and calculate projection

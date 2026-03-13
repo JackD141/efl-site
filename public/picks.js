@@ -412,7 +412,10 @@ function renderPicks(round, optimalTeam, squads) {
     </div>
 
     <div class="picks-header">
-      <h2>Certified™ Optimal Picks</h2>
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <h2 style="margin: 0;">Certified™ Optimal Picks</h2>
+        <button id="methodology-btn" style="background: none; border: none; font-size: 1.2rem; cursor: pointer; color: #999; padding: 0;" title="View methodology">ⓘ</button>
+      </div>
       <p class="gw-label">Gameweek ${round.roundNumber}</p>
   `;
 
@@ -628,6 +631,50 @@ function renderPicks(round, optimalTeam, squads) {
   teamsHtml += '</div></div>';
   html += teamsHtml;
 
+  // Build methodology modal HTML with position multipliers
+  const multiplierRows = ['GK', 'DEF', 'MID', 'FWD'].map(pos => {
+    const mult = positionMultipliers[pos];
+    return `
+      <tr>
+        <td>${pos}</td>
+        <td>${mult.home.toFixed(2)}</td>
+        <td>${mult.away.toFixed(2)}</td>
+      </tr>
+    `;
+  }).join('');
+
+  html += `
+    <div id="methodology-modal" class="games-modal" style="display: none;">
+      <div class="games-modal-content" style="max-width: 500px;">
+        <span class="games-modal-close" style="cursor: pointer;">&times;</span>
+        <h3 style="margin-top: 0;">Methodology</h3>
+        <div style="font-size: 0.9rem; line-height: 1.6;">
+          <p><strong>Projection Formula:</strong></p>
+          <p>Base Points Per 90 (season average) × Home/Away Multiplier (by position)</p>
+
+          <p style="margin-top: 16px;"><strong>Home/Away Multipliers by Position:</strong></p>
+          <table style="width: 100%; border-collapse: collapse; margin: 8px 0;">
+            <thead>
+              <tr style="background: #f5f5f5; border-bottom: 1px solid #ddd;">
+                <th style="padding: 6px; text-align: left;">Position</th>
+                <th style="padding: 6px; text-align: center;">Home</th>
+                <th style="padding: 6px; text-align: center;">Away</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${multiplierRows}
+            </tbody>
+          </table>
+          <p style="font-size: 0.85rem; color: #666; margin-top: 12px;">Multipliers calculated from actual game data and vary by season.</p>
+
+          <p style="margin-top: 16px; padding: 10px; background: #fff3cd; border-radius: 4px; border-left: 3px solid #f0ad4e;">
+            <strong>⚠️ Important:</strong> These projections assume normal playing time. <strong>You must check estimated minutes</strong> for each player in the teams themselves, as absences, injuries, or rotation can significantly impact actual performance.
+          </p>
+        </div>
+      </div>
+    </div>
+  `;
+
   html += `
     <div id="games-modal" class="games-modal" style="display: none;">
       <div class="games-modal-content">
@@ -723,7 +770,30 @@ function renderPicks(round, optimalTeam, squads) {
     });
   });
 
-  // Modal functionality
+  // Methodology modal functionality
+  const methodologyBtn = document.getElementById('methodology-btn');
+  const methodologyModal = document.getElementById('methodology-modal');
+
+  if (methodologyBtn) {
+    methodologyBtn.addEventListener('click', () => {
+      methodologyModal.style.display = 'block';
+    });
+  }
+
+  const methodologyCloseBtns = methodologyModal.querySelectorAll('.games-modal-close');
+  methodologyCloseBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      methodologyModal.style.display = 'none';
+    });
+  });
+
+  methodologyModal.addEventListener('click', (e) => {
+    if (e.target === methodologyModal) {
+      methodologyModal.style.display = 'none';
+    }
+  });
+
+  // Games modal functionality
   const modal = document.getElementById('games-modal');
   const closeBtn = document.querySelector('.games-modal-close');
 

@@ -18,7 +18,6 @@ let filters = {
   excludeInjured: true,
   min1000mins: true,
   oneClubChip: false,
-  minRecentAvgMins: 0,
   excludeTeams: [],
 };
 
@@ -208,15 +207,13 @@ function renderPicks(round, optimalTeam, squads) {
         <input type="checkbox" id="one-club-chip" ${filters.oneClubChip ? 'checked' : ''} />
         One Club Chip
       </label>
-      <label style="display: block; margin-top: 8px;">
-        Last 5 Min Avg: <span id="recent-mins-label">${filters.minRecentAvgMins}</span>
-        <input type="range" id="recent-mins-slider" min="0" max="90" value="${filters.minRecentAvgMins}" style="width: 120px; vertical-align: middle;" />
-      </label>
     </div>
 
     <div style="margin-bottom: 16px; padding: 12px; background: #f5f5f5; border-radius: 6px;">
-      <div style="font-size: 0.85rem; color: #666; text-transform: uppercase; font-weight: bold; margin-bottom: 8px;">Exclude Teams</div>
-      ${teamOptions}
+      <div style="font-size: 0.85rem; color: #666; text-transform: uppercase; font-weight: bold; margin-bottom: 12px;">Include Teams</div>
+      <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+        ${teamOptions}
+      </div>
     </div>
 
     <div class="picks-header">
@@ -308,12 +305,6 @@ function renderPicks(round, optimalTeam, squads) {
 
   document.getElementById('one-club-chip').addEventListener('change', (e) => {
     filters.oneClubChip = e.target.checked;
-    renderWithFilters();
-  });
-
-  document.getElementById('recent-mins-slider').addEventListener('input', (e) => {
-    filters.minRecentAvgMins = parseInt(e.target.value, 10);
-    document.getElementById('recent-mins-label').textContent = filters.minRecentAvgMins;
     renderWithFilters();
   });
 

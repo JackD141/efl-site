@@ -449,6 +449,8 @@ function renderPicks(round, optimalTeam, squads) {
     leagueMap[league].sort((a, b) => (a.shortName || a.name).localeCompare(b.shortName || b.name));
   }
 
+  console.log('[LEAGUES] Found leagues:', Object.keys(leagueMap), 'with squad counts:', Object.fromEntries(Object.entries(leagueMap).map(([k, v]) => [k, v.length])));
+
   let teamsHtml = '<div style="margin-top: 40px; padding-top: 24px; border-top: 2px solid #ddd;">';
   teamsHtml += '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">';
   teamsHtml += '<h3 style="margin: 0; font-size: 1.2rem;">Teams to Target</h3>';

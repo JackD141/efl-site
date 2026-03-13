@@ -99,8 +99,8 @@ function getRecentAvgMins(player) {
       return totalMins / recentGames.length;
     }
   }
-  // Fallback: estimate based on appearances (assume ~45 mins per appearance on average)
-  return (player.appearances || 0) > 0 ? 45 : 0;
+  // Fallback: estimate based on appearances (assume ~60 mins per appearance on average)
+  return (player.appearances || 0) > 0 ? 60 : 0;
 }
 
 function enrichPlayers(players, rounds, squads) {

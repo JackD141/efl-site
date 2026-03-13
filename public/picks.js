@@ -13,6 +13,12 @@ let nextRound = null;
 let squadsMap = {};
 let allRounds = [];
 let fixturesBySquad = {};
+let positionMultipliers = {
+  GK: { home: 1.0, away: 1.0 },
+  DEF: { home: 1.0, away: 1.0 },
+  MID: { home: 1.0, away: 1.0 },
+  FWD: { home: 1.0, away: 1.0 },
+};
 
 let filters = {
   excludeInjured: true,
@@ -78,11 +84,14 @@ async function loadPicks() {
       fixturesBySquad[game.awayId]?.push({ ...game, isHome: false });
     }
 
-    // Enrich players with per-90 stats by home/away
-    enrichPlayers(allPlayers, allRounds, squads);
-
     // Fetch game data to calculate empirical home/away and recent mins
     await enrichPlayerGameData(allPlayers);
+
+    // Calculate position-specific home/away multipliers from game data
+    calculatePositionMultipliers(allPlayers);
+
+    // Enrich players with per-90 stats by home/away (uses position multipliers)
+    enrichPlayers(allPlayers, allRounds, squads);
 
     renderWithFilters();
     statusEl.textContent = '';
@@ -216,16 +225,67 @@ async function enrichPlayerGameData(players) {
   }
 }
 
+function calculatePositionMultipliers(players) {
+  // Calculate empirical home/away multipliers by position from game data
+  const posStats = {
+    GK: { homeTotal: 0, homeCount: 0, awayTotal: 0, awayCount: 0 },
+    DEF: { homeTotal: 0, homeCount: 0, awayTotal: 0, awayCount: 0 },
+    MID: { homeTotal: 0, homeCount: 0, awayTotal: 0, awayCount: 0 },
+    FWD: { homeTotal: 0, homeCount: 0, awayTotal: 0, awayCount: 0 },
+  };
+
+  // Aggregate game data by position and home/away
+  for (const p of players) {
+    if (!p.games || p.games.length === 0) continue;
+
+    const pos = p.position;
+    if (!posStats[pos]) continue;
+
+    for (const game of p.games) {
+      if (game.minutes === 0) continue; // Skip games where player didn't play
+
+      const per90 = game.minutes > 0 ? (game.points / game.minutes) * 90 : 0;
+
+      if (game.isHome) {
+        posStats[pos].homeTotal += per90;
+        posStats[pos].homeCount++;
+      } else {
+        posStats[pos].awayTotal += per90;
+        posStats[pos].awayCount++;
+      }
+    }
+  }
+
+  // Calculate multipliers relative to overall average for each position
+  for (const pos of ['GK', 'DEF', 'MID', 'FWD']) {
+    const stats = posStats[pos];
+
+    if (stats.homeCount > 0 && stats.awayCount > 0) {
+      const homeAvg = stats.homeTotal / stats.homeCount;
+      const awayAvg = stats.awayTotal / stats.awayCount;
+      const overallAvg = (stats.homeTotal + stats.awayTotal) / (stats.homeCount + stats.awayCount);
+
+      if (overallAvg > 0) {
+        positionMultipliers[pos].home = homeAvg / overallAvg;
+        positionMultipliers[pos].away = awayAvg / overallAvg;
+      }
+    }
+  }
+
+  console.log('[POSITION-MULTIPLIERS]', positionMultipliers);
+}
 
 function enrichPlayers(players, rounds, squads) {
-  // Use simple heuristic: estimate per-90 from season average,
-  // then assume home games are ~15% better, away ~15% worse
+  // Use season average as base, apply position-specific home/away multipliers
   for (const p of players) {
     const totalMins = p.appearances * 90; // estimate
     const basePer90 = totalMins > 0 ? (p.totalPoints / totalMins) * 90 : (p.averagePoints || 0);
 
-    p.homePer90 = basePer90 * 1.15;  // +15% at home
-    p.awayPer90 = basePer90 * 0.85;  // -15% away
+    const pos = p.position;
+    const mult = positionMultipliers[pos] || { home: 1.15, away: 0.85 };
+
+    p.homePer90 = basePer90 * mult.home;
+    p.awayPer90 = basePer90 * mult.away;
 
     const fixtures = fixturesBySquad[p.squadId] || [];
     p.fixtures = fixtures;
@@ -352,7 +412,7 @@ function renderPicks(round, optimalTeam, squads) {
     </div>
 
     <div class="picks-header">
-      <h2>Dexter's Optimal Picks</h2>
+      <h2>Certified™ Optimal Picks</h2>
       <p class="gw-label">Gameweek ${round.roundNumber}</p>
   `;
 
@@ -502,11 +562,11 @@ function renderPicks(round, optimalTeam, squads) {
     leagueGroups[league].push({ squad, fixtures, fixtureScore });
   }
 
-  // Sort teams within each league by fixture score
+  // Sort teams within each league by fixture count first, then fixture score
   for (const league of Object.keys(leagueGroups)) {
     leagueGroups[league].sort((a, b) => {
-      if (b.fixtureScore !== a.fixtureScore) return b.fixtureScore - a.fixtureScore;
       if (b.fixtures.length !== a.fixtures.length) return b.fixtures.length - a.fixtures.length;
+      if (b.fixtureScore !== a.fixtureScore) return b.fixtureScore - a.fixtureScore;
       return (a.squad.shortName || a.squad.name).localeCompare(b.squad.shortName || b.squad.name);
     });
   }

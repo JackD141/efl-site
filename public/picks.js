@@ -446,16 +446,16 @@ function renderPicks(round, optimalTeam, squads) {
     } else {
       html += `<div style="display: flex; flex-direction: column; gap: 6px;">`;
       for (const p of excludedPlayers) {
-        const pName = p.displayName || \`\${p.firstName} \${p.lastName}\`;
+        const pName = p.displayName || `${p.firstName} ${p.lastName}`;
         const pSquad = squads[p.squadId];
         const pSquadName = pSquad?.shortName || pSquad?.name || '?';
-        html += \`
+        html += `
           <label style="display: flex; align-items: center; gap: 6px; font-size: 0.85rem; cursor: pointer; padding: 4px; border-radius: 3px; background: white;">
-            <input type="checkbox" class="exclude-player-checkbox" value="\${p.id}" style="cursor: pointer;" />
-            <span>\${pName}</span>
-            <span style="font-size: 0.75rem; color: #999;">(\${pSquadName})</span>
+            <input type="checkbox" class="exclude-player-checkbox" value="${p.id}" style="cursor: pointer;" />
+            <span>${pName}</span>
+            <span style="font-size: 0.75rem; color: #999;">(${pSquadName})</span>
           </label>
-        \`;
+        `;
       }
       html += '</div>';
     }

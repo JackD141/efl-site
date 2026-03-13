@@ -19,6 +19,7 @@ let filters = {
   min1000mins: true,
   oneClubChip: false,
   excludeTeams: [],
+  minRecentAvgMins: 0,
 };
 
 async function loadPicks() {
@@ -69,6 +70,9 @@ async function loadPicks() {
     // Enrich players with per-90 stats by home/away
     enrichPlayers(allPlayers, allRounds, squads);
 
+    // Fetch game data to calculate empirical home/away and recent mins
+    await enrichPlayerGameData(allPlayers);
+
     renderWithFilters();
     statusEl.textContent = '';
   } catch (err) {
@@ -89,6 +93,50 @@ function getFixtureDifficulty(squadId) {
   return 'easy';                  // green: bottom 8
 }
 
+// Enrich players with actual game data: recentAvgMins and empirical home/away per-90
+async function enrichPlayerGameData(players) {
+  statusEl.textContent = 'Loading game data for filter...';
+
+  for (const player of players) {
+    try {
+      const res = await fetch(`/api/players/${player.id}`);
+      if (!res.ok) continue;
+      const profile = await res.json();
+
+      if (!profile.games || !Array.isArray(profile.games)) continue;
+
+      player.games = profile.games;
+
+      // Calculate recent avg mins (last 5 games)
+      const recentGames = profile.games.slice(-5);
+      if (recentGames.length > 0) {
+        const totalMins = recentGames.reduce((sum, g) => sum + (g.minutes || 0), 0);
+        player.recentAvgMins = totalMins / recentGames.length;
+      } else {
+        player.recentAvgMins = 0;
+      }
+
+      // Calculate empirical home/away per-90
+      const homeGames = profile.games.filter(g => g.isHome);
+      const awayGames = profile.games.filter(g => !g.isHome);
+
+      if (homeGames.length > 0) {
+        const homePoints = homeGames.reduce((sum, g) => sum + (g.points || 0), 0);
+        const homeMins = homeGames.reduce((sum, g) => sum + (g.minutes || 0), 0);
+        player.homePer90 = homeMins > 0 ? (homePoints / homeMins) * 90 : player.homePer90;
+      }
+
+      if (awayGames.length > 0) {
+        const awayPoints = awayGames.reduce((sum, g) => sum + (g.points || 0), 0);
+        const awayMins = awayGames.reduce((sum, g) => sum + (g.minutes || 0), 0);
+        player.awayPer90 = awayMins > 0 ? (awayPoints / awayMins) * 90 : player.awayPer90;
+      }
+    } catch (err) {
+      console.log(`Could not fetch game data for player ${player.id}`);
+    }
+  }
+}
+
 
 function enrichPlayers(players, rounds, squads) {
   // Use simple heuristic: estimate per-90 from season average,
@@ -102,6 +150,9 @@ function enrichPlayers(players, rounds, squads) {
 
     const fixtures = fixturesBySquad[p.squadId] || [];
     p.fixtures = fixtures;
+
+    // Initialize recentAvgMins (will be overwritten if we fetch game data)
+    p.recentAvgMins = (p.appearances || 0) > 0 ? 60 : 0;
 
     // Calculate projected pts for next GW
     let projectedPts = 0;
@@ -146,6 +197,7 @@ function solveForFormation(players, formation, filters) {
     if (filters.excludeInjured && p.injuryDetails) return false;
     if (filters.min1000mins && (p.appearances * 90 < 1000)) return false;
     if (filters.excludeTeams.includes(p.squadId)) return false;
+    if (filters.minRecentAvgMins > 0 && p.recentAvgMins < filters.minRecentAvgMins) return false;
     return true;
   });
 
@@ -215,6 +267,12 @@ function renderPicks(round, optimalTeam, squads) {
         <input type="checkbox" id="one-club-chip" ${filters.oneClubChip ? 'checked' : ''} />
         One Club Chip
       </label>
+      <div style="margin-top: 12px;">
+        <label style="display: block; margin-bottom: 6px;">
+          Min Recent Avg Mins: <strong id="recent-mins-value">${filters.minRecentAvgMins}</strong>
+        </label>
+        <input type="range" id="recent-mins-slider" min="0" max="90" value="${filters.minRecentAvgMins}" style="width: 200px;" />
+      </div>
     </div>
 
     <div style="margin-bottom: 16px; padding: 12px; background: #f5f5f5; border-radius: 6px;">
@@ -336,6 +394,12 @@ function renderPicks(round, optimalTeam, squads) {
 
   document.getElementById('one-club-chip').addEventListener('change', (e) => {
     filters.oneClubChip = e.target.checked;
+    renderWithFilters();
+  });
+
+  document.getElementById('recent-mins-slider').addEventListener('input', (e) => {
+    filters.minRecentAvgMins = parseInt(e.target.value, 10);
+    document.getElementById('recent-mins-value').textContent = filters.minRecentAvgMins;
     renderWithFilters();
   });
 

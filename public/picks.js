@@ -46,6 +46,9 @@ async function loadPicks() {
     // Log squad structure for debugging
     if (squads.length > 0) {
       console.log('[SQUAD-STRUCTURE] Sample squad:', squads[0]);
+      // Log all teams with positions to debug league grouping
+      const positionList = squads.map(s => `${s.shortName}: pos ${s.leaguePosition}`).join(', ');
+      console.log('[TEAM-POSITIONS]', positionList);
     }
 
     // Find next gameweek
@@ -592,19 +595,27 @@ function renderPicks(round, optimalTeam, squads) {
   const toggleAllCheckbox = document.getElementById('toggle-all-teams');
   if (toggleAllCheckbox) {
     toggleAllCheckbox.addEventListener('change', (e) => {
+      const allTeamIds = Array.from(document.querySelectorAll('.team-target-checkbox')).map(cb => parseInt(cb.value, 10));
+
       if (e.target.checked) {
         // Include all
         filters.excludeTeams = [];
       } else {
         // Exclude all
-        const allTeamIds = Array.from(document.querySelectorAll('.team-target-checkbox')).map(cb => parseInt(cb.value, 10));
         filters.excludeTeams = allTeamIds;
       }
-      document.querySelectorAll('.team-target-checkbox').forEach(cb => {
-        cb.checked = e.target.checked;
-      });
       renderWithFilters();
     });
+  }
+
+  // Update toggle all checkbox state after rendering
+  function updateToggleAllState() {
+    const toggleAllCheckbox = document.getElementById('toggle-all-teams');
+    if (toggleAllCheckbox) {
+      const allTeamIds = Array.from(document.querySelectorAll('.team-target-checkbox')).map(cb => parseInt(cb.value, 10));
+      const allChecked = allTeamIds.length > 0 && allTeamIds.every(id => !filters.excludeTeams.includes(id));
+      toggleAllCheckbox.checked = allChecked;
+    }
   }
 
   // Team target checkboxes
@@ -658,6 +669,9 @@ function renderPicks(round, optimalTeam, squads) {
       }
     });
   });
+
+  // Update toggle all state after rendering
+  updateToggleAllState();
 }
 
 loadPicks();

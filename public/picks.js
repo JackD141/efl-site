@@ -46,9 +46,11 @@ async function loadPicks() {
     // Log squad structure for debugging
     if (squads.length > 0) {
       console.log('[SQUAD-STRUCTURE] Sample squad:', squads[0]);
-      // Log all teams with positions to debug league grouping
-      const positionList = squads.map(s => `${s.shortName}: pos ${s.leaguePosition}`).join(', ');
-      console.log('[TEAM-POSITIONS]', positionList);
+      console.log('[SQUAD-KEYS] Available properties:', Object.keys(squads[0]));
+      // Log all teams with all relevant properties
+      for (const s of squads.slice(0, 5)) {
+        console.log(`${s.shortName}:`, { league: s.league, division: s.division, leagueName: s.leagueName, divisionName: s.divisionName, leaguePosition: s.leaguePosition });
+      }
     }
 
     // Find next gameweek

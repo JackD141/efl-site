@@ -78,19 +78,21 @@ async function loadPicks() {
       fixturesBySquad[game.awayId]?.push({ ...game, isHome: false });
     }
 
-    // Build fixture lookup for home/away determination (same as players.js)
-    console.log('[ALLROUNDS-STRUCTURE] First round keys:', Object.keys(allRounds[0] || {}));
-    console.log('[ALLROUNDS-STRUCTURE] First round:', allRounds[0]);
-
-    const gamesByRound = {};
-    for (const round of allRounds) {
-      const roundKey = round.roundId || round.id || round.gameweek;
-      gamesByRound[roundKey] = {};
-      for (const game of round.games) {
-        gamesByRound[roundKey][game.homeId] = { ...game, isHome: true };
-        gamesByRound[roundKey][game.awayId] = { ...game, isHome: false };
+    // Build fixture lookup using same logic as players.js
+    const buildGamesByRound = (rounds) => {
+      const gamesByRound = {};
+      for (const round of rounds) {
+        if (round.status !== 'completed') continue;
+        gamesByRound[round.roundNumber] = {};
+        for (const game of round.games) {
+          gamesByRound[round.roundNumber][game.homeId] = { ...game, isHome: true };
+          gamesByRound[round.roundNumber][game.awayId] = { ...game, isHome: false };
+        }
       }
-    }
+      return gamesByRound;
+    };
+
+    const gamesByRound = buildGamesByRound(allRounds);
 
     // Fetch game data to calculate empirical home/away and recent mins
     await enrichPlayerGameData(allPlayers, gamesByRound, squadsMap);

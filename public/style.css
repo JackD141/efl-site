@@ -605,6 +605,23 @@ input[type="range"]::-moz-range-thumb:hover {
   transform: scale(1.2);
 }
 
+.pick-exclude-btn {
+  background: none;
+  border: none;
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 0 4px;
+  margin-left: 6px;
+  color: #999;
+  transition: color 0.2s, transform 0.2s;
+  vertical-align: baseline;
+}
+
+.pick-exclude-btn:hover {
+  color: #d32f2f;
+  transform: scale(1.2);
+}
+
 .games-modal {
   position: fixed;
   top: 0;

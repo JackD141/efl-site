@@ -20,6 +20,7 @@ let filters = {
   oneClubChip: false,
   excludeTeams: [],
   minRecentAvgMins: 0,
+  excludePlayers: [],
 };
 
 async function loadPicks() {
@@ -275,6 +276,7 @@ function solveForFormation(players, formation, filters) {
     if (filters.min1000mins && (p.appearances * 90 < 1000)) return false;
     if (filters.excludeTeams.includes(p.squadId)) return false;
     if (filters.minRecentAvgMins > 0 && p.recentAvgMins < filters.minRecentAvgMins) return false;
+    if (filters.excludePlayers.includes(p.id)) return false;
     return true;
   });
 
@@ -360,7 +362,8 @@ function renderPicks(round, optimalTeam, squads) {
     html += `<p class="formation-label">Formation ${formationStr} • Projected: <strong>${totalPts.toFixed(1)} pts</strong></p>`;
     html += '</div>';
 
-    html += `<div class="picks-formation">`;
+    html += `<div style="display: flex; gap: 20px; margin-top: 20px;">`;
+    html += `<div class="picks-formation" style="flex: 1;">`;
 
     const byPos = {
       GK: team.filter(p => p.position === 'GK'),
@@ -400,11 +403,12 @@ function renderPicks(round, optimalTeam, squads) {
 
         const hasGames = player.games && player.games.length > 0;
         const infoButtonHtml = hasGames ? `<button class="pick-info-btn" data-player-id="${player.id}" title="View last 5 games">ℹ️</button>` : '';
+        const excludeButtonHtml = `<button class="pick-exclude-btn" data-player-id="${player.id}" title="Exclude this player">✕</button>`;
 
         html += `
           <div class="pick-card pick-${pos} ${captainClass}">
             <div class="pick-header">
-              <div class="pick-name">${name} ${infoButtonHtml}</div>
+              <div class="pick-name">${name} ${infoButtonHtml} ${excludeButtonHtml}</div>
               <div class="pick-squad">${squadName}</div>
             </div>
             <div class="pick-stats">
@@ -430,6 +434,34 @@ function renderPicks(round, optimalTeam, squads) {
     }
 
     html += '</div>'; // close picks-formation
+
+    // Build excluded players list on the right
+    const excludedPlayerIds = filters.excludePlayers;
+    const excludedPlayers = allPlayers.filter(p => excludedPlayerIds.includes(p.id));
+
+    html += `<div style="flex: 0 0 250px; padding: 12px; background: #f5f5f5; border-radius: 4px;">`;
+    html += `<h4 style="margin: 0 0 12px 0; font-size: 0.9rem;">Excluded Players (${excludedPlayers.length})</h4>`;
+    if (excludedPlayers.length === 0) {
+      html += `<p style="margin: 0; font-size: 0.85rem; color: #999;">None excluded</p>`;
+    } else {
+      html += `<div style="display: flex; flex-direction: column; gap: 6px;">`;
+      for (const p of excludedPlayers) {
+        const pName = p.displayName || \`\${p.firstName} \${p.lastName}\`;
+        const pSquad = squads[p.squadId];
+        const pSquadName = pSquad?.shortName || pSquad?.name || '?';
+        html += \`
+          <label style="display: flex; align-items: center; gap: 6px; font-size: 0.85rem; cursor: pointer; padding: 4px; border-radius: 3px; background: white;">
+            <input type="checkbox" class="exclude-player-checkbox" value="\${p.id}" style="cursor: pointer;" />
+            <span>\${pName}</span>
+            <span style="font-size: 0.75rem; color: #999;">(\${pSquadName})</span>
+          </label>
+        \`;
+      }
+      html += '</div>';
+    }
+    html += '</div>';
+
+    html += '</div>'; // close flex container
   } else {
     html += '</div>';
     html += '<div class="picks-formation" style="padding: 20px; text-align: center; color: #666;">';
@@ -667,6 +699,29 @@ function renderPicks(round, optimalTeam, squads) {
 
         modal.style.display = 'block';
       }
+    });
+  });
+
+  // Exclude player buttons
+  document.querySelectorAll('.pick-exclude-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const playerId = parseInt(btn.getAttribute('data-player-id'), 10);
+      if (!filters.excludePlayers.includes(playerId)) {
+        filters.excludePlayers.push(playerId);
+      }
+      renderWithFilters();
+    });
+  });
+
+  // Exclude player checkboxes (to re-include)
+  document.querySelectorAll('.exclude-player-checkbox').forEach(checkbox => {
+    checkbox.addEventListener('change', (e) => {
+      const playerId = parseInt(e.target.value, 10);
+      if (e.target.checked) {
+        filters.excludePlayers = filters.excludePlayers.filter(id => id !== playerId);
+      }
+      renderWithFilters();
     });
   });
 

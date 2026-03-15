@@ -44,16 +44,6 @@ async function loadPicks() {
 
     squadsMap = Object.fromEntries(squads.map(s => [s.id, s]));
 
-    // Log squad structure for debugging
-    if (squads.length > 0) {
-      console.log('[SQUAD-STRUCTURE] Sample squad:', squads[0]);
-      console.log('[SQUAD-KEYS] Available properties:', Object.keys(squads[0]));
-      // Log all teams with all relevant properties
-      for (const s of squads.slice(0, 5)) {
-        console.log(`${s.shortName}:`, { league: s.league, division: s.division, leagueName: s.leagueName, divisionName: s.divisionName, leaguePosition: s.leaguePosition });
-      }
-    }
-
     // Find next gameweek
     const now = new Date();
     nextRound = null;
@@ -141,7 +131,6 @@ async function enrichPlayerGameData(players, gamesByRound, squadsMap) {
         player.awayPer90 = cached.awayPer90;
       }
     }
-    console.log('[CACHE] Using cached game data');
     return;
   }
 
@@ -187,16 +176,6 @@ async function enrichPlayerGameData(players, gamesByRound, squadsMap) {
 
           for (const game of games) {
             const roundNum = game.round || game.roundId || game.roundNumber;
-
-            // Debug: log first game structure and lookup
-            if (!window.__loggedGameStructure) {
-              window.__loggedGameStructure = true;
-              console.log('[GAME-STRUCTURE] First game keys:', Object.keys(game));
-              console.log('[GAME-STRUCTURE] First game:', game);
-              console.log('[GAMEBYROUND-KEYS] gamesByRound keys:', Object.keys(gamesByRound).slice(0, 10));
-              console.log('[ROUND-NUM-LOOKUP] Trying to find roundNum:', roundNum, 'in gamesByRound[roundNum]:', gamesByRound[roundNum]);
-            }
-
             const gameInfo = gamesByRound[roundNum]?.[player.squadId];
             const mins = game.minutesPlayed || game.minutes || 0;
             const pts = game.points || 0;
@@ -211,8 +190,6 @@ async function enrichPlayerGameData(players, gamesByRound, squadsMap) {
               awayCount++;
             }
           }
-
-          console.log(`[GAME-DATA] Player ${player.id}: ${games.length} games, ${homeCount} home, ${awayCount} away`);
 
           if (homeMins > 0) {
             player.homePer90 = (homePts / homeMins) * 90;
@@ -233,7 +210,6 @@ async function enrichPlayerGameData(players, gamesByRound, squadsMap) {
 
           return true;
         } catch (err) {
-          console.warn(`Could not fetch game data for player ${player.id}: ${err.message}`);
           return null;
         }
       });
@@ -244,23 +220,18 @@ async function enrichPlayerGameData(players, gamesByRound, squadsMap) {
       statusEl.textContent = `Loading game data: ${loaded}/${playersToFetch.length}`;
     }
 
-    // Log results
-    const numWithData = Object.keys(cachedData).length;
-    const numFiltered = playersToFetch.filter(p => p.recentAvgMins > 0).length;
-    console.log(`[GAME-DATA] Fetched data for ${numWithData}/${playersToFetch.length} players. ${numFiltered} have recentAvgMins calculated.`);
-
     // Store cache if we got some data
+    const numWithData = Object.keys(cachedData).length;
     if (numWithData > 0) {
       try {
         localStorage.setItem(cacheKey, JSON.stringify(cachedData));
         localStorage.setItem(cacheTimestampKey, now.toString());
-        console.log(`[CACHE] Saved game data for ${numWithData} players`);
       } catch (err) {
-        console.warn('Could not save cache to localStorage:', err.message);
+        // Silent fail on localStorage issues
       }
     }
   } catch (err) {
-    console.warn('Error during game data fetch:', err.message);
+    // Silent fail on data fetch errors
   }
 }
 
@@ -788,7 +759,6 @@ function renderPicks(round, optimalTeam, squads) {
       const saved = localStorage.getItem('efl_filter_sets');
       return saved ? JSON.parse(saved) : {};
     } catch (err) {
-      console.warn('Error loading filter sets:', err);
       return {};
     }
   }
@@ -797,7 +767,7 @@ function renderPicks(round, optimalTeam, squads) {
     try {
       localStorage.setItem('efl_filter_sets', JSON.stringify(filterSets));
     } catch (err) {
-      console.warn('Error saving filter sets:', err);
+      // Silent fail
     }
   }
 

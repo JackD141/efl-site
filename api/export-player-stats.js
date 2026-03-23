@@ -217,54 +217,58 @@ module.exports = async function handler(req, res) {
     // Organize stats by gameweek
     const statsByGameweek = {};
 
-    for (let i = 0; i < players.length; i++) {
-      const player = players[i];
+    // Fetch player profiles in parallel batches of 10 to avoid timeout
+    const batchSize = 10;
+    for (let i = 0; i < players.length; i += batchSize) {
+      const batch = players.slice(i, i + batchSize);
+      const profiles = await Promise.all(
+        batch.map(p => getPlayerProfile(p.id, idToken))
+      );
 
-      // Fetch player profile
-      const profile = await getPlayerProfile(player.id, idToken);
-      const results = profile.results || [];
+      batch.forEach((player, idx) => {
+        const profile = profiles[idx];
+        const results = profile.results || [];
 
-      // Add each result to the corresponding gameweek
-      for (const result of results) {
-        const gameweek = result.roundId;
-        if (!statsByGameweek[gameweek]) {
-          statsByGameweek[gameweek] = [];
+        // Add each result to the corresponding gameweek
+        for (const result of results) {
+          const gameweek = result.roundId;
+          if (!statsByGameweek[gameweek]) {
+            statsByGameweek[gameweek] = [];
+          }
+
+          statsByGameweek[gameweek].push({
+            player_id: player.id,
+            first_name: player.firstName,
+            last_name: player.lastName,
+            display_name: player.displayName,
+            position: player.position,
+            squad_id: player.squadId,
+            gameweek,
+            minutes_played: result.minutesPlayed,
+            goals_scored: result.goalsScored,
+            hat_tricks: result.hatTricks,
+            assists: result.assists,
+            penalty_misses: result.penaltyMisses,
+            own_goals: result.ownGoals,
+            yellow_cards: result.yellowCards,
+            red_cards: result.redCards,
+            saves: result.saves,
+            penalty_saves: result.penaltySaves,
+            clean_sheet: result.cleanSheet,
+            goals_conceded: result.goalsConceded,
+            clearances: result.clearances,
+            blocks: result.blocks,
+            tackles: result.tackles,
+            interceptions: result.interceptions,
+            key_passes: result.keyPasses,
+            shots_on_target: result.shotsOnTarget,
+            points: result.points,
+          });
         }
+      });
 
-        statsByGameweek[gameweek].push({
-          player_id: player.id,
-          first_name: player.firstName,
-          last_name: player.lastName,
-          display_name: player.displayName,
-          position: player.position,
-          squad_id: player.squadId,
-          gameweek,
-          minutes_played: result.minutesPlayed,
-          goals_scored: result.goalsScored,
-          hat_tricks: result.hatTricks,
-          assists: result.assists,
-          penalty_misses: result.penaltyMisses,
-          own_goals: result.ownGoals,
-          yellow_cards: result.yellowCards,
-          red_cards: result.redCards,
-          saves: result.saves,
-          penalty_saves: result.penaltySaves,
-          clean_sheet: result.cleanSheet,
-          goals_conceded: result.goalsConceded,
-          clearances: result.clearances,
-          blocks: result.blocks,
-          tackles: result.tackles,
-          interceptions: result.interceptions,
-          key_passes: result.keyPasses,
-          shots_on_target: result.shotsOnTarget,
-          points: result.points,
-        });
-      }
-
-      // Log progress every 50 players
-      if ((i + 1) % 50 === 0) {
-        console.log(`Processed ${i + 1}/${players.length} players`);
-      }
+      // Log progress
+      console.log(`Processed ${Math.min(i + batchSize, players.length)}/${players.length} players`);
     }
 
     console.log(`Organized stats for ${Object.keys(statsByGameweek).length} gameweeks`);

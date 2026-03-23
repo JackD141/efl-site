@@ -5,45 +5,38 @@
 ### Windows
 
 ```bash
-# 1. Create and activate venv
+# 1. Create venv
 python -m venv ../venv
+
+# 2. Activate venv
 ..\venv\Scripts\activate
 
-# 2. Install packages
+# 3. Install packages
 pip install -r requirements.txt
 
-# 3. Register venv as Jupyter kernel
-setup_kernel.bat
-
-# 4. Launch Jupyter
-jupyter lab
+# Done! Open ml/predict_points.ipynb in VSCode
 ```
 
 ### macOS / Linux
 
 ```bash
-# 1. Create and activate venv
+# 1. Create venv
 python -m venv ../venv
+
+# 2. Activate venv
 source ../venv/bin/activate
 
-# 2. Install packages
+# 3. Install packages
 pip install -r requirements.txt
 
-# 3. Register venv as Jupyter kernel
-chmod +x setup_kernel.sh
-./setup_kernel.sh
-
-# 4. Launch Jupyter
-jupyter lab
+# Done! Open ml/predict_points.ipynb in VSCode
 ```
 
-## Kernel Selection
+## Auto-Kernel Detection (VSCode)
 
-After step 3, when you open `predict_points.ipynb` in Jupyter Lab:
+VSCode is configured (`.vscode/settings.json`) to automatically detect your venv and use it as the Jupyter kernel when you open `predict_points.ipynb`.
 
-1. Look for the **kernel selector** in the top-right corner (shows "Select Kernel")
-2. Click it and choose **"EFL Fantasy (venv)"**
-3. All cells will now run using your venv's Python environment
+Just open the notebook in VSCode — no kernel selection needed!
 
 ## What's in the Notebook
 
@@ -54,6 +47,19 @@ After step 3, when you open `predict_points.ipynb` in Jupyter Lab:
   - Train 3 models: Linear Regression, Random Forest, XGBoost
   - Compare metrics & visualize results
   - Feature importance analysis
+
+## Optional: Using Jupyter Lab Instead
+
+If you prefer Jupyter Lab over VSCode:
+
+```bash
+# After pip install -r requirements.txt:
+setup_kernel.bat    # Windows
+./setup_kernel.sh   # macOS/Linux
+
+# Then launch Jupyter Lab and select "EFL Fantasy (venv)" kernel
+jupyter lab
+```
 
 ## Requirements
 

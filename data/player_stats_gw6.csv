@@ -1,32 +1,1227 @@
-player_id,first_name,last_name,display_name,position,squad_id,gameweek,minutes_played,goals_scored,hat_tricks,assists,penalty_misses,own_goals,yellow_cards,red_cards,saves,penalty_saves,clean_sheet,goals_conceded,clearances,blocks,tackles,interceptions,key_passes,shots_on_target,points
-78773,James,Collins,J. Collins,FWD,83,6,61,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,14
-85017,Tendayi,Darikwa,T. Darikwa,DEF,83,6,90,0,0,0,0,0,1,0,0,0,0,2,9,0,1,0,0,0,2
-90495,Sonny,Bradley,S. Bradley,DEF,83,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-96778,Adam,Reach,A. Reach,MID,83,6,28,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
-97873,Adam,Jackson,A. Jackson,DEF,83,6,90,0,0,0,0,0,0,0,0,0,0,2,12,0,0,0,0,0,4
-124119,Conor,McGrandles,C. McGrandles,MID,83,6,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,8
-234557,Reeco,Hackett,R. Hackett,FWD,83,6,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,3
-235179,Ben,House,B. House,FWD,83,6,29,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2
-235449,George,Wickens,G. Wickens,GK,83,6,90,0,0,0,0,0,0,0,4,0,0,2,0,0,0,0,0,0,3
-246299,Tom,Bayliss,T. Bayliss,MID,83,6,74,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,1,0,3
-434132,Tom,Hamer,T. Hamer,DEF,83,6,90,0,0,0,0,0,0,0,0,0,0,2,13,0,0,0,0,0,4
-448482,Rob,Street,R. Street,FWD,83,6,77,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,-1
-461430,Lewis,Montsma,L. Montsma,DEF,83,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-462033,Jamie,Pardington,J. Pardington,GK,83,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-468243,Kamil,Conteh,K. Conteh,MID,83,6,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,4
-475469,Zach,Jeacock,Z. Jeacock,GK,83,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-492153,Dom,Jefferies,D. Jefferies,MID,83,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-492776,Dexter,Lembikisa,D. Lembikisa,DEF,83,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-498104,Ryley,Towler,R. Towler,DEF,83,6,90,0,0,2,0,0,1,0,0,0,0,2,3,1,0,0,0,0,6
-514333,Oscar,Thorn,O. Thorn,FWD,83,6,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2
-514498,Erik,Ring,E. Ring,FWD,83,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-520855,Alfie,Lloyd,A. Lloyd,FWD,83,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-523851,Jack,Moylan,J. Moylan,MID,83,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-524171,Freddie,Draper,F. Draper,FWD,83,6,62,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,3
-532097,Ivan,Varfolomieiev,I. Varfolomieiev,MID,83,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-534390,Deji,Elerewe,D. Elerewe,DEF,83,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-553756,Oisín,Gallagher,O. Gallagher,MID,83,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-641074,Gbolahan,Okewoye,G. Okewoye,MID,83,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-642316,Charlie,Parks,C. Parks,DEF,83,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-704151,Daniel,Vanderpuye,D. Vanderpuye,FWD,83,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-704152,Noah,Simmons,N. Simmons,MID,83,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_id,opponent_name,fixture_difficulty,is_home,minutes_played,goals_scored,hat_tricks,assists,penalty_misses,own_goals,yellow_cards,red_cards,saves,penalty_saves,clean_sheet,goals_conceded,clearances,blocks,tackles,interceptions,key_passes,shots_on_target,points
+3774,Joe,Murphy,J. Murphy,GK,44,6,3448,Salford,,A,90,0,0,0,0,0,0,0,5,0,0,3,0,0,0,0,0,0,3
+10934,Glenn,Morris,G. Morris,GK,100,6,2050,Bromley,,A,90,0,0,0,0,0,0,0,3,0,0,2,0,0,0,0,0,0,3
+18124,Mark,Howard,M. Howard,GK,3448,6,44,Tranmere,,H,90,0,0,0,0,0,0,0,3,0,0,1,0,0,0,0,0,0,4
+18867,Billy,Sharp,B. Sharp,FWD,290,6,55,Bradford,,H,81,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,8
+19250,Shaun,Whalley,S. Whalley,FWD,888,6,87,Cheltenham,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+20460,Kyle,McFadzean,K. McFadzean,DEF,98,6,42,Walsall,,A,90,0,0,0,0,0,0,0,0,0,0,1,4,0,2,0,0,0,4
+20966,Sam,Foley,S. Foley,MID,573,6,46,Swindon,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+36869,James,Wilson,J. Wilson,DEF,87,6,888,Accrington,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+40161,Byron,Webster,B. Webster,DEF,2050,6,100,Gillingham,,H,38,0,0,0,0,0,0,0,0,0,0,2,3,0,1,0,0,0,0
+40261,David,Worrall,D. Worrall,MID,573,6,46,Swindon,,H,76,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,4
+40399,Sam,Vokes,S. Vokes,FWD,100,6,2050,Bromley,,A,26,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
+40662,Joe,Garner,J. Garner,FWD,105,6,101,Cambridge,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+40871,Ben,Hinchliffe,B. Hinchliffe,GK,48,6,76,Plymouth,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+42428,Sam,Hutchinson,S. Hutchinson,MID,2623,6,30,Bolton,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+47247,John,Fleck,J. Fleck,MID,98,6,42,Walsall,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+48613,Ched,Evans,C. Evans,FWD,2048,6,104,Notts C,,A,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+48903,Joe,Day,J. Day,GK,87,6,888,Accrington,,H,90,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,7
+48938,Josh,Magennis,J. Magennis,FWD,71,6,72,Rotherham,,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
+49226,James,Clarke,J. Clarke,DEF,437,6,96,Bristol R,,H,90,0,0,0,0,0,0,0,0,0,0,3,5,0,0,0,0,0,2
+49284,Michael,Morrison,M. Morrison,DEF,101,6,105,Oldham,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+49387,Mark,Oxley,M. Oxley,GK,671,6,1525,Crawley,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+49415,Kristian,Dennis,K. Dennis,FWD,44,6,3448,Salford,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+49773,Albert,Adomah,A. Adomah,DEF,42,6,98,Chesterfield,,H,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+49949,Garath,McCleary,G. McCleary,FWD,100,6,2050,Bromley,,A,26,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,4
+50255,Nathan,Thompson,N. Thompson,DEF,22,6,53,Grimsby,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+50258,Warren,Burrell,W. Burrell,DEF,671,6,1525,Crawley,,H,90,0,0,0,0,0,1,0,0,0,0,1,5,0,2,0,0,0,3
+51922,Ben,Amos,B. Amos,GK,50,6,85,L Orient,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+55038,Kevin,McDonald,K. McDonald,MID,71,6,72,Rotherham,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+55271,Scot,Bennett,S. Bennett,DEF,87,6,888,Accrington,,H,90,0,0,0,0,0,0,0,0,0,1,0,10,1,1,0,0,0,9
+56206,Jordan,Bowery,J. Bowery,DEF,77,6,112,Wycombe,,A,90,0,0,0,0,0,1,0,0,0,0,2,7,1,0,0,0,0,1
+58347,Aden,Flint,A. Flint,DEF,42,6,98,Chesterfield,,H,90,0,0,0,0,0,0,0,0,0,1,0,7,2,0,0,0,0,9
+59037,Will,Grigg,W. Grigg,FWD,98,6,42,Walsall,,A,18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+59127,Danny,Andrew,D. Andrew,DEF,71,6,72,Rotherham,,A,80,0,0,0,0,0,0,0,0,0,0,1,5,0,1,0,0,0,3
+59129,Korey,Smith,K. Smith,MID,101,6,105,Oldham,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+60057,James,Belshaw,J. Belshaw,GK,104,6,2048,Fleetwood,,H,90,0,0,0,0,0,0,0,2,0,0,1,0,0,0,0,0,0,2
+60295,Connor,Jennings,C. Jennings,FWD,44,6,3448,Salford,,A,33,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
+60318,Dom,Dwyer,D. Dwyer,FWD,77,6,112,Wycombe,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+60751,Liam,Kelly,L. Kelly,MID,72,6,71,Exeter,,H,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+60753,Tom,Naylor,T. Naylor,MID,98,6,42,Walsall,,A,90,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,1
+60934,Funso,Ojo,F. Ojo,MID,50,6,85,L Orient,,H,45,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
+61538,Callum,McManaman,C. McManaman,MID,111,6,83,Lincoln,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+71749,James,Norwood,J. Norwood,FWD,2048,6,104,Notts C,,A,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
+73256,Joe,Edwards,J. Edwards,DEF,76,6,48,Stockport,,H,90,0,0,0,0,0,0,0,0,0,0,2,4,1,0,0,0,0,2
+73388,Andy,Cook,A. Cook,FWD,53,6,22,MK Dons,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+73456,Niall,Canavan,N. Canavan,DEF,573,6,46,Swindon,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+73545,Tom,Lees,T. Lees,DEF,73,6,38,Huddersfield,,A,75,0,0,0,0,0,0,0,0,0,0,2,0,0,1,0,0,0,1
+74033,Sam,Clucas,S. Clucas,MID,74,6,34,Barnet,,A,89,1,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,1,13
+74950,Jamie,Grimes,J. Grimes,DEF,98,6,42,Walsall,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+75993,Tom,Flanagan,T. Flanagan,DEF,99,6,51,Crewe,,H,44,0,0,0,0,0,0,0,0,0,0,1,3,1,0,0,0,0,1
+76013,Paddy,Madden,P. Madden,FWD,888,6,87,Cheltenham,,A,59,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+76360,Nathaniel,Méndez-Laing,N. Méndez-Laing,FWD,22,6,53,Grimsby,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+76429,Louis,Moult,L. Moult,FWD,51,6,99,Colchester,,A,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+77023,John,Marquis,J. Marquis,FWD,74,6,34,Barnet,,A,90,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,2
+78154,Jayden,Stockley,J. Stockley,FWD,50,6,85,L Orient,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+78296,Ryan,Tafazolli,R. Tafazolli,DEF,46,6,573,Barrow,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+78612,Omar,Beckles,O. Beckles,DEF,100,6,2050,Bromley,,A,59,0,0,0,0,0,1,0,0,0,0,2,1,2,0,0,0,0,0
+78773,James,Collins,J. Collins,FWD,83,6,111,Wigan,,H,61,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,14
+78911,Kadeem,Harris,K. Harris,FWD,3448,6,44,Tranmere,,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
+79733,Scott,Malone,S. Malone,DEF,1525,6,671,Harrogate,,A,14,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,1
+79910,Scott,Hogan,S. Hogan,FWD,22,6,53,Grimsby,,H,45,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+79934,Oliver,Norwood,O. Norwood,MID,48,6,76,Plymouth,,A,90,1,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,2,16
+80180,Aristote,Nsiala,A. Nsiala,DEF,74,6,34,Barnet,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+80181,Conor,McAleny,C. McAleny,FWD,671,6,1525,Crawley,,H,12,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+80183,Luke,Garbutt,L. Garbutt,DEF,3448,6,44,Tranmere,,H,90,1,0,0,0,0,0,0,0,0,0,1,4,2,3,0,0,0,12
+80254,Carl,Jenkinson,C. Jenkinson,DEF,2050,6,100,Gillingham,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+80282,Lee,Nicholls,L. Nicholls,GK,38,6,73,Peterborough,,H,90,0,0,0,0,0,0,0,1,0,0,2,0,0,0,0,0,0,1
+80708,Jack,Muldoon,J. Muldoon,FWD,671,6,1525,Crawley,,H,12,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+82205,Nick,Powell,N. Powell,MID,55,6,290,Doncaster,,A,22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+82248,Billy,Bodin,B. Bodin,FWD,46,6,573,Barrow,,A,28,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+82412,Jack,Grimmer,J. Grimmer,DEF,112,6,77,Mansfield,,H,90,0,0,0,0,0,0,0,0,0,1,0,3,1,1,0,0,0,7
+82580,Ollie,Clarke,O. Clarke,MID,46,6,573,Barrow,,A,29,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,3
+83393,Oliver,Turton,O. Turton,DEF,3448,6,44,Tranmere,,H,19,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,1
+83537,Antoni,Sarcevic,A. Sarcevic,MID,55,6,290,Doncaster,,A,68,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+83733,Harry,Pell,H. Pell,MID,87,6,888,Accrington,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+85017,Tendayi,Darikwa,T. Darikwa,DEF,83,6,111,Wigan,,H,90,0,0,0,0,0,1,0,0,0,0,2,9,0,1,0,0,0,2
+85123,Jamie,Paterson,J. Paterson,FWD,76,6,48,Stockport,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+85885,Sam,Finley,S. Finley,MID,44,6,3448,Salford,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+86439,Rod,McDonald,R. McDonald,DEF,104,6,2048,Fleetwood,,H,90,0,0,0,0,0,0,0,0,0,1,0,5,1,1,0,0,0,8
+86590,Max,Power,M. Power,MID,55,6,290,Doncaster,,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
+87107,Cyrus,Christie,C. Christie,DEF,30,6,2623,AFC Wim,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+87110,Conor,Thomas,C. Thomas,MID,51,6,99,Colchester,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+87115,Richard,Smallwood,R. Smallwood,MID,96,6,437,Newport,,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+87428,Elias,Kachunga,E. Kachunga,FWD,101,6,105,Oldham,,H,21,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+88042,Tom,Barkhuizen,T. Barkhuizen,FWD,573,6,46,Swindon,,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,3
+88610,Kane,Hemmings,K. Hemmings,FWD,573,6,46,Swindon,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+88821,Josh,McEachran,J. McEachran,MID,96,6,437,Newport,,A,90,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+90495,Sonny,Bradley,S. Bradley,DEF,83,6,111,Wigan,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+90690,Patrick,Bauer,P. Bauer,DEF,2623,6,30,Bolton,,A,2,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1
+90938,Ollie,Palmer,O. Palmer,FWD,46,6,573,Barrow,,A,29,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
+91043,Connor,Ripley,C. Ripley,GK,46,6,573,Barrow,,A,90,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,2
+91046,Cauley,Woodrow,C. Woodrow,FWD,112,6,77,Mansfield,,H,67,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,7
+91322,Jamille,Matt,J. Matt,FWD,42,6,98,Chesterfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+91915,Sean,Raggett,S. Raggett,DEF,101,6,105,Oldham,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+92423,Stephen,McLaughlin,S. McLaughlin,DEF,77,6,112,Wycombe,,A,90,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,1
+92488,Jason,Lowe,J. Lowe,MID,44,6,3448,Salford,,A,33,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
+92796,Gavan,Holohan,G. Holohan,MID,1525,6,671,Harrogate,,A,24,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+93302,Luke,Young,L. Young,MID,87,6,888,Accrington,,H,90,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,2,1,3
+93469,Mickey,Demetriou,M. Demetriou,DEF,51,6,99,Colchester,,A,90,0,0,0,0,0,0,0,0,0,0,1,6,2,1,0,0,0,4
+93658,Jake,Reeves,J. Reeves,MID,2623,6,30,Bolton,,A,90,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,2,0,4
+94926,Freddie,Ladapo,F. Ladapo,FWD,98,6,42,Walsall,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+95459,Murray,Wallace,M. Wallace,DEF,38,6,73,Peterborough,,H,45,0,0,0,0,0,0,0,0,0,0,2,4,0,1,0,0,0,1
+95744,Sam,Walker,S. Walker,GK,55,6,290,Doncaster,,A,90,0,0,0,0,0,0,0,2,0,0,3,0,0,0,0,0,0,1
+95767,Josh,Scowen,J. Scowen,MID,112,6,77,Mansfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+96607,Ellis,Harrison,E. Harrison,FWD,96,6,437,Newport,,A,23,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,7
+96778,Adam,Reach,A. Reach,MID,83,6,111,Wigan,,H,28,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
+96783,Danny,Rose,D. Rose,FWD,573,6,46,Swindon,,H,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+96988,Tom,Nichols,T. Nichols,FWD,46,6,573,Barrow,,A,76,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+97311,Elliott,Hewitt,E. Hewitt,DEF,77,6,112,Wycombe,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+97873,Adam,Jackson,A. Jackson,DEF,83,6,111,Wigan,,H,90,0,0,0,0,0,0,0,0,0,0,2,12,0,0,0,0,0,4
+101474,Ryan,Woods,R. Woods,MID,105,6,101,Cambridge,,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+102496,Jack,Baldwin,J. Baldwin,DEF,99,6,51,Crewe,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+103100,Jonny,Williams,J. Williams,MID,100,6,2050,Bromley,,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
+103102,Jake,Caprice,J. Caprice,DEF,105,6,101,Cambridge,,A,18,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+103920,Mason,Bennett,M. Bennett,FWD,671,6,1525,Crawley,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+104047,Pelly Ruddock,Mpanzu,P. Mpanzu,MID,101,6,105,Oldham,,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+104074,Adedeji,Oshilaja,A. Oshilaja,DEF,77,6,112,Wycombe,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+104532,Devante,Cole,D. Cole,FWD,102,6,,,,,70,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,11
+104536,Ian,Lawlor,I. Lawlor,GK,51,6,99,Colchester,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+106876,Oliver,Norburn,O. Norburn,MID,104,6,2048,Fleetwood,,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+108693,Charlie,Raglan,C. Raglan,DEF,573,6,46,Swindon,,H,90,0,0,0,0,0,0,0,0,0,0,3,11,0,1,0,0,0,3
+108797,James,Bolton,J. Bolton,DEF,2048,6,104,Notts C,,A,90,0,0,0,0,0,0,0,0,0,0,1,8,1,3,0,0,0,5
+108824,Brendan,Galloway,B. Galloway,DEF,76,6,48,Stockport,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+109011,Joe,Rafferty,J. Rafferty,DEF,72,6,71,Exeter,,H,68,0,0,1,0,0,0,0,0,0,1,0,1,0,1,0,0,0,10
+109195,Jamie,Walker,J. Walker,FWD,53,6,22,MK Dons,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+109378,George,Thomson,G. Thomson,MID,671,6,1525,Crawley,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+109431,Elliot,Newby,E. Newby,MID,573,6,46,Swindon,,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,4
+109674,Cole,Stockton,C. Stockton,FWD,3448,6,44,Tranmere,,H,89,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,8
+109690,Neill,Byrne,N. Byrne,DEF,290,6,55,Bradford,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+109778,Malvind,Benning,M. Benning,DEF,74,6,34,Barnet,,A,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+110578,Jay,Lynch,J. Lynch,GK,2048,6,104,Notts C,,A,90,0,0,0,0,0,0,0,3,0,0,1,0,0,0,0,0,0,4
+110698,Matthew,Pearson,M. Pearson,DEF,290,6,55,Bradford,,H,90,0,0,0,0,0,0,0,0,0,0,1,13,0,0,0,0,0,5
+112057,Grant,Smith,G. Smith,GK,2050,6,100,Gillingham,,H,90,0,0,0,0,0,0,0,3,0,0,2,0,0,0,0,0,0,3
+112763,Pierce,Sweeney,P. Sweeney,DEF,71,6,72,Rotherham,,A,10,0,0,0,0,0,0,0,0,0,0,0,2,0,1,0,0,0,1
+113037,Cameron,Humphreys,C. Humphreys,DEF,50,6,85,L Orient,,H,90,0,0,0,0,0,0,0,0,0,0,3,2,0,2,0,0,0,2
+113534,Matt,Macey,M. Macey,GK,99,6,51,Crewe,,H,90,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,2
+113804,Rhys,Oates,R. Oates,FWD,77,6,112,Wycombe,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+114054,Omar,Bogle,O. Bogle,FWD,51,6,99,Colchester,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+114090,Ben,Heneghan,B. Heneghan,DEF,50,6,85,L Orient,,H,90,0,0,0,0,0,0,0,0,0,0,3,4,2,2,0,0,0,4
+114093,Matthew,Pennington,M. Pennington,DEF,55,6,290,Doncaster,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+117233,Chey,Dunkley,C. Dunkley,DEF,98,6,42,Walsall,,A,90,0,0,0,0,0,1,0,0,0,0,1,8,0,1,0,0,0,3
+119230,Lee,Angol,L. Angol,FWD,87,6,888,Accrington,,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
+120120,Alex,Gilbey,A. Gilbey,MID,22,6,53,Grimsby,,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,4
+120220,Kieron,Morris,K. Morris,MID,105,6,101,Cambridge,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+120510,Luke,Leahy,L. Leahy,MID,112,6,77,Mansfield,,H,90,0,0,0,0,0,1,0,0,0,0,0,0,0,0,2,0,0,5
+121561,Joe,McDonnell,J. McDonnell,GK,2623,6,30,Bolton,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+122797,Callum,Paterson,C. Paterson,FWD,22,6,53,Grimsby,,H,90,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,5
+123709,Joe,Ironside,J. Ironside,FWD,44,6,3448,Salford,,A,57,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
+124119,Conor,McGrandles,C. McGrandles,MID,83,6,111,Wigan,,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,8
+124120,Matt,Palmer,M. Palmer,MID,104,6,2048,Fleetwood,,H,90,0,0,0,0,0,1,0,0,0,0,0,0,0,0,2,2,0,6
+124125,Tom,Anderson,T. Anderson,DEF,74,6,34,Barnet,,A,90,0,0,0,0,0,1,0,0,0,0,1,4,0,0,0,0,0,2
+124512,Ryheem,Sheckleford,R. Sheckleford,DEF,98,6,42,Walsall,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+124977,Jack,Whatmough,J. Whatmough,DEF,38,6,73,Peterborough,,H,45,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,1
+124982,Bradley,Dack,B. Dack,MID,100,6,2050,Bromley,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+125144,Anthony,O'Connor,A. O'Connor,DEF,671,6,1525,Crawley,,H,90,0,0,0,0,0,0,0,0,0,0,1,12,1,0,0,0,0,5
+127571,Bojan,Radulovic,B. Radulovic,FWD,38,6,73,Peterborough,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+131403,Rhys,Healey,R. Healey,FWD,38,6,73,Peterborough,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+132201,Bryn,Morris,B. Morris,MID,671,6,1525,Crawley,,H,81,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,3
+133072,Aaron,Nemane,A. Nemane,FWD,22,6,53,Grimsby,,H,55,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
+133639,Dominic,Gape,D. Gape,MID,99,6,51,Crewe,,H,13,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+134384,MJ,Williams,M. Williams,MID,573,6,46,Swindon,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+134614,Billy,Waters,B. Waters,FWD,105,6,101,Cambridge,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+135413,Dion,Conroy,D. Conroy,DEF,1525,6,671,Harrogate,,A,90,0,0,0,0,0,1,0,0,0,1,0,3,0,2,0,0,0,7
+135715,Kabongo,Tshimanga,K. Tshimanga,FWD,34,6,74,Shrewsbury,,H,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+137974,Connor,Hall,C. Hall,DEF,50,6,85,L Orient,,H,90,0,0,0,0,0,1,0,0,0,0,3,3,0,1,0,0,0,0
+138009,Sullay,Kaikai,S. Kaikai,FWD,101,6,105,Oldham,,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,3
+140172,Liam,Roberts,L. Roberts,GK,77,6,112,Wycombe,,A,90,0,0,0,0,0,0,0,1,0,0,2,0,0,0,0,0,0,1
+141874,Craig,MacGillivray,C. MacGillivray,GK,22,6,53,Grimsby,,H,90,0,0,0,0,0,0,0,5,0,0,3,0,0,0,0,0,0,3
+142607,Morgan,Fox,M. Fox,DEF,111,6,83,Lincoln,,A,90,0,0,0,0,0,0,0,0,0,0,2,5,1,4,0,0,0,4
+146339,Donervon,Daniels,D. Daniels,DEF,105,6,101,Cambridge,,A,90,0,0,0,0,0,0,0,0,0,1,0,13,1,1,0,0,0,10
+149016,Lynden,Gooch,L. Gooch,MID,38,6,73,Peterborough,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+149421,Michael,Rose,M. Rose,DEF,3448,6,44,Tranmere,,H,90,0,0,0,0,0,0,0,0,0,0,1,5,0,0,0,0,0,3
+152963,Matty,Virtue,M. Virtue,MID,2048,6,104,Notts C,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+153477,Conor,Masterson,C. Masterson,DEF,100,6,2050,Bromley,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+153671,Gethin,Jones,G. Jones,DEF,22,6,53,Grimsby,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+153672,Ibou,Touray,I. Touray,DEF,55,6,290,Doncaster,,A,90,0,0,0,0,0,0,0,0,0,0,3,2,1,0,0,0,0,1
+153675,Ryan,Ledson,R. Ledson,MID,38,6,73,Peterborough,,H,80,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,4
+153676,Harry,Charsley,H. Charsley,MID,105,6,101,Cambridge,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+153724,Conor,Grant,C. Grant,MID,888,6,87,Cheltenham,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+153772,Luke,McGee,L. McGee,GK,44,6,3448,Salford,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+153775,Dominic,Ball,D. Ball,MID,101,6,105,Oldham,,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,8
+154133,Liam,Kelly,L. Kelly,MID,22,6,53,Grimsby,,H,80,0,0,0,0,0,1,0,0,0,0,0,0,0,0,4,1,0,9
+154510,Ryan,Boot,R. Boot,GK,98,6,42,Walsall,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+154511,Christy,Pym,C. Pym,GK,53,6,22,MK Dons,,A,90,0,0,0,0,0,0,0,1,0,0,2,0,0,0,0,0,0,1
+154568,Sam,Lavelle,S. Lavelle,DEF,53,6,22,MK Dons,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+154581,Luke,Molyneux,L. Molyneux,MID,290,6,55,Bradford,,H,81,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,9
+154936,Janoi,Donacien,J. Donacien,DEF,98,6,42,Walsall,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+155202,Farrend,Rawson,F. Rawson,DEF,888,6,87,Cheltenham,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+155506,Brad,Halliday,B. Halliday,DEF,55,6,290,Doncaster,,A,22,0,0,0,0,0,0,0,0,0,0,0,3,0,1,0,0,0,1
+156069,Liam,Gibson,L. Gibson,DEF,671,6,1525,Crawley,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+156519,Max,Clark,M. Clark,DEF,100,6,2050,Bromley,,A,90,1,0,0,0,0,0,0,0,0,0,2,11,1,1,0,0,0,10
+156655,Kyle,Knoyle,K. Knoyle,DEF,77,6,112,Wycombe,,A,90,0,0,0,0,0,0,0,0,0,0,2,5,0,2,0,0,0,3
+156699,Cameron,Norman,C. Norman,DEF,44,6,3448,Salford,,A,57,0,0,0,0,0,0,0,0,0,0,1,3,2,2,0,0,0,3
+159173,Callum,Camps,C. Camps,MID,48,6,76,Plymouth,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+159174,Mitch,Pinnock,M. Pinnock,MID,2050,6,100,Gillingham,,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,1,6
+160159,Marko,Marosi,M. Marosi,GK,44,6,3448,Salford,,A,90,0,0,0,0,0,0,0,1,0,0,3,0,0,0,0,0,0,1
+160219,Dan,Crowley,D. Crowley,MID,22,6,53,Grimsby,,H,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+160816,Donald,Love,D. Love,DEF,888,6,87,Cheltenham,,A,59,0,0,0,0,0,1,0,0,0,0,1,3,0,1,0,0,0,0
+161076,Reece,James,R. James,DEF,72,6,71,Exeter,,H,90,0,0,0,0,0,0,0,0,0,1,0,5,0,0,0,0,0,8
+164658,Seamus,Conneely,S. Conneely,MID,888,6,87,Cheltenham,,A,18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,3
+165157,Ryan,Croasdale,R. Croasdale,MID,50,6,85,L Orient,,H,90,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,10
+165604,Ben,Purrington,B. Purrington,DEF,101,6,105,Oldham,,H,90,0,0,0,0,0,1,0,0,0,0,1,6,1,3,0,0,0,3
+167191,Marcus,Harness,M. Harness,MID,38,6,73,Peterborough,,H,84,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,1,7
+167447,Paul,Mullin,P. Mullin,FWD,55,6,290,Doncaster,,A,76,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,9
+167522,Jordan,Hugill,J. Hugill,FWD,72,6,71,Exeter,,H,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,4
+167541,Jack,Payne,J. Payne,MID,99,6,51,Crewe,,H,62,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
+167685,Shaun,Rooney,S. Rooney,DEF,2048,6,104,Notts C,,A,90,0,0,0,0,0,1,0,0,0,0,1,0,0,1,0,0,0,1
+167689,Tyrone,Williams,T. Williams,DEF,98,6,42,Walsall,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+167789,Baily,Cargill,B. Cargill,DEF,77,6,112,Wycombe,,A,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+167810,Rob,Hunt,R. Hunt,DEF,99,6,51,Crewe,,H,90,0,0,0,0,0,1,0,0,0,0,1,1,0,1,0,0,0,1
+167840,Joe,Wright,J. Wright,DEF,55,6,290,Doncaster,,A,45,0,0,0,0,0,0,0,0,0,0,3,6,1,1,0,0,0,1
+167877,Jorge,Grant,J. Grant,MID,3448,6,44,Tranmere,,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,4
+167878,Ben,Osborn,B. Osborn,MID,48,6,76,Plymouth,,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
+167889,Emmanuel,Monthe,E. Monthe,DEF,105,6,101,Cambridge,,A,90,0,0,0,0,0,0,0,0,0,1,0,10,0,1,0,0,0,9
+167894,Stuart,Moore,S. Moore,GK,112,6,77,Mansfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+167896,Cameron,Dawson,C. Dawson,GK,72,6,71,Exeter,,H,90,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,7
+168035,Fred,Onyedinma,F. Onyedinma,MID,112,6,77,Mansfield,,H,75,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,5
+168303,Reece,Brown,R. Brown,MID,1525,6,671,Harrogate,,A,90,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,1,10
+168315,Patrick,Brough,P. Brough,DEF,44,6,3448,Salford,,A,86,0,0,0,0,0,0,0,0,0,0,2,7,0,3,0,0,0,3
+168399,Will,Norris,W. Norris,GK,112,6,77,Mansfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+168478,Charles,Vernam,C. Vernam,FWD,53,6,22,MK Dons,,A,72,1,0,2,0,0,0,0,0,0,0,0,0,0,0,0,2,3,17
+168549,Dion,Charles,D. Charles,FWD,38,6,73,Peterborough,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+168648,Jordan,Turnbull,J. Turnbull,DEF,44,6,3448,Salford,,A,90,0,0,0,0,0,0,0,0,0,0,3,12,1,5,0,0,0,6
+168758,Ben,Whitfield,B. Whitfield,MID,573,6,46,Swindon,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+168759,Kane,Vincent-Young,K. Vincent-Young,DEF,99,6,51,Crewe,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+169128,Tayo,Edun,T. Edun,DEF,48,6,76,Plymouth,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+169185,Herbie,Kane,H. Kane,MID,76,6,48,Stockport,,H,90,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,1,10
+169561,Armani,Little,A. Little,MID,100,6,2050,Bromley,,A,64,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
+169743,Connor,Mahoney,C. Mahoney,FWD,573,6,46,Swindon,,H,14,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4
+171182,James,Ball,J. Ball,MID,46,6,573,Barrow,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+171277,Demetri,Mitchell,D. Mitchell,MID,85,6,50,Port Vale,,A,21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,3
+171657,Rhys,Browne,R. Browne,MID,34,6,74,Shrewsbury,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+172455,Tom,Conlon,T. Conlon,MID,105,6,101,Cambridge,,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,5
+172456,Jack,Powell,J. Powell,MID,51,6,99,Colchester,,A,32,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+172549,Kyle,Cameron,K. Cameron,DEF,2050,6,100,Gillingham,,H,52,0,0,0,0,0,0,0,0,0,0,0,6,0,2,0,0,0,3
+173808,Danny,Collinge,D. Collinge,DEF,34,6,74,Shrewsbury,,H,90,0,0,0,0,1,0,0,0,0,0,3,3,0,1,0,0,0,-2
+173809,Jonathan,Leko,J. Leko,FWD,22,6,53,Grimsby,,H,11,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+173821,Tyler,Roberts,T. Roberts,FWD,77,6,112,Wycombe,,A,63,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,3
+173927,Harry,McKirdy,H. McKirdy,FWD,1525,6,671,Harrogate,,A,89,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,4
+173930,Stephen,Humphrys,S. Humphrys,FWD,55,6,290,Doncaster,,A,45,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+174205,Dan,Casey,D. Casey,DEF,112,6,77,Mansfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+174308,Julio,Pleguezuelo,J. Pleguezuelo,DEF,76,6,48,Stockport,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+174685,Ed,Francis,E. Francis,MID,71,6,72,Rotherham,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+174867,Conor,Hazard,C. Hazard,GK,76,6,48,Stockport,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+174872,Courtney,Baker-Richardson,C. Baker-Richardson,FWD,437,6,96,Bristol R,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+174944,George,Johnston,G. Johnston,DEF,30,6,2623,AFC Wim,,H,90,0,0,0,0,0,0,0,0,0,1,0,5,0,1,0,0,0,8
+175315,Ryan,Johnson,R. Johnson,DEF,2623,6,30,Bolton,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+175653,Kelle,Roos,K. Roos,GK,104,6,2048,Fleetwood,,H,90,0,0,0,0,0,0,0,6,0,1,0,0,0,0,0,0,0,11
+175655,Owen,Evans,O. Evans,GK,34,6,74,Shrewsbury,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+175832,Callum,Connolly,C. Connolly,MID,48,6,76,Plymouth,,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,6
+175924,Daniel,Harvie,D. Harvie,DEF,112,6,77,Mansfield,,H,90,0,0,0,0,0,0,0,0,0,1,0,1,0,3,0,0,0,8
+175944,Rushian,Hepburn-Murphy,R. Hepburn-Murphy,FWD,22,6,53,Grimsby,,H,79,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
+176426,Brandon,Comley,B. Comley,MID,42,6,98,Chesterfield,,H,26,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+176808,Liam,Mandeville,L. Mandeville,MID,98,6,42,Walsall,,A,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+178017,Michael,Cheek,M. Cheek,FWD,2050,6,100,Gillingham,,H,90,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,2,2,13
+178023,Myles,Hippolyte,M. Hippolyte,MID,2623,6,30,Bolton,,A,67,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+178161,Alfie,May,A. May,FWD,38,6,73,Peterborough,,H,6,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,4
+178342,Kyle,Dempsey,K. Dempsey,MID,30,6,2623,AFC Wim,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+178470,Regan,Hendry,R. Hendry,MID,77,6,112,Wycombe,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+178841,Lewis,Ward,L. Ward,GK,46,6,573,Barrow,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+179023,Connor,Lemonheigh-Evans,C. Lemonheigh-Evans,MID,22,6,53,Grimsby,,H,45,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,8
+179263,Zak,Jules,Z. Jules,DEF,72,6,71,Exeter,,H,90,0,0,0,0,0,0,0,0,0,1,0,8,0,2,0,0,0,10
+179717,George,Byers,G. Byers,MID,50,6,85,L Orient,,H,45,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,2
+179792,Louis,Reed,L. Reed,MID,77,6,112,Wycombe,,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
+180075,Will,Aimson,W. Aimson,DEF,111,6,83,Lincoln,,A,90,0,0,0,0,0,0,0,0,0,0,2,2,1,1,0,0,0,1
+180293,Taylor,Moore,T. Moore,DEF,96,6,437,Newport,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+180658,Teddy,Bishop,T. Bishop,MID,99,6,51,Crewe,,H,77,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,5
+181087,Joe,Hilton,J. Hilton,GK,55,6,290,Doncaster,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+181291,Will,Boyle,W. Boyle,DEF,74,6,34,Barnet,,A,90,0,0,0,0,0,0,0,0,0,0,1,1,2,0,0,0,0,3
+181294,Regan,Booty,R. Booty,MID,573,6,46,Swindon,,H,45,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,3
+181397,Jamie,Sterry,J. Sterry,DEF,290,6,55,Bradford,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+181911,Kyle,Scott,K. Scott,MID,1525,6,671,Harrogate,,A,66,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
+182436,Ben,Woodburn,B. Woodburn,MID,3448,6,44,Tranmere,,H,11,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+182736,Liam,Kinsella,L. Kinsella,MID,87,6,888,Accrington,,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,6
+182908,Tom,James,T. James,DEF,85,6,50,Port Vale,,A,59,0,0,0,0,0,0,0,0,0,0,2,2,1,0,0,0,0,0
+182912,Liam,Shephard,L. Shephard,DEF,437,6,96,Bristol R,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+182996,Ryan,Loft,R. Loft,FWD,1525,6,671,Harrogate,,A,90,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,2,0,0
+183385,Nathan,Smith,N. Smith,DEF,44,6,3448,Salford,,A,90,0,0,0,0,0,0,0,0,0,0,3,9,4,1,0,0,0,5
+183645,Dennis,Adeniran,D. Adeniran,MID,34,6,74,Shrewsbury,,H,27,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+183650,Marcus,McGuane,M. McGuane,MID,38,6,73,Peterborough,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+184196,Laurence,Maguire,L. Maguire,DEF,22,6,53,Grimsby,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+184345,Alex,Pattison,A. Pattison,MID,42,6,98,Chesterfield,,H,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+184391,Tyler,Walker,T. Walker,FWD,573,6,46,Swindon,,H,76,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
+184394,Ben,Close,B. Close,MID,290,6,55,Bradford,,H,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+184400,Josh,Sheehan,J. Sheehan,MID,30,6,2623,AFC Wim,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+184515,Mitchell,Clark,M. Clark,DEF,2048,6,104,Notts C,,A,12,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1
+184532,Jack,Fitzwater,J. Fitzwater,DEF,71,6,72,Rotherham,,A,90,0,0,0,0,0,0,0,0,0,0,1,9,0,0,0,0,0,4
+186797,Tom,Pett,T. Pett,MID,105,6,101,Cambridge,,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,6
+191844,Ronan,Coughlan,R. Coughlan,FWD,2048,6,104,Notts C,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+192281,Marvin,Ekpiteta,M. Ekpiteta,DEF,22,6,53,Grimsby,,H,90,0,0,0,0,0,0,0,0,0,0,3,8,1,1,0,0,0,3
+192441,Omar,Sowunmi,O. Sowunmi,DEF,2050,6,100,Gillingham,,H,90,0,0,0,0,0,0,0,0,0,0,2,14,1,2,0,0,0,5
+192829,Jason,Kerr,J. Kerr,DEF,111,6,83,Lincoln,,A,90,0,0,0,0,0,0,0,0,0,0,2,7,2,0,0,0,0,3
+193041,Jamie,Robson,J. Robson,DEF,105,6,101,Cambridge,,A,90,0,0,1,0,0,0,0,0,0,1,0,7,0,0,0,0,0,11
+193061,Connal,Trueman,C. Trueman,GK,22,6,53,Grimsby,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+193161,Oliver,Hawkins,O. Hawkins,FWD,34,6,74,Shrewsbury,,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,3
+193197,Jack,McMillan,J. McMillan,DEF,71,6,72,Rotherham,,A,90,0,0,0,0,0,0,0,0,0,0,1,2,0,1,0,0,0,2
+194162,George,Maris,G. Maris,MID,77,6,112,Wycombe,,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+194209,Owen,Moxon,O. Moxon,MID,111,6,83,Lincoln,,A,86,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
+194230,Macauley,Southam-Hales,M. Southam-Hales,DEF,96,6,437,Newport,,A,82,0,0,0,0,0,1,0,0,0,0,1,4,0,2,0,0,0,3
+194265,Daniel,Udoh,D. Udoh,FWD,3448,6,44,Tranmere,,H,90,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,3,2,11
+194328,Ilmari,Niskanen,I. Niskanen,MID,71,6,72,Rotherham,,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+194456,Kyle,Wootton,K. Wootton,FWD,48,6,76,Plymouth,,A,90,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,5
+194465,Alex,Bass,A. Bass,GK,73,6,38,Huddersfield,,A,90,0,0,0,0,0,0,0,2,0,0,3,0,0,0,0,0,0,1
+195139,Harry,Anderson,H. Anderson,MID,99,6,51,Crewe,,H,62,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,4
+195463,Denver,Hume,D. Hume,DEF,2048,6,104,Notts C,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+195471,Anthony,Glennon,A. Glennon,DEF,437,6,96,Bristol R,,H,90,0,0,0,0,0,0,0,0,0,0,3,1,0,0,0,0,0,1
+195476,Adam,Lewis,A. Lewis,DEF,98,6,42,Walsall,,A,17,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+195592,Ben,Thompson,B. Thompson,MID,2050,6,100,Gillingham,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+195850,Tyrell,Warren,T. Warren,DEF,53,6,22,MK Dons,,A,90,0,0,0,0,0,0,0,0,0,0,2,6,0,2,0,0,0,3
+195859,Marcus,Browne,M. Browne,MID,2623,6,30,Bolton,,A,50,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,-2
+195860,Joe,Powell,J. Powell,MID,72,6,71,Exeter,,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,0,5
+196402,Matty,Stevens,M. Stevens,FWD,2623,6,30,Bolton,,A,67,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+196424,Levi,Sutton,L. Sutton,MID,671,6,1525,Crawley,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+197112,Matt,Smith,M. Smith,MID,437,6,96,Bristol R,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+197139,Liam,Coyle,L. Coyle,MID,888,6,87,Cheltenham,,A,72,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,1,9
+197203,Aden,Baldwin,A. Baldwin,DEF,55,6,290,Doncaster,,A,68,0,0,0,0,0,0,0,0,0,0,3,2,0,3,0,0,0,2
+197394,Aaron,Collins,A. Collins,FWD,22,6,53,Grimsby,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+198563,Kieran,Green,K. Green,MID,53,6,22,MK Dons,,A,90,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2,12
+198868,Will,Collar,W. Collar,MID,22,6,53,Grimsby,,H,18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+198873,James,Tilley,J. Tilley,FWD,2623,6,30,Bolton,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+198973,Matty,Platt,M. Platt,DEF,104,6,2048,Fleetwood,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+199051,Luke,Southwood,L. Southwood,GK,96,6,437,Newport,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+199187,Victor,Adeboyejo,V. Adeboyejo,FWD,77,6,112,Wycombe,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+199586,Keanan,Bennetts,K. Bennetts,MID,104,6,2048,Fleetwood,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+199593,Joe,Lewis,J. Lewis,DEF,2623,6,30,Bolton,,A,90,0,0,0,0,0,0,1,0,0,0,3,6,1,2,0,0,0,0
+200370,Matt,Butcher,M. Butcher,MID,3448,6,44,Tranmere,,H,79,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,3
+200372,Joe,Quigley,J. Quigley,FWD,96,6,437,Newport,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+200619,George,Lapslie,G. Lapslie,MID,55,6,290,Doncaster,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+200650,Jack,Aitchison,J. Aitchison,FWD,71,6,72,Rotherham,,A,64,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+200655,Glenn,Middleton,G. Middleton,MID,290,6,55,Bradford,,H,17,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+200691,Ryan,Sweeney,R. Sweeney,DEF,77,6,112,Wycombe,,A,37,0,0,0,0,0,1,0,0,0,0,1,6,2,0,0,0,0,2
+200732,Kellan,Gordon,K. Gordon,MID,1525,6,671,Harrogate,,A,90,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,1
+201032,Nicke,Kabamba,N. Kabamba,FWD,2050,6,100,Gillingham,,H,87,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,3,9
+201293,Toby,Mullarkey,T. Mullarkey,DEF,2048,6,104,Notts C,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+201664,Paul,Glatzel,P. Glatzel,FWD,46,6,573,Barrow,,A,61,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,8
+202361,Tyler,Miller,T. Miller,GK,30,6,2623,AFC Wim,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+202721,Callum,Maycock,C. Maycock,MID,2623,6,30,Bolton,,A,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+202725,Jordan,Shipley,J. Shipley,MID,50,6,85,L Orient,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+202901,Anthony,Scully,A. Scully,FWD,74,6,34,Barnet,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+203362,Mathew,Hudson,M. Hudson,GK,105,6,101,Cambridge,,A,90,0,0,0,0,0,1,0,2,0,1,0,0,0,0,0,0,0,6
+203391,Luke,Bolton,L. Bolton,MID,77,6,112,Wycombe,,A,24,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+203576,Jodi,Jones,J. Jones,FWD,104,6,2048,Fleetwood,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+204143,Steve,Seddon,S. Seddon,DEF,2623,6,30,Bolton,,A,90,0,0,0,0,0,0,0,0,0,0,3,3,0,1,0,0,0,1
+204606,Mark,Shelton,M. Shelton,MID,34,6,74,Shrewsbury,,H,90,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,3,11
+204821,Tom,McIntyre,T. McIntyre,DEF,47,6,,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+205112,Shaun,McWilliams,S. McWilliams,MID,72,6,71,Exeter,,H,84,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,3,0,5
+205174,Antony,Evans,A. Evans,MID,38,6,73,Peterborough,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+205921,Nick,Tsaroulla,N. Tsaroulla,DEF,104,6,2048,Fleetwood,,H,90,0,0,0,0,0,0,0,0,0,1,0,2,0,4,0,0,0,9
+208996,Idris,Kanu,I. Kanu,FWD,34,6,74,Shrewsbury,,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,4
+208998,Steven,Sessegnon,S. Sessegnon,DEF,111,6,83,Lincoln,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+209001,Jack,Earing,J. Earing,MID,573,6,46,Swindon,,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
+209037,Zech,Medley,Z. Medley,DEF,2050,6,100,Gillingham,,H,90,0,0,0,0,0,0,0,0,0,0,1,3,0,2,0,0,0,3
+209212,Tom,Edwards,T. Edwards,DEF,3448,6,44,Tranmere,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+209413,Jordi,Osei-Tutu,J. Osei-Tutu,DEF,30,6,2623,AFC Wim,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+209420,Joy,Mukena,J. Mukena,DEF,1525,6,671,Harrogate,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+209690,Jack,Roles,J. Roles,MID,1525,6,671,Harrogate,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+209793,Corey,O'Keeffe,C. O'Keeffe,DEF,37,6,,,,,24,0,0,0,0,0,0,0,0,0,0,1,0,0,3,0,0,0,2
+210148,Nik,Tzanev,N. Tzanev,GK,38,6,73,Peterborough,,H,90,0,0,0,0,0,0,0,1,0,0,3,0,0,0,0,0,0,1
+210443,Shayne,Lavery,S. Lavery,FWD,101,6,105,Oldham,,H,21,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,1
+210834,Curtis,Tilt,C. Tilt,DEF,55,6,290,Doncaster,,A,87,0,0,0,0,0,1,0,0,0,0,3,4,0,2,0,0,0,2
+213279,Josh,Dacres-Cogley,J. Dacres-Cogley,DEF,48,6,76,Plymouth,,A,90,0,0,1,0,0,0,0,0,0,1,0,2,0,2,0,0,0,11
+213280,Jake,Eastwood,J. Eastwood,GK,101,6,105,Oldham,,H,90,0,0,0,0,0,0,0,3,0,0,1,0,0,0,0,0,0,4
+213303,Zain,Westbrooke,Z. Westbrooke,MID,290,6,55,Bradford,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+213372,Harry,Clifton,H. Clifton,MID,290,6,55,Bradford,,H,81,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,4
+213412,Robbie,Cundy,R. Cundy,DEF,87,6,888,Accrington,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+213588,Sam,Hornby,S. Hornby,GK,42,6,98,Chesterfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+213598,Jack,Senior,J. Senior,DEF,290,6,55,Bradford,,H,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+214392,James,Brophy,J. Brophy,MID,101,6,105,Oldham,,H,69,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,3
+214469,Joe,Tomlinson,J. Tomlinson,DEF,22,6,53,Grimsby,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+214475,Thomas,O'Connor,T. O'Connor,MID,109,6,,,,,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+214830,Ryan,Broom,R. Broom,MID,87,6,888,Accrington,,H,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+214926,Emmanuel,Osadebe,E. Osadebe,MID,34,6,74,Shrewsbury,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+214988,Ellis,Iandolo,E. Iandolo,DEF,99,6,51,Crewe,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+215062,Max,Sanders,M. Sanders,MID,51,6,99,Colchester,,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,4
+215064,Isaac,Hutchinson,I. Hutchinson,MID,87,6,888,Accrington,,H,82,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,9
+215065,Danny,Cashman,D. Cashman,FWD,1525,6,671,Harrogate,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+215068,Kelsey,Mooney,K. Mooney,FWD,888,6,87,Cheltenham,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+215217,Myles,Kenlock,M. Kenlock,DEF,34,6,74,Shrewsbury,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+215371,Darren,Oldaker,D. Oldaker,MID,46,6,573,Barrow,,A,62,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,2,0,5
+215457,Kane,Wilson,K. Wilson,DEF,22,6,53,Grimsby,,H,72,0,0,0,0,0,0,0,0,0,0,3,3,0,1,0,0,0,1
+215459,George,McEachran,G. McEachran,MID,53,6,22,MK Dons,,A,90,0,0,1,0,1,1,0,0,0,0,0,0,0,0,1,2,1,5
+215828,Aaron,Lewis,A. Lewis,DEF,77,6,112,Wycombe,,A,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+216554,Sam,Hughes,S. Hughes,DEF,73,6,38,Huddersfield,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+216555,Alfie,Kilgour,A. Kilgour,DEF,96,6,437,Newport,,A,90,0,0,0,0,0,0,0,0,0,0,2,7,0,3,0,0,0,3
+216620,Marcus,Forss,M. Forss,FWD,30,6,2623,AFC Wim,,H,24,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+217401,Josh,Benson,J. Benson,MID,72,6,71,Exeter,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+217585,Luke,Thomas,L. Thomas,MID,96,6,437,Newport,,A,77,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,17
+217633,Rosaire,Longelo,R. Longelo,MID,3448,6,44,Tranmere,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+217974,Jake,Doyle-Hayes,J. Doyle-Hayes,MID,71,6,72,Rotherham,,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,4
+218675,Brandon,Cooper,B. Cooper,DEF,3448,6,44,Tranmere,,H,71,0,0,0,0,0,0,0,0,0,0,1,3,0,1,0,0,0,2
+219001,James,Berry,J. Berry,FWD,98,6,42,Walsall,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+219163,Ronan,Curtis,R. Curtis,MID,76,6,48,Stockport,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+219472,Tom,Holmes,T. Holmes,DEF,102,6,,,,,90,0,0,0,0,0,0,0,0,0,1,0,11,0,1,0,0,0,9
+220200,Ben,Wiles,B. Wiles,MID,22,6,53,Grimsby,,H,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+220256,Omari,Patrick,O. Patrick,FWD,44,6,3448,Salford,,A,90,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,10
+220258,Josh,Kay,J. Kay,MID,105,6,101,Cambridge,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+220333,Odin,Bailey,O. Bailey,MID,48,6,76,Plymouth,,A,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+220336,Charlie,Lakin,C. Lakin,MID,42,6,98,Chesterfield,,H,66,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0
+220355,Jordan,Gibson,J. Gibson,MID,290,6,55,Bradford,,H,73,1,0,1,0,0,0,0,0,0,0,0,0,0,0,1,5,1,16
+220483,George,Miller,G. Miller,FWD,87,6,888,Accrington,,H,89,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,3
+220594,Charlie,Brown,C. Brown,FWD,888,6,87,Cheltenham,,A,31,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
+220651,Owen,Bailey,O. Bailey,MID,290,6,55,Bradford,,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,0,5
+220686,Bali,Mumba,B. Mumba,DEF,38,6,73,Peterborough,,H,89,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,5
+220705,Luca,Ashby-Hammond,L. Ashby-Hammond,GK,76,6,48,Stockport,,H,90,0,0,1,0,0,0,0,1,0,0,2,0,0,0,0,0,0,4
+221265,Harvey,Rodgers,H. Rodgers,DEF,53,6,22,MK Dons,,A,90,0,0,0,0,0,0,0,0,0,0,2,5,0,1,0,0,0,2
+221266,Robbie,McKenzie,R. McKenzie,DEF,100,6,2050,Bromley,,A,90,0,0,0,0,0,0,0,0,0,0,2,10,1,0,0,0,0,3
+221285,Danilo,Orsi,D. Orsi,FWD,1525,6,671,Harrogate,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+221287,Ashley,Charles,A. Charles,MID,2050,6,100,Gillingham,,H,90,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,1,0,3
+221293,Brandon,Hanlan,B. Hanlan,FWD,290,6,55,Bradford,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+221347,Kane,Smith,K. Smith,DEF,34,6,74,Shrewsbury,,H,64,0,0,0,0,0,0,0,0,0,0,3,0,1,1,0,0,0,1
+221359,Corey,Addai,C. Addai,GK,48,6,76,Plymouth,,A,90,0,0,0,0,0,0,0,2,0,0,4,0,0,0,0,0,0,0
+221363,Reece,Cole,R. Cole,MID,71,6,72,Rotherham,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+221377,Jojo,Wollacott,J. Wollacott,GK,1525,6,671,Harrogate,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+221378,Shawn,McCoulsky,S. McCoulsky,FWD,671,6,1525,Crawley,,H,78,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,3
+221431,Tom,Sang,T. Sang,DEF,74,6,34,Barnet,,A,90,0,0,1,0,0,0,0,0,0,0,1,1,1,5,0,0,0,7
+221433,Shilow,Tracey,S. Tracey,FWD,51,6,99,Colchester,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+221616,Clarke,Oduor,C. Oduor,MID,53,6,22,MK Dons,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+221700,Ethan,Coleman,E. Coleman,MID,100,6,2050,Bromley,,A,57,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+221751,Shane,McLoughlin,S. McLoughlin,MID,101,6,105,Oldham,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+222015,Jack,Diamond,J. Diamond,FWD,48,6,76,Plymouth,,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+222434,Jack,Simpson,J. Simpson,DEF,85,6,50,Port Vale,,A,31,0,0,0,0,0,0,0,0,0,0,0,4,0,2,0,0,0,3
+222658,Sam,Stubbs,S. Stubbs,DEF,74,6,34,Barnet,,A,90,0,0,0,0,0,0,0,0,0,0,1,2,1,1,0,0,0,2
+222775,Jordan,Wright,J. Wright,GK,437,6,96,Bristol R,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+222776,Jordan,Lawrence-Gabriel,J. Lawrence-Gabriel,DEF,50,6,85,L Orient,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+223151,Lee,Ndlovu,L. Ndlovu,FWD,104,6,2048,Fleetwood,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+223174,Diallang,Jaiyesimi,D. Jaiyesimi,MID,34,6,74,Shrewsbury,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+223331,Zico,Asare,Z. Asare,DEF,671,6,1525,Crawley,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+223333,Louie,Watson,L. Watson,MID,1525,6,671,Harrogate,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+223339,Xavier,Amaechi,X. Amaechi,FWD,76,6,48,Stockport,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+223411,Maz,Kouhyar,M. Kouhyar,MID,104,6,2048,Fleetwood,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+223810,Jonny,Smith,J. Smith,MID,100,6,2050,Bromley,,A,27,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2
+224107,Sean,Clare,S. Clare,DEF,85,6,50,Port Vale,,A,21,0,0,0,0,0,1,0,0,0,0,0,1,0,1,0,0,0,0
+225257,Josh,Koroma,J. Koroma,FWD,85,6,50,Port Vale,,A,90,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,2,0,12
+225277,Caolan,Boyd-Munce,C. Boyd-Munce,MID,112,6,77,Mansfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+226029,Lasse,Sørensen,L. Sørensen,DEF,38,6,73,Peterborough,,H,90,0,0,1,0,0,0,0,0,0,0,2,2,0,0,0,0,0,4
+226474,David,Kasumu,D. Kasumu,MID,38,6,73,Peterborough,,H,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+226495,Daniel,Butterworth,D. Butterworth,FWD,46,6,573,Barrow,,A,14,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+226846,Toyosi,Olusanya,T. Olusanya,FWD,290,6,55,Bradford,,H,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+226847,Tyreeq,Bakinson,T. Bakinson,MID,85,6,50,Port Vale,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+227035,Ryan,Delaney,R. Delaney,DEF,437,6,96,Bristol R,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+227057,Mike,Fondop-Talum,M. Fondop-Talum,FWD,105,6,101,Cambridge,,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
+227255,Ryan,Stirk,R. Stirk,MID,98,6,42,Walsall,,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,0,5
+228956,Anders,Hagelskjær,A. Hagelskjær,DEF,112,6,77,Mansfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+229004,Ciarán,Kelly,C. Kelly,DEF,55,6,290,Doncaster,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+229539,Arttu,Hoskonen,A. Hoskonen,DEF,48,6,76,Plymouth,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+231546,Max,Anderson,M. Anderson,MID,1525,6,671,Harrogate,,A,14,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+231557,Innes,Cameron,I. Cameron,FWD,573,6,46,Swindon,,H,14,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+231646,Tyler,Walton,T. Walton,MID,888,6,87,Cheltenham,,A,90,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+231810,James,Gibbons,J. Gibbons,DEF,101,6,105,Oldham,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+231821,Jordan,Davies,J. Davies,MID,2048,6,104,Notts C,,A,29,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2
+231826,Luke,Hannant,L. Hannant,MID,105,6,101,Cambridge,,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,4
+231848,Ryan,Glover,R. Glover,MID,34,6,74,Shrewsbury,,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,5
+231854,Sam,Sherring,S. Sherring,DEF,87,6,888,Accrington,,H,90,0,0,0,0,0,0,0,0,0,1,0,11,1,2,0,0,0,10
+231900,Justin,Amaluzor,J. Amaluzor,FWD,53,6,22,MK Dons,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+231902,Ben,Fox,B. Fox,MID,671,6,1525,Crawley,,H,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+231908,Aaron,Morley,A. Morley,MID,112,6,77,Mansfield,,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,0,4
+232229,Vontae,Daley-Campbell,V. Daley-Campbell,DEF,98,6,42,Walsall,,A,73,0,0,0,0,0,1,0,0,0,0,1,3,0,0,0,0,0,1
+232235,Joseph,Olowu,J. Olowu,DEF,48,6,76,Plymouth,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+232241,Matt,Smith,M. Smith,MID,111,6,83,Lincoln,,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,4
+232271,Sam,Nombe,S. Nombe,FWD,72,6,71,Exeter,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+232295,Harry,Smith,H. Smith,FWD,46,6,573,Barrow,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+232361,Taylor,Perry,T. Perry,MID,74,6,34,Barnet,,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,4
+232389,Jay,Mingi,J. Mingi,MID,51,6,99,Colchester,,A,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+232425,George,Harmon,G. Harmon,DEF,87,6,888,Accrington,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+232427,Rekeem,Harper,R. Harper,MID,573,6,46,Swindon,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+232456,Dilan,Markanday,D. Markanday,FWD,98,6,42,Walsall,,A,84,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+232474,Kane,Thompson-Sommers,K. Thompson-Sommers,MID,96,6,437,Newport,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+232496,Ollie,Cooper,O. Cooper,MID,80,6,,,,,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+232505,Cameron,Evans,C. Evans,DEF,437,6,96,Bristol R,,H,64,0,0,0,0,0,0,0,0,0,0,2,0,1,2,0,0,0,2
+232606,Will,Forrester,W. Forrester,DEF,85,6,50,Port Vale,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+232668,Jacob,Bedeau,J. Bedeau,DEF,104,6,2048,Fleetwood,,H,90,0,0,0,0,0,0,0,0,0,1,0,6,0,0,0,0,0,8
+232758,Ben,Winterbottom,B. Winterbottom,GK,573,6,46,Swindon,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+232780,Kevin,Berkoe,K. Berkoe,DEF,74,6,34,Barnet,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+232794,Clinton,Mola,C. Mola,DEF,96,6,437,Newport,,A,8,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1
+232825,Stephen,Duke-McKenna,S. Duke-McKenna,MID,671,6,1525,Crawley,,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,9
+232829,Kyle,John,K. John,DEF,50,6,85,L Orient,,H,78,0,0,0,0,0,0,0,0,0,0,2,0,0,6,0,0,0,4
+232842,Ryan,De Havilland,R. De Havilland,MID,96,6,437,Newport,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+232858,Matthew,Sorinola,M. Sorinola,DEF,76,6,48,Stockport,,H,90,0,0,1,0,0,1,0,0,0,0,2,2,0,3,0,0,0,4
+232901,Ted,Cann,T. Cann,GK,72,6,71,Exeter,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+232903,Kane,Drummond,K. Drummond,FWD,105,6,101,Cambridge,,A,33,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2
+232923,George,Broadbent,G. Broadbent,MID,290,6,55,Bradford,,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,5
+232946,Zach,Hemming,Z. Hemming,GK,98,6,42,Walsall,,A,90,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,2
+232951,Kian,Spence,K. Spence,MID,72,6,71,Exeter,,H,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+232960,Lewis,Cass,L. Cass,DEF,671,6,1525,Crawley,,H,90,0,0,0,0,0,0,0,0,0,0,1,2,1,3,0,0,0,3
+232977,Kelland,Watts,K. Watts,DEF,101,6,105,Oldham,,H,90,0,0,0,0,0,0,0,0,0,0,1,8,0,0,0,0,0,4
+233019,Jack,Nolan,J. Nolan,MID,100,6,2050,Bromley,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+233312,Louis,Appéré,L. Appéré,FWD,101,6,105,Oldham,,H,69,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,4
+233425,Aaron,Connolly,A. Connolly,FWD,85,6,50,Port Vale,,A,90,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,9
+233462,Jack,Bycroft,J. Bycroft,GK,71,6,72,Rotherham,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+233463,Zeno,Rossi,Z. Rossi,DEF,101,6,105,Oldham,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+233549,Callum,Wright,C. Wright,MID,111,6,83,Lincoln,,A,76,1,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,2,14
+234494,Corey,Whitely,C. Whitely,FWD,2050,6,100,Gillingham,,H,58,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+234557,Reeco,Hackett,R. Hackett,FWD,83,6,111,Wigan,,H,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,3
+235179,Ben,House,B. House,FWD,83,6,111,Wigan,,H,29,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2
+235182,Lee,O'Connor,L. O'Connor,DEF,44,6,3448,Salford,,A,90,0,0,0,0,0,0,0,0,0,0,3,6,1,3,0,0,0,3
+235192,Jake,Turner,J. Turner,GK,100,6,2050,Bromley,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+235371,Arthur,Read,A. Read,MID,99,6,51,Crewe,,H,90,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,2,1,9
+235381,Sam,Dalby,S. Dalby,FWD,30,6,2623,AFC Wim,,H,34,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
+235449,George,Wickens,G. Wickens,GK,83,6,111,Wigan,,H,90,0,0,0,0,0,0,0,4,0,0,2,0,0,0,0,0,0,3
+235457,Jack,Evans,J. Evans,MID,671,6,1525,Crawley,,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,4
+235517,Cameron,McJannet,C. McJannet,DEF,53,6,22,MK Dons,,A,90,0,0,0,0,0,0,0,0,0,0,2,12,1,1,0,0,0,4
+235599,Nikola,Tavares,N. Tavares,DEF,34,6,74,Shrewsbury,,H,27,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+235643,Fraser,Murray,F. Murray,MID,111,6,83,Lincoln,,A,88,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,4
+235649,Will,Evans,W. Evans,FWD,77,6,112,Wycombe,,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,3
+240275,Joe,Sbarra,J. Sbarra,MID,290,6,55,Bradford,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+240880,Owen,Dale,O. Dale,FWD,76,6,48,Stockport,,H,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+241132,George,Nurse,G. Nurse,DEF,87,6,888,Accrington,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+242270,Archie,Collins,A. Collins,MID,73,6,38,Huddersfield,,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,10
+242512,Lewis,Fiorini,L. Fiorini,MID,48,6,76,Plymouth,,A,4,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,4
+243332,Reagan,Ogle,R. Ogle,DEF,105,6,101,Cambridge,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+243532,Dion,Pereira,D. Pereira,MID,1525,6,671,Harrogate,,A,76,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,2,0,8
+243542,Liam,Gordon,L. Gordon,DEF,50,6,85,L Orient,,H,14,0,0,0,0,0,0,0,0,0,0,1,2,0,1,0,0,0,1
+243760,Nathan,Broome,N. Broome,GK,30,6,2623,AFC Wim,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+244531,Ewan,Henderson,E. Henderson,MID,112,6,77,Mansfield,,H,22,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+244807,Alistair,Smith,A. Smith,MID,2623,6,30,Bolton,,A,88,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+244890,Joseph,Hungbo,J. Hungbo,FWD,111,6,83,Lincoln,,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+244932,Ben,Knight,B. Knight,MID,101,6,105,Oldham,,H,45,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+245693,Eoin,Toal,E. Toal,DEF,30,6,2623,AFC Wim,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+245908,Ruari,Paton,R. Paton,FWD,50,6,85,L Orient,,H,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,3
+246299,Tom,Bayliss,T. Bayliss,MID,83,6,111,Wigan,,H,74,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,1,0,3
+247648,Omar,Bugiel,O. Bugiel,FWD,2623,6,30,Bolton,,A,23,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
+247695,Ollie,Kensdale,O. Kensdale,DEF,34,6,74,Shrewsbury,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+247700,Rarmani,Edmonds-Green,R. Edmonds-Green,DEF,85,6,50,Port Vale,,A,31,0,0,0,0,0,0,0,0,0,0,0,5,0,1,0,0,0,2
+247942,Josh,Hawkes,J. Hawkes,MID,105,6,101,Cambridge,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+248520,Aaron,Pressley,A. Pressley,FWD,42,6,98,Chesterfield,,H,76,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
+248534,Myles,Roberts,M. Roberts,GK,42,6,98,Chesterfield,,H,90,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,7
+248677,Remeao,Hutton,R. Hutton,DEF,100,6,2050,Bromley,,A,63,0,0,1,0,0,0,0,0,0,0,2,2,0,0,0,0,0,4
+248852,Tom,Smith,T. Smith,GK,99,6,51,Crewe,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+248855,Harrison,Sohna,H. Sohna,MID,87,6,888,Accrington,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+248858,Matthew,Dennis,M. Dennis,FWD,104,6,2048,Fleetwood,,H,77,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,1,7
+248938,Lewis,Macari,L. Macari,DEF,104,6,2048,Fleetwood,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+249084,Marcus,Dinanga,M. Dinanga,FWD,2050,6,100,Gillingham,,H,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+249111,Harrison,Biggins,H. Biggins,MID,437,6,96,Bristol R,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+249281,Dan,Happe,D. Happe,DEF,85,6,50,Port Vale,,A,90,0,0,0,0,0,0,0,0,0,0,2,15,0,2,0,0,0,5
+249931,Josh,Gordon,J. Gordon,FWD,573,6,46,Swindon,,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+250370,Nathan,Bishop,N. Bishop,GK,2623,6,30,Bolton,,A,90,0,0,0,0,0,0,0,5,0,0,3,0,0,0,0,0,0,3
+422262,Jon,Mellish,J. Mellish,DEF,22,6,53,Grimsby,,H,36,0,0,0,0,0,0,1,0,0,0,3,3,0,0,0,0,0,-3
+422303,John,McAtee,J. McAtee,FWD,30,6,2623,AFC Wim,,H,12,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
+428683,Aaron,Drinan,A. Drinan,FWD,46,6,573,Barrow,,A,90,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,11
+429241,Jack,Sparkes,J. Sparkes,DEF,96,6,437,Newport,,A,90,0,0,0,0,0,0,0,0,0,0,2,7,1,2,0,0,0,3
+430123,Ethan,Erhahon,E. Erhahon,MID,30,6,2623,AFC Wim,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+430270,Ollie,Wright,O. Wright,GK,888,6,87,Cheltenham,,A,90,0,0,0,0,0,0,0,2,0,0,1,0,0,0,0,0,0,2
+430862,Anthony,Hartigan,A. Hartigan,MID,34,6,74,Shrewsbury,,H,18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+431608,Tommy,Backwell,T. Backwell,MID,87,6,888,Accrington,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+432219,Dru,Yearwood,D. Yearwood,MID,72,6,71,Exeter,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+432585,Gerard,Garner,G. Garner,FWD,437,6,96,Bristol R,,H,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2
+432734,Joel,Senior,J. Senior,DEF,96,6,437,Newport,,A,8,0,0,0,0,0,0,0,0,0,0,1,1,0,1,0,0,0,1
+432781,Isaac,Fletcher,I. Fletcher,MID,573,6,46,Swindon,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+432817,Romoney,Crichlow,R. Crichlow,DEF,34,6,74,Shrewsbury,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+432931,Tyrese,Francois,T. Francois,MID,111,6,83,Lincoln,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+433168,Joshua,Kayode,J. Kayode,FWD,72,6,71,Exeter,,H,35,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+433172,George,Lloyd,G. Lloyd,FWD,74,6,34,Barnet,,A,24,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+433191,Jack,MacKenzie,J. MacKenzie,DEF,76,6,48,Stockport,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+434044,Cieran,Slicker,C. Slicker,GK,34,6,74,Shrewsbury,,H,90,0,0,0,0,0,0,0,2,0,0,3,0,0,0,0,0,0,1
+434132,Tom,Hamer,T. Hamer,DEF,83,6,111,Wigan,,H,90,0,0,0,0,0,0,0,0,0,0,2,13,0,0,0,0,0,4
+434158,Riley,Harbottle,R. Harbottle,DEF,96,6,437,Newport,,A,67,0,0,0,0,0,0,0,0,0,0,3,3,2,1,0,0,0,2
+435998,Doug,Tharme,D. Tharme,DEF,53,6,22,MK Dons,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+436639,Toby,Savin,T. Savin,GK,111,6,83,Lincoln,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+436760,Robbie,Gotts,R. Gotts,MID,290,6,55,Bradford,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+437688,Lewis,Richards,L. Richards,DEF,1525,6,671,Harrogate,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+438432,Lee,Jenkins,L. Jenkins,DEF,437,6,96,Bristol R,,H,90,0,0,1,0,0,0,0,0,0,0,3,5,1,1,0,0,0,5
+438654,Brendan,Wiredu,B. Wiredu,MID,76,6,48,Stockport,,H,82,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,6
+438807,Jay,Bird,J. Bird,FWD,3448,6,44,Tranmere,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+438819,Josh,Neufville,J. Neufville,FWD,55,6,290,Doncaster,,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
+438820,Jack,Tucker,J. Tucker,DEF,99,6,51,Crewe,,H,90,0,0,0,0,0,1,0,0,0,0,1,12,0,1,0,0,0,4
+439278,Armando,Dobra,A. Dobra,FWD,98,6,42,Walsall,,A,90,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,2,0,2
+439357,Scott,Robertson,S. Robertson,MID,104,6,2048,Fleetwood,,H,13,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
+439454,Will,Wright,W. Wright,DEF,46,6,573,Barrow,,A,90,0,0,0,0,0,0,0,0,0,0,1,4,2,3,0,0,0,5
+439481,Jayden,Fevrier,J. Fevrier,FWD,33,6,,,,,59,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+439485,Josh,Martin,J. Martin,FWD,87,6,888,Accrington,,H,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+439493,Ruel,Sotiriou,R. Sotiriou,FWD,96,6,437,Newport,,A,13,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+440113,Aaron,Rowe,A. Rowe,MID,100,6,2050,Bromley,,A,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
+440120,Dan,Chesters,D. Chesters,MID,3448,6,44,Tranmere,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+440229,Reece,Staunton,R. Staunton,DEF,53,6,22,MK Dons,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+440241,Jensen,Weir,J. Weir,MID,111,6,83,Lincoln,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+441041,Luke,Offord,L. Offord,DEF,22,6,53,Grimsby,,H,35,0,0,0,0,0,1,0,0,0,0,3,0,0,0,0,0,0,-1
+441199,Joel,Randall,J. Randall,MID,92,6,,,,,66,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,10
+441533,Ossama,Ashley,O. Ashley,MID,3448,6,44,Tranmere,,H,19,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,8
+441590,Jack,Lankester,J. Lankester,MID,51,6,99,Colchester,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+441598,Idris,El Mizouni,I. El Mizouni,MID,85,6,50,Port Vale,,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,4
+442245,Klaidi,Lolos,K. Lolos,FWD,1525,6,671,Harrogate,,A,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+443174,James,Connolly,J. Connolly,DEF,51,6,99,Colchester,,A,90,0,0,0,0,0,1,0,0,0,0,1,10,3,5,0,0,0,6
+443368,Barry,Cotter,B. Cotter,DEF,104,6,2048,Fleetwood,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+443681,Joe,Kizzi,J. Kizzi,DEF,34,6,74,Shrewsbury,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+444181,Nnamdi,Ofoborh,N. Ofoborh,MID,34,6,74,Shrewsbury,,H,63,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,5
+444183,Gavin,Kilkenny,G. Kilkenny,MID,46,6,573,Barrow,,A,90,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,1
+444307,Thimothée,Lo-Tutala,T. Lo-Tutala,GK,290,6,55,Bradford,,H,90,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,2
+444787,Mickel,Miller,M. Miller,DEF,38,6,73,Peterborough,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+444879,Cameron,Antwi,C. Antwi,MID,100,6,2050,Bromley,,A,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
+444889,Ethan,Bristow,E. Bristow,DEF,44,6,3448,Salford,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+445916,Harry,Forster,H. Forster,FWD,1525,6,671,Harrogate,,A,45,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
+445988,Elliott,Bonds,E. Bonds,MID,2048,6,104,Notts C,,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,0,4
+446036,Maï,Traoré,M. Traoré,FWD,104,6,2048,Fleetwood,,H,13,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+446978,Jesse,Debrah,J. Debrah,DEF,2050,6,100,Gillingham,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+446981,Joe,Wright,J. Wright,GK,34,6,74,Shrewsbury,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+447372,Ryan,Finnigan,R. Finnigan,MID,92,6,,,,,64,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,3
+448350,Geraldo,Bajrami,G. Bajrami,DEF,1525,6,671,Harrogate,,A,76,0,0,0,0,0,0,0,0,0,1,0,2,1,1,0,0,0,7
+448360,Josh,Andrews,J. Andrews,FWD,100,6,2050,Bromley,,A,70,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,10
+448478,Scott,High,S. High,MID,34,6,74,Shrewsbury,,H,72,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,1,0,3
+448481,Ben,Jackson,B. Jackson,DEF,573,6,46,Swindon,,H,89,0,0,0,0,0,0,0,0,0,0,3,0,0,2,0,0,0,2
+448482,Rob,Street,R. Street,FWD,83,6,111,Wigan,,H,77,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,-1
+448496,Ed,Turns,E. Turns,DEF,71,6,72,Rotherham,,A,90,0,0,0,0,0,0,0,0,0,0,1,5,2,0,0,0,0,4
+449082,Reece,Hutchinson,R. Hutchinson,DEF,51,6,99,Colchester,,A,90,0,0,1,0,0,1,0,0,0,0,1,0,0,1,0,0,0,4
+449290,Rio,Adebisi,R. Adebisi,DEF,73,6,38,Huddersfield,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+449395,Magnus,Westergaard,M. Westergaard,MID,112,6,77,Mansfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+450270,Tyreik,Wright,T. Wright,FWD,55,6,290,Doncaster,,A,45,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+450273,Conor,Grant,C. Grant,MID,104,6,2048,Fleetwood,,H,24,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
+450331,Mathias,Ross,M. Ross,DEF,76,6,48,Stockport,,H,8,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,1
+450529,Lewis,Bate,L. Bate,MID,48,6,76,Plymouth,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+450543,Xavier,Simons,X. Simons,MID,30,6,2623,AFC Wim,,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,4
+450545,Dion,Rankine,D. Rankine,MID,51,6,99,Colchester,,A,32,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+451244,Harrison,Holgate,H. Holgate,DEF,2048,6,104,Notts C,,A,90,0,0,0,0,0,0,0,0,0,0,1,3,1,2,0,0,0,3
+451644,Radinio,Balker,R. Balker,DEF,38,6,73,Peterborough,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+453537,Carlos,Gomes,C. Gomes,FWD,71,6,72,Rotherham,,A,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+456498,James,Maxwell,J. Maxwell,DEF,290,6,55,Bradford,,H,86,0,0,1,0,0,0,0,0,0,0,1,6,0,4,0,0,0,8
+456966,Caleb,Watts,C. Watts,MID,76,6,48,Stockport,,H,74,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,9
+457327,Lewis,McCann,L. McCann,FWD,2048,6,104,Notts C,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+457395,Jacob,Chapman,J. Chapman,GK,1525,6,671,Harrogate,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+460232,Peter,Kioso,P. Kioso,DEF,73,6,38,Huddersfield,,A,90,0,0,0,0,0,0,0,0,0,0,3,4,0,3,0,0,0,3
+460241,Shadrach,Ogie,S. Ogie,DEF,100,6,2050,Bromley,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+460710,Ben,Waine,B. Waine,FWD,50,6,85,L Orient,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+461002,Nathan,Moriah-Welsh,N. Moriah-Welsh,MID,77,6,112,Wycombe,,A,87,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
+461017,Christian,Saydee,C. Saydee,FWD,111,6,83,Lincoln,,A,68,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,1,0,2
+461047,Evan,Khouri,E. Khouri,MID,53,6,22,MK Dons,,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
+461063,Matty,Carson,M. Carson,DEF,53,6,22,MK Dons,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+461101,Richard,Taylor,R. Taylor,DEF,30,6,2623,AFC Wim,,H,12,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+461159,Keenan,Patten,K. Patten,MID,437,6,96,Bristol R,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+461173,Lewis,Gordon,L. Gordon,DEF,98,6,42,Walsall,,A,73,0,0,0,0,0,0,0,0,0,0,1,3,0,1,0,0,0,2
+461192,Kallum,Cesay,K. Cesay,DEF,3448,6,44,Tranmere,,H,90,0,0,1,0,0,0,0,0,0,0,1,0,0,1,0,0,0,5
+461203,Michael,Craig,M. Craig,MID,85,6,50,Port Vale,,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+461377,Malachi,Boateng,M. Boateng,MID,76,6,48,Stockport,,H,90,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,1,0,7
+461382,John-Kymani,Gordon,J. Gordon,FWD,99,6,51,Crewe,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+461414,Jack,Barrett,J. Barrett,GK,44,6,3448,Salford,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+461430,Lewis,Montsma,L. Montsma,DEF,83,6,111,Wigan,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+461446,Tyler,Onyango,T. Onyango,MID,48,6,76,Plymouth,,A,66,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,4
+461453,Lewis,Warrington,L. Warrington,MID,44,6,3448,Salford,,A,64,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+461475,Ollie,O'Neill,O. O'Neill,MID,85,6,50,Port Vale,,A,69,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,1,2
+461476,Idris,Odutayo,I. Odutayo,DEF,2050,6,100,Gillingham,,H,90,0,0,1,0,0,0,0,0,0,0,2,9,0,0,0,0,0,6
+461484,Joe,White,J. White,MID,55,6,290,Doncaster,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+461490,Josh,Austerfield,J. Austerfield,MID,3448,6,44,Tranmere,,H,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+461505,Kian,Harratt,K. Harratt,FWD,105,6,101,Cambridge,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+461509,Jaheim,Headley,J. Headley,DEF,50,6,85,L Orient,,H,76,0,0,0,0,0,0,0,0,0,0,2,0,1,4,0,0,0,3
+461521,Ben,Woods,B. Woods,MID,73,6,38,Huddersfield,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+461522,Charlie,Wellens,C. Wellens,FWD,85,6,50,Port Vale,,A,11,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,7
+461556,Mark,Helm,M. Helm,MID,2048,6,104,Notts C,,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+461567,Owen,Dodgson,O. Dodgson,DEF,48,6,76,Plymouth,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+461600,Zak,Gilsenan,Z. Gilsenan,MID,53,6,22,MK Dons,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+461601,Tom,Hill,T. Hill,MID,671,6,1525,Crawley,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+462029,Connor,Barrett,C. Barrett,DEF,42,6,98,Chesterfield,,H,90,0,0,0,0,0,1,0,0,0,1,0,2,0,2,0,0,0,7
+462033,Jamie,Pardington,J. Pardington,GK,83,6,111,Wigan,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+462366,Lorent,Tolaj,L. Tolaj,FWD,76,6,48,Stockport,,H,82,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,8
+462384,Jamal,Baptiste,J. Baptiste,DEF,72,6,71,Exeter,,H,5,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+462492,Joe,Gauci,J. Gauci,GK,50,6,85,L Orient,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+462624,Jay,Williams,J. Williams,DEF,1525,6,671,Harrogate,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+462640,Tom,Bradbury,T. Bradbury,DEF,671,6,1525,Crawley,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+463039,Nelson,Khumbeni,N. Khumbeni,MID,100,6,2050,Bromley,,A,33,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+464353,Harvey,Davies,H. Davies,GK,1525,6,671,Harrogate,,A,90,0,0,0,0,0,0,0,6,0,1,0,0,0,0,0,0,0,11
+464972,Ryan,Graydon,R. Graydon,FWD,3448,6,44,Tranmere,,H,90,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,2
+465239,Ryan,Rydel,R. Rydel,DEF,71,6,72,Rotherham,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+465313,Chris,Conn-Clarke,C. Conn-Clarke,MID,73,6,38,Huddersfield,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+465331,Johnly,Yfeko,J. Yfeko,DEF,71,6,72,Rotherham,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+467190,Vicente,Reyes,V. Reyes,GK,45,6,,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+467289,Haji,Mnoga,H. Mnoga,DEF,3448,6,44,Tranmere,,H,71,0,0,0,0,0,1,0,0,0,0,1,3,0,2,0,0,0,2
+467291,Kion,Etete,K. Etete,FWD,97,6,,,,,22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,3
+467389,Adam,Senior,A. Senior,DEF,34,6,74,Shrewsbury,,H,63,0,0,0,0,0,0,0,0,0,0,3,0,1,1,0,0,0,1
+467398,Ronan,Darcy,R. Darcy,MID,1525,6,671,Harrogate,,A,72,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+468243,Kamil,Conteh,K. Conteh,MID,83,6,111,Wigan,,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,4
+468486,Ben,Garrity,B. Garrity,MID,50,6,85,L Orient,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+469249,Nohan,Kenneh,N. Kenneh,MID,44,6,3448,Salford,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+469515,Kacper,Lopata,K. Lopata,DEF,42,6,98,Chesterfield,,H,90,0,0,0,0,0,0,0,0,0,0,2,9,1,0,0,0,0,3
+469702,David,Harrington,D. Harrington,GK,30,6,2623,AFC Wim,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+469841,Promise,Omochere,P. Omochere,FWD,96,6,437,Newport,,A,90,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,3,0,2
+470256,Rico,Richards,R. Richards,MID,42,6,98,Chesterfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+470655,Jake,Hollman,J. Hollman,MID,42,6,98,Chesterfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+471845,Josh,Flint,J. Flint,DEF,1525,6,671,Harrogate,,A,90,0,0,0,0,0,0,0,0,0,1,0,7,0,3,0,0,0,9
+472838,Alex,Mitchell,A. Mitchell,DEF,76,6,48,Stockport,,H,90,0,0,0,0,0,1,0,0,0,0,2,16,0,2,0,0,0,5
+473437,Jacob,Mendy,J. Mendy,DEF,73,6,38,Huddersfield,,A,64,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,2
+474903,Euan,Williams,E. Williams,MID,100,6,2050,Bromley,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+474909,Logan,Pye,L. Pye,DEF,888,6,87,Cheltenham,,A,90,0,0,0,0,0,0,0,0,0,0,1,10,1,4,0,0,0,6
+475469,Zach,Jeacock,Z. Jeacock,GK,83,6,111,Wigan,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+475487,Fin,Back,F. Back,DEF,99,6,51,Crewe,,H,34,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+475488,Will,Swan,W. Swan,FWD,55,6,290,Doncaster,,A,90,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,8
+475492,Oli,Hammond,O. Hammond,MID,105,6,101,Cambridge,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+475506,Taylor,Allen,T. Allen,DEF,112,6,77,Mansfield,,H,90,0,0,0,0,0,0,0,0,0,1,0,1,0,2,0,0,0,8
+476610,Lenni,Cirino,L. Cirino,DEF,100,6,2050,Bromley,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+476946,Priestley,Farquharson,P. Farquharson,DEF,42,6,98,Chesterfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+477328,Luke,Robinson,L. Robinson,DEF,111,6,83,Lincoln,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+477329,Scott,Smith,S. Smith,MID,573,6,46,Swindon,,H,45,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+477331,Sam,Tickle,S. Tickle,GK,111,6,83,Lincoln,,A,90,0,0,1,0,0,0,0,4,0,0,2,0,0,0,0,0,0,6
+477382,Will,Hondermarck,W. Hondermarck,MID,2050,6,100,Gillingham,,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+477383,Jaden,Warner,J. Warner,DEF,437,6,96,Bristol R,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+478446,Harrison,Neal,H. Neal,MID,2048,6,104,Notts C,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+479230,Alassana,Jatta,A. Jatta,FWD,104,6,2048,Fleetwood,,H,66,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,2,2,8
+479532,Ciarán,Brennan,C. Brennan,DEF,437,6,96,Bristol R,,H,86,0,0,0,0,0,0,0,0,0,0,3,4,1,2,0,0,0,3
+482101,Kornél,Szucs,K. Szucs,DEF,76,6,48,Stockport,,H,90,0,0,0,0,0,0,0,0,0,0,2,5,0,1,0,0,0,2
+482315,Adrian,Akande,A. Akande,FWD,99,6,51,Crewe,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+482533,Isaac,Mabaya,I. Mabaya,DEF,111,6,83,Lincoln,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+482536,Joe,Snowdon,J. Snowdon,MID,46,6,573,Barrow,,A,75,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
+483371,Harry,Leonard,H. Leonard,FWD,73,6,38,Huddersfield,,A,75,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,5
+483499,Thierry,Gale,T. Gale,FWD,30,6,2623,AFC Wim,,H,78,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,2,0,2
+486472,Denzel,Hall,D. Hall,DEF,72,6,71,Exeter,,H,55,1,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,9
+487575,Ruben,Roosken,R. Roosken,DEF,106,6,,,,,56,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,1
+487693,Devan,Tanton,D. Tanton,DEF,98,6,42,Walsall,,A,17,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+487818,Joe,Whitworth,J. Whitworth,GK,71,6,72,Rotherham,,A,90,0,0,0,0,0,0,0,4,0,0,1,0,0,0,0,0,0,4
+487827,Jude,Soonsup-Bell,J. Soonsup-Bell,FWD,53,6,22,MK Dons,,A,18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+487836,Antwoine,Hackford,A. Hackford,FWD,2623,6,30,Bolton,,A,23,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+488578,Ibrahim,Bakare,I. Bakare,DEF,87,6,888,Accrington,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+488709,Frazer,Blake-Tracy,F. Blake-Tracy,DEF,77,6,112,Wycombe,,A,90,0,0,0,0,0,1,0,0,0,0,2,3,0,2,0,0,0,1
+488727,Jayden,Sweeney,J. Sweeney,DEF,53,6,22,MK Dons,,A,90,0,0,0,0,0,0,0,0,0,0,2,7,1,1,0,0,0,2
+489034,Brad,Young,B. Young,GK,96,6,437,Newport,,A,90,0,0,0,0,0,0,0,2,0,0,2,0,0,0,0,0,0,1
+489154,Nicholas,Bilokapic,N. Bilokapic,GK,73,6,38,Huddersfield,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+489192,Josh,March,J. March,FWD,51,6,99,Colchester,,A,89,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,8
+489193,Isaac,Sinclair,I. Sinclair,MID,888,6,87,Cheltenham,,A,31,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+489255,Vincent,Harper,V. Harper,DEF,42,6,98,Chesterfield,,H,90,0,0,0,0,0,0,0,0,0,1,0,1,1,4,0,0,0,9
+489452,Luca,Hoole,L. Hoole,DEF,74,6,34,Barnet,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+489673,Alex,Lowry,A. Lowry,MID,112,6,77,Mansfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+489806,Max,Metcalfe,M. Metcalfe,GK,48,6,76,Plymouth,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+489999,Tom,Nixon,T. Nixon,DEF,290,6,55,Bradford,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+490151,Calum,Kavanagh,C. Kavanagh,FWD,105,6,101,Cambridge,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+490160,Ellis,Taylor,E. Taylor,MID,671,6,1525,Crawley,,H,78,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,4
+490180,Aribim,Pepple,A. Pepple,FWD,76,6,48,Stockport,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+490203,Luke,Hewitson,L. Hewitson,GK,2048,6,104,Notts C,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+490886,Brodi,Hughes,B. Hughes,DEF,2623,6,30,Bolton,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+490888,Kyle,McAdam,K. McAdam,DEF,75,6,,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+490986,Marcus,Ifill,M. Ifill,MID,2050,6,100,Gillingham,,H,58,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+491250,Seán,Grehan,S. Grehan,DEF,290,6,55,Bradford,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+491260,Jamie,Mullins,J. Mullins,MID,112,6,77,Mansfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+491459,Katia,Kouyate,K. Kouyate,FWD,573,6,46,Swindon,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+491556,Charlie,Whitaker,C. Whitaker,MID,44,6,3448,Salford,,A,57,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,4
+491557,Jenson,Metcalfe,J. Metcalfe,MID,55,6,290,Doncaster,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+491731,Andy,Smith,A. Smith,DEF,100,6,2050,Bromley,,A,90,0,0,0,0,0,0,0,0,0,0,2,8,1,3,0,0,0,4
+491964,Connor,Taylor,C. Taylor,DEF,112,6,77,Mansfield,,H,90,0,0,0,0,0,0,0,0,0,1,0,5,3,1,0,0,0,9
+492066,Niall,Huggins,N. Huggins,DEF,112,6,77,Mansfield,,H,56,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,1
+492085,Owura,Edwards,O. Edwards,MID,99,6,51,Crewe,,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,4
+492153,Dom,Jefferies,D. Jefferies,MID,83,6,111,Wigan,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+492231,Darragh,Power,D. Power,DEF,87,6,888,Accrington,,H,15,0,0,0,0,0,0,0,0,0,0,0,2,0,1,0,0,0,1
+492269,Michael,Kelly,M. Kelly,GK,888,6,87,Cheltenham,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+492280,Jake,Bickerstaff,J. Bickerstaff,FWD,87,6,888,Accrington,,H,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+492498,Raphael,Borges Rodrigues,R. Borges Rodrigues,FWD,111,6,83,Lincoln,,A,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
+492765,Ar'Jany,Martha,A. Martha,DEF,72,6,71,Exeter,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+492776,Dexter,Lembikisa,D. Lembikisa,DEF,83,6,111,Wigan,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+492933,Bradley,Fink,B. Fink,FWD,112,6,77,Mansfield,,H,23,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
+493663,Tommy,Simkin,T. Simkin,GK,110,6,,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+493727,Bastian,Smith,B. Smith,GK,73,6,38,Huddersfield,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+493731,Joe,Andrews,J. Andrews,MID,73,6,38,Huddersfield,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+493736,Jimmy-Jay,Morgan,J. Morgan,FWD,73,6,38,Huddersfield,,A,59,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,7
+493838,Carl,Johnston,C. Johnston,DEF,73,6,38,Huddersfield,,A,26,0,0,0,0,0,0,0,0,0,0,2,1,0,0,0,0,0,0
+493962,Ethan,Ennis,E. Ennis,FWD,2048,6,104,Notts C,,A,61,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,3
+494041,Ethan,Brierley,E. Brierley,MID,71,6,72,Rotherham,,A,80,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
+494263,Filozofe,Mabete,F. Mabete,DEF,46,6,573,Barrow,,A,90,0,0,0,0,0,0,0,0,0,0,1,11,1,1,0,0,0,4
+494543,Dom,Ballard,D. Ballard,FWD,85,6,50,Port Vale,,A,79,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,8
+495148,Matthew,Garbett,M. Garbett,MID,73,6,38,Huddersfield,,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+495722,Josh,Davison,J. Davison,FWD,87,6,888,Accrington,,H,33,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
+495725,Abraham,Odoh,A. Odoh,FWD,73,6,38,Huddersfield,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+495795,Dan,Martin,D. Martin,MID,888,6,87,Cheltenham,,A,65,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,4
+496225,Lewis,Shipley,L. Shipley,DEF,573,6,46,Swindon,,H,90,1,0,0,0,0,0,0,0,0,0,3,4,2,2,0,0,0,11
+496228,Sonny,Perkins,S. Perkins,FWD,85,6,50,Port Vale,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+496231,Luke,Butterfield,L. Butterfield,MID,888,6,87,Cheltenham,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+496279,Isaac,Heath,I. Heath,FWD,888,6,87,Cheltenham,,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,3
+497731,Cian,Hayes,C. Hayes,FWD,73,6,38,Huddersfield,,A,15,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,7
+498104,Ryley,Towler,R. Towler,DEF,83,6,111,Wigan,,H,90,0,0,2,0,0,1,0,0,0,0,2,3,1,0,0,0,0,6
+498108,Ayman,Benarous,A. Benarous,MID,76,6,48,Stockport,,H,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+498598,Mo,Faal,M. Faal,FWD,87,6,888,Accrington,,H,46,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+499162,Loick,Ayina,L. Ayina,DEF,3448,6,44,Tranmere,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+499184,Charlie,Caton,C. Caton,FWD,888,6,87,Cheltenham,,A,31,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+499210,Jack,Stevens,J. Stevens,FWD,105,6,101,Cambridge,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+499830,Joel,Cotterill,J. Cotterill,MID,96,6,437,Newport,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+499831,Ben,Lloyd,B. Lloyd,MID,437,6,96,Bristol R,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+499857,Teddy,Sharman-Lowe,T. Sharman-Lowe,GK,30,6,2623,AFC Wim,,H,90,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,7
+500930,Jack,Sanders,J. Sanders,DEF,22,6,53,Grimsby,,H,90,0,0,0,0,0,0,0,0,0,0,3,4,1,1,0,0,0,2
+501144,Jayden,Wareham,J. Wareham,FWD,71,6,72,Rotherham,,A,65,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+501325,Lee,Bonis,L. Bonis,FWD,98,6,42,Walsall,,A,84,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+501468,Tayo,Adaramola,T. Adaramola,DEF,19,6,,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+501893,James,Carragher,J. Carragher,DEF,111,6,83,Lincoln,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+501895,Babajide,Adeeko,B. Adeeko,MID,111,6,83,Lincoln,,A,14,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,3
+501989,Tom,Donaghy,T. Donaghy,GK,105,6,101,Cambridge,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+502263,Marvin,Kaleta,M. Kaleta,DEF,72,6,71,Exeter,,H,85,0,0,0,0,0,0,0,0,0,1,0,2,0,1,0,0,0,7
+502958,Harvey,Araujo,H. Araujo,DEF,99,6,51,Crewe,,H,46,0,0,0,0,0,0,0,0,0,0,0,6,0,1,0,0,0,2
+502981,Reece,Smith,R. Smith,MID,671,6,1525,Crawley,,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,1,5
+503000,Jaze,Kabia,J. Kabia,MID,53,6,22,MK Dons,,A,84,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,10
+503062,Darragh,Burns,D. Burns,MID,53,6,22,MK Dons,,A,89,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,3
+503140,Sam,Bell,S. Bell,FWD,113,6,,,,,68,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,9
+503143,Joe,Low,J. Low,DEF,38,6,73,Peterborough,,H,90,0,0,0,0,0,0,0,0,0,0,2,3,0,2,0,0,0,2
+504598,Daniel,Gore,D. Gore,MID,72,6,71,Exeter,,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,0,5
+504609,Sonny,Cox,S. Cox,FWD,71,6,72,Rotherham,,A,26,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+504758,Brad,Hills,B. Hills,DEF,48,6,76,Plymouth,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+505168,Will,Dickson,W. Dickson,FWD,98,6,42,Walsall,,A,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
+505458,Michael,Mellon,M. Mellon,FWD,105,6,101,Cambridge,,A,57,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,7
+505872,Lucas,Ness,L. Ness,DEF,104,6,2048,Fleetwood,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+507614,Géza,Turi,G. Turi,MID,53,6,22,MK Dons,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+509486,Jay,McGrath,J. McGrath,DEF,290,6,55,Bradford,,H,90,0,0,0,0,0,0,0,0,0,0,1,10,0,1,0,0,0,4
+512483,Evan,Weir,E. Weir,DEF,42,6,98,Chesterfield,,H,90,0,0,0,0,0,0,0,0,0,1,0,4,0,0,0,0,0,8
+512908,Charlie,Barker,C. Barker,DEF,1525,6,671,Harrogate,,A,90,0,0,0,0,0,1,0,0,0,1,0,10,3,1,0,0,0,9
+512992,Will,Blackmore,W. Blackmore,GK,73,6,38,Huddersfield,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+513264,David,Okagbue,D. Okagbue,DEF,73,6,38,Huddersfield,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+513266,Seán,Roughan,S. Roughan,DEF,38,6,73,Peterborough,,H,90,0,0,0,0,0,0,0,0,0,0,2,2,0,5,0,0,0,3
+513379,Sam,Long,S. Long,GK,2050,6,100,Gillingham,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+514229,Sam,Waller,S. Waller,GK,671,6,1525,Crawley,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+514243,Will,Brook,W. Brook,GK,74,6,34,Barnet,,A,90,0,0,0,0,0,0,0,5,0,0,1,0,0,0,0,0,0,4
+514282,Joshua,Tobin,J. Tobin,DEF,2050,6,100,Gillingham,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+514287,Sil,Swinkels,S. Swinkels,DEF,98,6,42,Walsall,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+514296,Emre,Tezgel,E. Tezgel,FWD,51,6,99,Colchester,,A,58,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+514333,Oscar,Thorn,O. Thorn,FWD,83,6,111,Wigan,,H,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2
+514354,Mikki,van Sas,M. van Sas,GK,112,6,77,Mansfield,,H,90,0,0,0,0,0,0,0,2,0,1,0,0,0,0,0,0,0,7
+514358,Samson,Tovide,S. Tovide,FWD,99,6,51,Crewe,,H,77,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
+514498,Erik,Ring,E. Ring,FWD,83,6,111,Wigan,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+514611,Francis,Okoronkwo,F. Okoronkwo,FWD,290,6,55,Bradford,,H,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
+515023,Matt,Dibley-Dias,M. Dibley-Dias,MID,98,6,42,Walsall,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+515496,Owen,Goodman,O. Goodman,GK,37,6,,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+515504,Joe,Hugill,J. Hugill,FWD,34,6,74,Shrewsbury,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+515599,Tommi,O'Reilly,T. O'Reilly,MID,51,6,99,Colchester,,A,85,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+515724,Jude,Arthurs,J. Arthurs,MID,2050,6,100,Gillingham,,H,32,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
+515880,Will,Sutton,W. Sutton,DEF,105,6,101,Cambridge,,A,72,0,0,0,0,0,0,0,0,0,1,0,3,1,1,0,0,0,7
+516148,Malik,Mothersille,M. Mothersille,FWD,48,6,76,Plymouth,,A,31,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,2
+516155,Courtney,Clarke,C. Clarke,MID,42,6,98,Chesterfield,,H,26,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+516239,Jayden,Joseph,J. Joseph,MID,44,6,3448,Salford,,A,33,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,2
+516248,Lakyle,Samuel,L. Samuel,DEF,2050,6,100,Gillingham,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+516503,Junior,Quitirna,J. Quitirna,MID,112,6,77,Mansfield,,H,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+517110,Will,Goodwin,W. Goodwin,FWD,99,6,51,Crewe,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+517161,Max,Conway,M. Conway,DEF,30,6,2623,AFC Wim,,H,78,0,0,1,0,0,0,0,0,0,1,0,1,0,4,0,0,0,12
+517217,Luca,Woodhouse,L. Woodhouse,MID,71,6,72,Rotherham,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+517227,Adebola,Oluwo,A. Oluwo,DEF,3448,6,44,Tranmere,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+517995,Leo,Castledine,L. Castledine,MID,25,6,,,,,34,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,4
+517996,Ronnie,Stutter,R. Stutter,FWD,34,6,74,Shrewsbury,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+518506,Will,Davies,W. Davies,FWD,2048,6,104,Notts C,,A,75,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,4
+518794,Ben,Hughes,B. Hughes,GK,101,6,105,Oldham,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+518897,Louis,Flower,L. Flower,FWD,1525,6,671,Harrogate,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+519223,Sammy,Braybrooke,S. Braybrooke,MID,98,6,42,Walsall,,A,86,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,4
+519294,Harry,McHugh,H. McHugh,MID,111,6,83,Lincoln,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+519324,Amario,Cozier-Duberry,A. Cozier-Duberry,MID,30,6,2623,AFC Wim,,H,78,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,3,13
+519325,Habeeb,Ogunneye,H. Ogunneye,DEF,437,6,96,Bristol R,,H,90,0,0,0,0,0,0,0,0,0,0,3,3,0,0,0,0,0,1
+519327,George,Abbott,G. Abbott,DEF,77,6,112,Wycombe,,A,90,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,7
+519494,Ade,Adeyemo,A. Adeyemo,FWD,1525,6,671,Harrogate,,A,45,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+519601,Bobby,Kamwa,B. Kamwa,FWD,437,6,96,Bristol R,,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,3
+519684,Dajaune,Brown,D. Brown,FWD,50,6,85,L Orient,,H,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+520835,Osman,Foyo,O. Foyo,MID,2623,6,30,Bolton,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+520855,Alfie,Lloyd,A. Lloyd,FWD,83,6,111,Wigan,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+521966,Finley,Munroe,F. Munroe,DEF,25,6,,,,,90,0,0,1,0,0,0,0,0,0,0,1,5,3,3,0,0,0,8
+522244,Jake,Leake,J. Leake,DEF,105,6,101,Cambridge,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+522903,Kerr,Smith,K. Smith,DEF,573,6,46,Swindon,,H,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
+523615,Charlie,Casper,C. Casper,GK,53,6,22,MK Dons,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+523851,Jack,Moylan,J. Moylan,MID,83,6,111,Wigan,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+524005,Ryan,Galvin,R. Galvin,DEF,34,6,74,Shrewsbury,,H,45,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+524051,Arkell,Jude-Boyd,A. Jude-Boyd,DEF,87,6,888,Accrington,,H,75,0,0,0,0,0,0,0,0,0,1,0,1,1,2,0,0,0,8
+524057,Micah,Anthony,M. Anthony,MID,96,6,437,Newport,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+524070,Jamie,McDonnell,J. McDonnell,MID,106,6,,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+524112,Jack,Hinchy,J. Hinchy,MID,104,6,2048,Fleetwood,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+524171,Freddie,Draper,F. Draper,FWD,83,6,111,Wigan,,H,62,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,3
+524196,Shaq,Forde,S. Forde,FWD,96,6,437,Newport,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+529978,Harrison,Burke,H. Burke,DEF,42,6,98,Chesterfield,,H,90,0,0,0,0,0,0,0,0,0,1,0,3,0,0,0,0,0,7
+529999,Chris,Sze,C. Sze,FWD,111,6,83,Lincoln,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+530025,Tom,Davies,T. Davies,DEF,437,6,96,Bristol R,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+530125,Benn,Ward,B. Ward,DEF,108,6,,,,,90,0,0,0,0,0,0,0,0,0,0,1,11,2,1,0,0,0,5
+530580,Ethan,Sutcliffe,E. Sutcliffe,DEF,2623,6,30,Bolton,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+530873,Dara,Costelloe,D. Costelloe,FWD,111,6,83,Lincoln,,A,14,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
+531967,Declan,Frith,D. Frith,FWD,73,6,38,Huddersfield,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+532097,Ivan,Varfolomieiev,I. Varfolomieiev,MID,83,6,111,Wigan,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+532534,Will,Alves,W. Alves,MID,38,6,73,Peterborough,,H,34,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,8
+532535,Thomas,Wilson-Brown,T. Wilson-Brown,DEF,46,6,573,Barrow,,A,61,0,0,0,0,0,0,0,0,0,1,0,1,1,0,0,0,0,7
+533402,Jason,Svanthórsson,J. Svanthórsson,FWD,53,6,22,MK Dons,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+534390,Deji,Elerewe,D. Elerewe,DEF,83,6,111,Wigan,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+534392,Mason,Burstow,M. Burstow,FWD,30,6,2623,AFC Wim,,H,56,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,7
+534394,Nathan,Asiimwe,N. Asiimwe,DEF,2623,6,30,Bolton,,A,88,0,0,0,0,0,0,0,0,0,0,3,0,1,1,0,0,0,1
+534465,Alfie,Chang,A. Chang,MID,42,6,98,Chesterfield,,H,82,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,5
+534466,George,Hall,G. Hall,MID,50,6,85,L Orient,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+534706,Kylian,Kouassi,K. Kouassi,FWD,101,6,105,Oldham,,H,45,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+534761,Tom,Watson,T. Watson,GK,111,6,83,Lincoln,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+534834,Joe,Bauress,J. Bauress,MID,888,6,87,Cheltenham,,A,25,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+535264,Bradley,Ibrahim,B. Ibrahim,MID,76,6,48,Stockport,,H,90,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,13
+535266,Michael,Reindorf,M. Reindorf,FWD,97,6,,,,,71,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+535268,Laurence,Shala,L. Shala,GK,112,6,77,Mansfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+535568,William,Jarvis,W. Jarvis,FWD,104,6,2048,Fleetwood,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+535606,Isaac,Ogundere,I. Ogundere,DEF,2623,6,30,Bolton,,A,90,0,0,0,0,0,0,0,0,0,0,3,0,2,1,0,0,0,2
+535616,Aron,Sasu,A. Sasu,FWD,2623,6,30,Bolton,,A,23,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+536110,Josh,Feeney,J. Feeney,DEF,38,6,73,Peterborough,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+536117,Theo,Robinson,T. Robinson,DEF,104,6,2048,Fleetwood,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+536119,Charlie,Crew,C. Crew,MID,290,6,55,Bradford,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+536126,Calum,Agius,C. Agius,FWD,51,6,99,Colchester,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+536241,Martin,Sherif,M. Sherif,FWD,50,6,85,L Orient,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+536243,Daniel,Vost,D. Vost,MID,38,6,73,Peterborough,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+536376,Connor,O'Riordan,C. O'Riordan,DEF,5,6,,,,,90,0,0,0,0,0,0,0,0,0,0,1,8,1,2,0,0,0,5
+536377,Lewis,Billington,L. Billington,DEF,51,6,99,Colchester,,A,90,0,0,0,0,0,0,0,0,0,0,1,5,0,2,0,0,0,4
+536378,Charlie,Finney,C. Finney,DEF,51,6,99,Colchester,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+536380,Joel,Tabiner,J. Tabiner,MID,51,6,99,Colchester,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+536382,Tom,Booth,T. Booth,GK,51,6,99,Colchester,,A,90,0,0,0,0,0,0,0,6,0,0,1,0,0,0,0,0,0,6
+536557,Daniel,Cox,D. Cox,DEF,42,6,98,Chesterfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+536681,Joe,Gardner,J. Gardner,FWD,77,6,112,Wycombe,,A,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+536686,Ben,Perry,B. Perry,MID,99,6,51,Crewe,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+537932,Seb,Palmer-Houlden,S. Palmer-Houlden,FWD,100,6,2050,Bromley,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+538174,Charlie,Olson,C. Olson,DEF,105,6,101,Cambridge,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+538292,Zak,Bradshaw,Z. Bradshaw,DEF,101,6,105,Oldham,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+538294,Finley,Barbrook,F. Barbrook,MID,99,6,51,Crewe,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+538443,Brooklyn,Ilunga,B. Ilunga,DEF,2050,6,100,Gillingham,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+538632,Rico,Browne,R. Browne,DEF,42,6,98,Chesterfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+538637,Brandon,Khela,B. Khela,MID,73,6,38,Huddersfield,,A,76,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
+538865,Elliott,Nevitt,E. Nevitt,FWD,101,6,105,Oldham,,H,64,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,2
+543468,Benoný,Andrésson,B. Andrésson,FWD,48,6,76,Plymouth,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+544005,Ibrahim,Cissoko,I. Cissoko,FWD,30,6,2623,AFC Wim,,H,12,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2
+544651,Antony,Papadopoulos,A. Papadopoulos,MID,1525,6,671,Harrogate,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+544846,Noah,Phillips,N. Phillips,GK,85,6,50,Port Vale,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+545386,Adam,Murphy,A. Murphy,MID,113,6,,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+545411,Mason,Hancock,M. Hancock,DEF,42,6,98,Chesterfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+545436,Dylan,Duffy,D. Duffy,MID,98,6,42,Walsall,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+545956,Ethan,Pye,E. Pye,DEF,48,6,76,Plymouth,,A,90,0,0,0,0,0,0,0,0,0,0,4,2,0,1,0,0,0,0
+546179,Josh,Woods,J. Woods,FWD,888,6,87,Cheltenham,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+546393,Tommy,Leigh,T. Leigh,MID,96,6,437,Newport,,A,81,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,4
+546399,Liam,Bennett,L. Bennett,DEF,101,6,105,Oldham,,H,69,0,0,0,0,0,0,0,0,0,0,1,2,1,1,0,0,0,2
+546400,Mamadou,Jobe,M. Jobe,DEF,101,6,105,Oldham,,H,90,0,0,0,0,0,0,0,0,0,0,1,4,0,1,0,0,0,3
+546511,Ryan,Howley,R. Howley,MID,96,6,437,Newport,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+546753,Zech,Obiero,Z. Obiero,MID,44,6,3448,Salford,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+546765,Kelly,N'Mai,K. N'Mai,MID,3448,6,44,Tranmere,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+547070,Ben,Radcliffe,B. Radcliffe,DEF,1525,6,671,Harrogate,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+547634,Dillon,Addai,D. Addai,GK,2050,6,100,Gillingham,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+547650,Josh,Williams,J. Williams,MID,44,6,3448,Salford,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+547659,Josh,Powell,J. Powell,DEF,2048,6,104,Notts C,,A,90,0,0,0,0,0,0,0,0,0,0,1,2,1,1,0,0,0,2
+547664,Jaden,Williams,J. Williams,FWD,99,6,51,Crewe,,H,28,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2
+547675,Sonny,Aljofree,S. Aljofree,DEF,104,6,2048,Fleetwood,,H,90,0,0,0,0,0,0,0,0,0,1,0,5,1,1,0,0,0,8
+547680,Delano,McCoy-Splatt,D. McCoy-Splatt,MID,2623,6,30,Bolton,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+547688,Kyrell,Lisbie,K. Lisbie,FWD,73,6,38,Huddersfield,,A,14,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+547698,Akeel,Higgins,A. Higgins,FWD,71,6,72,Rotherham,,A,25,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
+548328,Matt,Baker,M. Baker,DEF,437,6,96,Bristol R,,H,64,0,0,0,0,0,1,0,0,0,0,2,4,0,1,0,0,0,1
+549151,Justin,Obikwu,J. Obikwu,FWD,52,6,,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+549841,Chris,Forino,C. Forino,DEF,30,6,2623,AFC Wim,,H,90,0,0,1,0,0,1,0,0,0,1,0,2,1,1,0,0,0,9
+549848,Zak,Baker,Z. Baker,GK,76,6,48,Stockport,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+549853,Freddie,Issaka,F. Issaka,FWD,76,6,48,Stockport,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+550137,Princewill,Ehibhatiomhan,P. Ehibhatiomhan,FWD,3448,6,44,Tranmere,,H,15,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,7
+550585,Daniel,Kanu,D. Kanu,FWD,42,6,98,Chesterfield,,H,82,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,8
+551995,Taylan,Harris,T. Harris,FWD,102,6,,,,,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+552007,Lemar,Gordon,L. Gordon,FWD,85,6,50,Port Vale,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+553242,Owen,Lunt,O. Lunt,MID,51,6,99,Colchester,,A,58,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,3
+553676,Joe,Thomas,J. Thomas,DEF,437,6,96,Bristol R,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+553741,Jemiah,Umolu,J. Umolu,FWD,2050,6,100,Gillingham,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+553756,Oisín,Gallagher,O. Gallagher,MID,83,6,111,Wigan,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+554921,Joe,Taylor,J. Taylor,FWD,111,6,83,Lincoln,,A,90,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,9
+555171,Jaiden,Bartolo,J. Bartolo,FWD,112,6,77,Mansfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+555353,Caleb,Roberts,C. Roberts,MID,76,6,48,Stockport,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+556189,Matús,Holícek,M. Holícek,MID,51,6,99,Colchester,,A,32,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
+556685,Andrew,Oluwabori,A. Oluwabori,FWD,71,6,72,Rotherham,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+558501,Ciaran,McGuckin,C. McGuckin,FWD,72,6,71,Exeter,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+558512,James,Golding,J. Golding,DEF,106,6,,,,,58,0,0,0,0,0,1,0,0,0,0,0,0,0,2,0,0,0,1
+559684,Jack,Moorhouse,J. Moorhouse,MID,85,6,50,Port Vale,,A,69,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,0,5
+560096,Jamie,Knight-Lebel,J. Knight-Lebel,DEF,46,6,573,Barrow,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+560200,Harley,O'Grady-Macken,H. O'Grady-Macken,MID,5,6,,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+560213,Callum,Tripp,C. Tripp,DEF,22,6,53,Grimsby,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+560413,Glenn,McConnell,G. McConnell,MID,101,6,105,Oldham,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+561059,Law,McCabe,L. McCabe,MID,25,6,,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+561063,Bobby,Faulkner,B. Faulkner,DEF,671,6,1525,Crawley,,H,90,0,0,0,0,0,0,0,0,0,0,1,9,1,3,0,0,0,5
+561064,Sam,Gale,S. Gale,MID,100,6,2050,Bromley,,A,90,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,3
+563367,Owen,Mason,O. Mason,GK,77,6,112,Wycombe,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+563934,Tyrese,Hall,T. Hall,MID,104,6,2048,Fleetwood,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+564365,Max,Jolliffe,M. Jolliffe,MID,99,6,51,Crewe,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+564506,Travis,Akomeah,T. Akomeah,DEF,100,6,2050,Bromley,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+565401,Oscar,Wallin,O. Wallin,DEF,73,6,38,Huddersfield,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+565436,Tommy,McDermott,T. McDermott,MID,74,6,34,Barnet,,A,90,0,0,1,0,0,1,0,0,0,0,0,0,0,0,1,2,0,7
+565784,Tola,Showunmi,T. Showunmi,FWD,1525,6,671,Harrogate,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+565858,Killian,Cahill,K. Cahill,GK,85,6,50,Port Vale,,A,90,0,0,0,0,0,0,0,6,0,0,2,0,0,0,0,0,0,5
+565873,Nathan,Lowe,N. Lowe,FWD,112,6,77,Mansfield,,H,86,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,5
+565999,Bryant,Bilongo,B. Bilongo,DEF,96,6,437,Newport,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+566108,Tosin,Olopade,T. Olopade,DEF,3448,6,44,Tranmere,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+566982,Kai,Whitmore,K. Whitmore,MID,437,6,96,Bristol R,,H,26,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,8
+567250,Wyll,Stanway,W. Stanway,GK,573,6,46,Swindon,,H,90,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,1
+568123,Nicolás,Siri,N. Siri,FWD,3448,6,44,Tranmere,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+568164,Callum,Stead,C. Stead,FWD,34,6,74,Shrewsbury,,H,26,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+570094,Gustav,Lindgren,G. Lindgren,FWD,73,6,38,Huddersfield,,A,31,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,4
+571032,Jamie,Jellis,J. Jellis,MID,42,6,98,Chesterfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+571092,Matt,Young,M. Young,GK,3448,6,44,Tranmere,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+571341,Christy,Grogan,C. Grogan,DEF,48,6,76,Plymouth,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+572691,Bradley,Ihionvien,B. Ihionvien,FWD,74,6,34,Barnet,,A,66,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,3,2,9
+574799,Damola,Ajayi,D. Ajayi,FWD,2050,6,100,Gillingham,,H,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+576756,Zépiqueno,Redmond,Z. Redmond,FWD,38,6,73,Peterborough,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+577019,Donnell,McNeilly,D. McNeilly,FWD,112,6,77,Mansfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+577211,Michael,Spellman,M. Spellman,FWD,437,6,96,Bristol R,,H,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2
+581268,Stephan,Negru,S. Negru,DEF,44,6,3448,Salford,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+581537,Finley,Potter,F. Potter,DEF,2048,6,104,Notts C,,A,84,0,0,0,0,0,1,0,0,0,0,1,3,0,2,0,0,0,2
+584833,Billy,Kirkman,B. Kirkman,DEF,46,6,573,Barrow,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+586288,Alex,Stepien-Iwumene,A. Stepien-Iwumene,MID,2050,6,100,Gillingham,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+586436,Devon,Matthews,D. Matthews,DEF,888,6,87,Cheltenham,,A,90,0,0,0,0,0,1,0,0,0,0,1,8,2,2,0,0,0,5
+586668,Ronan,Maher,R. Maher,MID,42,6,98,Chesterfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+587364,Ashton,Rinaldo,A. Rinaldo,GK,98,6,42,Walsall,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+587387,Connor,O'Brien,C. O'Brien,DEF,888,6,87,Cheltenham,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+587644,Owen,Oseni,O. Oseni,FWD,76,6,48,Stockport,,H,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+588239,Ben,Krauhaus,B. Krauhaus,MID,2050,6,100,Gillingham,,H,32,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,2
+588555,Elyh,Harrison,E. Harrison,GK,74,6,34,Barnet,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+588794,Stanley,Skipper,S. Skipper,MID,100,6,2050,Bromley,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+588796,Ismeal,Kabia,I. Kabia,FWD,74,6,34,Barnet,,A,80,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,3
+589100,Jacob,Slater,J. Slater,DEF,671,6,1525,Crawley,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+589111,Lenny,Agbaire,L. Agbaire,DEF,72,6,71,Exeter,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+589402,Joe,Adams,J. Adams,MID,111,6,83,Lincoln,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+589476,Cameron,Ashia,C. Ashia,MID,38,6,73,Peterborough,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+591349,Adam,Mayor,A. Mayor,FWD,101,6,105,Oldham,,H,21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+591356,Pedro,Borges,P. Borges,MID,71,6,72,Rotherham,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+591357,Ryan,Trevitt,R. Trevitt,MID,111,6,83,Lincoln,,A,88,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
+591527,Neo,Eccleston,N. Eccleston,DEF,53,6,22,MK Dons,,A,1,0,0,0,0,0,0,0,0,0,0,1,2,0,0,0,0,0,1
+591529,Donay,O'Brien-Brady,D. O'Brien-Brady,MID,73,6,38,Huddersfield,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+591539,Billy,Blacker,B. Blacker,FWD,44,6,3448,Salford,,A,57,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+591861,James,Dornelly,J. Dornelly,DEF,73,6,38,Huddersfield,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+592451,Alfie,Henderson,A. Henderson,MID,3448,6,44,Tranmere,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+592663,Kyreece,Lisbie,K. Lisbie,FWD,99,6,51,Crewe,,H,28,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,8
+592666,Max,Dickov,M. Dickov,FWD,44,6,3448,Salford,,A,45,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+592712,Tom,Taylor,T. Taylor,MID,87,6,888,Accrington,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+592748,Micah,Mbick,M. Mbick,FWD,99,6,51,Crewe,,H,13,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2
+592765,Harry,Griffiths,H. Griffiths,GK,104,6,2048,Fleetwood,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+594184,Fabrizio,Cavegn,F. Cavegn,FWD,96,6,437,Newport,,A,67,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,6
+596373,Jack,Shorrock,J. Shorrock,MID,50,6,85,L Orient,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+596573,Jonny,Stuttle,J. Stuttle,FWD,42,6,98,Chesterfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+597744,Ed,James,E. James,DEF,71,6,72,Rotherham,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+598677,Frankie,Edwards,F. Edwards,DEF,99,6,51,Crewe,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+599163,Milton,Oni,M. Oni,MID,99,6,51,Crewe,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+600938,Cameron,Walters,C. Walters,MID,87,6,888,Accrington,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+600952,Freddy,Willcox,F. Willcox,MID,87,6,888,Accrington,,H,82,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,4
+600953,Ashton,Mee,A. Mee,MID,48,6,76,Plymouth,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+600956,Rhys,Walters,R. Walters,FWD,50,6,85,L Orient,,H,90,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,3,8
+602137,Jack,Holmes,J. Holmes,FWD,72,6,71,Exeter,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+602896,Logan,Dobbs,L. Dobbs,DEF,100,6,2050,Bromley,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+602926,Jake,Oram,J. Oram,GK,290,6,55,Bradford,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+602945,George,Morrison,G. Morrison,MID,2048,6,104,Notts C,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+603889,Hamish,Douglas,H. Douglas,MID,72,6,71,Exeter,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+604142,George,Hoddle,G. Hoddle,MID,101,6,105,Oldham,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+604664,Tom,Iorpenda,T. Iorpenda,MID,104,6,2048,Fleetwood,,H,77,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,5
+604822,Jack,Rogers,J. Rogers,MID,111,6,83,Lincoln,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+605436,Taine,Anderson,T. Anderson,DEF,87,6,888,Accrington,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+606775,Ben,Winterburn,B. Winterburn,MID,34,6,74,Shrewsbury,,H,45,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+606793,Sol,Solomon,S. Solomon,FWD,44,6,3448,Salford,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+608031,Michael,Adu-Poku,M. Adu-Poku,FWD,57,6,,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+608060,Jayden,Luker,J. Luker,MID,104,6,2048,Fleetwood,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+608905,Connor,Cook,C. Cook,MID,98,6,42,Walsall,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+610284,Nathaniel,Opoku,N. Opoku,FWD,437,6,96,Bristol R,,H,26,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,10
+612195,Kayden,Hughes,K. Hughes,DEF,2048,6,104,Notts C,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+612198,Liam,Roberts,L. Roberts,MID,2048,6,104,Notts C,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+612201,Will,Johnson,W. Johnson,DEF,2048,6,104,Notts C,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+612351,Andrew,Wogan,A. Wogan,GK,48,6,76,Plymouth,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+614499,Tobias,Brenan,T. Brenan,MID,671,6,1525,Crawley,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+615249,Anjola,Popoola,A. Popoola,FWD,888,6,87,Cheltenham,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+618944,Makise,Evans,M. Evans,FWD,99,6,51,Crewe,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+619745,George,Nevett,G. Nevett,DEF,73,6,38,Huddersfield,,A,90,0,0,0,0,0,0,0,0,0,0,3,8,1,0,0,0,0,3
+619811,Harley,Mills,H. Mills,DEF,73,6,38,Huddersfield,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+619812,Harrison,Chamberlain,H. Chamberlain,GK,99,6,51,Crewe,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+619850,Jacob,Lara,J. Lara,DEF,3448,6,44,Tranmere,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+620424,Joseph,Hatch,J. Hatch,FWD,76,6,48,Stockport,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+625237,Freddie,Sass,F. Sass,DEF,888,6,87,Cheltenham,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+626653,Maleace,Asamoah,M. Asamoah,FWD,111,6,83,Lincoln,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+626680,Bobby,Pointon,B. Pointon,FWD,55,6,290,Doncaster,,A,45,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4
+627003,Jordan,Thomas,J. Thomas,MID,87,6,888,Accrington,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+627159,Charlie,Waller,C. Waller,DEF,22,6,53,Grimsby,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+627348,Sam,German,S. German,DEF,2050,6,100,Gillingham,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+627894,Kai,Payne,K. Payne,MID,105,6,101,Cambridge,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+627897,Matthew,Corran,M. Corran,GK,111,6,83,Lincoln,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+628389,Azeem,Abdulai,A. Abdulai,MID,85,6,50,Port Vale,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+628394,Josh,Ayres,J. Ayres,FWD,72,6,71,Exeter,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+628403,Tom,King,T. King,FWD,87,6,888,Accrington,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+628406,Phoenix,Scholtz,P. Scholtz,DEF,22,6,53,Grimsby,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+629413,Arian,Allen,A. Allen,MID,48,6,76,Plymouth,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+630694,Dan,Ellison,D. Ellison,DEF,96,6,437,Newport,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+631368,Jacob,Mazionis,J. Mazionis,DEF,87,6,888,Accrington,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+631866,Declan,Skura,D. Skura,DEF,112,6,77,Mansfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+631868,Jakub,Kruszynski,J. Kruszynski,MID,77,6,112,Wycombe,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+631892,Kai,Jennings,K. Jennings,MID,2623,6,30,Bolton,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+632624,Cameron,Gardner,C. Gardner,MID,53,6,22,MK Dons,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+634637,Liam,Oakes,L. Oakes,DEF,71,6,72,Rotherham,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+636307,Finn,Flanagan,F. Flanagan,MID,77,6,112,Wycombe,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+636309,Sam,Inwood,S. Inwood,DEF,30,6,2623,AFC Wim,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+637308,Elkanah,Akor,E. Akor,DEF,99,6,51,Crewe,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+637620,Tom,Dean,T. Dean,MID,71,6,72,Rotherham,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+637629,Kyrell,Malcolm,K. Malcolm,MID,3448,6,44,Tranmere,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+637635,Alex,Henderson,A. Henderson,MID,888,6,87,Cheltenham,,A,59,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+637906,Marcus,Wyllie,M. Wyllie,FWD,100,6,2050,Bromley,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+638874,Phil,Croker,P. Croker,DEF,51,6,99,Colchester,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+640795,Ollie,Dewsbury,O. Dewsbury,FWD,96,6,437,Newport,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+641074,Gbolahan,Okewoye,G. Okewoye,MID,83,6,111,Wigan,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+641076,Jasper,Briggs,J. Briggs,GK,101,6,105,Oldham,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+641085,Ben,Lomax,B. Lomax,DEF,50,6,85,L Orient,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+641089,Junior,Nkeng,J. Nkeng,FWD,2623,6,30,Bolton,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+641094,Ethon,Archer,E. Archer,MID,50,6,85,L Orient,,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+641307,Raffaele,Cirino,R. Cirino,DEF,2048,6,104,Notts C,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+641463,George,Goodman,G. Goodman,DEF,55,6,290,Doncaster,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+641676,Charlie,Wragg,C. Wragg,FWD,42,6,98,Chesterfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+641685,Sonny,Sharples-Ahmed,S. Sharples-Ahmed,MID,30,6,2623,AFC Wim,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+641687,Owen,Devonport,O. Devonport,MID,2048,6,104,Notts C,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+642301,Joel,McGregor,J. McGregor,MID,46,6,573,Barrow,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+642308,Keon,Lewis-Burgess,K. Lewis-Burgess,MID,22,6,53,Grimsby,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+642309,Chase,Medwynter,C. Medwynter,FWD,22,6,53,Grimsby,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+642316,Charlie,Parks,C. Parks,DEF,83,6,111,Wigan,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+642317,Stan,Dancey,S. Dancey,DEF,51,6,99,Colchester,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+643484,Jack,Blower,J. Blower,MID,34,6,74,Shrewsbury,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+645136,Pele,Smith,P. Smith,MID,2048,6,104,Notts C,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+645168,Corey,Edwards,C. Edwards,MID,48,6,76,Plymouth,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+646037,Jid,Okeke,J. Okeke,DEF,42,6,98,Chesterfield,,H,14,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+646361,Antony,McCormick,A. McCormick,DEF,46,6,573,Barrow,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+646476,Jay,Smith-Sway,J. Smith-Sway,DEF,38,6,73,Peterborough,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+647059,Charlie,Cummins,C. Cummins,MID,71,6,72,Rotherham,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+647371,Zac,Hadi,Z. Hadi,GK,55,6,290,Doncaster,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+649547,Calum,Costello,C. Costello,FWD,2048,6,104,Notts C,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+649619,Patrick,Matejko,P. Matejko,MID,34,6,74,Shrewsbury,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+652105,Conor,Haughey,C. Haughey,DEF,2048,6,104,Notts C,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+652491,Kaheim,Dixon,K. Dixon,FWD,33,6,,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+652568,Kurainashe,Musanhi,K. Musanhi,DEF,99,6,51,Crewe,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+653371,Ben,Hatton,B. Hatton,FWD,72,6,71,Exeter,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+654147,Sebastian,Auton,S. Auton,GK,53,6,22,MK Dons,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+661957,Leo,Young,L. Young,DEF,2623,6,30,Bolton,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+662920,Charlie,Hall,C. Hall,MID,888,6,87,Cheltenham,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+662921,Josh,Smith,J. Smith,DEF,888,6,87,Cheltenham,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+663602,Tom,Finch,T. Finch,GK,22,6,53,Grimsby,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+664054,Che,Gardner,C. Gardner,MID,48,6,76,Plymouth,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+664129,Callum,Stewart,C. Stewart,FWD,74,6,34,Barnet,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+664819,Rhys,Watson,R. Watson,FWD,48,6,76,Plymouth,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+664823,George,Penn,G. Penn,MID,2050,6,100,Gillingham,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+664824,Henry,Brown,H. Brown,MID,53,6,22,MK Dons,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+664825,Frankie,Moralee,F. Moralee,DEF,2050,6,100,Gillingham,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+664830,John,Lawless-Williams,J. Lawless-Williams,DEF,48,6,76,Plymouth,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+665299,Harry,Waldock,H. Waldock,MID,100,6,2050,Bromley,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+666230,James,Rogerson,J. Rogerson,GK,888,6,87,Cheltenham,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+666331,George,Birch,G. Birch,MID,71,6,72,Rotherham,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+666333,Kieran,Wilson,K. Wilson,FWD,71,6,72,Rotherham,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+666408,Adrien,Thibaut,A. Thibaut,FWD,51,6,99,Colchester,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+667065,Kai,Martin,K. Martin,MID,99,6,51,Crewe,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+667886,Harry,Webster,H. Webster,DEF,100,6,2050,Bromley,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+667890,Dan,Carter,D. Carter,MID,85,6,50,Port Vale,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+667895,Kien,Connolly,K. Connolly,FWD,99,6,51,Crewe,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+667899,Ronnie,Harvey,R. Harvey,MID,99,6,51,Crewe,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+667901,Alfie,Newby,A. Newby,DEF,99,6,51,Crewe,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+668250,Milai,Perott,M. Perott,GK,104,6,2048,Fleetwood,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+669017,Marcus,Kouam,M. Kouam,MID,48,6,76,Plymouth,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+669787,Tade,Ibrahimi,T. Ibrahimi,MID,2050,6,100,Gillingham,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+670117,Lennox,Emery,L. Emery,FWD,99,6,51,Crewe,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+671097,Kameron,Muir,K. Muir,MID,104,6,2048,Fleetwood,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+672126,David,Kamara,D. Kamara,FWD,73,6,38,Huddersfield,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+672538,Tegan,Finn,T. Finn,FWD,76,6,48,Stockport,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+672895,K'Marni,Miller,K. Miller,DEF,111,6,83,Lincoln,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+672897,Harrison,Duncan,H. Duncan,DEF,72,6,71,Exeter,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+672899,Finlay,Tunstall,F. Tunstall,MID,888,6,87,Cheltenham,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+672909,Kian,Hill,K. Hill,MID,96,6,437,Newport,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+672924,Luca,Moore,L. Moore,MID,51,6,99,Colchester,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+672925,Oliver,Armstrong,O. Armstrong,MID,51,6,99,Colchester,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+672930,Harry,Hedges,H. Hedges,MID,2623,6,30,Bolton,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+672933,Riley,Horan,R. Horan,MID,2623,6,30,Bolton,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+672934,Dave,Abimbola,D. Abimbola,FWD,888,6,87,Cheltenham,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+674558,Mamadou,Diallo,M. Diallo,GK,87,6,888,Accrington,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+675619,Gunner,Elliott,G. Elliott,FWD,98,6,42,Walsall,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+677092,Harry,Tustin,H. Tustin,MID,87,6,888,Accrington,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+677938,Lucca,Mendonça,L. Mendonça,DEF,73,6,38,Huddersfield,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+677939,Marshall,Heys,M. Heys,MID,3448,6,44,Tranmere,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+677942,Bruno,Padovani,B. Padovani,MID,3448,6,44,Tranmere,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+677948,Arthur,Gregory,A. Gregory,DEF,112,6,77,Mansfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+678002,Marcus,Etherington,M. Etherington,DEF,671,6,1525,Crawley,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+678527,Charlie,Paye,C. Paye,DEF,2050,6,100,Gillingham,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+679056,Simone,Troso,S. Troso,MID,22,6,53,Grimsby,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+679058,Michael,Brammeld,M. Brammeld,FWD,22,6,53,Grimsby,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+679060,Kobe,Sinclair-Linton,K. Sinclair-Linton,DEF,22,6,53,Grimsby,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+679062,Stan,Sargent,S. Sargent,FWD,100,6,2050,Bromley,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+679066,Ruben,Butt,R. Butt,MID,3448,6,44,Tranmere,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+679069,Alfie,Bairstow,A. Bairstow,MID,3448,6,44,Tranmere,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+679072,Jai,Curran-Nicholls,J. Curran-Nicholls,DEF,3448,6,44,Tranmere,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+682591,Lucas,Barnes,L. Barnes,MID,671,6,1525,Crawley,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+682958,Ryan,Cole,R. Cole,MID,112,6,77,Mansfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+683825,Zack,Hambury,Z. Hambury,MID,85,6,50,Port Vale,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+683886,Chris,Lutonadio,C. Lutonadio,MID,112,6,77,Mansfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+684305,Tom,Cursons,T. Cursons,FWD,671,6,1525,Crawley,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+685901,Reece,Wilson,R. Wilson,FWD,72,6,71,Exeter,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+695074,Joe,Mwaro,J. Mwaro,DEF,76,6,48,Stockport,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+695080,Seb,Campbell,S. Campbell,MID,76,6,48,Stockport,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+695193,James,Clarke,J. Clarke,MID,72,6,71,Exeter,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+695320,Isaac,England,I. England,DEF,74,6,34,Barnet,,A,10,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,1
+695611,Moses,Alexander-Walker,M. Alexander-Walker,FWD,437,6,96,Bristol R,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+695612,Daeshon,Lawrence,D. Lawrence,MID,30,6,2623,AFC Wim,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+695616,Bolu,Shofowoke,B. Shofowoke,FWD,73,6,38,Huddersfield,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+698937,Bright,Siaw,B. Siaw,MID,34,6,74,Shrewsbury,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+698948,Rohat,Matyar,R. Matyar,DEF,34,6,74,Shrewsbury,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+699744,Samuel,Watkins,S. Watkins,DEF,437,6,96,Bristol R,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+699803,Charlie,Warren,C. Warren,MID,30,6,2623,AFC Wim,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+699984,Jake,Tabor,J. Tabor,FWD,46,6,573,Barrow,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+702412,Jacob,Bryant,J. Bryant,GK,290,6,55,Bradford,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+702468,Marcel,Guzynski,M. Guzynski,DEF,22,6,53,Grimsby,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+702640,Leo,Graham,L. Graham,MID,111,6,83,Lincoln,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+702895,William,Heater,W. Heater,MID,1525,6,671,Harrogate,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+702896,Kaion,Lisbie,K. Lisbie,MID,99,6,51,Crewe,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+702898,Fate,Kotey,F. Kotey,MID,1525,6,671,Harrogate,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+702919,Luca,Jackson,L. Jackson,DEF,3448,6,44,Tranmere,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+704147,Harry,Showman,H. Showman,FWD,3448,6,44,Tranmere,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+704149,Cruz,Beszant,C. Beszant,MID,100,6,2050,Bromley,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+704150,Jack,Flower,J. Flower,GK,76,6,48,Stockport,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+704151,Daniel,Vanderpuye,D. Vanderpuye,FWD,83,6,111,Wigan,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+704152,Noah,Simmons,N. Simmons,MID,83,6,111,Wigan,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+704153,Freddie,Taylor,F. Taylor,DEF,2050,6,100,Gillingham,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+704156,Elliot,Hartmann,E. Hartmann,MID,77,6,112,Wycombe,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+704157,Fortune,Onoh,F. Onoh,FWD,53,6,22,MK Dons,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+704158,Cameron,Stones,C. Stones,FWD,112,6,77,Mansfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+704159,Will,Gray,W. Gray,FWD,74,6,34,Barnet,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+704371,Mark,Barber,M. Barber,MID,87,6,888,Accrington,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+704372,Charlie,Croose,C. Croose,MID,87,6,888,Accrington,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+705024,Micah,Olabiyi,M. Olabiyi,FWD,112,6,77,Mansfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+706318,Deji,Odumboni,D. Odumboni,DEF,96,6,437,Newport,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+706320,Tom,English,T. English,MID,96,6,437,Newport,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+706321,Excel,Iwhiwhu,E. Iwhiwhu,FWD,96,6,437,Newport,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+706322,Charlie,Kershaw,C. Kershaw,MID,105,6,101,Cambridge,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+706323,Solomon,Butterfield,S. Butterfield,MID,105,6,101,Cambridge,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+706324,Oliver,Howard,O. Howard,FWD,105,6,101,Cambridge,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+706325,Jack,Steel,J. Steel,MID,105,6,101,Cambridge,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+706329,Mekhi,Savage,M. Savage,MID,112,6,77,Mansfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+707847,Paul,Makavore,P. Makavore,DEF,42,6,98,Chesterfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+707848,Louie,Dayal,L. Dayal,MID,100,6,2050,Bromley,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+707849,McLloyd,Oben,M. Oben,MID,42,6,98,Chesterfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+707850,Stan,Straw,S. Straw,MID,42,6,98,Chesterfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+707851,Oliver,Smith,O. Smith,MID,30,6,2623,AFC Wim,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+707853,Harrison,Iwunze,H. Iwunze,FWD,104,6,2048,Fleetwood,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+707855,Alex,Whitney,A. Whitney,DEF,98,6,42,Walsall,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+707856,Sam,Goma,S. Goma,DEF,2623,6,30,Bolton,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+707858,Anton,Robinson,A. Robinson,GK,46,6,573,Barrow,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+707859,Christy,Edwards,C. Edwards,FWD,111,6,83,Lincoln,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+707860,Harrison,Rimmer,H. Rimmer,MID,111,6,83,Lincoln,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+707861,Harrison,Bettoni,H. Bettoni,DEF,111,6,83,Lincoln,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+707863,Alex,Hughes,A. Hughes,DEF,111,6,83,Lincoln,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+707865,Sam,Bolland,S. Bolland,DEF,111,6,83,Lincoln,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+707866,James,Knott,J. Knott,MID,111,6,83,Lincoln,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+707867,Harry,Glaves,H. Glaves,MID,290,6,55,Bradford,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+707868,Reece,Greenhalgh,R. Greenhalgh,MID,111,6,83,Lincoln,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+707869,Dougie,Blight,D. Blight,GK,50,6,85,L Orient,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+707871,Callum,Jones,C. Jones,DEF,111,6,83,Lincoln,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+707872,Aaron,Cashmore,A. Cashmore,MID,290,6,55,Bradford,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+707873,Ethan,Hodgett,E. Hodgett,FWD,290,6,55,Bradford,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+707876,Deshaun,Musgrave-Dore,D. Musgrave-Dore,MID,290,6,55,Bradford,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+707877,Rhomani,Murray,R. Murray,FWD,290,6,55,Bradford,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+707878,Alex,Graham,A. Graham,DEF,53,6,22,MK Dons,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+707879,Franklin,Middleton,F. Middleton,MID,290,6,55,Bradford,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+707880,Eliot,Smith,E. Smith,FWD,53,6,22,MK Dons,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+707881,Joe,Astles,J. Astles,FWD,48,6,76,Plymouth,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+707882,Charlie,Hatton,C. Hatton,MID,53,6,22,MK Dons,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+708726,Ellis,James,E. James,GK,38,6,73,Peterborough,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0

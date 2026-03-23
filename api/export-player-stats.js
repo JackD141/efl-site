@@ -217,8 +217,8 @@ module.exports = async function handler(req, res) {
     // Organize stats by gameweek
     const statsByGameweek = {};
 
-    // Fetch player profiles in parallel batches of 10 to avoid timeout
-    const batchSize = 10;
+    // Fetch player profiles in parallel batches of 30 to avoid timeout
+    const batchSize = 30;
     for (let i = 0; i < players.length; i += batchSize) {
       const batch = players.slice(i, i + batchSize);
       const profiles = await Promise.all(

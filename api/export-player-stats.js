@@ -318,6 +318,12 @@ module.exports = async function handler(req, res) {
           const gameInfo = gamesByRound[roundNum]?.[player.squadId];
           const opponentId = gameInfo ? (gameInfo.isHome ? gameInfo.awayId : gameInfo.homeId) : null;
           const opponentSquad = opponentId ? squadsById[opponentId] : null;
+
+          if (!gameInfo && i === 0 && idx === 0) {
+            console.log(`Debug GW${roundNum}: gamesByRound has rounds:`, Object.keys(gamesByRound).slice(0, 5));
+            console.log(`Debug GW${roundNum}: looking for squad ${player.squadId}, found:`, gameInfo);
+          }
+
           const fixtureDifficulty = getFixtureDifficulty(opponentSquad);
 
           statsByGameweek[roundNum].push({

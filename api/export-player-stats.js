@@ -318,16 +318,6 @@ module.exports = async function handler(req, res) {
         const profile = profiles[idx];
         const results = profile.results || [];
 
-        // Debug: log Lewis Wing's data structure
-        if (player.id === 432647) {
-          console.log('=== LEWIS WING PROFILE ===');
-          console.log('Player:', JSON.stringify({ id: player.id, name: player.displayName, squadId: player.squadId }, null, 2));
-          console.log('Results count:', results.length);
-          results.slice(0, 2).forEach((r, i) => {
-            console.log(`Result ${i}:`, JSON.stringify(r, null, 2));
-          });
-        }
-
         // Add each result to the corresponding gameweek
         for (const result of results) {
           // Use roundNumber if available, fallback to roundId
@@ -336,86 +326,53 @@ module.exports = async function handler(req, res) {
             statsByGameweek[roundNum] = [];
           }
 
-          // Find all games for this squad in this round (handles multiple games per round)
+          // Find all games for this squad in this round
           const gamesForSquad = gamesByRound[roundNum]?.[player.squadId] || [];
 
-          // If squad played multiple games in this round, create a record for each
-          // If played multiple games (90+ mins), still create entries for all opponents
-          if (gamesForSquad.length === 0) {
-            // No game found - shouldn't happen, but handle gracefully
-            statsByGameweek[roundNum].push({
-              player_id: player.id,
-              first_name: player.firstName,
-              last_name: player.lastName,
-              display_name: player.displayName,
-              position: player.position,
-              squad_id: player.squadId,
-              gameweek: roundNum,
-              opponent_id: null,
-              opponent_name: '',
-              fixture_difficulty: '',
-              is_home: undefined,
-              minutes_played: result.minutesPlayed,
-              goals_scored: result.goalsScored,
-              hat_tricks: result.hatTricks,
-              assists: result.assists,
-              penalty_misses: result.penaltyMisses,
-              own_goals: result.ownGoals,
-              yellow_cards: result.yellowCards,
-              red_cards: result.redCards,
-              saves: result.saves,
-              penalty_saves: result.penaltySaves,
-              clean_sheet: result.cleanSheet,
-              goals_conceded: result.goalsConceded,
-              clearances: result.clearances,
-              blocks: result.blocks,
-              tackles: result.tackles,
-              interceptions: result.interceptions,
-              key_passes: result.keyPasses,
-              shots_on_target: result.shotsOnTarget,
-              points: result.points,
-            });
-          } else {
-            // Create a record for each game the squad played in this round
-            for (const gameInfo of gamesForSquad) {
-              const opponentId = gameInfo.isHome ? gameInfo.awayId : gameInfo.homeId;
-              const opponentSquad = squadsById[opponentId];
-              const fixtureDifficulty = getFixtureDifficulty(opponentSquad);
+          // Match result to specific game using gameId
+          const gameInfo = gamesForSquad.find(g => g.id === result.gameId);
 
-              statsByGameweek[roundNum].push({
-                player_id: player.id,
-                first_name: player.firstName,
-                last_name: player.lastName,
-                display_name: player.displayName,
-                position: player.position,
-                squad_id: player.squadId,
-                gameweek: roundNum,
-                opponent_id: opponentId,
-                opponent_name: opponentSquad?.shortName || opponentSquad?.name || '',
-                fixture_difficulty: fixtureDifficulty,
-                is_home: gameInfo.isHome,
-                minutes_played: result.minutesPlayed,
-                goals_scored: result.goalsScored,
-                hat_tricks: result.hatTricks,
-                assists: result.assists,
-                penalty_misses: result.penaltyMisses,
-                own_goals: result.ownGoals,
-                yellow_cards: result.yellowCards,
-                red_cards: result.redCards,
-                saves: result.saves,
-                penalty_saves: result.penaltySaves,
-                clean_sheet: result.cleanSheet,
-                goals_conceded: result.goalsConceded,
-                clearances: result.clearances,
-                blocks: result.blocks,
-                tackles: result.tackles,
-                interceptions: result.interceptions,
-                key_passes: result.keyPasses,
-                shots_on_target: result.shotsOnTarget,
-                points: result.points,
-              });
-            }
+          if (!gameInfo) {
+            // Game not found for this result - skip it
+            continue;
           }
+
+          const opponentId = gameInfo.isHome ? gameInfo.awayId : gameInfo.homeId;
+          const opponentSquad = squadsById[opponentId];
+          const fixtureDifficulty = getFixtureDifficulty(opponentSquad);
+
+          statsByGameweek[roundNum].push({
+            player_id: player.id,
+            first_name: player.firstName,
+            last_name: player.lastName,
+            display_name: player.displayName,
+            position: player.position,
+            squad_id: player.squadId,
+            gameweek: roundNum,
+            opponent_id: opponentId,
+            opponent_name: opponentSquad?.shortName || opponentSquad?.name || '',
+            fixture_difficulty: fixtureDifficulty,
+            is_home: gameInfo.isHome,
+            minutes_played: result.minutesPlayed,
+            goals_scored: result.goalsScored,
+            hat_tricks: result.hatTricks,
+            assists: result.assists,
+            penalty_misses: result.penaltyMisses,
+            own_goals: result.ownGoals,
+            yellow_cards: result.yellowCards,
+            red_cards: result.redCards,
+            saves: result.saves,
+            penalty_saves: result.penaltySaves,
+            clean_sheet: result.cleanSheet,
+            goals_conceded: result.goalsConceded,
+            clearances: result.clearances,
+            blocks: result.blocks,
+            tackles: result.tackles,
+            interceptions: result.interceptions,
+            key_passes: result.keyPasses,
+            shots_on_target: result.shotsOnTarget,
+            points: result.points,
+          });
         }
       });
 
@@ -427,20 +384,6 @@ module.exports = async function handler(req, res) {
 
     sendEvent('status', { message: 'Generating CSVs...' });
     console.log(`Organized stats for ${Object.keys(statsByGameweek).length} gameweeks`);
-
-    // Deduplicate: keep only one row per (player_id, gameweek, opponent_id)
-    for (const gameweek of Object.keys(statsByGameweek)) {
-      const seen = new Set();
-      const dedupedStats = [];
-      for (const stat of statsByGameweek[gameweek]) {
-        const key = `${stat.player_id}|${stat.gameweek}|${stat.opponent_id}`;
-        if (!seen.has(key)) {
-          seen.add(key);
-          dedupedStats.push(stat);
-        }
-      }
-      statsByGameweek[gameweek] = dedupedStats;
-    }
 
     // Generate CSV content for each gameweek
     const csvsByGameweek = {};

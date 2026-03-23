@@ -476,37 +476,49 @@ refreshBtn.addEventListener('click', async () => {
       if (done) break;
 
       buffer += decoder.decode(value, { stream: true });
-      const lines = buffer.split('\n');
-      buffer = lines.pop(); // Keep last incomplete line
+      const messages = buffer.split('\n\n');
+      buffer = messages.pop();
 
-      for (const line of lines) {
-        if (line.startsWith('event: ')) {
-          const eventType = line.slice(7);
-          const dataLine = lines[lines.indexOf(line) + 1];
-          if (dataLine?.startsWith('data: ')) {
-            const data = JSON.parse(dataLine.slice(6));
+      for (const message of messages) {
+        if (!message.trim()) continue;
 
-            if (eventType === 'progress') {
-              progressFill.style.width = data.percent + '%';
-              progressText.textContent = data.percent + '%';
-            } else if (eventType === 'status') {
-              refreshMessage.innerHTML = `
-                <div style="padding: 12px; background: #e7f3ff; color: #004085; border-radius: 4px; margin-bottom: 16px;">
-                  ⏳ ${data.message}
-                </div>
-              `;
-            } else if (eventType === 'complete') {
-              const gameweeks = data.gameweeks.join(', ');
-              progressFill.style.width = '100%';
-              progressText.textContent = '100%';
-              refreshMessage.innerHTML = `
-                <div style="padding: 12px; background: #d4edda; color: #155724; border-radius: 4px; margin-bottom: 16px;">
-                  ✓ Successfully saved player stats for gameweeks: ${gameweeks}
-                </div>
-              `;
-            } else if (eventType === 'error') {
-              throw new Error(data.details || data.error);
+        const lines = message.split('\n');
+        let eventType = null;
+        let eventData = null;
+
+        for (const line of lines) {
+          if (line.startsWith('event: ')) {
+            eventType = line.slice(7).trim();
+          } else if (line.startsWith('data: ')) {
+            try {
+              eventData = JSON.parse(line.slice(6));
+            } catch (e) {
+              console.error('Failed to parse data:', line, e);
             }
+          }
+        }
+
+        if (eventType && eventData) {
+          if (eventType === 'progress') {
+            progressFill.style.width = eventData.percent + '%';
+            progressText.textContent = eventData.percent + '%';
+          } else if (eventType === 'status') {
+            refreshMessage.innerHTML = `
+              <div style="padding: 12px; background: #e7f3ff; color: #004085; border-radius: 4px; margin-bottom: 16px;">
+                ⏳ ${eventData.message}
+              </div>
+            `;
+          } else if (eventType === 'complete') {
+            const gameweeks = eventData.gameweeks.join(', ');
+            progressFill.style.width = '100%';
+            progressText.textContent = '100%';
+            refreshMessage.innerHTML = `
+              <div style="padding: 12px; background: #d4edda; color: #155724; border-radius: 4px; margin-bottom: 16px;">
+                ✓ Successfully saved player stats for gameweeks: ${gameweeks}
+              </div>
+            `;
+          } else if (eventType === 'error') {
+            throw new Error(eventData.details || eventData.error);
           }
         }
       }

@@ -1,0 +1,4 @@
+player_id,first_name,last_name,display_name,position,squad_id,gameweek,minutes_played,goals_scored,hat_tricks,assists,penalty_misses,own_goals,yellow_cards,red_cards,saves,penalty_saves,clean_sheet,goals_conceded,clearances,blocks,tackles,interceptions,key_passes,shots_on_target,points
+468243,Kamil,Conteh,K. Conteh,MID,83,11,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,3
+520855,Alfie,Lloyd,A. Lloyd,FWD,83,11,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+534390,Deji,Elerewe,D. Elerewe,DEF,83,11,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0

@@ -418,6 +418,20 @@ module.exports = async function handler(req, res) {
     sendEvent('status', { message: 'Generating CSVs...' });
     console.log(`Organized stats for ${Object.keys(statsByGameweek).length} gameweeks`);
 
+    // Deduplicate: keep only one row per (player_id, gameweek, opponent_id)
+    for (const gameweek of Object.keys(statsByGameweek)) {
+      const seen = new Set();
+      const dedupedStats = [];
+      for (const stat of statsByGameweek[gameweek]) {
+        const key = `${stat.player_id}|${stat.gameweek}|${stat.opponent_id}`;
+        if (!seen.has(key)) {
+          seen.add(key);
+          dedupedStats.push(stat);
+        }
+      }
+      statsByGameweek[gameweek] = dedupedStats;
+    }
+
     // Generate CSV content for each gameweek
     const csvsByGameweek = {};
     for (const [gameweek, stats] of Object.entries(statsByGameweek)) {

@@ -70,6 +70,51 @@ async function getAllPlayers() {
   return response.json();
 }
 
+async function getAllRounds() {
+  const response = await fetch('https://fantasy.efl.com/json/fantasy/rounds.json', {
+    headers: BASE_HEADERS,
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch rounds: ${response.status}`);
+  }
+
+  return response.json();
+}
+
+async function getAllSquads() {
+  const response = await fetch('https://fantasy.efl.com/json/fantasy/squads.json', {
+    headers: BASE_HEADERS,
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch squads: ${response.status}`);
+  }
+
+  return response.json();
+}
+
+function buildGamesByRound(rounds) {
+  const gamesByRound = {};
+  for (const round of rounds) {
+    if (round.status !== 'completed') continue;
+    gamesByRound[round.roundNumber] = {};
+    for (const game of round.games) {
+      gamesByRound[round.roundNumber][game.homeId] = { ...game, isHome: true };
+      gamesByRound[round.roundNumber][game.awayId] = { ...game, isHome: false };
+    }
+  }
+  return gamesByRound;
+}
+
+function buildSquadsById(squads) {
+  const squadsById = {};
+  for (const squad of squads) {
+    squadsById[squad.id] = squad;
+  }
+  return squadsById;
+}
+
 function generateCSVContent(gameweek, playerStats) {
   if (playerStats.length === 0) {
     return '';
@@ -77,7 +122,8 @@ function generateCSVContent(gameweek, playerStats) {
 
   const headers = [
     'player_id', 'first_name', 'last_name', 'display_name', 'position', 'squad_id',
-    'gameweek', 'minutes_played', 'goals_scored', 'hat_tricks', 'assists', 'penalty_misses',
+    'gameweek', 'opponent_id', 'opponent_name', 'fixture_difficulty', 'is_home',
+    'minutes_played', 'goals_scored', 'hat_tricks', 'assists', 'penalty_misses',
     'own_goals', 'yellow_cards', 'red_cards', 'saves', 'penalty_saves', 'clean_sheet',
     'goals_conceded', 'clearances', 'blocks', 'tackles', 'interceptions', 'key_passes',
     'shots_on_target', 'points'
@@ -91,6 +137,10 @@ function generateCSVContent(gameweek, playerStats) {
     stat.position,
     stat.squad_id,
     stat.gameweek,
+    stat.opponent_id || '',
+    stat.opponent_name || '',
+    stat.fixture_difficulty || '',
+    stat.is_home !== undefined ? (stat.is_home ? 'H' : 'A') : '',
     stat.minutes_played || 0,
     stat.goals_scored || 0,
     stat.hat_tricks || 0,
@@ -194,8 +244,6 @@ module.exports = async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { squadId } = req.query;
-
   const email = process.env.EFL_EMAIL;
   const password = process.env.EFL_PASSWORD;
   const githubToken = process.env.GITHUB_TOKEN;
@@ -212,21 +260,26 @@ module.exports = async function handler(req, res) {
     // Authenticate with EFL
     const { IdToken: idToken } = await getCognitoTokens(email, password);
 
-    // Fetch all players
-    const allPlayers = await getAllPlayers();
-    console.log(`Fetched ${allPlayers.length} total players`);
+    // Fetch all data in parallel
+    const [allPlayers, rounds, squads] = await Promise.all([
+      getAllPlayers(),
+      getAllRounds(),
+      getAllSquads(),
+    ]);
+    console.log(`Fetched ${allPlayers.length} players, ${rounds.length} rounds, ${squads.length} squads`);
 
-    // Filter by squadId if provided
-    const players = squadId ? allPlayers.filter(p => p.squadId === Number(squadId)) : allPlayers;
-    console.log(`Exporting ${players.length} players${squadId ? ` from squad ${squadId}` : ''}`);
+    // Build lookup tables
+    const gamesByRound = buildGamesByRound(rounds);
+    const squadsById = buildSquadsById(squads);
 
     // Organize stats by gameweek
     const statsByGameweek = {};
+    const totalPlayers = allPlayers.length;
 
-    // Fetch player profiles in parallel batches of 30 to avoid timeout
+    // Fetch player profiles in parallel batches of 30
     const batchSize = 30;
-    for (let i = 0; i < players.length; i += batchSize) {
-      const batch = players.slice(i, i + batchSize);
+    for (let i = 0; i < allPlayers.length; i += batchSize) {
+      const batch = allPlayers.slice(i, i + batchSize);
       const profiles = await Promise.all(
         batch.map(p => getPlayerProfile(p.id, idToken))
       );
@@ -237,19 +290,28 @@ module.exports = async function handler(req, res) {
 
         // Add each result to the corresponding gameweek
         for (const result of results) {
-          const gameweek = result.roundId;
-          if (!statsByGameweek[gameweek]) {
-            statsByGameweek[gameweek] = [];
+          const roundNum = result.roundId;
+          if (!statsByGameweek[roundNum]) {
+            statsByGameweek[roundNum] = [];
           }
 
-          statsByGameweek[gameweek].push({
+          // Find fixture info
+          const gameInfo = gamesByRound[roundNum]?.[player.squadId];
+          const opponentId = gameInfo ? (gameInfo.isHome ? gameInfo.awayId : gameInfo.homeId) : null;
+          const opponentSquad = opponentId ? squadsById[opponentId] : null;
+
+          statsByGameweek[roundNum].push({
             player_id: player.id,
             first_name: player.firstName,
             last_name: player.lastName,
             display_name: player.displayName,
             position: player.position,
             squad_id: player.squadId,
-            gameweek,
+            gameweek: roundNum,
+            opponent_id: opponentId,
+            opponent_name: opponentSquad?.shortName || opponentSquad?.name || '',
+            fixture_difficulty: gameInfo?.difficulty || '',
+            is_home: gameInfo?.isHome,
             minutes_played: result.minutesPlayed,
             goals_scored: result.goalsScored,
             hat_tricks: result.hatTricks,
@@ -273,8 +335,9 @@ module.exports = async function handler(req, res) {
         }
       });
 
-      // Log progress
-      console.log(`Processed ${Math.min(i + batchSize, players.length)}/${players.length} players`);
+      const processed = Math.min(i + batchSize, allPlayers.length);
+      const percent = Math.round((processed / totalPlayers) * 100);
+      console.log(`Processed ${processed}/${totalPlayers} players (${percent}%)`);
     }
 
     console.log(`Organized stats for ${Object.keys(statsByGameweek).length} gameweeks`);

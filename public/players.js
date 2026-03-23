@@ -448,70 +448,36 @@ const refreshBtn = document.getElementById('refresh-stats-btn');
 const refreshMessage = document.getElementById('refresh-message');
 const progressBar = document.getElementById('progress-bar');
 const progressFill = document.getElementById('progress-fill');
-const squadSelect = document.getElementById('squad-select');
-
-// Load squads on page load
-async function loadSquads() {
-  try {
-    const response = await fetch(SQUADS_URL);
-    const squads = await response.json();
-
-    squads.forEach(squad => {
-      const option = document.createElement('option');
-      option.value = squad.id;
-      option.textContent = squad.name;
-      squadSelect.appendChild(option);
-    });
-  } catch (e) {
-    console.error('Failed to load squads:', e);
-  }
-}
+const progressText = document.getElementById('progress-text');
 
 refreshBtn.addEventListener('click', async () => {
-  const squadId = squadSelect.value;
-  if (!squadId) {
-    refreshMessage.innerHTML = `
-      <div style="padding: 12px; background: #f8d7da; color: #721c24; border-radius: 4px; margin-bottom: 16px;">
-        ✗ Please select a squad first
-      </div>
-    `;
-    return;
-  }
-
   refreshBtn.disabled = true;
   refreshBtn.textContent = 'Exporting...';
   refreshMessage.innerHTML = '';
   progressBar.style.display = 'block';
   progressFill.style.width = '0%';
-  progressFill.textContent = '';
+  progressText.textContent = '0%';
 
   try {
-    // Use fetch with event listener for progress
-    let lastUpdate = 0;
-    const updateProgress = (progress) => {
-      const now = Date.now();
-      if (now - lastUpdate > 100) { // Update at most every 100ms
-        progressFill.style.width = progress + '%';
-        progressFill.textContent = progress + '%';
-        lastUpdate = now;
-      }
-    };
-
     // Simulate progress while fetching
+    let lastSimulatedPercent = 0;
     const progressInterval = setInterval(() => {
-      const current = parseFloat(progressFill.style.width);
-      if (current < 90) {
-        updateProgress(current + Math.random() * 20);
+      if (lastSimulatedPercent < 90) {
+        lastSimulatedPercent += Math.random() * 15;
+        if (lastSimulatedPercent > 90) lastSimulatedPercent = 90;
+        const rounded = Math.round(lastSimulatedPercent);
+        progressFill.style.width = rounded + '%';
+        progressText.textContent = rounded + '%';
       }
-    }, 500);
+    }, 300);
 
-    const response = await fetch(`/api/export-player-stats?squadId=${squadId}`, {
+    const response = await fetch('/api/export-player-stats', {
       method: 'POST',
     });
 
     clearInterval(progressInterval);
     progressFill.style.width = '100%';
-    progressFill.textContent = '100%';
+    progressText.textContent = '100%';
 
     const data = await response.json();
 
@@ -539,8 +505,5 @@ refreshBtn.addEventListener('click', async () => {
     }, 1000);
   }
 });
-
-// Load squads when page loads
-loadSquads();
 
 loadPlayers();

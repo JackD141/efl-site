@@ -100,8 +100,19 @@ function buildGamesByRound(rounds) {
     if (round.status !== 'completed') continue;
     gamesByRound[round.roundNumber] = {};
     for (const game of round.games) {
-      gamesByRound[round.roundNumber][game.homeId] = { ...game, isHome: true };
-      gamesByRound[round.roundNumber][game.awayId] = { ...game, isHome: false };
+      // Store games as arrays to handle multiple games per squad per round
+      const homeId = game.homeId;
+      const awayId = game.awayId;
+
+      if (!gamesByRound[round.roundNumber][homeId]) {
+        gamesByRound[round.roundNumber][homeId] = [];
+      }
+      gamesByRound[round.roundNumber][homeId].push({ ...game, isHome: true });
+
+      if (!gamesByRound[round.roundNumber][awayId]) {
+        gamesByRound[round.roundNumber][awayId] = [];
+      }
+      gamesByRound[round.roundNumber][awayId].push({ ...game, isHome: false });
     }
   }
   return gamesByRound;
@@ -315,44 +326,86 @@ module.exports = async function handler(req, res) {
             statsByGameweek[roundNum] = [];
           }
 
-          // Find fixture info - look up by roundNumber in gamesByRound
-          const gameInfo = gamesByRound[roundNum]?.[player.squadId];
-          const opponentId = gameInfo ? (gameInfo.isHome ? gameInfo.awayId : gameInfo.homeId) : null;
-          const opponentSquad = opponentId ? squadsById[opponentId] : null;
-          const fixtureDifficulty = getFixtureDifficulty(opponentSquad);
+          // Find all games for this squad in this round (handles multiple games per round)
+          const gamesForSquad = gamesByRound[roundNum]?.[player.squadId] || [];
 
-          statsByGameweek[roundNum].push({
-            player_id: player.id,
-            first_name: player.firstName,
-            last_name: player.lastName,
-            display_name: player.displayName,
-            position: player.position,
-            squad_id: player.squadId,
-            gameweek: roundNum,
-            opponent_id: opponentId,
-            opponent_name: opponentSquad?.shortName || opponentSquad?.name || '',
-            fixture_difficulty: fixtureDifficulty,
-            is_home: gameInfo?.isHome,
-            minutes_played: result.minutesPlayed,
-            goals_scored: result.goalsScored,
-            hat_tricks: result.hatTricks,
-            assists: result.assists,
-            penalty_misses: result.penaltyMisses,
-            own_goals: result.ownGoals,
-            yellow_cards: result.yellowCards,
-            red_cards: result.redCards,
-            saves: result.saves,
-            penalty_saves: result.penaltySaves,
-            clean_sheet: result.cleanSheet,
-            goals_conceded: result.goalsConceded,
-            clearances: result.clearances,
-            blocks: result.blocks,
-            tackles: result.tackles,
-            interceptions: result.interceptions,
-            key_passes: result.keyPasses,
-            shots_on_target: result.shotsOnTarget,
-            points: result.points,
-          });
+          // If squad played multiple games in this round, create a record for each
+          // If played multiple games (90+ mins), still create entries for all opponents
+          if (gamesForSquad.length === 0) {
+            // No game found - shouldn't happen, but handle gracefully
+            statsByGameweek[roundNum].push({
+              player_id: player.id,
+              first_name: player.firstName,
+              last_name: player.lastName,
+              display_name: player.displayName,
+              position: player.position,
+              squad_id: player.squadId,
+              gameweek: roundNum,
+              opponent_id: null,
+              opponent_name: '',
+              fixture_difficulty: '',
+              is_home: undefined,
+              minutes_played: result.minutesPlayed,
+              goals_scored: result.goalsScored,
+              hat_tricks: result.hatTricks,
+              assists: result.assists,
+              penalty_misses: result.penaltyMisses,
+              own_goals: result.ownGoals,
+              yellow_cards: result.yellowCards,
+              red_cards: result.redCards,
+              saves: result.saves,
+              penalty_saves: result.penaltySaves,
+              clean_sheet: result.cleanSheet,
+              goals_conceded: result.goalsConceded,
+              clearances: result.clearances,
+              blocks: result.blocks,
+              tackles: result.tackles,
+              interceptions: result.interceptions,
+              key_passes: result.keyPasses,
+              shots_on_target: result.shotsOnTarget,
+              points: result.points,
+            });
+          } else {
+            // Create a record for each game the squad played in this round
+            for (const gameInfo of gamesForSquad) {
+              const opponentId = gameInfo.isHome ? gameInfo.awayId : gameInfo.homeId;
+              const opponentSquad = squadsById[opponentId];
+              const fixtureDifficulty = getFixtureDifficulty(opponentSquad);
+
+              statsByGameweek[roundNum].push({
+                player_id: player.id,
+                first_name: player.firstName,
+                last_name: player.lastName,
+                display_name: player.displayName,
+                position: player.position,
+                squad_id: player.squadId,
+                gameweek: roundNum,
+                opponent_id: opponentId,
+                opponent_name: opponentSquad?.shortName || opponentSquad?.name || '',
+                fixture_difficulty: fixtureDifficulty,
+                is_home: gameInfo.isHome,
+                minutes_played: result.minutesPlayed,
+                goals_scored: result.goalsScored,
+                hat_tricks: result.hatTricks,
+                assists: result.assists,
+                penalty_misses: result.penaltyMisses,
+                own_goals: result.ownGoals,
+                yellow_cards: result.yellowCards,
+                red_cards: result.redCards,
+                saves: result.saves,
+                penalty_saves: result.penaltySaves,
+                clean_sheet: result.cleanSheet,
+                goals_conceded: result.goalsConceded,
+                clearances: result.clearances,
+                blocks: result.blocks,
+                tackles: result.tackles,
+                interceptions: result.interceptions,
+                key_passes: result.keyPasses,
+                shots_on_target: result.shotsOnTarget,
+                points: result.points,
+              });
+            }
+          }
         }
       });
 

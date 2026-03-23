@@ -318,6 +318,16 @@ module.exports = async function handler(req, res) {
         const profile = profiles[idx];
         const results = profile.results || [];
 
+        // Debug: log Lewis Wing's data structure
+        if (player.id === 432647) {
+          console.log('=== LEWIS WING PROFILE ===');
+          console.log('Player:', JSON.stringify({ id: player.id, name: player.displayName, squadId: player.squadId }, null, 2));
+          console.log('Results count:', results.length);
+          results.slice(0, 2).forEach((r, i) => {
+            console.log(`Result ${i}:`, JSON.stringify(r, null, 2));
+          });
+        }
+
         // Add each result to the corresponding gameweek
         for (const result of results) {
           // Use roundNumber if available, fallback to roundId

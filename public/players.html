@@ -23,9 +23,19 @@
         <input id="search-input" type="text" placeholder="Search for a player..." autocomplete="off" />
         <div id="search-results"></div>
       </div>
-      <button id="refresh-stats-btn" style="padding: 8px 16px; background: #f05a28; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; margin-left: 16px; white-space: nowrap;">Refresh & Save Stats</button>
+      <div style="display: flex; gap: 8px; margin-left: 16px; align-items: center;">
+        <select id="squad-select" style="padding: 8px; border-radius: 4px; border: 1px solid #ccc; cursor: pointer;">
+          <option value="">Select squad...</option>
+        </select>
+        <button id="refresh-stats-btn" style="padding: 8px 16px; background: #f05a28; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; white-space: nowrap;">Export Stats</button>
+      </div>
     </div>
     <div id="refresh-message"></div>
+    <div id="progress-bar" style="display: none; margin-bottom: 16px;">
+      <div style="background: #e9ecef; height: 24px; border-radius: 4px; overflow: hidden;">
+        <div id="progress-fill" style="background: #f05a28; height: 100%; width: 0%; transition: width 0.3s; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px; font-weight: bold;"></div>
+      </div>
+    </div>
     <div id="leaderboard"></div>
     <div id="player-stats"></div>
   </main>

@@ -1,5 +1,6 @@
 const PLAYERS_URL = '/api/players';
 const ROUNDS_URL = '/api/rounds';
+const SQUADS_URL = '/api/squads';
 const PROFILE_URL = id => `/api/player?id=${id}`;
 
 const searchInput    = document.getElementById('search-input');
@@ -445,16 +446,72 @@ function attachSortHandlers(cols, pos) {
 // ─── Refresh and save stats to CSV ────────────────────────────────────────────
 const refreshBtn = document.getElementById('refresh-stats-btn');
 const refreshMessage = document.getElementById('refresh-message');
+const progressBar = document.getElementById('progress-bar');
+const progressFill = document.getElementById('progress-fill');
+const squadSelect = document.getElementById('squad-select');
+
+// Load squads on page load
+async function loadSquads() {
+  try {
+    const response = await fetch(SQUADS_URL);
+    const squads = await response.json();
+
+    squads.forEach(squad => {
+      const option = document.createElement('option');
+      option.value = squad.id;
+      option.textContent = squad.name;
+      squadSelect.appendChild(option);
+    });
+  } catch (e) {
+    console.error('Failed to load squads:', e);
+  }
+}
 
 refreshBtn.addEventListener('click', async () => {
+  const squadId = squadSelect.value;
+  if (!squadId) {
+    refreshMessage.innerHTML = `
+      <div style="padding: 12px; background: #f8d7da; color: #721c24; border-radius: 4px; margin-bottom: 16px;">
+        ✗ Please select a squad first
+      </div>
+    `;
+    return;
+  }
+
   refreshBtn.disabled = true;
-  refreshBtn.textContent = 'Saving...';
+  refreshBtn.textContent = 'Exporting...';
   refreshMessage.innerHTML = '';
+  progressBar.style.display = 'block';
+  progressFill.style.width = '0%';
+  progressFill.textContent = '';
 
   try {
-    const response = await fetch('/api/export-player-stats', {
+    // Use fetch with event listener for progress
+    let lastUpdate = 0;
+    const updateProgress = (progress) => {
+      const now = Date.now();
+      if (now - lastUpdate > 100) { // Update at most every 100ms
+        progressFill.style.width = progress + '%';
+        progressFill.textContent = progress + '%';
+        lastUpdate = now;
+      }
+    };
+
+    // Simulate progress while fetching
+    const progressInterval = setInterval(() => {
+      const current = parseFloat(progressFill.style.width);
+      if (current < 90) {
+        updateProgress(current + Math.random() * 20);
+      }
+    }, 500);
+
+    const response = await fetch(`/api/export-player-stats?squadId=${squadId}`, {
       method: 'POST',
     });
+
+    clearInterval(progressInterval);
+    progressFill.style.width = '100%';
+    progressFill.textContent = '100%';
 
     const data = await response.json();
 
@@ -476,8 +533,14 @@ refreshBtn.addEventListener('click', async () => {
     `;
   } finally {
     refreshBtn.disabled = false;
-    refreshBtn.textContent = 'Refresh & Save Stats';
+    refreshBtn.textContent = 'Export Stats';
+    setTimeout(() => {
+      progressBar.style.display = 'none';
+    }, 1000);
   }
 });
+
+// Load squads when page loads
+loadSquads();
 
 loadPlayers();

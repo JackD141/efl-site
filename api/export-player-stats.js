@@ -194,6 +194,8 @@ module.exports = async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
+  const { squadId } = req.query;
+
   const email = process.env.EFL_EMAIL;
   const password = process.env.EFL_PASSWORD;
   const githubToken = process.env.GITHUB_TOKEN;
@@ -211,8 +213,12 @@ module.exports = async function handler(req, res) {
     const { IdToken: idToken } = await getCognitoTokens(email, password);
 
     // Fetch all players
-    const players = await getAllPlayers();
-    console.log(`Fetched ${players.length} players`);
+    const allPlayers = await getAllPlayers();
+    console.log(`Fetched ${allPlayers.length} total players`);
+
+    // Filter by squadId if provided
+    const players = squadId ? allPlayers.filter(p => p.squadId === Number(squadId)) : allPlayers;
+    console.log(`Exporting ${players.length} players${squadId ? ` from squad ${squadId}` : ''}`);
 
     // Organize stats by gameweek
     const statsByGameweek = {};

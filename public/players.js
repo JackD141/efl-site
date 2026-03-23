@@ -459,38 +459,58 @@ refreshBtn.addEventListener('click', async () => {
   progressText.textContent = '0%';
 
   try {
-    // Simulate progress while fetching
-    let lastSimulatedPercent = 0;
-    const progressInterval = setInterval(() => {
-      if (lastSimulatedPercent < 90) {
-        lastSimulatedPercent += Math.random() * 15;
-        if (lastSimulatedPercent > 90) lastSimulatedPercent = 90;
-        const rounded = Math.round(lastSimulatedPercent);
-        progressFill.style.width = rounded + '%';
-        progressText.textContent = rounded + '%';
-      }
-    }, 300);
-
     const response = await fetch('/api/export-player-stats', {
       method: 'POST',
     });
 
-    clearInterval(progressInterval);
-    progressFill.style.width = '100%';
-    progressText.textContent = '100%';
-
-    const data = await response.json();
-
     if (!response.ok) {
-      throw new Error(data.details || data.error);
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
     }
 
-    const gameweeks = data.gameweeks.join(', ');
-    refreshMessage.innerHTML = `
-      <div style="padding: 12px; background: #d4edda; color: #155724; border-radius: 4px; margin-bottom: 16px;">
-        ✓ Successfully saved player stats for gameweeks: ${gameweeks}
-      </div>
-    `;
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = '';
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+
+      buffer += decoder.decode(value, { stream: true });
+      const lines = buffer.split('\n');
+      buffer = lines.pop(); // Keep last incomplete line
+
+      for (const line of lines) {
+        if (line.startsWith('event: ')) {
+          const eventType = line.slice(7);
+          const dataLine = lines[lines.indexOf(line) + 1];
+          if (dataLine?.startsWith('data: ')) {
+            const data = JSON.parse(dataLine.slice(6));
+
+            if (eventType === 'progress') {
+              progressFill.style.width = data.percent + '%';
+              progressText.textContent = data.percent + '%';
+            } else if (eventType === 'status') {
+              refreshMessage.innerHTML = `
+                <div style="padding: 12px; background: #e7f3ff; color: #004085; border-radius: 4px; margin-bottom: 16px;">
+                  ⏳ ${data.message}
+                </div>
+              `;
+            } else if (eventType === 'complete') {
+              const gameweeks = data.gameweeks.join(', ');
+              progressFill.style.width = '100%';
+              progressText.textContent = '100%';
+              refreshMessage.innerHTML = `
+                <div style="padding: 12px; background: #d4edda; color: #155724; border-radius: 4px; margin-bottom: 16px;">
+                  ✓ Successfully saved player stats for gameweeks: ${gameweeks}
+                </div>
+              `;
+            } else if (eventType === 'error') {
+              throw new Error(data.details || data.error);
+            }
+          }
+        }
+      }
+    }
   } catch (error) {
     refreshMessage.innerHTML = `
       <div style="padding: 12px; background: #f8d7da; color: #721c24; border-radius: 4px; margin-bottom: 16px;">
@@ -502,7 +522,7 @@ refreshBtn.addEventListener('click', async () => {
     refreshBtn.textContent = 'Export Stats';
     setTimeout(() => {
       progressBar.style.display = 'none';
-    }, 1000);
+    }, 2000);
   }
 });
 

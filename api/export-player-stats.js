@@ -237,7 +237,6 @@ async function commitToGitHub(csvsByGameweek, githubToken) {
 
 module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Content-Type', 'application/json');
 
   // Only allow POST
   if (req.method !== 'POST') {
@@ -256,11 +255,23 @@ module.exports = async function handler(req, res) {
     return res.status(500).json({ error: 'GITHUB_TOKEN not set' });
   }
 
+  // Set up Server-Sent Events
+  res.setHeader('Content-Type', 'text/event-stream');
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Connection', 'keep-alive');
+
+  const sendEvent = (type, data) => {
+    res.write(`event: ${type}\n`);
+    res.write(`data: ${JSON.stringify(data)}\n\n`);
+  };
+
   try {
     // Authenticate with EFL
+    sendEvent('status', { message: 'Authenticating...' });
     const { IdToken: idToken } = await getCognitoTokens(email, password);
 
     // Fetch all data in parallel
+    sendEvent('status', { message: 'Fetching player and fixture data...' });
     const [allPlayers, rounds, squads] = await Promise.all([
       getAllPlayers(),
       getAllRounds(),
@@ -276,8 +287,8 @@ module.exports = async function handler(req, res) {
     const statsByGameweek = {};
     const totalPlayers = allPlayers.length;
 
-    // Fetch player profiles in parallel batches of 30
-    const batchSize = 30;
+    // Fetch player profiles in parallel batches of 50
+    const batchSize = 50;
     for (let i = 0; i < allPlayers.length; i += batchSize) {
       const batch = allPlayers.slice(i, i + batchSize);
       const profiles = await Promise.all(
@@ -337,9 +348,11 @@ module.exports = async function handler(req, res) {
 
       const processed = Math.min(i + batchSize, allPlayers.length);
       const percent = Math.round((processed / totalPlayers) * 100);
+      sendEvent('progress', { percent, processed, total: totalPlayers });
       console.log(`Processed ${processed}/${totalPlayers} players (${percent}%)`);
     }
 
+    sendEvent('status', { message: 'Generating CSVs...' });
     console.log(`Organized stats for ${Object.keys(statsByGameweek).length} gameweeks`);
 
     // Generate CSV content for each gameweek
@@ -348,19 +361,24 @@ module.exports = async function handler(req, res) {
       csvsByGameweek[gameweek] = generateCSVContent(gameweek, stats);
     }
 
+    sendEvent('status', { message: 'Committing to GitHub...' });
+
     // Commit to GitHub
     const committedGameweeks = await commitToGitHub(csvsByGameweek, githubToken);
 
-    return res.status(200).json({
+    sendEvent('complete', {
       success: true,
       message: `Successfully saved ${committedGameweeks.length} gameweeks`,
       gameweeks: committedGameweeks.sort((a, b) => Number(a) - Number(b)),
     });
+
+    res.end();
   } catch (error) {
     console.error('Export error:', error);
-    return res.status(500).json({
+    sendEvent('error', {
       error: 'Failed to export player stats',
       details: error.message,
     });
+    res.end();
   }
 };

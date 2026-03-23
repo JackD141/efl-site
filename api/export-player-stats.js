@@ -115,6 +115,14 @@ function buildSquadsById(squads) {
   return squadsById;
 }
 
+function getFixtureDifficulty(opponentSquad) {
+  if (!opponentSquad) return '';
+  const pos = opponentSquad.leaguePosition || 999;
+  if (pos <= 8) return 'hard';    // red: top 8
+  if (pos <= 16) return 'medium'; // grey: mid table
+  return 'easy';                  // green: bottom 8
+}
+
 function generateCSVContent(gameweek, playerStats) {
   if (playerStats.length === 0) {
     return '';
@@ -310,6 +318,7 @@ module.exports = async function handler(req, res) {
           const gameInfo = gamesByRound[roundNum]?.[player.squadId];
           const opponentId = gameInfo ? (gameInfo.isHome ? gameInfo.awayId : gameInfo.homeId) : null;
           const opponentSquad = opponentId ? squadsById[opponentId] : null;
+          const fixtureDifficulty = getFixtureDifficulty(opponentSquad);
 
           statsByGameweek[roundNum].push({
             player_id: player.id,
@@ -321,7 +330,7 @@ module.exports = async function handler(req, res) {
             gameweek: roundNum,
             opponent_id: opponentId,
             opponent_name: opponentSquad?.shortName || opponentSquad?.name || '',
-            fixture_difficulty: gameInfo?.difficulty || '',
+            fixture_difficulty: fixtureDifficulty,
             is_home: gameInfo?.isHome,
             minutes_played: result.minutesPlayed,
             goals_scored: result.goalsScored,

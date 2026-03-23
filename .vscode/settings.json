@@ -2,5 +2,9 @@
   "python.defaultInterpreterPath": "${workspaceFolder}/venv/Scripts/python.exe",
   "python.linting.enabled": true,
   "python.linting.pylintEnabled": false,
-  "jupyter.kernels.filter": []
+  "jupyter.kernels.filter": [],
+  "python-envs.defaultEnvManager": "ms-python.python:conda",
+  "python-envs.defaultPackageManager": "ms-python.python:conda",
+  "files.autoSave": "onFocusChange",
+  "jupyter.notebookFileRoot": "${workspaceFolder}"
 }

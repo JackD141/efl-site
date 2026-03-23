@@ -309,21 +309,16 @@ module.exports = async function handler(req, res) {
 
         // Add each result to the corresponding gameweek
         for (const result of results) {
-          const roundNum = result.roundId;
+          // Use roundNumber if available, fallback to roundId
+          const roundNum = result.roundNumber || result.roundId;
           if (!statsByGameweek[roundNum]) {
             statsByGameweek[roundNum] = [];
           }
 
-          // Find fixture info
+          // Find fixture info - look up by roundNumber in gamesByRound
           const gameInfo = gamesByRound[roundNum]?.[player.squadId];
           const opponentId = gameInfo ? (gameInfo.isHome ? gameInfo.awayId : gameInfo.homeId) : null;
           const opponentSquad = opponentId ? squadsById[opponentId] : null;
-
-          if (!gameInfo && i === 0 && idx === 0) {
-            console.log(`Debug GW${roundNum}: gamesByRound has rounds:`, Object.keys(gamesByRound).slice(0, 5));
-            console.log(`Debug GW${roundNum}: looking for squad ${player.squadId}, found:`, gameInfo);
-          }
-
           const fixtureDifficulty = getFixtureDifficulty(opponentSquad);
 
           statsByGameweek[roundNum].push({

@@ -18,10 +18,14 @@
   </header>
 
   <main>
-    <div class="search-area">
-      <input id="search-input" type="text" placeholder="Search for a player..." autocomplete="off" />
-      <div id="search-results"></div>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+      <div class="search-area" style="flex: 1;">
+        <input id="search-input" type="text" placeholder="Search for a player..." autocomplete="off" />
+        <div id="search-results"></div>
+      </div>
+      <button id="refresh-stats-btn" style="padding: 8px 16px; background: #f05a28; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; margin-left: 16px; white-space: nowrap;">Refresh & Save Stats</button>
     </div>
+    <div id="refresh-message"></div>
     <div id="leaderboard"></div>
     <div id="player-stats"></div>
   </main>

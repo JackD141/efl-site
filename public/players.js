@@ -442,4 +442,42 @@ function attachSortHandlers(cols, pos) {
   });
 }
 
+// ─── Refresh and save stats to CSV ────────────────────────────────────────────
+const refreshBtn = document.getElementById('refresh-stats-btn');
+const refreshMessage = document.getElementById('refresh-message');
+
+refreshBtn.addEventListener('click', async () => {
+  refreshBtn.disabled = true;
+  refreshBtn.textContent = 'Saving...';
+  refreshMessage.innerHTML = '';
+
+  try {
+    const response = await fetch('/api/export-player-stats', {
+      method: 'POST',
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.details || data.error);
+    }
+
+    const gameweeks = data.gameweeks.join(', ');
+    refreshMessage.innerHTML = `
+      <div style="padding: 12px; background: #d4edda; color: #155724; border-radius: 4px; margin-bottom: 16px;">
+        ✓ Successfully saved player stats for gameweeks: ${gameweeks}
+      </div>
+    `;
+  } catch (error) {
+    refreshMessage.innerHTML = `
+      <div style="padding: 12px; background: #f8d7da; color: #721c24; border-radius: 4px; margin-bottom: 16px;">
+        ✗ Error: ${error.message}
+      </div>
+    `;
+  } finally {
+    refreshBtn.disabled = false;
+    refreshBtn.textContent = 'Refresh & Save Stats';
+  }
+});
+
 loadPlayers();

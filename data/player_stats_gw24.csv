@@ -1,409 +1,409 @@
 player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_id,opponent_name,fixture_difficulty,is_home,minutes_played,goals_scored,hat_tricks,assists,penalty_misses,own_goals,yellow_cards,red_cards,saves,penalty_saves,clean_sheet,goals_conceded,clearances,blocks,tackles,interceptions,key_passes,shots_on_target,points
-3774,Joe,Murphy,J. Murphy,GK,44,24,2050,Bromley,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-40161,Byron,Webster,B. Webster,DEF,2050,24,44,Tranmere,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-40871,Ben,Hinchliffe,B. Hinchliffe,GK,48,24,38,Huddersfield,,H,90,0,0,0,0,0,0,0,3,0,1,0,0,0,0,0,0,0,9
-49387,Mark,Oxley,M. Oxley,GK,671,24,51,Crewe,,A,90,0,0,0,0,0,0,0,4,0,0,1,0,0,0,0,0,0,4
-49415,Kristian,Dennis,K. Dennis,FWD,44,24,2050,Bromley,,H,66,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
-50258,Warren,Burrell,W. Burrell,DEF,671,24,51,Crewe,,A,45,0,0,0,0,0,0,0,0,0,0,1,3,0,1,0,0,0,1
+3774,Joe,Murphy,J. Murphy,GK,44,24,2050,Bromley,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+40161,Byron,Webster,B. Webster,DEF,2050,24,44,Tranmere,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+40871,Ben,Hinchliffe,B. Hinchliffe,GK,48,24,38,Huddersfield,medium,H,90,0,0,0,0,0,0,0,3,0,1,0,0,0,0,0,0,0,9
+49387,Mark,Oxley,M. Oxley,GK,671,24,51,Crewe,medium,A,90,0,0,0,0,0,0,0,4,0,0,1,0,0,0,0,0,0,4
+49415,Kristian,Dennis,K. Dennis,FWD,44,24,2050,Bromley,hard,H,66,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+50258,Warren,Burrell,W. Burrell,DEF,671,24,51,Crewe,medium,A,45,0,0,0,0,0,0,0,0,0,0,1,3,0,1,0,0,0,1
 60057,James,Belshaw,J. Belshaw,GK,104,24,,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-60295,Connor,Jennings,C. Jennings,FWD,44,24,2050,Bromley,,H,24,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
-67908,Josh,Falkingham,J. Falkingham,MID,671,24,51,Crewe,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-73545,Tom,Lees,T. Lees,DEF,73,24,30,Bolton,,H,90,0,0,0,0,0,0,0,0,0,0,1,6,1,1,0,0,0,3
+60295,Connor,Jennings,C. Jennings,FWD,44,24,2050,Bromley,hard,H,24,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+67908,Josh,Falkingham,J. Falkingham,MID,671,24,51,Crewe,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+73545,Tom,Lees,T. Lees,DEF,73,24,30,Bolton,hard,H,90,0,0,0,0,0,0,0,0,0,0,1,6,1,1,0,0,0,3
 73716,Jack,Hunt,J. Hunt,DEF,111,24,,,,,90,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,7
-76429,Louis,Moult,L. Moult,FWD,51,24,671,Harrogate,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-77818,James,Shea,J. Shea,GK,102,24,288,Stevenage,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+76429,Louis,Moult,L. Moult,FWD,51,24,671,Harrogate,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+77818,James,Shea,J. Shea,GK,102,24,288,Stevenage,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 78612,Omar,Beckles,O. Beckles,DEF,100,24,,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-79934,Oliver,Norwood,O. Norwood,MID,48,24,38,Huddersfield,,H,90,0,0,0,0,0,1,0,0,0,0,0,0,0,0,2,3,0,6
-80181,Conor,McAleny,C. McAleny,FWD,671,24,51,Crewe,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-80254,Carl,Jenkinson,C. Jenkinson,DEF,2050,24,44,Tranmere,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-80282,Lee,Nicholls,L. Nicholls,GK,38,24,48,Stockport,,A,90,0,0,0,0,0,0,0,4,0,0,1,0,0,0,0,0,0,4
-80708,Jack,Muldoon,J. Muldoon,FWD,671,24,51,Crewe,,A,25,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
-82740,Carl,Piergianni,C. Piergianni,DEF,288,24,102,Luton,,A,90,0,0,0,0,0,0,0,0,0,0,2,8,2,2,0,0,0,5
-85885,Sam,Finley,S. Finley,MID,44,24,2050,Bromley,,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
-87107,Cyrus,Christie,C. Christie,DEF,30,24,73,Peterborough,,A,46,0,0,0,0,0,0,0,0,0,0,2,3,1,0,0,0,0,0
-87110,Conor,Thomas,C. Thomas,MID,51,24,671,Harrogate,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+79934,Oliver,Norwood,O. Norwood,MID,48,24,38,Huddersfield,medium,H,90,0,0,0,0,0,1,0,0,0,0,0,0,0,0,2,3,0,6
+80181,Conor,McAleny,C. McAleny,FWD,671,24,51,Crewe,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+80254,Carl,Jenkinson,C. Jenkinson,DEF,2050,24,44,Tranmere,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+80282,Lee,Nicholls,L. Nicholls,GK,38,24,48,Stockport,hard,A,90,0,0,0,0,0,0,0,4,0,0,1,0,0,0,0,0,0,4
+80708,Jack,Muldoon,J. Muldoon,FWD,671,24,51,Crewe,medium,A,25,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+82740,Carl,Piergianni,C. Piergianni,DEF,288,24,102,Luton,medium,A,90,0,0,0,0,0,0,0,0,0,0,2,8,2,2,0,0,0,5
+85885,Sam,Finley,S. Finley,MID,44,24,2050,Bromley,hard,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+87107,Cyrus,Christie,C. Christie,DEF,30,24,73,Peterborough,medium,A,46,0,0,0,0,0,0,0,0,0,0,2,3,1,0,0,0,0,0
+87110,Conor,Thomas,C. Thomas,MID,51,24,671,Harrogate,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 87115,Richard,Smallwood,R. Smallwood,MID,96,24,,,,,66,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
-88611,Kal,Naismith,K. Naismith,DEF,102,24,288,Stevenage,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-92383,Nahki,Wells,N. Wells,FWD,102,24,288,Stevenage,,H,77,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,2,0,6
-92488,Jason,Lowe,J. Lowe,MID,44,24,2050,Bromley,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-93469,Mickey,Demetriou,M. Demetriou,DEF,51,24,671,Harrogate,,H,90,0,0,0,0,0,0,0,0,0,0,1,17,1,2,0,0,0,7
-95459,Murray,Wallace,M. Wallace,DEF,38,24,48,Stockport,,A,90,0,0,0,0,0,0,0,0,0,0,1,16,1,1,0,0,0,6
-96784,Jordan,Clark,J. Clark,MID,102,24,288,Stevenage,,H,90,1,0,0,1,0,0,0,0,0,0,0,0,0,0,1,2,2,10
-101184,Calum,Chambers,C. Chambers,DEF,97,24,85,L Orient,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-103920,Mason,Bennett,M. Bennett,FWD,671,24,51,Crewe,,A,65,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,3
-104536,Ian,Lawlor,I. Lawlor,GK,51,24,671,Harrogate,,H,90,0,0,0,0,0,1,0,3,0,0,1,0,0,0,0,0,0,3
-106256,Jak,Alnwick,J. Alnwick,GK,38,24,48,Stockport,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-108799,Louis,Thompson,L. Thompson,MID,288,24,102,Luton,,A,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
-109378,George,Thomson,G. Thomson,MID,671,24,51,Crewe,,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,3,0,7
-111257,Jordan,Roberts,J. Roberts,FWD,288,24,102,Luton,,A,89,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,1,2
-112057,Grant,Smith,G. Smith,GK,2050,24,44,Tranmere,,A,90,0,0,0,0,0,0,0,4,0,1,0,0,0,0,0,0,0,9
-114054,Omar,Bogle,O. Bogle,FWD,51,24,671,Harrogate,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-120450,George,Saville,G. Saville,MID,102,24,288,Stevenage,,H,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
-122230,Jamie,Reid,J. Reid,FWD,288,24,102,Luton,,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,3
-123082,Dan,Butler,D. Butler,DEF,288,24,102,Luton,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-123709,Joe,Ironside,J. Ironside,FWD,44,24,2050,Bromley,,H,66,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
-124977,Jack,Whatmough,J. Whatmough,DEF,38,24,48,Stockport,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-125144,Anthony,O'Connor,A. O'Connor,DEF,671,24,51,Crewe,,A,90,0,0,0,0,0,0,0,0,0,0,1,22,5,0,0,0,0,9
-127571,Bojan,Radulovic,B. Radulovic,FWD,38,24,48,Stockport,,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,3
-131403,Rhys,Healey,R. Healey,FWD,38,24,48,Stockport,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-132201,Bryn,Morris,B. Morris,MID,671,24,51,Crewe,,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,6
-135411,Jordan,Houghton,J. Houghton,MID,288,24,102,Luton,,A,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
-149016,Lynden,Gooch,L. Gooch,MID,38,24,48,Stockport,,A,90,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,1,2
+88611,Kal,Naismith,K. Naismith,DEF,102,24,288,Stevenage,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+92383,Nahki,Wells,N. Wells,FWD,102,24,288,Stevenage,hard,H,77,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,2,0,6
+92488,Jason,Lowe,J. Lowe,MID,44,24,2050,Bromley,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+93469,Mickey,Demetriou,M. Demetriou,DEF,51,24,671,Harrogate,easy,H,90,0,0,0,0,0,0,0,0,0,0,1,17,1,2,0,0,0,7
+95459,Murray,Wallace,M. Wallace,DEF,38,24,48,Stockport,hard,A,90,0,0,0,0,0,0,0,0,0,0,1,16,1,1,0,0,0,6
+96784,Jordan,Clark,J. Clark,MID,102,24,288,Stevenage,hard,H,90,1,0,0,1,0,0,0,0,0,0,0,0,0,0,1,2,2,10
+101184,Calum,Chambers,C. Chambers,DEF,97,24,85,L Orient,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+103920,Mason,Bennett,M. Bennett,FWD,671,24,51,Crewe,medium,A,65,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,3
+104536,Ian,Lawlor,I. Lawlor,GK,51,24,671,Harrogate,easy,H,90,0,0,0,0,0,1,0,3,0,0,1,0,0,0,0,0,0,3
+106256,Jak,Alnwick,J. Alnwick,GK,38,24,48,Stockport,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+108799,Louis,Thompson,L. Thompson,MID,288,24,102,Luton,medium,A,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
+109378,George,Thomson,G. Thomson,MID,671,24,51,Crewe,medium,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,3,0,7
+111257,Jordan,Roberts,J. Roberts,FWD,288,24,102,Luton,medium,A,89,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,1,2
+112057,Grant,Smith,G. Smith,GK,2050,24,44,Tranmere,easy,A,90,0,0,0,0,0,0,0,4,0,1,0,0,0,0,0,0,0,9
+114054,Omar,Bogle,O. Bogle,FWD,51,24,671,Harrogate,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+120450,George,Saville,G. Saville,MID,102,24,288,Stevenage,hard,H,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+122230,Jamie,Reid,J. Reid,FWD,288,24,102,Luton,medium,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,3
+123082,Dan,Butler,D. Butler,DEF,288,24,102,Luton,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+123709,Joe,Ironside,J. Ironside,FWD,44,24,2050,Bromley,hard,H,66,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+124977,Jack,Whatmough,J. Whatmough,DEF,38,24,48,Stockport,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+125144,Anthony,O'Connor,A. O'Connor,DEF,671,24,51,Crewe,medium,A,90,0,0,0,0,0,0,0,0,0,0,1,22,5,0,0,0,0,9
+127571,Bojan,Radulovic,B. Radulovic,FWD,38,24,48,Stockport,hard,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,3
+131403,Rhys,Healey,R. Healey,FWD,38,24,48,Stockport,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+132201,Bryn,Morris,B. Morris,MID,671,24,51,Crewe,medium,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,6
+135411,Jordan,Houghton,J. Houghton,MID,288,24,102,Luton,medium,A,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+149016,Lynden,Gooch,L. Gooch,MID,38,24,48,Stockport,hard,A,90,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,1,2
 149443,Nick,Freeman,N. Freeman,MID,74,24,,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-153346,Aaron,McGowan,A. McGowan,DEF,44,24,2050,Bromley,,H,84,0,0,0,0,0,0,0,0,0,0,2,6,0,1,0,0,0,2
-153675,Ryan,Ledson,R. Ledson,MID,38,24,48,Stockport,,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
-153772,Luke,McGee,L. McGee,GK,44,24,2050,Bromley,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-154047,Chris,Willock,C. Willock,MID,97,24,85,L Orient,,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
-156069,Liam,Gibson,L. Gibson,DEF,671,24,51,Crewe,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-156699,Cameron,Norman,C. Norman,DEF,44,24,2050,Bromley,,H,90,0,0,0,0,0,0,0,0,0,0,2,4,0,1,0,0,0,2
-159173,Callum,Camps,C. Camps,MID,48,24,38,Huddersfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-159174,Mitch,Pinnock,M. Pinnock,MID,2050,24,44,Tranmere,,A,90,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,2,0,8
-167191,Marcus,Harness,M. Harness,MID,38,24,48,Stockport,,A,69,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
-167878,Ben,Osborn,B. Osborn,MID,48,24,38,Huddersfield,,H,89,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,4
-168315,Patrick,Brough,P. Brough,DEF,44,24,2050,Bromley,,H,90,0,0,0,0,0,1,0,0,0,0,2,5,1,0,0,0,0,1
-168547,Ethan,Horvath,E. Horvath,GK,97,24,85,L Orient,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-168549,Dion,Charles,D. Charles,FWD,38,24,48,Stockport,,A,87,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
-168648,Jordan,Turnbull,J. Turnbull,DEF,44,24,2050,Bromley,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-169128,Tayo,Edun,T. Edun,DEF,48,24,38,Huddersfield,,H,66,0,0,0,0,0,0,0,0,0,1,0,0,0,4,0,0,0,9
+153346,Aaron,McGowan,A. McGowan,DEF,44,24,2050,Bromley,hard,H,84,0,0,0,0,0,0,0,0,0,0,2,6,0,1,0,0,0,2
+153675,Ryan,Ledson,R. Ledson,MID,38,24,48,Stockport,hard,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+153772,Luke,McGee,L. McGee,GK,44,24,2050,Bromley,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+154047,Chris,Willock,C. Willock,MID,97,24,85,L Orient,medium,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+156069,Liam,Gibson,L. Gibson,DEF,671,24,51,Crewe,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+156699,Cameron,Norman,C. Norman,DEF,44,24,2050,Bromley,hard,H,90,0,0,0,0,0,0,0,0,0,0,2,4,0,1,0,0,0,2
+159173,Callum,Camps,C. Camps,MID,48,24,38,Huddersfield,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+159174,Mitch,Pinnock,M. Pinnock,MID,2050,24,44,Tranmere,easy,A,90,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,2,0,8
+167191,Marcus,Harness,M. Harness,MID,38,24,48,Stockport,hard,A,69,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+167878,Ben,Osborn,B. Osborn,MID,48,24,38,Huddersfield,medium,H,89,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,4
+168315,Patrick,Brough,P. Brough,DEF,44,24,2050,Bromley,hard,H,90,0,0,0,0,0,1,0,0,0,0,2,5,1,0,0,0,0,1
+168547,Ethan,Horvath,E. Horvath,GK,97,24,85,L Orient,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+168549,Dion,Charles,D. Charles,FWD,38,24,48,Stockport,hard,A,87,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+168648,Jordan,Turnbull,J. Turnbull,DEF,44,24,2050,Bromley,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+169128,Tayo,Edun,T. Edun,DEF,48,24,38,Huddersfield,medium,H,66,0,0,0,0,0,0,0,0,0,1,0,0,0,4,0,0,0,9
 169185,Herbie,Kane,H. Kane,MID,76,24,,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-171277,Demetri,Mitchell,D. Mitchell,MID,85,24,97,Cardiff,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-171975,Callum,Robinson,C. Robinson,FWD,97,24,85,L Orient,,A,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
-172456,Jack,Powell,J. Powell,MID,51,24,671,Harrogate,,H,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
-172549,Kyle,Cameron,K. Cameron,DEF,2050,24,44,Tranmere,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-174310,Elijah,Adebayo,E. Adebayo,FWD,102,24,288,Stevenage,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-174587,Taye,Ashby-Hammond,T. Ashby-Hammond,GK,288,24,102,Luton,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-174944,George,Johnston,G. Johnston,DEF,30,24,73,Peterborough,,A,90,0,0,0,0,0,0,0,0,0,0,3,4,0,1,0,0,0,2
-175832,Callum,Connolly,C. Connolly,MID,48,24,38,Huddersfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-175939,Theo,Archibald,T. Archibald,MID,85,24,97,Cardiff,,H,90,0,0,0,0,0,1,0,0,0,0,0,0,0,0,2,0,1,6
-178017,Michael,Cheek,M. Cheek,FWD,2050,24,44,Tranmere,,A,66,2,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,3,14
-178161,Alfie,May,A. May,FWD,38,24,48,Stockport,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-178342,Kyle,Dempsey,K. Dempsey,MID,30,24,73,Peterborough,,A,68,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,0,5
-180148,Liam,Walsh,L. Walsh,MID,102,24,288,Stevenage,,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,2,0,9
-182908,Tom,James,T. James,DEF,85,24,97,Cardiff,,H,90,0,0,0,0,0,0,0,0,0,0,1,1,2,1,0,0,0,3
-183385,Nathan,Smith,N. Smith,DEF,44,24,2050,Bromley,,H,90,0,0,0,0,0,0,0,0,0,0,2,6,0,0,0,0,0,2
-183650,Marcus,McGuane,M. McGuane,MID,38,24,48,Stockport,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-184400,Josh,Sheehan,J. Sheehan,MID,30,24,73,Peterborough,,A,44,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,3
+171277,Demetri,Mitchell,D. Mitchell,MID,85,24,97,Cardiff,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+171975,Callum,Robinson,C. Robinson,FWD,97,24,85,L Orient,medium,A,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+172456,Jack,Powell,J. Powell,MID,51,24,671,Harrogate,easy,H,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+172549,Kyle,Cameron,K. Cameron,DEF,2050,24,44,Tranmere,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+174310,Elijah,Adebayo,E. Adebayo,FWD,102,24,288,Stevenage,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+174587,Taye,Ashby-Hammond,T. Ashby-Hammond,GK,288,24,102,Luton,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+174944,George,Johnston,G. Johnston,DEF,30,24,73,Peterborough,medium,A,90,0,0,0,0,0,0,0,0,0,0,3,4,0,1,0,0,0,2
+175832,Callum,Connolly,C. Connolly,MID,48,24,38,Huddersfield,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+175939,Theo,Archibald,T. Archibald,MID,85,24,97,Cardiff,hard,H,90,0,0,0,0,0,1,0,0,0,0,0,0,0,0,2,0,1,6
+178017,Michael,Cheek,M. Cheek,FWD,2050,24,44,Tranmere,easy,A,66,2,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,3,14
+178161,Alfie,May,A. May,FWD,38,24,48,Stockport,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+178342,Kyle,Dempsey,K. Dempsey,MID,30,24,73,Peterborough,medium,A,68,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,0,5
+180148,Liam,Walsh,L. Walsh,MID,102,24,288,Stevenage,hard,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,2,0,9
+182908,Tom,James,T. James,DEF,85,24,97,Cardiff,hard,H,90,0,0,0,0,0,0,0,0,0,0,1,1,2,1,0,0,0,3
+183385,Nathan,Smith,N. Smith,DEF,44,24,2050,Bromley,hard,H,90,0,0,0,0,0,0,0,0,0,0,2,6,0,0,0,0,0,2
+183650,Marcus,McGuane,M. McGuane,MID,38,24,48,Stockport,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+184400,Josh,Sheehan,J. Sheehan,MID,30,24,73,Peterborough,medium,A,44,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,3
 184704,Marvelous,Nakamba,M. Nakamba,MID,19,24,,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-186800,Perry,Ng,P. Ng,DEF,97,24,85,L Orient,,A,90,0,0,0,0,0,0,0,0,0,0,1,1,0,4,0,0,0,4
-192441,Omar,Sowunmi,O. Sowunmi,DEF,2050,24,44,Tranmere,,A,90,0,0,0,0,0,0,0,0,0,1,0,15,3,0,0,0,0,11
+186800,Perry,Ng,P. Ng,DEF,97,24,85,L Orient,medium,A,90,0,0,0,0,0,0,0,0,0,0,1,1,0,4,0,0,0,4
+192441,Omar,Sowunmi,O. Sowunmi,DEF,2050,24,44,Tranmere,easy,A,90,0,0,0,0,0,0,0,0,0,1,0,15,3,0,0,0,0,11
 194209,Owen,Moxon,O. Moxon,MID,111,24,,,,,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
-194456,Kyle,Wootton,K. Wootton,FWD,48,24,38,Huddersfield,,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,3
-194465,Alex,Bass,A. Bass,GK,73,24,30,Bolton,,H,90,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,2
-195592,Ben,Thompson,B. Thompson,MID,2050,24,44,Tranmere,,A,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,3
-196424,Levi,Sutton,L. Sutton,MID,671,24,51,Crewe,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-199056,Gabriel,Osho,G. Osho,DEF,97,24,85,L Orient,,A,90,0,0,0,0,0,0,0,0,0,0,1,9,0,2,0,0,0,5
-200656,David,Turnbull,D. Turnbull,MID,97,24,85,L Orient,,A,48,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
-201032,Nicke,Kabamba,N. Kabamba,FWD,2050,24,44,Tranmere,,A,24,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+194456,Kyle,Wootton,K. Wootton,FWD,48,24,38,Huddersfield,medium,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,3
+194465,Alex,Bass,A. Bass,GK,73,24,30,Bolton,hard,H,90,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,2
+195592,Ben,Thompson,B. Thompson,MID,2050,24,44,Tranmere,easy,A,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,3
+196424,Levi,Sutton,L. Sutton,MID,671,24,51,Crewe,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+199056,Gabriel,Osho,G. Osho,DEF,97,24,85,L Orient,medium,A,90,0,0,0,0,0,0,0,0,0,0,1,9,0,2,0,0,0,5
+200656,David,Turnbull,D. Turnbull,MID,97,24,85,L Orient,medium,A,48,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
+201032,Nicke,Kabamba,N. Kabamba,FWD,2050,24,44,Tranmere,easy,A,24,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 201746,Jerry,Yates,J. Yates,FWD,19,24,,,,,13,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2
-202361,Tyler,Miller,T. Miller,GK,30,24,73,Peterborough,,A,90,0,0,0,0,0,0,0,4,0,0,3,0,0,0,0,0,0,3
-205174,Antony,Evans,A. Evans,MID,38,24,48,Stockport,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-205627,Ryan,Wintle,R. Wintle,MID,97,24,85,L Orient,,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
-208904,Mads,Andersen,M. Andersen,DEF,102,24,288,Stevenage,,H,90,0,0,0,0,0,0,0,0,0,0,1,13,0,0,0,0,0,5
-209413,Jordi,Osei-Tutu,J. Osei-Tutu,DEF,30,24,73,Peterborough,,A,90,0,0,0,0,0,0,0,0,0,0,3,2,0,4,0,0,0,3
-213279,Josh,Dacres-Cogley,J. Dacres-Cogley,DEF,48,24,38,Huddersfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-213687,Charlie,Goode,C. Goode,DEF,288,24,102,Luton,,A,90,0,0,0,0,0,0,0,0,0,0,2,13,3,0,0,0,0,5
+202361,Tyler,Miller,T. Miller,GK,30,24,73,Peterborough,medium,A,90,0,0,0,0,0,0,0,4,0,0,3,0,0,0,0,0,0,3
+205174,Antony,Evans,A. Evans,MID,38,24,48,Stockport,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+205627,Ryan,Wintle,R. Wintle,MID,97,24,85,L Orient,medium,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+208904,Mads,Andersen,M. Andersen,DEF,102,24,288,Stevenage,hard,H,90,0,0,0,0,0,0,0,0,0,0,1,13,0,0,0,0,0,5
+209413,Jordi,Osei-Tutu,J. Osei-Tutu,DEF,30,24,73,Peterborough,medium,A,90,0,0,0,0,0,0,0,0,0,0,3,2,0,4,0,0,0,3
+213279,Josh,Dacres-Cogley,J. Dacres-Cogley,DEF,48,24,38,Huddersfield,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+213687,Charlie,Goode,C. Goode,DEF,288,24,102,Luton,medium,A,90,0,0,0,0,0,0,0,0,0,0,2,13,3,0,0,0,0,5
 214475,Thomas,O'Connor,T. O'Connor,MID,109,24,,,,,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,4
-215062,Max,Sanders,M. Sanders,MID,51,24,671,Harrogate,,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,0,5
-216554,Sam,Hughes,S. Hughes,DEF,73,24,30,Bolton,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-216620,Marcus,Forss,M. Forss,FWD,30,24,73,Peterborough,,A,32,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
-217583,Hakeem,Odoffin,H. Odoffin,DEF,102,24,288,Stevenage,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-220256,Omari,Patrick,O. Patrick,FWD,44,24,2050,Bromley,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-220330,Beryly,Lubala,B. Lubala,FWD,288,24,102,Luton,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-220333,Odin,Bailey,O. Bailey,MID,48,24,38,Huddersfield,,H,89,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,2,1,3
-220625,Dan,Sweeney,D. Sweeney,DEF,288,24,102,Luton,,A,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1
-221287,Ashley,Charles,A. Charles,MID,2050,24,44,Tranmere,,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,4
-221359,Corey,Addai,C. Addai,GK,48,24,38,Huddersfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-221378,Shawn,McCoulsky,S. McCoulsky,FWD,671,24,51,Crewe,,A,82,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,3
-221433,Shilow,Tracey,S. Tracey,FWD,51,24,671,Harrogate,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-221568,Dan,Kemp,D. Kemp,MID,288,24,102,Luton,,A,84,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
-222015,Jack,Diamond,J. Diamond,FWD,48,24,38,Huddersfield,,H,66,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
-222434,Jack,Simpson,J. Simpson,DEF,85,24,97,Cardiff,,H,90,0,0,0,0,0,0,0,0,0,0,1,3,0,0,0,0,0,2
+215062,Max,Sanders,M. Sanders,MID,51,24,671,Harrogate,easy,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,0,5
+216554,Sam,Hughes,S. Hughes,DEF,73,24,30,Bolton,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+216620,Marcus,Forss,M. Forss,FWD,30,24,73,Peterborough,medium,A,32,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+217583,Hakeem,Odoffin,H. Odoffin,DEF,102,24,288,Stevenage,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+220256,Omari,Patrick,O. Patrick,FWD,44,24,2050,Bromley,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+220330,Beryly,Lubala,B. Lubala,FWD,288,24,102,Luton,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+220333,Odin,Bailey,O. Bailey,MID,48,24,38,Huddersfield,medium,H,89,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,2,1,3
+220625,Dan,Sweeney,D. Sweeney,DEF,288,24,102,Luton,medium,A,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1
+221287,Ashley,Charles,A. Charles,MID,2050,24,44,Tranmere,easy,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,4
+221359,Corey,Addai,C. Addai,GK,48,24,38,Huddersfield,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+221378,Shawn,McCoulsky,S. McCoulsky,FWD,671,24,51,Crewe,medium,A,82,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,3
+221433,Shilow,Tracey,S. Tracey,FWD,51,24,671,Harrogate,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+221568,Dan,Kemp,D. Kemp,MID,288,24,102,Luton,medium,A,84,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
+222015,Jack,Diamond,J. Diamond,FWD,48,24,38,Huddersfield,medium,H,66,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+222434,Jack,Simpson,J. Simpson,DEF,85,24,97,Cardiff,hard,H,90,0,0,0,0,0,0,0,0,0,0,1,3,0,0,0,0,0,2
 223174,Diallang,Jaiyesimi,D. Jaiyesimi,MID,34,24,,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-223331,Zico,Asare,Z. Asare,DEF,671,24,51,Crewe,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-224107,Sean,Clare,S. Clare,DEF,85,24,97,Cardiff,,H,90,0,0,0,0,0,0,0,0,0,0,1,3,1,4,0,0,0,4
-225257,Josh,Koroma,J. Koroma,FWD,85,24,97,Cardiff,,H,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
-226007,Luther,James-Wildin,L. James-Wildin,DEF,288,24,102,Luton,,A,90,0,0,0,0,0,0,0,0,0,0,2,3,0,1,0,0,0,1
-226029,Lasse,Sørensen,L. Sørensen,DEF,38,24,48,Stockport,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-226474,David,Kasumu,D. Kasumu,MID,38,24,48,Stockport,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-226847,Tyreeq,Bakinson,T. Bakinson,MID,85,24,97,Cardiff,,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,4
-229539,Arttu,Hoskonen,A. Hoskonen,DEF,48,24,38,Huddersfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-231902,Ben,Fox,B. Fox,MID,671,24,51,Crewe,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+223331,Zico,Asare,Z. Asare,DEF,671,24,51,Crewe,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+224107,Sean,Clare,S. Clare,DEF,85,24,97,Cardiff,hard,H,90,0,0,0,0,0,0,0,0,0,0,1,3,1,4,0,0,0,4
+225257,Josh,Koroma,J. Koroma,FWD,85,24,97,Cardiff,hard,H,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
+226007,Luther,James-Wildin,L. James-Wildin,DEF,288,24,102,Luton,medium,A,90,0,0,0,0,0,0,0,0,0,0,2,3,0,1,0,0,0,1
+226029,Lasse,Sørensen,L. Sørensen,DEF,38,24,48,Stockport,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+226474,David,Kasumu,D. Kasumu,MID,38,24,48,Stockport,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+226847,Tyreeq,Bakinson,T. Bakinson,MID,85,24,97,Cardiff,hard,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,4
+229539,Arttu,Hoskonen,A. Hoskonen,DEF,48,24,38,Huddersfield,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+231902,Ben,Fox,B. Fox,MID,671,24,51,Crewe,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 231908,Aaron,Morley,A. Morley,MID,112,24,,,,,22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
-232235,Joseph,Olowu,J. Olowu,DEF,48,24,38,Huddersfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-232389,Jay,Mingi,J. Mingi,MID,51,24,671,Harrogate,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-232398,Nathan,Trott,N. Trott,GK,97,24,85,L Orient,,A,90,0,0,0,0,0,0,0,4,0,0,1,0,0,0,0,0,0,4
-232463,Phoenix,Patterson,P. Patterson,FWD,288,24,102,Luton,,A,70,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,3,0,6
-232606,Will,Forrester,W. Forrester,DEF,85,24,97,Cardiff,,H,90,0,0,0,0,0,0,0,0,0,0,1,5,0,3,0,0,0,4
-232825,Stephen,Duke-McKenna,S. Duke-McKenna,MID,671,24,51,Crewe,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-232960,Lewis,Cass,L. Cass,DEF,671,24,51,Crewe,,A,90,0,0,0,0,0,0,0,0,0,0,1,3,1,1,0,0,0,2
-233425,Aaron,Connolly,A. Connolly,FWD,85,24,97,Cardiff,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-234494,Corey,Whitely,C. Whitely,FWD,2050,24,44,Tranmere,,A,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
-235182,Lee,O'Connor,L. O'Connor,DEF,44,24,2050,Bromley,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-235372,Lewis,Freestone,L. Freestone,DEF,288,24,102,Luton,,A,90,1,0,0,0,0,1,0,0,0,0,2,2,1,4,0,0,0,9
-235381,Sam,Dalby,S. Dalby,FWD,30,24,73,Peterborough,,A,46,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,7
-235457,Jack,Evans,J. Evans,MID,671,24,51,Crewe,,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
-242270,Archie,Collins,A. Collins,MID,73,24,30,Bolton,,H,90,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,8
+232235,Joseph,Olowu,J. Olowu,DEF,48,24,38,Huddersfield,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+232389,Jay,Mingi,J. Mingi,MID,51,24,671,Harrogate,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+232398,Nathan,Trott,N. Trott,GK,97,24,85,L Orient,medium,A,90,0,0,0,0,0,0,0,4,0,0,1,0,0,0,0,0,0,4
+232463,Phoenix,Patterson,P. Patterson,FWD,288,24,102,Luton,medium,A,70,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,3,0,6
+232606,Will,Forrester,W. Forrester,DEF,85,24,97,Cardiff,hard,H,90,0,0,0,0,0,0,0,0,0,0,1,5,0,3,0,0,0,4
+232825,Stephen,Duke-McKenna,S. Duke-McKenna,MID,671,24,51,Crewe,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+232960,Lewis,Cass,L. Cass,DEF,671,24,51,Crewe,medium,A,90,0,0,0,0,0,0,0,0,0,0,1,3,1,1,0,0,0,2
+233425,Aaron,Connolly,A. Connolly,FWD,85,24,97,Cardiff,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+234494,Corey,Whitely,C. Whitely,FWD,2050,24,44,Tranmere,easy,A,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
+235182,Lee,O'Connor,L. O'Connor,DEF,44,24,2050,Bromley,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+235372,Lewis,Freestone,L. Freestone,DEF,288,24,102,Luton,medium,A,90,1,0,0,0,0,1,0,0,0,0,2,2,1,4,0,0,0,9
+235381,Sam,Dalby,S. Dalby,FWD,30,24,73,Peterborough,medium,A,46,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,7
+235457,Jack,Evans,J. Evans,MID,671,24,51,Crewe,medium,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+242270,Archie,Collins,A. Collins,MID,73,24,30,Bolton,hard,H,90,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,8
 242453,Jacob,Brown,J. Brown,FWD,47,24,,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-242507,Joel,Bagan,J. Bagan,DEF,97,24,85,L Orient,,A,60,0,0,0,0,0,0,0,0,0,0,1,4,0,0,0,0,0,3
-242512,Lewis,Fiorini,L. Fiorini,MID,48,24,38,Huddersfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-243760,Nathan,Broome,N. Broome,GK,30,24,73,Peterborough,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-244856,Teden,Mengi,T. Mengi,DEF,102,24,288,Stevenage,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-245693,Eoin,Toal,E. Toal,DEF,30,24,73,Peterborough,,A,90,0,0,0,0,0,0,0,0,0,0,3,11,0,2,0,0,0,4
-245791,Cohen,Bramall,C. Bramall,DEF,102,24,288,Stevenage,,H,28,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
-247286,Kyle,Jameson,K. Jameson,DEF,671,24,51,Crewe,,A,45,0,0,0,0,0,1,0,0,0,0,0,6,0,3,0,0,0,2
-247700,Rarmani,Edmonds-Green,R. Edmonds-Green,DEF,85,24,97,Cardiff,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-249084,Marcus,Dinanga,M. Dinanga,FWD,2050,24,44,Tranmere,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-249281,Dan,Happe,D. Happe,DEF,85,24,97,Cardiff,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-422303,John,McAtee,J. McAtee,FWD,30,24,73,Peterborough,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-430123,Ethan,Erhahon,E. Erhahon,MID,30,24,73,Peterborough,,A,45,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,3
-432160,Shandon,Baptiste,S. Baptiste,MID,102,24,288,Stevenage,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-434043,Alex,Robertson,A. Robertson,MID,97,24,85,L Orient,,A,86,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,1,7
+242507,Joel,Bagan,J. Bagan,DEF,97,24,85,L Orient,medium,A,60,0,0,0,0,0,0,0,0,0,0,1,4,0,0,0,0,0,3
+242512,Lewis,Fiorini,L. Fiorini,MID,48,24,38,Huddersfield,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+243760,Nathan,Broome,N. Broome,GK,30,24,73,Peterborough,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+244856,Teden,Mengi,T. Mengi,DEF,102,24,288,Stevenage,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+245693,Eoin,Toal,E. Toal,DEF,30,24,73,Peterborough,medium,A,90,0,0,0,0,0,0,0,0,0,0,3,11,0,2,0,0,0,4
+245791,Cohen,Bramall,C. Bramall,DEF,102,24,288,Stevenage,hard,H,28,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+247286,Kyle,Jameson,K. Jameson,DEF,671,24,51,Crewe,medium,A,45,0,0,0,0,0,1,0,0,0,0,0,6,0,3,0,0,0,2
+247700,Rarmani,Edmonds-Green,R. Edmonds-Green,DEF,85,24,97,Cardiff,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+249084,Marcus,Dinanga,M. Dinanga,FWD,2050,24,44,Tranmere,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+249281,Dan,Happe,D. Happe,DEF,85,24,97,Cardiff,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+422303,John,McAtee,J. McAtee,FWD,30,24,73,Peterborough,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+430123,Ethan,Erhahon,E. Erhahon,MID,30,24,73,Peterborough,medium,A,45,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,3
+432160,Shandon,Baptiste,S. Baptiste,MID,102,24,288,Stevenage,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+434043,Alex,Robertson,A. Robertson,MID,97,24,85,L Orient,medium,A,86,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,1,7
 439481,Jayden,Fevrier,J. Fevrier,FWD,33,24,,,,,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,3
 441199,Joel,Randall,J. Randall,MID,92,24,,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-441590,Jack,Lankester,J. Lankester,MID,51,24,671,Harrogate,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-441598,Idris,El Mizouni,I. El Mizouni,MID,85,24,97,Cardiff,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-443174,James,Connolly,J. Connolly,DEF,51,24,671,Harrogate,,H,90,0,0,0,0,0,0,0,0,0,0,1,10,0,1,0,0,0,4
-444787,Mickel,Miller,M. Miller,DEF,38,24,48,Stockport,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-444889,Ethan,Bristow,E. Bristow,DEF,44,24,2050,Bromley,,H,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
-448791,Harvey,White,H. White,MID,288,24,102,Luton,,A,70,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,6
-449082,Reece,Hutchinson,R. Hutchinson,DEF,51,24,671,Harrogate,,H,90,0,0,0,0,0,0,0,0,0,0,1,2,0,1,0,0,0,2
-449290,Rio,Adebisi,R. Adebisi,DEF,73,24,30,Bolton,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-450529,Lewis,Bate,L. Bate,MID,48,24,38,Huddersfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-450543,Xavier,Simons,X. Simons,MID,30,24,73,Peterborough,,A,45,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
-450545,Dion,Rankine,D. Rankine,MID,51,24,671,Harrogate,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-451644,Radinio,Balker,R. Balker,DEF,38,24,48,Stockport,,A,90,0,0,0,0,0,0,0,0,0,0,1,1,1,3,0,0,0,3
+441590,Jack,Lankester,J. Lankester,MID,51,24,671,Harrogate,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+441598,Idris,El Mizouni,I. El Mizouni,MID,85,24,97,Cardiff,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+443174,James,Connolly,J. Connolly,DEF,51,24,671,Harrogate,easy,H,90,0,0,0,0,0,0,0,0,0,0,1,10,0,1,0,0,0,4
+444787,Mickel,Miller,M. Miller,DEF,38,24,48,Stockport,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+444889,Ethan,Bristow,E. Bristow,DEF,44,24,2050,Bromley,hard,H,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+448791,Harvey,White,H. White,MID,288,24,102,Luton,medium,A,70,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,6
+449082,Reece,Hutchinson,R. Hutchinson,DEF,51,24,671,Harrogate,easy,H,90,0,0,0,0,0,0,0,0,0,0,1,2,0,1,0,0,0,2
+449290,Rio,Adebisi,R. Adebisi,DEF,73,24,30,Bolton,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+450529,Lewis,Bate,L. Bate,MID,48,24,38,Huddersfield,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+450543,Xavier,Simons,X. Simons,MID,30,24,73,Peterborough,medium,A,45,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
+450545,Dion,Rankine,D. Rankine,MID,51,24,671,Harrogate,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+451644,Radinio,Balker,R. Balker,DEF,38,24,48,Stockport,hard,A,90,0,0,0,0,0,0,0,0,0,0,1,1,1,3,0,0,0,3
 457395,Jacob,Chapman,J. Chapman,GK,1525,24,,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-460232,Peter,Kioso,P. Kioso,DEF,73,24,30,Bolton,,H,90,0,0,0,0,0,1,0,0,0,0,1,4,1,2,0,0,0,3
-461026,Chem,Campbell,C. Campbell,MID,288,24,102,Luton,,A,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
-461086,Daniel,Phillips,D. Phillips,MID,288,24,102,Luton,,A,70,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
-461101,Richard,Taylor,R. Taylor,DEF,30,24,73,Peterborough,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-461128,Rubin,Colwill,R. Colwill,MID,97,24,85,L Orient,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-461132,Isaak,Davies,I. Davies,FWD,97,24,85,L Orient,,A,29,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
-461149,Eli,King,E. King,MID,97,24,85,L Orient,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-461203,Michael,Craig,M. Craig,MID,85,24,97,Cardiff,,H,61,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,4
-461414,Jack,Barrett,J. Barrett,GK,44,24,2050,Bromley,,H,90,0,0,0,0,0,0,0,1,0,0,2,0,0,0,0,0,0,1
-461446,Tyler,Onyango,T. Onyango,MID,48,24,38,Huddersfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-461475,Ollie,O'Neill,O. O'Neill,MID,85,24,97,Cardiff,,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,3
-461476,Idris,Odutayo,I. Odutayo,DEF,2050,24,44,Tranmere,,A,90,0,0,0,0,0,1,0,0,0,1,0,6,1,2,0,0,0,8
-461521,Ben,Woods,B. Woods,MID,73,24,30,Bolton,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-461522,Charlie,Wellens,C. Wellens,FWD,85,24,97,Cardiff,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-461566,Will,Fish,W. Fish,DEF,97,24,85,L Orient,,A,90,0,0,0,0,0,0,0,0,0,0,1,9,3,3,0,0,0,6
-461567,Owen,Dodgson,O. Dodgson,DEF,48,24,38,Huddersfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-461601,Tom,Hill,T. Hill,MID,671,24,51,Crewe,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-462381,Filip,Marschall,F. Marschall,GK,288,24,102,Luton,,A,90,0,0,0,0,0,0,0,5,1,0,2,0,0,0,0,0,0,8
-462387,Ali,Al-Hamadi,A. Al-Hamadi,FWD,102,24,288,Stevenage,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-462640,Tom,Bradbury,T. Bradbury,DEF,671,24,51,Crewe,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-463038,Saxon,Earley,S. Earley,DEF,288,24,102,Luton,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-465313,Chris,Conn-Clarke,C. Conn-Clarke,MID,73,24,30,Bolton,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-465551,Nigel,Lonwijk,N. Lonwijk,DEF,102,24,288,Stevenage,,H,90,0,0,0,0,0,1,0,0,0,0,1,2,0,2,0,0,0,2
-469249,Nohan,Kenneh,N. Kenneh,MID,44,24,2050,Bromley,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+460232,Peter,Kioso,P. Kioso,DEF,73,24,30,Bolton,hard,H,90,0,0,0,0,0,1,0,0,0,0,1,4,1,2,0,0,0,3
+461026,Chem,Campbell,C. Campbell,MID,288,24,102,Luton,medium,A,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+461086,Daniel,Phillips,D. Phillips,MID,288,24,102,Luton,medium,A,70,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+461101,Richard,Taylor,R. Taylor,DEF,30,24,73,Peterborough,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+461128,Rubin,Colwill,R. Colwill,MID,97,24,85,L Orient,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+461132,Isaak,Davies,I. Davies,FWD,97,24,85,L Orient,medium,A,29,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+461149,Eli,King,E. King,MID,97,24,85,L Orient,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+461203,Michael,Craig,M. Craig,MID,85,24,97,Cardiff,hard,H,61,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,4
+461414,Jack,Barrett,J. Barrett,GK,44,24,2050,Bromley,hard,H,90,0,0,0,0,0,0,0,1,0,0,2,0,0,0,0,0,0,1
+461446,Tyler,Onyango,T. Onyango,MID,48,24,38,Huddersfield,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+461475,Ollie,O'Neill,O. O'Neill,MID,85,24,97,Cardiff,hard,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,3
+461476,Idris,Odutayo,I. Odutayo,DEF,2050,24,44,Tranmere,easy,A,90,0,0,0,0,0,1,0,0,0,1,0,6,1,2,0,0,0,8
+461521,Ben,Woods,B. Woods,MID,73,24,30,Bolton,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+461522,Charlie,Wellens,C. Wellens,FWD,85,24,97,Cardiff,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+461566,Will,Fish,W. Fish,DEF,97,24,85,L Orient,medium,A,90,0,0,0,0,0,0,0,0,0,0,1,9,3,3,0,0,0,6
+461567,Owen,Dodgson,O. Dodgson,DEF,48,24,38,Huddersfield,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+461601,Tom,Hill,T. Hill,MID,671,24,51,Crewe,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+462381,Filip,Marschall,F. Marschall,GK,288,24,102,Luton,medium,A,90,0,0,0,0,0,0,0,5,1,0,2,0,0,0,0,0,0,8
+462387,Ali,Al-Hamadi,A. Al-Hamadi,FWD,102,24,288,Stevenage,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+462640,Tom,Bradbury,T. Bradbury,DEF,671,24,51,Crewe,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+463038,Saxon,Earley,S. Earley,DEF,288,24,102,Luton,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+465313,Chris,Conn-Clarke,C. Conn-Clarke,MID,73,24,30,Bolton,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+465551,Nigel,Lonwijk,N. Lonwijk,DEF,102,24,288,Stevenage,hard,H,90,0,0,0,0,0,1,0,0,0,0,1,2,0,2,0,0,0,2
+469249,Nohan,Kenneh,N. Kenneh,MID,44,24,2050,Bromley,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 470253,Jovan,Malcolm,J. Malcolm,FWD,573,24,,,,,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
-473437,Jacob,Mendy,J. Mendy,DEF,73,24,30,Bolton,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-475700,Jasper,Pattenden,J. Pattenden,DEF,288,24,102,Luton,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-476586,Gassan,Ahadme,G. Ahadme,FWD,288,24,102,Luton,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-476773,Tyreece,Simpson,T. Simpson,FWD,288,24,102,Luton,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-477382,Will,Hondermarck,W. Hondermarck,MID,2050,24,44,Tranmere,,A,89,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,3
-478452,Jake,Young,J. Young,FWD,288,24,102,Luton,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-483371,Harry,Leonard,H. Leonard,FWD,73,24,30,Bolton,,H,90,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,3,0,6
-483499,Thierry,Gale,T. Gale,FWD,30,24,73,Peterborough,,A,44,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+473437,Jacob,Mendy,J. Mendy,DEF,73,24,30,Bolton,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+475700,Jasper,Pattenden,J. Pattenden,DEF,288,24,102,Luton,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+476586,Gassan,Ahadme,G. Ahadme,FWD,288,24,102,Luton,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+476773,Tyreece,Simpson,T. Simpson,FWD,288,24,102,Luton,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+477382,Will,Hondermarck,W. Hondermarck,MID,2050,24,44,Tranmere,easy,A,89,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,3
+478452,Jake,Young,J. Young,FWD,288,24,102,Luton,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+483371,Harry,Leonard,H. Leonard,FWD,73,24,30,Bolton,hard,H,90,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,3,0,6
+483499,Thierry,Gale,T. Gale,FWD,30,24,73,Peterborough,medium,A,44,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 487575,Ruben,Roosken,R. Roosken,DEF,106,24,,,,,90,0,0,0,0,0,0,0,0,0,0,1,7,1,8,0,0,0,7
-487995,Grant,Horton,G. Horton,DEF,671,24,51,Crewe,,A,90,0,0,0,0,0,0,0,0,0,0,1,9,0,0,0,0,0,4
-489154,Nicholas,Bilokapic,N. Bilokapic,GK,73,24,30,Bolton,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-489192,Josh,March,J. March,FWD,51,24,671,Harrogate,,H,67,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,4
-489517,Ollie,Tanner,O. Tanner,FWD,97,24,85,L Orient,,A,61,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,2
-489806,Max,Metcalfe,M. Metcalfe,GK,48,24,38,Huddersfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-490121,Isaiah,Jones,I. Jones,FWD,102,24,288,Stevenage,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-490160,Ellis,Taylor,E. Taylor,MID,671,24,51,Crewe,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-490986,Marcus,Ifill,M. Ifill,MID,2050,24,44,Tranmere,,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
-491556,Charlie,Whitaker,C. Whitaker,MID,44,24,2050,Bromley,,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,4
-493727,Bastian,Smith,B. Smith,GK,73,24,30,Bolton,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-493731,Joe,Andrews,J. Andrews,MID,73,24,30,Bolton,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-493736,Jimmy-Jay,Morgan,J. Morgan,FWD,73,24,30,Bolton,,H,82,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,8
-493838,Carl,Johnston,C. Johnston,DEF,73,24,30,Bolton,,H,89,0,0,1,0,0,0,0,0,0,0,1,1,1,2,0,0,0,6
-493839,Shayden,Morris,S. Morris,FWD,102,24,288,Stevenage,,H,45,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
-494543,Dom,Ballard,D. Ballard,FWD,85,24,97,Cardiff,,H,90,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,1,10
-495148,Matthew,Garbett,M. Garbett,MID,73,24,30,Bolton,,H,89,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,10
+487995,Grant,Horton,G. Horton,DEF,671,24,51,Crewe,medium,A,90,0,0,0,0,0,0,0,0,0,0,1,9,0,0,0,0,0,4
+489154,Nicholas,Bilokapic,N. Bilokapic,GK,73,24,30,Bolton,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+489192,Josh,March,J. March,FWD,51,24,671,Harrogate,easy,H,67,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,4
+489517,Ollie,Tanner,O. Tanner,FWD,97,24,85,L Orient,medium,A,61,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,2
+489806,Max,Metcalfe,M. Metcalfe,GK,48,24,38,Huddersfield,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+490121,Isaiah,Jones,I. Jones,FWD,102,24,288,Stevenage,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+490160,Ellis,Taylor,E. Taylor,MID,671,24,51,Crewe,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+490986,Marcus,Ifill,M. Ifill,MID,2050,24,44,Tranmere,easy,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+491556,Charlie,Whitaker,C. Whitaker,MID,44,24,2050,Bromley,hard,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,4
+493727,Bastian,Smith,B. Smith,GK,73,24,30,Bolton,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+493731,Joe,Andrews,J. Andrews,MID,73,24,30,Bolton,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+493736,Jimmy-Jay,Morgan,J. Morgan,FWD,73,24,30,Bolton,hard,H,82,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,8
+493838,Carl,Johnston,C. Johnston,DEF,73,24,30,Bolton,hard,H,89,0,0,1,0,0,0,0,0,0,0,1,1,1,2,0,0,0,6
+493839,Shayden,Morris,S. Morris,FWD,102,24,288,Stevenage,hard,H,45,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+494543,Dom,Ballard,D. Ballard,FWD,85,24,97,Cardiff,hard,H,90,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,1,10
+495148,Matthew,Garbett,M. Garbett,MID,73,24,30,Bolton,hard,H,89,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,10
 495722,Josh,Davison,J. Davison,FWD,87,24,,,,,24,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2
-495725,Abraham,Odoh,A. Odoh,FWD,73,24,30,Bolton,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-496228,Sonny,Perkins,S. Perkins,FWD,85,24,97,Cardiff,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-497731,Cian,Hayes,C. Hayes,FWD,73,24,30,Bolton,,H,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0
-499185,Luke,Pearce,L. Pearce,FWD,97,24,85,L Orient,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-499857,Teddy,Sharman-Lowe,T. Sharman-Lowe,GK,30,24,73,Peterborough,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-502981,Reece,Smith,R. Smith,MID,671,24,51,Crewe,,A,90,0,0,1,0,0,0,0,0,0,0,0,0,0,0,3,2,0,12
-503143,Joe,Low,J. Low,DEF,38,24,48,Stockport,,A,90,0,0,0,0,0,0,0,0,0,0,1,15,1,0,0,0,0,5
-504758,Brad,Hills,B. Hills,DEF,48,24,38,Huddersfield,,H,90,0,0,0,0,0,0,0,0,0,1,0,3,0,1,0,0,0,7
-512992,Will,Blackmore,W. Blackmore,GK,73,24,30,Bolton,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-513264,David,Okagbue,D. Okagbue,DEF,73,24,30,Bolton,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-513266,Seán,Roughan,S. Roughan,DEF,38,24,48,Stockport,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-513379,Sam,Long,S. Long,GK,2050,24,44,Tranmere,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-514229,Sam,Waller,S. Waller,GK,671,24,51,Crewe,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-514296,Emre,Tezgel,E. Tezgel,FWD,51,24,671,Harrogate,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-515599,Tommi,O'Reilly,T. O'Reilly,MID,51,24,671,Harrogate,,H,84,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,4
-515724,Jude,Arthurs,J. Arthurs,MID,2050,24,44,Tranmere,,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
-516148,Malik,Mothersille,M. Mothersille,FWD,48,24,38,Huddersfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-516239,Jayden,Joseph,J. Joseph,MID,44,24,2050,Bromley,,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,3
-516248,Lakyle,Samuel,L. Samuel,DEF,2050,24,44,Tranmere,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-517161,Max,Conway,M. Conway,DEF,30,24,73,Peterborough,,A,90,0,0,1,0,0,0,0,0,0,0,3,1,1,0,0,0,0,4
-517179,Alfie,Pond,A. Pond,DEF,51,24,671,Harrogate,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-517432,Matthew,Turner,M. Turner,GK,97,24,85,L Orient,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+495725,Abraham,Odoh,A. Odoh,FWD,73,24,30,Bolton,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+496228,Sonny,Perkins,S. Perkins,FWD,85,24,97,Cardiff,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+497731,Cian,Hayes,C. Hayes,FWD,73,24,30,Bolton,hard,H,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0
+499185,Luke,Pearce,L. Pearce,FWD,97,24,85,L Orient,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+499857,Teddy,Sharman-Lowe,T. Sharman-Lowe,GK,30,24,73,Peterborough,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+502981,Reece,Smith,R. Smith,MID,671,24,51,Crewe,medium,A,90,0,0,1,0,0,0,0,0,0,0,0,0,0,0,3,2,0,12
+503143,Joe,Low,J. Low,DEF,38,24,48,Stockport,hard,A,90,0,0,0,0,0,0,0,0,0,0,1,15,1,0,0,0,0,5
+504758,Brad,Hills,B. Hills,DEF,48,24,38,Huddersfield,medium,H,90,0,0,0,0,0,0,0,0,0,1,0,3,0,1,0,0,0,7
+512992,Will,Blackmore,W. Blackmore,GK,73,24,30,Bolton,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+513264,David,Okagbue,D. Okagbue,DEF,73,24,30,Bolton,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+513266,Seán,Roughan,S. Roughan,DEF,38,24,48,Stockport,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+513379,Sam,Long,S. Long,GK,2050,24,44,Tranmere,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+514229,Sam,Waller,S. Waller,GK,671,24,51,Crewe,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+514296,Emre,Tezgel,E. Tezgel,FWD,51,24,671,Harrogate,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+515599,Tommi,O'Reilly,T. O'Reilly,MID,51,24,671,Harrogate,easy,H,84,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,4
+515724,Jude,Arthurs,J. Arthurs,MID,2050,24,44,Tranmere,easy,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+516148,Malik,Mothersille,M. Mothersille,FWD,48,24,38,Huddersfield,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+516239,Jayden,Joseph,J. Joseph,MID,44,24,2050,Bromley,hard,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,3
+516248,Lakyle,Samuel,L. Samuel,DEF,2050,24,44,Tranmere,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+517161,Max,Conway,M. Conway,DEF,30,24,73,Peterborough,medium,A,90,0,0,1,0,0,0,0,0,0,0,3,1,1,0,0,0,0,4
+517179,Alfie,Pond,A. Pond,DEF,51,24,671,Harrogate,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+517432,Matthew,Turner,M. Turner,GK,97,24,85,L Orient,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 517995,Leo,Castledine,L. Castledine,MID,25,24,,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-519323,Emilio,Lawrence,E. Lawrence,FWD,102,24,288,Stevenage,,H,62,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,0,6
-519324,Amario,Cozier-Duberry,A. Cozier-Duberry,MID,30,24,73,Peterborough,,A,58,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,3
+519323,Emilio,Lawrence,E. Lawrence,FWD,102,24,288,Stevenage,hard,H,62,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,0,6
+519324,Amario,Cozier-Duberry,A. Cozier-Duberry,MID,30,24,73,Peterborough,medium,A,58,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,3
 520855,Alfie,Lloyd,A. Lloyd,FWD,83,24,,,,,75,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,4
 523116,Millenic,Alli,M. Alli,FWD,47,24,,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-523931,Josh,Keeley,J. Keeley,GK,102,24,288,Stevenage,,H,90,0,0,0,0,0,0,0,2,0,0,1,0,0,0,0,0,0,2
-524180,Cameron,Humphreys,C. Humphreys,MID,38,24,48,Stockport,,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
-531967,Declan,Frith,D. Frith,FWD,73,24,30,Bolton,,H,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
-532534,Will,Alves,W. Alves,MID,38,24,48,Stockport,,A,21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2
-532539,Jack,Kingdon,J. Kingdon,DEF,97,24,85,L Orient,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+523931,Josh,Keeley,J. Keeley,GK,102,24,288,Stevenage,hard,H,90,0,0,0,0,0,0,0,2,0,0,1,0,0,0,0,0,0,2
+524180,Cameron,Humphreys,C. Humphreys,MID,38,24,48,Stockport,hard,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
+531967,Declan,Frith,D. Frith,FWD,73,24,30,Bolton,hard,H,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+532534,Will,Alves,W. Alves,MID,38,24,48,Stockport,hard,A,21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2
+532539,Jack,Kingdon,J. Kingdon,DEF,97,24,85,L Orient,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 534390,Deji,Elerewe,D. Elerewe,DEF,83,24,,,,,90,0,0,1,0,0,0,0,0,0,1,0,11,1,2,0,0,0,13
-534392,Mason,Burstow,M. Burstow,FWD,30,24,73,Peterborough,,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
+534392,Mason,Burstow,M. Burstow,FWD,30,24,73,Peterborough,medium,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
 535262,Reuell,Walters,R. Walters,DEF,92,24,,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-535266,Michael,Reindorf,M. Reindorf,FWD,97,24,85,L Orient,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-536110,Josh,Feeney,J. Feeney,DEF,38,24,48,Stockport,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-536126,Calum,Agius,C. Agius,FWD,51,24,671,Harrogate,,H,90,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,9
-536133,Gideon,Kodua,G. Kodua,FWD,102,24,288,Stevenage,,H,89,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,3,10
-536239,Matthew,Apter,M. Apter,MID,97,24,85,L Orient,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-536243,Daniel,Vost,D. Vost,MID,38,24,48,Stockport,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-536377,Lewis,Billington,L. Billington,DEF,51,24,671,Harrogate,,H,90,0,0,1,0,0,0,0,0,0,0,1,3,0,0,0,0,0,5
-536378,Charlie,Finney,C. Finney,DEF,51,24,671,Harrogate,,H,6,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1
-536380,Joel,Tabiner,J. Tabiner,MID,51,24,671,Harrogate,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-536382,Tom,Booth,T. Booth,GK,51,24,671,Harrogate,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-538443,Brooklyn,Ilunga,B. Ilunga,DEF,2050,24,44,Tranmere,,A,5,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1
-538637,Brandon,Khela,B. Khela,MID,73,24,30,Bolton,,H,71,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,3
-543221,Yousef,Salech,Y. Salech,FWD,97,24,85,L Orient,,A,90,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,9
-543468,Benoný,Andrésson,B. Andrésson,FWD,48,24,38,Huddersfield,,H,24,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,7
-544005,Ibrahim,Cissoko,I. Cissoko,FWD,30,24,73,Peterborough,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-544846,Noah,Phillips,N. Phillips,GK,85,24,97,Cardiff,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-545956,Ethan,Pye,E. Pye,DEF,48,24,38,Huddersfield,,H,90,0,0,0,0,0,1,0,0,0,1,0,10,0,4,0,0,0,10
-546753,Zech,Obiero,Z. Obiero,MID,44,24,2050,Bromley,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-547650,Josh,Williams,J. Williams,MID,44,24,2050,Bromley,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-547688,Kyrell,Lisbie,K. Lisbie,FWD,73,24,30,Bolton,,H,83,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,8
-549068,Omari,Kellyman,O. Kellyman,MID,97,24,85,L Orient,,A,42,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,3
-549841,Chris,Forino,C. Forino,DEF,30,24,73,Peterborough,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-550151,Cian,Ashford,C. Ashford,MID,97,24,85,L Orient,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-551995,Taylan,Harris,T. Harris,FWD,102,24,288,Stevenage,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-553242,Owen,Lunt,O. Lunt,MID,51,24,671,Harrogate,,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
-554059,Vladimir,Paternoster,V. Paternoster,DEF,102,24,288,Stevenage,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+535266,Michael,Reindorf,M. Reindorf,FWD,97,24,85,L Orient,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+536110,Josh,Feeney,J. Feeney,DEF,38,24,48,Stockport,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+536126,Calum,Agius,C. Agius,FWD,51,24,671,Harrogate,easy,H,90,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,9
+536133,Gideon,Kodua,G. Kodua,FWD,102,24,288,Stevenage,hard,H,89,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,3,10
+536239,Matthew,Apter,M. Apter,MID,97,24,85,L Orient,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+536243,Daniel,Vost,D. Vost,MID,38,24,48,Stockport,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+536377,Lewis,Billington,L. Billington,DEF,51,24,671,Harrogate,easy,H,90,0,0,1,0,0,0,0,0,0,0,1,3,0,0,0,0,0,5
+536378,Charlie,Finney,C. Finney,DEF,51,24,671,Harrogate,easy,H,6,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1
+536380,Joel,Tabiner,J. Tabiner,MID,51,24,671,Harrogate,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+536382,Tom,Booth,T. Booth,GK,51,24,671,Harrogate,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+538443,Brooklyn,Ilunga,B. Ilunga,DEF,2050,24,44,Tranmere,easy,A,5,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1
+538637,Brandon,Khela,B. Khela,MID,73,24,30,Bolton,hard,H,71,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,3
+543221,Yousef,Salech,Y. Salech,FWD,97,24,85,L Orient,medium,A,90,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,9
+543468,Benoný,Andrésson,B. Andrésson,FWD,48,24,38,Huddersfield,medium,H,24,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,7
+544005,Ibrahim,Cissoko,I. Cissoko,FWD,30,24,73,Peterborough,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+544846,Noah,Phillips,N. Phillips,GK,85,24,97,Cardiff,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+545956,Ethan,Pye,E. Pye,DEF,48,24,38,Huddersfield,medium,H,90,0,0,0,0,0,1,0,0,0,1,0,10,0,4,0,0,0,10
+546753,Zech,Obiero,Z. Obiero,MID,44,24,2050,Bromley,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+547650,Josh,Williams,J. Williams,MID,44,24,2050,Bromley,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+547688,Kyrell,Lisbie,K. Lisbie,FWD,73,24,30,Bolton,hard,H,83,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,8
+549068,Omari,Kellyman,O. Kellyman,MID,97,24,85,L Orient,medium,A,42,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,3
+549841,Chris,Forino,C. Forino,DEF,30,24,73,Peterborough,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+550151,Cian,Ashford,C. Ashford,MID,97,24,85,L Orient,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+551995,Taylan,Harris,T. Harris,FWD,102,24,288,Stevenage,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+553242,Owen,Lunt,O. Lunt,MID,51,24,671,Harrogate,easy,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+554059,Vladimir,Paternoster,V. Paternoster,DEF,102,24,288,Stevenage,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 554921,Joe,Taylor,J. Taylor,FWD,111,24,,,,,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
-556189,Matús,Holícek,M. Holícek,MID,51,24,671,Harrogate,,H,75,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,3
-559098,Josh,Stokes,J. Stokes,MID,48,24,38,Huddersfield,,H,24,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
-559684,Jack,Moorhouse,J. Moorhouse,MID,85,24,97,Cardiff,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-560860,Joseph,Gbode,J. Gbode,FWD,102,24,288,Stevenage,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-561063,Bobby,Faulkner,B. Faulkner,DEF,671,24,51,Crewe,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-565858,Killian,Cahill,K. Cahill,GK,85,24,97,Cardiff,,H,90,0,0,0,0,0,0,0,2,0,0,1,0,0,0,0,0,0,2
-570094,Gustav,Lindgren,G. Lindgren,FWD,73,24,30,Bolton,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-576621,Nathaniel,Mapengu,N. Mapengu,DEF,48,24,38,Huddersfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-576756,Zépiqueno,Redmond,Z. Redmond,FWD,38,24,48,Stockport,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-577966,Joel,Colwill,J. Colwill,MID,97,24,85,L Orient,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-577971,Jake,Dennis,J. Dennis,MID,97,24,85,L Orient,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-582584,Lewis,Temple,L. Temple,DEF,30,24,73,Peterborough,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-586288,Alex,Stepien-Iwumene,A. Stepien-Iwumene,MID,2050,24,44,Tranmere,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-588239,Ben,Krauhaus,B. Krauhaus,MID,2050,24,44,Tranmere,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-589100,Jacob,Slater,J. Slater,DEF,671,24,51,Crewe,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+556189,Matús,Holícek,M. Holícek,MID,51,24,671,Harrogate,easy,H,75,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,3
+559098,Josh,Stokes,J. Stokes,MID,48,24,38,Huddersfield,medium,H,24,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+559684,Jack,Moorhouse,J. Moorhouse,MID,85,24,97,Cardiff,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+560860,Joseph,Gbode,J. Gbode,FWD,102,24,288,Stevenage,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+561063,Bobby,Faulkner,B. Faulkner,DEF,671,24,51,Crewe,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+565858,Killian,Cahill,K. Cahill,GK,85,24,97,Cardiff,hard,H,90,0,0,0,0,0,0,0,2,0,0,1,0,0,0,0,0,0,2
+570094,Gustav,Lindgren,G. Lindgren,FWD,73,24,30,Bolton,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+576621,Nathaniel,Mapengu,N. Mapengu,DEF,48,24,38,Huddersfield,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+576756,Zépiqueno,Redmond,Z. Redmond,FWD,38,24,48,Stockport,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+577966,Joel,Colwill,J. Colwill,MID,97,24,85,L Orient,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+577971,Jake,Dennis,J. Dennis,MID,97,24,85,L Orient,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+582584,Lewis,Temple,L. Temple,DEF,30,24,73,Peterborough,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+586288,Alex,Stepien-Iwumene,A. Stepien-Iwumene,MID,2050,24,44,Tranmere,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+588239,Ben,Krauhaus,B. Krauhaus,MID,2050,24,44,Tranmere,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+589100,Jacob,Slater,J. Slater,DEF,671,24,51,Crewe,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 589114,Zack,Nelson,Z. Nelson,MID,2623,24,,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-589476,Cameron,Ashia,C. Ashia,MID,38,24,48,Stockport,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-590022,Sahil,Bashir,S. Bashir,FWD,38,24,48,Stockport,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-590028,Gabriel,Keita,G. Keita,DEF,97,24,85,L Orient,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-591529,Donay,O'Brien-Brady,D. O'Brien-Brady,MID,73,24,30,Bolton,,H,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
-591539,Billy,Blacker,B. Blacker,FWD,44,24,2050,Bromley,,H,24,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
-591861,James,Dornelly,J. Dornelly,DEF,73,24,30,Bolton,,H,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
-592733,Jackson,Shorrocks,J. Shorrocks,MID,38,24,48,Stockport,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-600953,Ashton,Mee,A. Mee,MID,48,24,38,Huddersfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-605084,Ian,Togo,I. Togo,DEF,38,24,48,Stockport,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-606793,Sol,Solomon,S. Solomon,FWD,44,24,2050,Bromley,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-611011,Joe,Johnson,J. Johnson,DEF,102,24,288,Stevenage,,H,90,0,0,1,0,0,0,0,0,0,0,1,5,0,2,0,0,0,7
-612351,Andrew,Wogan,A. Wogan,GK,48,24,38,Huddersfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+589476,Cameron,Ashia,C. Ashia,MID,38,24,48,Stockport,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+590022,Sahil,Bashir,S. Bashir,FWD,38,24,48,Stockport,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+590028,Gabriel,Keita,G. Keita,DEF,97,24,85,L Orient,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+591529,Donay,O'Brien-Brady,D. O'Brien-Brady,MID,73,24,30,Bolton,hard,H,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
+591539,Billy,Blacker,B. Blacker,FWD,44,24,2050,Bromley,hard,H,24,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+591861,James,Dornelly,J. Dornelly,DEF,73,24,30,Bolton,hard,H,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+592733,Jackson,Shorrocks,J. Shorrocks,MID,38,24,48,Stockport,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+600953,Ashton,Mee,A. Mee,MID,48,24,38,Huddersfield,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+605084,Ian,Togo,I. Togo,DEF,38,24,48,Stockport,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+606793,Sol,Solomon,S. Solomon,FWD,44,24,2050,Bromley,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+611011,Joe,Johnson,J. Johnson,DEF,102,24,288,Stevenage,hard,H,90,0,0,1,0,0,0,0,0,0,0,1,5,0,2,0,0,0,7
+612351,Andrew,Wogan,A. Wogan,GK,48,24,38,Huddersfield,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 614471,Tanatswa,Nyakuhwa,T. Nyakuhwa,FWD,437,24,,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-617693,Lamine,Fanne,L. Fanne,MID,102,24,288,Stevenage,,H,45,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2
-619745,George,Nevett,G. Nevett,DEF,73,24,30,Bolton,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-619811,Harley,Mills,H. Mills,DEF,73,24,30,Bolton,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+617693,Lamine,Fanne,L. Fanne,MID,102,24,288,Stevenage,hard,H,45,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2
+619745,George,Nevett,G. Nevett,DEF,73,24,30,Bolton,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+619811,Harley,Mills,H. Mills,DEF,73,24,30,Bolton,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 620069,Christ,Makosso,C. Makosso,DEF,106,24,,,,,90,0,0,0,0,0,0,0,0,0,0,1,11,2,2,0,0,0,6
-620419,Troy,Perrett,T. Perrett,MID,97,24,85,L Orient,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-620427,Dylan,Lawlor,D. Lawlor,DEF,97,24,85,L Orient,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-620428,Cody,Twose,C. Twose,MID,97,24,85,L Orient,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-621187,Alyas,Debono,A. Debono,DEF,97,24,85,L Orient,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-628389,Azeem,Abdulai,A. Abdulai,MID,85,24,97,Cardiff,,H,29,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
-628819,Jake,Richards,J. Richards,MID,102,24,288,Stevenage,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-629413,Arian,Allen,A. Allen,MID,48,24,38,Huddersfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+620419,Troy,Perrett,T. Perrett,MID,97,24,85,L Orient,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+620427,Dylan,Lawlor,D. Lawlor,DEF,97,24,85,L Orient,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+620428,Cody,Twose,C. Twose,MID,97,24,85,L Orient,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+621187,Alyas,Debono,A. Debono,DEF,97,24,85,L Orient,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+628389,Azeem,Abdulai,A. Abdulai,MID,85,24,97,Cardiff,hard,H,29,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
+628819,Jake,Richards,J. Richards,MID,102,24,288,Stevenage,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+629413,Arian,Allen,A. Allen,MID,48,24,38,Huddersfield,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 631526,Phillip,Chinedu,P. Chinedu,DEF,34,24,,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-631783,Nathan,Paul-Lavaly,N. Paul-Lavaly,MID,2050,24,44,Tranmere,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-632828,Joshua,Phillips,J. Phillips,MID,102,24,288,Stevenage,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-634640,Christian,Chigozie,C. Chigozie,DEF,102,24,288,Stevenage,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-636360,Ajay,Weston,A. Weston,DEF,30,24,73,Peterborough,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-637632,Joe,Hillary,J. Hillary,MID,48,24,38,Huddersfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-638874,Phil,Croker,P. Croker,DEF,51,24,671,Harrogate,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-641071,Makai,Welch,M. Welch,MID,85,24,97,Cardiff,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+631783,Nathan,Paul-Lavaly,N. Paul-Lavaly,MID,2050,24,44,Tranmere,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+632828,Joshua,Phillips,J. Phillips,MID,102,24,288,Stevenage,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+634640,Christian,Chigozie,C. Chigozie,DEF,102,24,288,Stevenage,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+636360,Ajay,Weston,A. Weston,DEF,30,24,73,Peterborough,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+637632,Joe,Hillary,J. Hillary,MID,48,24,38,Huddersfield,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+638874,Phil,Croker,P. Croker,DEF,51,24,671,Harrogate,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+641071,Makai,Welch,M. Welch,MID,85,24,97,Cardiff,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 641094,Ethon,Archer,E. Archer,MID,50,24,,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-641679,Max,Woodford,M. Woodford,GK,288,24,102,Luton,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-641685,Sonny,Sharples-Ahmed,S. Sharples-Ahmed,MID,30,24,73,Peterborough,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-642317,Stan,Dancey,S. Dancey,DEF,51,24,671,Harrogate,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-645168,Corey,Edwards,C. Edwards,MID,48,24,38,Huddersfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+641679,Max,Woodford,M. Woodford,GK,288,24,102,Luton,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+641685,Sonny,Sharples-Ahmed,S. Sharples-Ahmed,MID,30,24,73,Peterborough,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+642317,Stan,Dancey,S. Dancey,DEF,51,24,671,Harrogate,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+645168,Corey,Edwards,C. Edwards,MID,48,24,38,Huddersfield,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 646037,Jid,Okeke,J. Okeke,DEF,42,24,,,,,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4
-646476,Jay,Smith-Sway,J. Smith-Sway,DEF,38,24,48,Stockport,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-647084,Oluwalopemiwa,Aderoju,O. Aderoju,FWD,73,24,30,Bolton,,H,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2
-647595,Lucas,Thomas,L. Thomas,GK,102,24,288,Stevenage,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-658016,Jake,Davies,J. Davies,FWD,97,24,85,L Orient,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-658020,Ronan,Kpakio,R. Kpakio,DEF,97,24,85,L Orient,,A,30,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1
-663698,Lenny,Brown,L. Brown,FWD,288,24,102,Luton,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-663700,Alfie,Thornett,A. Thornett,DEF,288,24,102,Luton,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-664054,Che,Gardner,C. Gardner,MID,48,24,38,Huddersfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-664819,Rhys,Watson,R. Watson,FWD,48,24,38,Huddersfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-664820,Bruno,Cina,B. Cina,FWD,48,24,38,Huddersfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-664823,George,Penn,G. Penn,MID,2050,24,44,Tranmere,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-664825,Frankie,Moralee,F. Moralee,DEF,2050,24,44,Tranmere,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-664826,Jake,Lewis,J. Lewis,MID,48,24,38,Huddersfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-664830,John,Lawless-Williams,J. Lawless-Williams,DEF,48,24,38,Huddersfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-664833,Saul,Gardner,S. Gardner,MID,48,24,38,Huddersfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-665584,Riley,England,R. England,MID,288,24,102,Luton,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-666317,Rex,Porter,R. Porter,GK,2050,24,44,Tranmere,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-666408,Adrien,Thibaut,A. Thibaut,FWD,51,24,671,Harrogate,,H,23,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,1
-667890,Dan,Carter,D. Carter,MID,85,24,97,Cardiff,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-669016,Trey,George,T. George,MID,97,24,85,L Orient,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-669017,Marcus,Kouam,M. Kouam,MID,48,24,38,Huddersfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-669074,Charlie,Booth,C. Booth,GK,102,24,288,Stevenage,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-669077,Harry,Fox,H. Fox,MID,102,24,288,Stevenage,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-669787,Tade,Ibrahimi,T. Ibrahimi,MID,2050,24,44,Tranmere,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-672911,Ryan,Doherty,R. Doherty,MID,288,24,102,Luton,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-672924,Luca,Moore,L. Moore,MID,51,24,671,Harrogate,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-672925,Oliver,Armstrong,O. Armstrong,MID,51,24,671,Harrogate,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+646476,Jay,Smith-Sway,J. Smith-Sway,DEF,38,24,48,Stockport,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+647084,Oluwalopemiwa,Aderoju,O. Aderoju,FWD,73,24,30,Bolton,hard,H,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2
+647595,Lucas,Thomas,L. Thomas,GK,102,24,288,Stevenage,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+658016,Jake,Davies,J. Davies,FWD,97,24,85,L Orient,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+658020,Ronan,Kpakio,R. Kpakio,DEF,97,24,85,L Orient,medium,A,30,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1
+663698,Lenny,Brown,L. Brown,FWD,288,24,102,Luton,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+663700,Alfie,Thornett,A. Thornett,DEF,288,24,102,Luton,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+664054,Che,Gardner,C. Gardner,MID,48,24,38,Huddersfield,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+664819,Rhys,Watson,R. Watson,FWD,48,24,38,Huddersfield,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+664820,Bruno,Cina,B. Cina,FWD,48,24,38,Huddersfield,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+664823,George,Penn,G. Penn,MID,2050,24,44,Tranmere,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+664825,Frankie,Moralee,F. Moralee,DEF,2050,24,44,Tranmere,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+664826,Jake,Lewis,J. Lewis,MID,48,24,38,Huddersfield,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+664830,John,Lawless-Williams,J. Lawless-Williams,DEF,48,24,38,Huddersfield,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+664833,Saul,Gardner,S. Gardner,MID,48,24,38,Huddersfield,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+665584,Riley,England,R. England,MID,288,24,102,Luton,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+666317,Rex,Porter,R. Porter,GK,2050,24,44,Tranmere,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+666408,Adrien,Thibaut,A. Thibaut,FWD,51,24,671,Harrogate,easy,H,23,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,1
+667890,Dan,Carter,D. Carter,MID,85,24,97,Cardiff,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+669016,Trey,George,T. George,MID,97,24,85,L Orient,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+669017,Marcus,Kouam,M. Kouam,MID,48,24,38,Huddersfield,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+669074,Charlie,Booth,C. Booth,GK,102,24,288,Stevenage,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+669077,Harry,Fox,H. Fox,MID,102,24,288,Stevenage,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+669787,Tade,Ibrahimi,T. Ibrahimi,MID,2050,24,44,Tranmere,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+672911,Ryan,Doherty,R. Doherty,MID,288,24,102,Luton,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+672924,Luca,Moore,L. Moore,MID,51,24,671,Harrogate,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+672925,Oliver,Armstrong,O. Armstrong,MID,51,24,671,Harrogate,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 672934,Dave,Abimbola,D. Abimbola,FWD,888,24,,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-677938,Lucca,Mendonça,L. Mendonça,DEF,73,24,30,Bolton,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-678002,Marcus,Etherington,M. Etherington,DEF,671,24,51,Crewe,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-678527,Charlie,Paye,C. Paye,DEF,2050,24,44,Tranmere,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-679076,Harley,Irwin,H. Irwin,MID,30,24,73,Peterborough,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-679835,Zacharias,Ioannides,Z. Ioannides,MID,102,24,288,Stevenage,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-682591,Lucas,Barnes,L. Barnes,MID,671,24,51,Crewe,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-683823,Alfie,Wellens,A. Wellens,MID,85,24,97,Cardiff,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-683825,Zack,Hambury,Z. Hambury,MID,85,24,97,Cardiff,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-684305,Tom,Cursons,T. Cursons,FWD,671,24,51,Crewe,,A,8,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,7
-685906,Ellis,Bates,E. Bates,DEF,288,24,102,Luton,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-695409,Rob,Tankiewicz,R. Tankiewicz,MID,97,24,85,L Orient,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-695614,Sean,Hogan,S. Hogan,DEF,30,24,73,Peterborough,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-695616,Bolu,Shofowoke,B. Shofowoke,FWD,73,24,30,Bolton,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-701490,Brody,Cockerill,B. Cockerill,MID,2050,24,44,Tranmere,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-704154,Dylan,Suleiman,D. Suleiman,MID,288,24,102,Luton,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-704155,Frank,Norris,F. Norris,FWD,288,24,102,Luton,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-706326,Finley,Evans,F. Evans,MID,102,24,288,Stevenage,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-706328,Daniel,Higgs,D. Higgs,GK,97,24,85,L Orient,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-707851,Oliver,Smith,O. Smith,MID,30,24,73,Peterborough,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-707881,Joe,Astles,J. Astles,FWD,48,24,38,Huddersfield,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-708726,Ellis,James,E. James,GK,38,24,48,Stockport,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-709413,Zak,O’Keefe,Z. O’Keefe,DEF,85,24,97,Cardiff,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-710795,Jack,Sykes,J. Sykes,MID,97,24,85,L Orient,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-710798,Noah,Williams,N. Williams,DEF,97,24,85,L Orient,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-710800,Patrick,Mlynarski,P. Mlynarski,FWD,51,24,671,Harrogate,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-711365,Daniel,Ola,D. Ola,FWD,97,24,85,L Orient,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-712113,Riley,Hilaire-Clarke,R. Hilaire-Clarke,FWD,97,24,85,L Orient,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-712114,Harry,Watts,H. Watts,MID,97,24,85,L Orient,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-712895,George,Lorpenda,G. Lorpenda,DEF,38,24,48,Stockport,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-713467,Elijah,Saji,E. Saji,DEF,288,24,102,Luton,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-713483,T-Jay,Parfitt,T. Parfitt,DEF,97,24,85,L Orient,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-713485,Axel,Donczew,A. Donczew,MID,97,24,85,L Orient,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-714364,Lucas,Swann,L. Swann,MID,51,24,671,Harrogate,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-714366,Ryan,Chadwick,R. Chadwick,MID,51,24,671,Harrogate,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-714367,Alfie,Jones-Mellor,A. Jones-Mellor,MID,51,24,671,Harrogate,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-714368,Iago,Scott-Abel,I. Scott-Abel,MID,51,24,671,Harrogate,,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-715670,Divine,Okwara,D. Okwara,DEF,288,24,102,Luton,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-720246,Tobias,Ritchie,T. Ritchie,MID,30,24,73,Peterborough,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-720257,Jacob,Hobson,J. Hobson,MID,97,24,85,L Orient,,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+677938,Lucca,Mendonça,L. Mendonça,DEF,73,24,30,Bolton,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+678002,Marcus,Etherington,M. Etherington,DEF,671,24,51,Crewe,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+678527,Charlie,Paye,C. Paye,DEF,2050,24,44,Tranmere,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+679076,Harley,Irwin,H. Irwin,MID,30,24,73,Peterborough,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+679835,Zacharias,Ioannides,Z. Ioannides,MID,102,24,288,Stevenage,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+682591,Lucas,Barnes,L. Barnes,MID,671,24,51,Crewe,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+683823,Alfie,Wellens,A. Wellens,MID,85,24,97,Cardiff,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+683825,Zack,Hambury,Z. Hambury,MID,85,24,97,Cardiff,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+684305,Tom,Cursons,T. Cursons,FWD,671,24,51,Crewe,medium,A,8,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,7
+685906,Ellis,Bates,E. Bates,DEF,288,24,102,Luton,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+695409,Rob,Tankiewicz,R. Tankiewicz,MID,97,24,85,L Orient,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+695614,Sean,Hogan,S. Hogan,DEF,30,24,73,Peterborough,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+695616,Bolu,Shofowoke,B. Shofowoke,FWD,73,24,30,Bolton,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+701490,Brody,Cockerill,B. Cockerill,MID,2050,24,44,Tranmere,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+704154,Dylan,Suleiman,D. Suleiman,MID,288,24,102,Luton,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+704155,Frank,Norris,F. Norris,FWD,288,24,102,Luton,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+706326,Finley,Evans,F. Evans,MID,102,24,288,Stevenage,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+706328,Daniel,Higgs,D. Higgs,GK,97,24,85,L Orient,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+707851,Oliver,Smith,O. Smith,MID,30,24,73,Peterborough,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+707881,Joe,Astles,J. Astles,FWD,48,24,38,Huddersfield,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+708726,Ellis,James,E. James,GK,38,24,48,Stockport,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+709413,Zak,O’Keefe,Z. O’Keefe,DEF,85,24,97,Cardiff,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+710795,Jack,Sykes,J. Sykes,MID,97,24,85,L Orient,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+710798,Noah,Williams,N. Williams,DEF,97,24,85,L Orient,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+710800,Patrick,Mlynarski,P. Mlynarski,FWD,51,24,671,Harrogate,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+711365,Daniel,Ola,D. Ola,FWD,97,24,85,L Orient,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+712113,Riley,Hilaire-Clarke,R. Hilaire-Clarke,FWD,97,24,85,L Orient,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+712114,Harry,Watts,H. Watts,MID,97,24,85,L Orient,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+712895,George,Lorpenda,G. Lorpenda,DEF,38,24,48,Stockport,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+713467,Elijah,Saji,E. Saji,DEF,288,24,102,Luton,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+713483,T-Jay,Parfitt,T. Parfitt,DEF,97,24,85,L Orient,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+713485,Axel,Donczew,A. Donczew,MID,97,24,85,L Orient,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+714364,Lucas,Swann,L. Swann,MID,51,24,671,Harrogate,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+714366,Ryan,Chadwick,R. Chadwick,MID,51,24,671,Harrogate,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+714367,Alfie,Jones-Mellor,A. Jones-Mellor,MID,51,24,671,Harrogate,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+714368,Iago,Scott-Abel,I. Scott-Abel,MID,51,24,671,Harrogate,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+715670,Divine,Okwara,D. Okwara,DEF,288,24,102,Luton,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+720246,Tobias,Ritchie,T. Ritchie,MID,30,24,73,Peterborough,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+720257,Jacob,Hobson,J. Hobson,MID,97,24,85,L Orient,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0

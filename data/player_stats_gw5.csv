@@ -145,7 +145,6 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 90517,Robert,Brady,R. Brady,MID,107,5,47,Portsmouth,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 90690,Patrick,Bauer,P. Bauer,DEF,2623,5,55,Bradford,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 90938,Ollie,Palmer,O. Palmer,FWD,46,5,51,Crewe,medium,A,29,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,3
-90938,Ollie,Palmer,O. Palmer,FWD,46,5,51,Crewe,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 91043,Connor,Ripley,C. Ripley,GK,46,5,51,Crewe,medium,A,90,0,0,0,0,0,0,0,3,0,1,0,0,0,0,0,0,0,9
 91046,Cauley,Woodrow,C. Woodrow,FWD,112,5,288,Stevenage,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 91126,Will,Keane,W. Keane,FWD,108,5,50,Port Vale,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -832,7 +831,6 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 232391,Jeremy,Ngakia,J. Ngakia,DEF,57,5,20,Southampton,hard,H,89,0,0,0,0,0,0,0,0,0,0,2,2,0,1,0,0,0,1
 232398,Nathan,Trott,N. Trott,GK,97,5,76,Plymouth,hard,H,90,0,0,0,0,0,0,0,3,0,1,0,0,0,0,0,0,0,9
 232416,Finn,Azaz,F. Azaz,MID,20,5,57,Watford,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-232416,Finn,Azaz,F. Azaz,MID,20,5,57,Watford,medium,A,84,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,5
 232425,George,Harmon,G. Harmon,DEF,87,5,3448,Salford,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 232427,Rekeem,Harper,R. Harper,MID,573,5,2048,Fleetwood,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 232456,Dilan,Markanday,D. Markanday,FWD,98,5,1525,Crawley,easy,H,21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
@@ -1237,7 +1235,6 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 469841,Promise,Omochere,P. Omochere,FWD,96,5,53,Grimsby,hard,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,3
 470253,Jovan,Malcolm,J. Malcolm,FWD,573,5,2048,Fleetwood,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 470255,Caleb,Taylor,C. Taylor,DEF,103,5,109,Wrexham,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-470255,Caleb,Taylor,C. Taylor,DEF,103,5,109,Wrexham,hard,H,8,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1
 470256,Rico,Richards,R. Richards,MID,42,5,22,MK Dons,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 470510,Charlie,Kelman,C. Kelman,FWD,33,5,52,QPR,medium,A,22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 470655,Jake,Hollman,J. Hollman,MID,42,5,22,MK Dons,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0

@@ -955,7 +955,6 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 246148,Toby,Sibbick,T. Sibbick,DEF,587,21,288,Stevenage,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 246299,Tom,Bayliss,T. Bayliss,MID,83,21,97,Cardiff,hard,H,89,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,2,2,8
 246799,Jackson,Smith,J. Smith,GK,53,21,2050,Bromley,hard,A,90,0,0,0,0,0,0,0,4,0,0,2,0,0,0,0,0,0,3
-246799,Jackson,Smith,J. Smith,GK,53,21,2050,Bromley,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 247286,Kyle,Jameson,K. Jameson,DEF,671,21,22,MK Dons,hard,H,45,0,0,0,0,0,0,0,0,0,0,1,8,0,0,0,0,0,3
 247648,Omar,Bugiel,O. Bugiel,FWD,2623,21,75,Northampton,easy,A,72,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,3
 247695,Ollie,Kensdale,O. Kensdale,DEF,34,21,3448,Salford,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0

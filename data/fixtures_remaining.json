@@ -1,0 +1,2253 @@
+{
+  "36": [
+    {
+      "game_id": 2566832,
+      "home_id": 41,
+      "home_name": "Birmingham",
+      "away_id": 5,
+      "away_name": "Blackburn",
+      "home_difficulty": "easy",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2566833,
+      "home_id": 33,
+      "home_name": "Charlton",
+      "away_id": 113,
+      "away_name": "Bristol C",
+      "home_difficulty": "medium",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2566834,
+      "home_id": 9,
+      "home_name": "Coventry",
+      "away_id": 24,
+      "away_name": "Derby",
+      "home_difficulty": "hard",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2566835,
+      "home_id": 13,
+      "home_name": "Leicester",
+      "away_id": 107,
+      "away_name": "Preston",
+      "home_difficulty": "medium",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2566836,
+      "home_id": 25,
+      "home_name": "Middlesbrough",
+      "away_id": 103,
+      "away_name": "Millwall",
+      "home_difficulty": "hard",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2566837,
+      "home_id": 45,
+      "home_name": "Norwich",
+      "away_id": 47,
+      "away_name": "Portsmouth",
+      "home_difficulty": "easy",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2566838,
+      "home_id": 106,
+      "home_name": "Oxford",
+      "away_id": 88,
+      "away_name": "Hull",
+      "home_difficulty": "hard",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2566839,
+      "home_id": 52,
+      "home_name": "QPR",
+      "away_id": 57,
+      "away_name": "Watford",
+      "home_difficulty": "medium",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2566840,
+      "home_id": 49,
+      "home_name": "Sheffield Utd",
+      "away_id": 80,
+      "away_name": "Swansea",
+      "home_difficulty": "medium",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2566842,
+      "home_id": 110,
+      "home_name": "Stoke",
+      "away_id": 19,
+      "away_name": "Sheffield Wed",
+      "home_difficulty": "easy",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2566843,
+      "home_id": 35,
+      "home_name": "West Brom",
+      "away_id": 109,
+      "away_name": "Wrexham",
+      "home_difficulty": "hard",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2566844,
+      "home_id": 5,
+      "home_name": "Blackburn",
+      "away_id": 35,
+      "away_name": "West Brom",
+      "home_difficulty": "easy",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2566845,
+      "home_id": 113,
+      "home_name": "Bristol C",
+      "away_id": 49,
+      "away_name": "Sheffield Utd",
+      "home_difficulty": "easy",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2566846,
+      "home_id": 24,
+      "home_name": "Derby",
+      "away_id": 110,
+      "away_name": "Stoke",
+      "home_difficulty": "medium",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2566847,
+      "home_id": 88,
+      "home_name": "Hull",
+      "away_id": 9,
+      "away_name": "Coventry",
+      "home_difficulty": "hard",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2566848,
+      "home_id": 40,
+      "home_name": "Ipswich",
+      "away_id": 41,
+      "away_name": "Birmingham",
+      "home_difficulty": "medium",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2566849,
+      "home_id": 103,
+      "home_name": "Millwall",
+      "away_id": 45,
+      "away_name": "Norwich",
+      "home_difficulty": "medium",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2566850,
+      "home_id": 47,
+      "home_name": "Portsmouth",
+      "away_id": 106,
+      "away_name": "Oxford",
+      "home_difficulty": "easy",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2566851,
+      "home_id": 107,
+      "home_name": "Preston",
+      "away_id": 52,
+      "away_name": "QPR",
+      "home_difficulty": "medium",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2566852,
+      "home_id": 19,
+      "home_name": "Sheffield Wed",
+      "away_id": 13,
+      "away_name": "Leicester",
+      "home_difficulty": "easy",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2566853,
+      "home_id": 80,
+      "home_name": "Swansea",
+      "away_id": 25,
+      "away_name": "Middlesbrough",
+      "home_difficulty": "hard",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2566854,
+      "home_id": 57,
+      "home_name": "Watford",
+      "away_id": 33,
+      "away_name": "Charlton",
+      "home_difficulty": "easy",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2566855,
+      "home_id": 109,
+      "home_name": "Wrexham",
+      "away_id": 20,
+      "away_name": "Southampton",
+      "home_difficulty": "hard",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2567396,
+      "home_id": 92,
+      "home_name": "Blackpool",
+      "away_id": 71,
+      "away_name": "Exeter",
+      "home_difficulty": "easy",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2567397,
+      "home_id": 55,
+      "home_name": "Bradford",
+      "away_id": 75,
+      "away_name": "Northampton",
+      "home_difficulty": "easy",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2567398,
+      "home_id": 587,
+      "home_name": "Burton",
+      "away_id": 37,
+      "away_name": "Barnsley",
+      "home_difficulty": "medium",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2567400,
+      "home_id": 290,
+      "home_name": "Doncaster",
+      "away_id": 77,
+      "away_name": "Mansfield",
+      "home_difficulty": "medium",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2567401,
+      "home_id": 38,
+      "home_name": "Huddersfield",
+      "away_id": 108,
+      "away_name": "Reading",
+      "home_difficulty": "hard",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2567402,
+      "home_id": 83,
+      "home_name": "Lincoln",
+      "away_id": 2623,
+      "away_name": "AFC Wim",
+      "home_difficulty": "medium",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2567403,
+      "home_id": 102,
+      "home_name": "Luton",
+      "away_id": 73,
+      "away_name": "Peterborough",
+      "home_difficulty": "medium",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2567404,
+      "home_id": 76,
+      "home_name": "Plymouth",
+      "away_id": 30,
+      "away_name": "Bolton",
+      "home_difficulty": "hard",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2567405,
+      "home_id": 72,
+      "home_name": "Rotherham",
+      "away_id": 288,
+      "away_name": "Stevenage",
+      "home_difficulty": "hard",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2567406,
+      "home_id": 48,
+      "home_name": "Stockport",
+      "away_id": 112,
+      "away_name": "Wycombe",
+      "home_difficulty": "hard",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2567407,
+      "home_id": 111,
+      "home_name": "Wigan",
+      "away_id": 85,
+      "away_name": "L Orient",
+      "home_difficulty": "easy",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2567408,
+      "home_id": 2623,
+      "home_name": "AFC Wim",
+      "away_id": 102,
+      "away_name": "Luton",
+      "home_difficulty": "medium",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2567409,
+      "home_id": 37,
+      "home_name": "Barnsley",
+      "away_id": 76,
+      "away_name": "Plymouth",
+      "home_difficulty": "medium",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2567410,
+      "home_id": 30,
+      "home_name": "Bolton",
+      "away_id": 48,
+      "away_name": "Stockport",
+      "home_difficulty": "hard",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2567411,
+      "home_id": 71,
+      "home_name": "Exeter",
+      "away_id": 290,
+      "away_name": "Doncaster",
+      "home_difficulty": "medium",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2567412,
+      "home_id": 85,
+      "home_name": "L Orient",
+      "away_id": 38,
+      "away_name": "Huddersfield",
+      "home_difficulty": "medium",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2567413,
+      "home_id": 77,
+      "home_name": "Mansfield",
+      "away_id": 587,
+      "away_name": "Burton",
+      "home_difficulty": "easy",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2567414,
+      "home_id": 75,
+      "home_name": "Northampton",
+      "away_id": 111,
+      "away_name": "Wigan",
+      "home_difficulty": "easy",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2567415,
+      "home_id": 73,
+      "home_name": "Peterborough",
+      "away_id": 97,
+      "away_name": "Cardiff",
+      "home_difficulty": "hard",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2567416,
+      "home_id": 50,
+      "home_name": "Port Vale",
+      "away_id": 72,
+      "away_name": "Rotherham",
+      "home_difficulty": "easy",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2567417,
+      "home_id": 108,
+      "home_name": "Reading",
+      "away_id": 83,
+      "away_name": "Lincoln",
+      "home_difficulty": "hard",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2567418,
+      "home_id": 288,
+      "home_name": "Stevenage",
+      "away_id": 92,
+      "away_name": "Blackpool",
+      "home_difficulty": "easy",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2567419,
+      "home_id": 112,
+      "home_name": "Wycombe",
+      "away_id": 55,
+      "away_name": "Bradford",
+      "home_difficulty": "hard",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2567948,
+      "home_id": 888,
+      "home_name": "Accrington",
+      "away_id": 51,
+      "away_name": "Crewe",
+      "home_difficulty": "hard",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2567949,
+      "home_id": 34,
+      "home_name": "Barnet",
+      "away_id": 2050,
+      "away_name": "Bromley",
+      "home_difficulty": "hard",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2567950,
+      "home_id": 96,
+      "home_name": "Bristol R",
+      "away_id": 2048,
+      "away_name": "Fleetwood",
+      "home_difficulty": "medium",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2567951,
+      "home_id": 101,
+      "home_name": "Cambridge",
+      "away_id": 46,
+      "away_name": "Swindon",
+      "home_difficulty": "hard",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2567952,
+      "home_id": 98,
+      "home_name": "Chesterfield",
+      "away_id": 87,
+      "away_name": "Cheltenham",
+      "home_difficulty": "easy",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2567953,
+      "home_id": 99,
+      "home_name": "Colchester",
+      "away_id": 105,
+      "away_name": "Oldham",
+      "home_difficulty": "medium",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2567954,
+      "home_id": 53,
+      "home_name": "Grimsby",
+      "away_id": 671,
+      "away_name": "Harrogate",
+      "home_difficulty": "easy",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2567955,
+      "home_id": 22,
+      "home_name": "MK Dons",
+      "away_id": 573,
+      "away_name": "Barrow",
+      "home_difficulty": "easy",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2567956,
+      "home_id": 437,
+      "home_name": "Newport",
+      "away_id": 1525,
+      "away_name": "Crawley",
+      "home_difficulty": "easy",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2567957,
+      "home_id": 3448,
+      "home_name": "Salford",
+      "away_id": 104,
+      "away_name": "Notts C",
+      "home_difficulty": "hard",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2567958,
+      "home_id": 74,
+      "home_name": "Shrewsbury",
+      "away_id": 44,
+      "away_name": "Tranmere",
+      "home_difficulty": "easy",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2567959,
+      "home_id": 42,
+      "home_name": "Walsall",
+      "away_id": 100,
+      "away_name": "Gillingham",
+      "home_difficulty": "easy",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2567960,
+      "home_id": 573,
+      "home_name": "Barrow",
+      "away_id": 98,
+      "away_name": "Chesterfield",
+      "home_difficulty": "medium",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2567961,
+      "home_id": 2050,
+      "home_name": "Bromley",
+      "away_id": 74,
+      "away_name": "Shrewsbury",
+      "home_difficulty": "easy",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2567962,
+      "home_id": 87,
+      "home_name": "Cheltenham",
+      "away_id": 101,
+      "away_name": "Cambridge",
+      "home_difficulty": "hard",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2567963,
+      "home_id": 1525,
+      "home_name": "Crawley",
+      "away_id": 53,
+      "away_name": "Grimsby",
+      "home_difficulty": "hard",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2567964,
+      "home_id": 51,
+      "home_name": "Crewe",
+      "away_id": 3448,
+      "away_name": "Salford",
+      "home_difficulty": "hard",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2567965,
+      "home_id": 2048,
+      "home_name": "Fleetwood",
+      "away_id": 34,
+      "away_name": "Barnet",
+      "home_difficulty": "medium",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2567966,
+      "home_id": 100,
+      "home_name": "Gillingham",
+      "away_id": 888,
+      "away_name": "Accrington",
+      "home_difficulty": "medium",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2567967,
+      "home_id": 671,
+      "home_name": "Harrogate",
+      "away_id": 96,
+      "away_name": "Bristol R",
+      "home_difficulty": "medium",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2567968,
+      "home_id": 104,
+      "home_name": "Notts C",
+      "away_id": 437,
+      "away_name": "Newport",
+      "home_difficulty": "easy",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2567969,
+      "home_id": 105,
+      "home_name": "Oldham",
+      "away_id": 22,
+      "away_name": "MK Dons",
+      "home_difficulty": "hard",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2567970,
+      "home_id": 46,
+      "home_name": "Swindon",
+      "away_id": 42,
+      "away_name": "Walsall",
+      "home_difficulty": "medium",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2567971,
+      "home_id": 44,
+      "home_name": "Tranmere",
+      "away_id": 99,
+      "away_name": "Colchester",
+      "home_difficulty": "medium",
+      "away_difficulty": "easy"
+    }
+  ],
+  "37": [
+    {
+      "game_id": 2566673,
+      "home_id": 47,
+      "home_name": "Portsmouth",
+      "away_id": 40,
+      "away_name": "Ipswich",
+      "home_difficulty": "hard",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2566856,
+      "home_id": 41,
+      "home_name": "Birmingham",
+      "away_id": 109,
+      "away_name": "Wrexham",
+      "home_difficulty": "hard",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2566857,
+      "home_id": 33,
+      "home_name": "Charlton",
+      "away_id": 107,
+      "away_name": "Preston",
+      "home_difficulty": "medium",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2566858,
+      "home_id": 9,
+      "home_name": "Coventry",
+      "away_id": 19,
+      "away_name": "Sheffield Wed",
+      "home_difficulty": "easy",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2566859,
+      "home_id": 13,
+      "home_name": "Leicester",
+      "away_id": 80,
+      "away_name": "Swansea",
+      "home_difficulty": "medium",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2566860,
+      "home_id": 25,
+      "home_name": "Middlesbrough",
+      "away_id": 47,
+      "away_name": "Portsmouth",
+      "home_difficulty": "easy",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2566861,
+      "home_id": 45,
+      "home_name": "Norwich",
+      "away_id": 40,
+      "away_name": "Ipswich",
+      "home_difficulty": "hard",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2566862,
+      "home_id": 106,
+      "home_name": "Oxford",
+      "away_id": 57,
+      "away_name": "Watford",
+      "home_difficulty": "medium",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2566863,
+      "home_id": 52,
+      "home_name": "QPR",
+      "away_id": 113,
+      "away_name": "Bristol C",
+      "home_difficulty": "medium",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2566864,
+      "home_id": 49,
+      "home_name": "Sheffield Utd",
+      "away_id": 88,
+      "away_name": "Hull",
+      "home_difficulty": "hard",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2566865,
+      "home_id": 20,
+      "home_name": "Southampton",
+      "away_id": 24,
+      "away_name": "Derby",
+      "home_difficulty": "hard",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2566866,
+      "home_id": 110,
+      "home_name": "Stoke",
+      "away_id": 5,
+      "away_name": "Blackburn",
+      "home_difficulty": "easy",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2566867,
+      "home_id": 35,
+      "home_name": "West Brom",
+      "away_id": 103,
+      "away_name": "Millwall",
+      "home_difficulty": "hard",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2567096,
+      "home_id": 2623,
+      "home_name": "AFC Wim",
+      "away_id": 48,
+      "away_name": "Stockport",
+      "home_difficulty": "hard",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2567211,
+      "home_id": 50,
+      "home_name": "Port Vale",
+      "away_id": 37,
+      "away_name": "Barnsley",
+      "home_difficulty": "medium",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2567295,
+      "home_id": 85,
+      "home_name": "L Orient",
+      "away_id": 77,
+      "away_name": "Mansfield",
+      "home_difficulty": "medium",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2567299,
+      "home_id": 111,
+      "home_name": "Wigan",
+      "away_id": 72,
+      "away_name": "Rotherham",
+      "home_difficulty": "easy",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2567385,
+      "home_id": 30,
+      "home_name": "Bolton",
+      "away_id": 288,
+      "away_name": "Stevenage",
+      "home_difficulty": "hard",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2567389,
+      "home_id": 38,
+      "home_name": "Huddersfield",
+      "away_id": 97,
+      "away_name": "Cardiff",
+      "home_difficulty": "hard",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2567420,
+      "home_id": 92,
+      "home_name": "Blackpool",
+      "away_id": 73,
+      "away_name": "Peterborough",
+      "home_difficulty": "medium",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2567421,
+      "home_id": 55,
+      "home_name": "Bradford",
+      "away_id": 288,
+      "away_name": "Stevenage",
+      "home_difficulty": "hard",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2567422,
+      "home_id": 587,
+      "home_name": "Burton",
+      "away_id": 2623,
+      "away_name": "AFC Wim",
+      "home_difficulty": "medium",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2567423,
+      "home_id": 97,
+      "home_name": "Cardiff",
+      "away_id": 30,
+      "away_name": "Bolton",
+      "home_difficulty": "hard",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2567424,
+      "home_id": 290,
+      "home_name": "Doncaster",
+      "away_id": 108,
+      "away_name": "Reading",
+      "home_difficulty": "hard",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2567425,
+      "home_id": 38,
+      "home_name": "Huddersfield",
+      "away_id": 112,
+      "away_name": "Wycombe",
+      "home_difficulty": "hard",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2567426,
+      "home_id": 83,
+      "home_name": "Lincoln",
+      "away_id": 85,
+      "away_name": "L Orient",
+      "home_difficulty": "easy",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2567427,
+      "home_id": 102,
+      "home_name": "Luton",
+      "away_id": 75,
+      "away_name": "Northampton",
+      "home_difficulty": "easy",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2567428,
+      "home_id": 76,
+      "home_name": "Plymouth",
+      "away_id": 71,
+      "away_name": "Exeter",
+      "home_difficulty": "easy",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2567429,
+      "home_id": 72,
+      "home_name": "Rotherham",
+      "away_id": 37,
+      "away_name": "Barnsley",
+      "home_difficulty": "medium",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2567431,
+      "home_id": 111,
+      "home_name": "Wigan",
+      "away_id": 77,
+      "away_name": "Mansfield",
+      "home_difficulty": "medium",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2567761,
+      "home_id": 99,
+      "home_name": "Colchester",
+      "away_id": 888,
+      "away_name": "Accrington",
+      "home_difficulty": "medium",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2567805,
+      "home_id": 573,
+      "home_name": "Barrow",
+      "away_id": 105,
+      "away_name": "Oldham",
+      "home_difficulty": "medium",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2567808,
+      "home_id": 87,
+      "home_name": "Cheltenham",
+      "away_id": 100,
+      "away_name": "Gillingham",
+      "home_difficulty": "easy",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2567940,
+      "home_id": 98,
+      "home_name": "Chesterfield",
+      "away_id": 53,
+      "away_name": "Grimsby",
+      "home_difficulty": "hard",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2567972,
+      "home_id": 888,
+      "home_name": "Accrington",
+      "away_id": 2048,
+      "away_name": "Fleetwood",
+      "home_difficulty": "medium",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2567973,
+      "home_id": 34,
+      "home_name": "Barnet",
+      "away_id": 573,
+      "away_name": "Barrow",
+      "home_difficulty": "easy",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2567974,
+      "home_id": 96,
+      "home_name": "Bristol R",
+      "away_id": 1525,
+      "away_name": "Crawley",
+      "home_difficulty": "easy",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2567975,
+      "home_id": 101,
+      "home_name": "Cambridge",
+      "away_id": 104,
+      "away_name": "Notts C",
+      "home_difficulty": "hard",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2567976,
+      "home_id": 98,
+      "home_name": "Chesterfield",
+      "away_id": 44,
+      "away_name": "Tranmere",
+      "home_difficulty": "easy",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2567977,
+      "home_id": 99,
+      "home_name": "Colchester",
+      "away_id": 46,
+      "away_name": "Swindon",
+      "home_difficulty": "hard",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2567978,
+      "home_id": 53,
+      "home_name": "Grimsby",
+      "away_id": 51,
+      "away_name": "Crewe",
+      "home_difficulty": "hard",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2567979,
+      "home_id": 22,
+      "home_name": "MK Dons",
+      "away_id": 2050,
+      "away_name": "Bromley",
+      "home_difficulty": "hard",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2567980,
+      "home_id": 437,
+      "home_name": "Newport",
+      "away_id": 671,
+      "away_name": "Harrogate",
+      "home_difficulty": "easy",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2567981,
+      "home_id": 3448,
+      "home_name": "Salford",
+      "away_id": 100,
+      "away_name": "Gillingham",
+      "home_difficulty": "easy",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2567982,
+      "home_id": 74,
+      "home_name": "Shrewsbury",
+      "away_id": 105,
+      "away_name": "Oldham",
+      "home_difficulty": "medium",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2567983,
+      "home_id": 42,
+      "home_name": "Walsall",
+      "away_id": 87,
+      "away_name": "Cheltenham",
+      "home_difficulty": "easy",
+      "away_difficulty": "medium"
+    }
+  ],
+  "38": [
+    {
+      "game_id": 2566868,
+      "home_id": 5,
+      "home_name": "Blackburn",
+      "away_id": 9,
+      "away_name": "Coventry",
+      "home_difficulty": "hard",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2566869,
+      "home_id": 113,
+      "home_name": "Bristol C",
+      "away_id": 45,
+      "away_name": "Norwich",
+      "home_difficulty": "medium",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2566870,
+      "home_id": 24,
+      "home_name": "Derby",
+      "away_id": 106,
+      "away_name": "Oxford",
+      "home_difficulty": "easy",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2566871,
+      "home_id": 88,
+      "home_name": "Hull",
+      "away_id": 41,
+      "away_name": "Birmingham",
+      "home_difficulty": "medium",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2566872,
+      "home_id": 40,
+      "home_name": "Ipswich",
+      "away_id": 25,
+      "away_name": "Middlesbrough",
+      "home_difficulty": "hard",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2566873,
+      "home_id": 103,
+      "home_name": "Millwall",
+      "away_id": 52,
+      "away_name": "QPR",
+      "home_difficulty": "medium",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2566874,
+      "home_id": 47,
+      "home_name": "Portsmouth",
+      "away_id": 13,
+      "away_name": "Leicester",
+      "home_difficulty": "easy",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2566875,
+      "home_id": 107,
+      "home_name": "Preston",
+      "away_id": 35,
+      "away_name": "West Brom",
+      "home_difficulty": "easy",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2566876,
+      "home_id": 19,
+      "home_name": "Sheffield Wed",
+      "away_id": 33,
+      "away_name": "Charlton",
+      "home_difficulty": "easy",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2566877,
+      "home_id": 80,
+      "home_name": "Swansea",
+      "away_id": 20,
+      "away_name": "Southampton",
+      "home_difficulty": "hard",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2566878,
+      "home_id": 57,
+      "home_name": "Watford",
+      "away_id": 49,
+      "away_name": "Sheffield Utd",
+      "home_difficulty": "easy",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2566879,
+      "home_id": 109,
+      "home_name": "Wrexham",
+      "away_id": 110,
+      "away_name": "Stoke",
+      "home_difficulty": "medium",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2566880,
+      "home_id": 9,
+      "home_name": "Coventry",
+      "away_id": 47,
+      "away_name": "Portsmouth",
+      "home_difficulty": "easy",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2566881,
+      "home_id": 25,
+      "home_name": "Middlesbrough",
+      "away_id": 19,
+      "away_name": "Sheffield Wed",
+      "home_difficulty": "easy",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2566882,
+      "home_id": 45,
+      "home_name": "Norwich",
+      "away_id": 24,
+      "away_name": "Derby",
+      "home_difficulty": "hard",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2566883,
+      "home_id": 106,
+      "home_name": "Oxford",
+      "away_id": 109,
+      "away_name": "Wrexham",
+      "home_difficulty": "hard",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2566884,
+      "home_id": 52,
+      "home_name": "QPR",
+      "away_id": 80,
+      "away_name": "Swansea",
+      "home_difficulty": "medium",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2566885,
+      "home_id": 20,
+      "home_name": "Southampton",
+      "away_id": 113,
+      "away_name": "Bristol C",
+      "home_difficulty": "medium",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2566886,
+      "home_id": 110,
+      "home_name": "Stoke",
+      "away_id": 103,
+      "away_name": "Millwall",
+      "home_difficulty": "hard",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2566887,
+      "home_id": 35,
+      "home_name": "West Brom",
+      "away_id": 57,
+      "away_name": "Watford",
+      "home_difficulty": "medium",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2566888,
+      "home_id": 41,
+      "home_name": "Birmingham",
+      "away_id": 107,
+      "away_name": "Preston",
+      "home_difficulty": "medium",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2566889,
+      "home_id": 33,
+      "home_name": "Charlton",
+      "away_id": 40,
+      "away_name": "Ipswich",
+      "home_difficulty": "hard",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2566890,
+      "home_id": 13,
+      "home_name": "Leicester",
+      "away_id": 88,
+      "away_name": "Hull",
+      "home_difficulty": "hard",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2566891,
+      "home_id": 49,
+      "home_name": "Sheffield Utd",
+      "away_id": 5,
+      "away_name": "Blackburn",
+      "home_difficulty": "easy",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2566998,
+      "home_id": 288,
+      "home_name": "Stevenage",
+      "away_id": 37,
+      "away_name": "Barnsley",
+      "home_difficulty": "medium",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2567345,
+      "home_id": 73,
+      "home_name": "Peterborough",
+      "away_id": 50,
+      "away_name": "Port Vale",
+      "home_difficulty": "easy",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2567347,
+      "home_id": 48,
+      "home_name": "Stockport",
+      "away_id": 77,
+      "away_name": "Mansfield",
+      "home_difficulty": "medium",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2567386,
+      "home_id": 55,
+      "home_name": "Bradford",
+      "away_id": 76,
+      "away_name": "Plymouth",
+      "home_difficulty": "medium",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2567387,
+      "home_id": 290,
+      "home_name": "Doncaster",
+      "away_id": 83,
+      "away_name": "Lincoln",
+      "home_difficulty": "hard",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2567393,
+      "home_id": 72,
+      "home_name": "Rotherham",
+      "away_id": 102,
+      "away_name": "Luton",
+      "home_difficulty": "medium",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2567399,
+      "home_id": 97,
+      "home_name": "Cardiff",
+      "away_id": 50,
+      "away_name": "Port Vale",
+      "home_difficulty": "easy",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2567432,
+      "home_id": 2623,
+      "home_name": "AFC Wim",
+      "away_id": 76,
+      "away_name": "Plymouth",
+      "home_difficulty": "medium",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2567433,
+      "home_id": 37,
+      "home_name": "Barnsley",
+      "away_id": 55,
+      "away_name": "Bradford",
+      "home_difficulty": "hard",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2567434,
+      "home_id": 30,
+      "home_name": "Bolton",
+      "away_id": 38,
+      "away_name": "Huddersfield",
+      "home_difficulty": "medium",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2567435,
+      "home_id": 71,
+      "home_name": "Exeter",
+      "away_id": 48,
+      "away_name": "Stockport",
+      "home_difficulty": "hard",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2567436,
+      "home_id": 85,
+      "home_name": "L Orient",
+      "away_id": 72,
+      "away_name": "Rotherham",
+      "home_difficulty": "easy",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2567437,
+      "home_id": 77,
+      "home_name": "Mansfield",
+      "away_id": 102,
+      "away_name": "Luton",
+      "home_difficulty": "medium",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2567438,
+      "home_id": 75,
+      "home_name": "Northampton",
+      "away_id": 290,
+      "away_name": "Doncaster",
+      "home_difficulty": "medium",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2567439,
+      "home_id": 73,
+      "home_name": "Peterborough",
+      "away_id": 587,
+      "away_name": "Burton",
+      "home_difficulty": "easy",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2567440,
+      "home_id": 50,
+      "home_name": "Port Vale",
+      "away_id": 111,
+      "away_name": "Wigan",
+      "home_difficulty": "easy",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2567441,
+      "home_id": 108,
+      "home_name": "Reading",
+      "away_id": 97,
+      "away_name": "Cardiff",
+      "home_difficulty": "hard",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2567442,
+      "home_id": 288,
+      "home_name": "Stevenage",
+      "away_id": 83,
+      "away_name": "Lincoln",
+      "home_difficulty": "hard",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2567443,
+      "home_id": 112,
+      "home_name": "Wycombe",
+      "away_id": 92,
+      "away_name": "Blackpool",
+      "home_difficulty": "easy",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2567759,
+      "home_id": 101,
+      "home_name": "Cambridge",
+      "away_id": 53,
+      "away_name": "Grimsby",
+      "home_difficulty": "hard",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2567939,
+      "home_id": 87,
+      "home_name": "Cheltenham",
+      "away_id": 44,
+      "away_name": "Tranmere",
+      "home_difficulty": "easy",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2567984,
+      "home_id": 573,
+      "home_name": "Barrow",
+      "away_id": 42,
+      "away_name": "Walsall",
+      "home_difficulty": "medium",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2567985,
+      "home_id": 2050,
+      "home_name": "Bromley",
+      "away_id": 101,
+      "away_name": "Cambridge",
+      "home_difficulty": "hard",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2567986,
+      "home_id": 87,
+      "home_name": "Cheltenham",
+      "away_id": 437,
+      "away_name": "Newport",
+      "home_difficulty": "easy",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2567987,
+      "home_id": 1525,
+      "home_name": "Crawley",
+      "away_id": 74,
+      "away_name": "Shrewsbury",
+      "home_difficulty": "easy",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2567988,
+      "home_id": 51,
+      "home_name": "Crewe",
+      "away_id": 22,
+      "away_name": "MK Dons",
+      "home_difficulty": "hard",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2567989,
+      "home_id": 2048,
+      "home_name": "Fleetwood",
+      "away_id": 98,
+      "away_name": "Chesterfield",
+      "home_difficulty": "medium",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2567990,
+      "home_id": 100,
+      "home_name": "Gillingham",
+      "away_id": 53,
+      "away_name": "Grimsby",
+      "home_difficulty": "hard",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2567991,
+      "home_id": 671,
+      "home_name": "Harrogate",
+      "away_id": 99,
+      "away_name": "Colchester",
+      "home_difficulty": "medium",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2567992,
+      "home_id": 104,
+      "home_name": "Notts C",
+      "away_id": 34,
+      "away_name": "Barnet",
+      "home_difficulty": "medium",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2567993,
+      "home_id": 105,
+      "home_name": "Oldham",
+      "away_id": 3448,
+      "away_name": "Salford",
+      "home_difficulty": "hard",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2567994,
+      "home_id": 46,
+      "home_name": "Swindon",
+      "away_id": 888,
+      "away_name": "Accrington",
+      "home_difficulty": "medium",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2567995,
+      "home_id": 44,
+      "home_name": "Tranmere",
+      "away_id": 96,
+      "away_name": "Bristol R",
+      "home_difficulty": "medium",
+      "away_difficulty": "easy"
+    }
+  ],
+  "39": [
+    {
+      "game_id": 2566841,
+      "home_id": 20,
+      "home_name": "Southampton",
+      "away_id": 40,
+      "away_name": "Ipswich",
+      "home_difficulty": "hard",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2566892,
+      "home_id": 41,
+      "home_name": "Birmingham",
+      "away_id": 113,
+      "away_name": "Bristol C",
+      "home_difficulty": "medium",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2566893,
+      "home_id": 33,
+      "home_name": "Charlton",
+      "away_id": 88,
+      "away_name": "Hull",
+      "home_difficulty": "hard",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2566894,
+      "home_id": 9,
+      "home_name": "Coventry",
+      "away_id": 109,
+      "away_name": "Wrexham",
+      "home_difficulty": "hard",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2566895,
+      "home_id": 13,
+      "home_name": "Leicester",
+      "away_id": 103,
+      "away_name": "Millwall",
+      "home_difficulty": "hard",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2566896,
+      "home_id": 25,
+      "home_name": "Middlesbrough",
+      "away_id": 57,
+      "away_name": "Watford",
+      "home_difficulty": "medium",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2566897,
+      "home_id": 45,
+      "home_name": "Norwich",
+      "away_id": 80,
+      "away_name": "Swansea",
+      "home_difficulty": "medium",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2566898,
+      "home_id": 106,
+      "home_name": "Oxford",
+      "away_id": 19,
+      "away_name": "Sheffield Wed",
+      "home_difficulty": "easy",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2566899,
+      "home_id": 52,
+      "home_name": "QPR",
+      "away_id": 24,
+      "away_name": "Derby",
+      "home_difficulty": "hard",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2566900,
+      "home_id": 49,
+      "home_name": "Sheffield Utd",
+      "away_id": 107,
+      "away_name": "Preston",
+      "home_difficulty": "medium",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2566901,
+      "home_id": 20,
+      "home_name": "Southampton",
+      "away_id": 5,
+      "away_name": "Blackburn",
+      "home_difficulty": "easy",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2566902,
+      "home_id": 110,
+      "home_name": "Stoke",
+      "away_id": 47,
+      "away_name": "Portsmouth",
+      "home_difficulty": "easy",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2566903,
+      "home_id": 35,
+      "home_name": "West Brom",
+      "away_id": 40,
+      "away_name": "Ipswich",
+      "home_difficulty": "hard",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2567390,
+      "home_id": 75,
+      "home_name": "Northampton",
+      "away_id": 37,
+      "away_name": "Barnsley",
+      "home_difficulty": "medium",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2567391,
+      "home_id": 73,
+      "home_name": "Peterborough",
+      "away_id": 77,
+      "away_name": "Mansfield",
+      "home_difficulty": "medium",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2567430,
+      "home_id": 48,
+      "home_name": "Stockport",
+      "away_id": 50,
+      "away_name": "Port Vale",
+      "home_difficulty": "easy",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2567444,
+      "home_id": 92,
+      "home_name": "Blackpool",
+      "away_id": 85,
+      "away_name": "L Orient",
+      "home_difficulty": "easy",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2567445,
+      "home_id": 55,
+      "home_name": "Bradford",
+      "away_id": 30,
+      "away_name": "Bolton",
+      "home_difficulty": "hard",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2567446,
+      "home_id": 587,
+      "home_name": "Burton",
+      "away_id": 71,
+      "away_name": "Exeter",
+      "home_difficulty": "easy",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2567447,
+      "home_id": 97,
+      "home_name": "Cardiff",
+      "away_id": 75,
+      "away_name": "Northampton",
+      "home_difficulty": "easy",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2567448,
+      "home_id": 290,
+      "home_name": "Doncaster",
+      "away_id": 288,
+      "away_name": "Stevenage",
+      "home_difficulty": "hard",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2567449,
+      "home_id": 38,
+      "home_name": "Huddersfield",
+      "away_id": 77,
+      "away_name": "Mansfield",
+      "home_difficulty": "medium",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2567450,
+      "home_id": 83,
+      "home_name": "Lincoln",
+      "away_id": 112,
+      "away_name": "Wycombe",
+      "home_difficulty": "hard",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2567451,
+      "home_id": 102,
+      "home_name": "Luton",
+      "away_id": 37,
+      "away_name": "Barnsley",
+      "home_difficulty": "medium",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2567452,
+      "home_id": 76,
+      "home_name": "Plymouth",
+      "away_id": 50,
+      "away_name": "Port Vale",
+      "home_difficulty": "easy",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2567453,
+      "home_id": 72,
+      "home_name": "Rotherham",
+      "away_id": 108,
+      "away_name": "Reading",
+      "home_difficulty": "hard",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2567454,
+      "home_id": 48,
+      "home_name": "Stockport",
+      "away_id": 73,
+      "away_name": "Peterborough",
+      "home_difficulty": "medium",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2567455,
+      "home_id": 111,
+      "home_name": "Wigan",
+      "away_id": 2623,
+      "away_name": "AFC Wim",
+      "home_difficulty": "medium",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2567996,
+      "home_id": 888,
+      "home_name": "Accrington",
+      "away_id": 1525,
+      "away_name": "Crawley",
+      "home_difficulty": "easy",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2567997,
+      "home_id": 34,
+      "home_name": "Barnet",
+      "away_id": 100,
+      "away_name": "Gillingham",
+      "home_difficulty": "easy",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2567998,
+      "home_id": 96,
+      "home_name": "Bristol R",
+      "away_id": 87,
+      "away_name": "Cheltenham",
+      "home_difficulty": "easy",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2567999,
+      "home_id": 101,
+      "home_name": "Cambridge",
+      "away_id": 573,
+      "away_name": "Barrow",
+      "home_difficulty": "easy",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2568000,
+      "home_id": 98,
+      "home_name": "Chesterfield",
+      "away_id": 51,
+      "away_name": "Crewe",
+      "home_difficulty": "hard",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2568001,
+      "home_id": 99,
+      "home_name": "Colchester",
+      "away_id": 104,
+      "away_name": "Notts C",
+      "home_difficulty": "hard",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2568002,
+      "home_id": 53,
+      "home_name": "Grimsby",
+      "away_id": 46,
+      "away_name": "Swindon",
+      "home_difficulty": "hard",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2568003,
+      "home_id": 22,
+      "home_name": "MK Dons",
+      "away_id": 44,
+      "away_name": "Tranmere",
+      "home_difficulty": "easy",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2568004,
+      "home_id": 437,
+      "home_name": "Newport",
+      "away_id": 105,
+      "away_name": "Oldham",
+      "home_difficulty": "medium",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2568005,
+      "home_id": 3448,
+      "home_name": "Salford",
+      "away_id": 2050,
+      "away_name": "Bromley",
+      "home_difficulty": "hard",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2568006,
+      "home_id": 74,
+      "home_name": "Shrewsbury",
+      "away_id": 2048,
+      "away_name": "Fleetwood",
+      "home_difficulty": "medium",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2568007,
+      "home_id": 42,
+      "home_name": "Walsall",
+      "away_id": 671,
+      "away_name": "Harrogate",
+      "home_difficulty": "easy",
+      "away_difficulty": "medium"
+    }
+  ],
+  "40": [
+    {
+      "game_id": 2566904,
+      "home_id": 5,
+      "home_name": "Blackburn",
+      "away_id": 13,
+      "away_name": "Leicester",
+      "home_difficulty": "easy",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2566905,
+      "home_id": 113,
+      "home_name": "Bristol C",
+      "away_id": 110,
+      "away_name": "Stoke",
+      "home_difficulty": "medium",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2566906,
+      "home_id": 24,
+      "home_name": "Derby",
+      "away_id": 49,
+      "away_name": "Sheffield Utd",
+      "home_difficulty": "easy",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2566907,
+      "home_id": 88,
+      "home_name": "Hull",
+      "away_id": 45,
+      "away_name": "Norwich",
+      "home_difficulty": "medium",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2566908,
+      "home_id": 40,
+      "home_name": "Ipswich",
+      "away_id": 52,
+      "away_name": "QPR",
+      "home_difficulty": "medium",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2566909,
+      "home_id": 103,
+      "home_name": "Millwall",
+      "away_id": 106,
+      "away_name": "Oxford",
+      "home_difficulty": "easy",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2566910,
+      "home_id": 47,
+      "home_name": "Portsmouth",
+      "away_id": 41,
+      "away_name": "Birmingham",
+      "home_difficulty": "medium",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2566911,
+      "home_id": 107,
+      "home_name": "Preston",
+      "away_id": 20,
+      "away_name": "Southampton",
+      "home_difficulty": "hard",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2566912,
+      "home_id": 19,
+      "home_name": "Sheffield Wed",
+      "away_id": 35,
+      "away_name": "West Brom",
+      "home_difficulty": "easy",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2566913,
+      "home_id": 80,
+      "home_name": "Swansea",
+      "away_id": 33,
+      "away_name": "Charlton",
+      "home_difficulty": "easy",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2566914,
+      "home_id": 57,
+      "home_name": "Watford",
+      "away_id": 9,
+      "away_name": "Coventry",
+      "home_difficulty": "hard",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2566915,
+      "home_id": 109,
+      "home_name": "Wrexham",
+      "away_id": 25,
+      "away_name": "Middlesbrough",
+      "home_difficulty": "hard",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2567456,
+      "home_id": 2623,
+      "home_name": "AFC Wim",
+      "away_id": 38,
+      "away_name": "Huddersfield",
+      "home_difficulty": "medium",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2567457,
+      "home_id": 37,
+      "home_name": "Barnsley",
+      "away_id": 48,
+      "away_name": "Stockport",
+      "home_difficulty": "hard",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2567458,
+      "home_id": 30,
+      "home_name": "Bolton",
+      "away_id": 102,
+      "away_name": "Luton",
+      "home_difficulty": "medium",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2567459,
+      "home_id": 71,
+      "home_name": "Exeter",
+      "away_id": 55,
+      "away_name": "Bradford",
+      "home_difficulty": "hard",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2567460,
+      "home_id": 85,
+      "home_name": "L Orient",
+      "away_id": 587,
+      "away_name": "Burton",
+      "home_difficulty": "easy",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2567461,
+      "home_id": 77,
+      "home_name": "Mansfield",
+      "away_id": 97,
+      "away_name": "Cardiff",
+      "home_difficulty": "hard",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2567462,
+      "home_id": 75,
+      "home_name": "Northampton",
+      "away_id": 76,
+      "away_name": "Plymouth",
+      "home_difficulty": "medium",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2567463,
+      "home_id": 73,
+      "home_name": "Peterborough",
+      "away_id": 290,
+      "away_name": "Doncaster",
+      "home_difficulty": "medium",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2567464,
+      "home_id": 50,
+      "home_name": "Port Vale",
+      "away_id": 83,
+      "away_name": "Lincoln",
+      "home_difficulty": "hard",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2567465,
+      "home_id": 108,
+      "home_name": "Reading",
+      "away_id": 92,
+      "away_name": "Blackpool",
+      "home_difficulty": "easy",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2567466,
+      "home_id": 288,
+      "home_name": "Stevenage",
+      "away_id": 111,
+      "away_name": "Wigan",
+      "home_difficulty": "easy",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2567467,
+      "home_id": 112,
+      "home_name": "Wycombe",
+      "away_id": 72,
+      "away_name": "Rotherham",
+      "home_difficulty": "easy",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2568008,
+      "home_id": 573,
+      "home_name": "Barrow",
+      "away_id": 437,
+      "away_name": "Newport",
+      "home_difficulty": "easy",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2568009,
+      "home_id": 2050,
+      "home_name": "Bromley",
+      "away_id": 42,
+      "away_name": "Walsall",
+      "home_difficulty": "medium",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2568010,
+      "home_id": 87,
+      "home_name": "Cheltenham",
+      "away_id": 99,
+      "away_name": "Colchester",
+      "home_difficulty": "medium",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2568011,
+      "home_id": 1525,
+      "home_name": "Crawley",
+      "away_id": 3448,
+      "away_name": "Salford",
+      "home_difficulty": "hard",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2568012,
+      "home_id": 51,
+      "home_name": "Crewe",
+      "away_id": 101,
+      "away_name": "Cambridge",
+      "home_difficulty": "hard",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2568013,
+      "home_id": 2048,
+      "home_name": "Fleetwood",
+      "away_id": 22,
+      "away_name": "MK Dons",
+      "home_difficulty": "hard",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2568014,
+      "home_id": 100,
+      "home_name": "Gillingham",
+      "away_id": 74,
+      "away_name": "Shrewsbury",
+      "home_difficulty": "easy",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2568015,
+      "home_id": 671,
+      "home_name": "Harrogate",
+      "away_id": 34,
+      "away_name": "Barnet",
+      "home_difficulty": "medium",
+      "away_difficulty": "easy"
+    },
+    {
+      "game_id": 2568016,
+      "home_id": 104,
+      "home_name": "Notts C",
+      "away_id": 96,
+      "away_name": "Bristol R",
+      "home_difficulty": "medium",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2568017,
+      "home_id": 105,
+      "home_name": "Oldham",
+      "away_id": 888,
+      "away_name": "Accrington",
+      "home_difficulty": "medium",
+      "away_difficulty": "medium"
+    },
+    {
+      "game_id": 2568018,
+      "home_id": 46,
+      "home_name": "Swindon",
+      "away_id": 98,
+      "away_name": "Chesterfield",
+      "home_difficulty": "medium",
+      "away_difficulty": "hard"
+    },
+    {
+      "game_id": 2568019,
+      "home_id": 44,
+      "home_name": "Tranmere",
+      "away_id": 53,
+      "away_name": "Grimsby",
+      "home_difficulty": "hard",
+      "away_difficulty": "easy"
+    }
+  ]
+}

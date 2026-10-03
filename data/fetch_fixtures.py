@@ -12,6 +12,15 @@ from pathlib import Path
 
 data_dir = Path(__file__).parent
 
+def get_current_season_label():
+    # EFL season runs Aug-May; treat July onward as the start of a new season
+    from datetime import date
+    today = date.today()
+    start_year = today.year if today.month >= 7 else today.year - 1
+    return f"{start_year}_{str((start_year + 1) % 100).zfill(2)}"
+
+season_dir = data_dir / get_current_season_label()
+
 # Fetch rounds and squads from EFL API
 headers = {'Referer': 'https://fantasy.efl.com/', 'User-Agent': 'Mozilla/5.0'}
 rounds_data = requests.get('https://fantasy.efl.com/json/fantasy/rounds.json', headers=headers).json()
@@ -29,8 +38,8 @@ def get_fixture_difficulty(opponent_id):
     if pos <= 16: return 'medium'
     return 'easy'
 
-# Find completed gameweeks from existing CSV files
-csv_files = sorted(data_dir.glob('player_stats_gw*.csv'))
+# Find completed gameweeks from existing CSV files (current season only)
+csv_files = sorted(season_dir.glob('player_stats_gw*.csv'))
 if csv_files:
     import pandas as pd
     # Extract GW numbers from filenames

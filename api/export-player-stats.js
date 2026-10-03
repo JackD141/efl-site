@@ -196,13 +196,23 @@ function generateCSVContent(gameweek, playerStats) {
   return csvContent;
 }
 
+function getCurrentSeasonLabel(date = new Date()) {
+  // EFL season runs Aug-May; treat July onward as the start of a new season
+  const year = date.getUTCFullYear();
+  const month = date.getUTCMonth(); // 0-indexed, 6 = July
+  const startYear = month >= 6 ? year : year - 1;
+  const endYear = String((startYear + 1) % 100).padStart(2, '0');
+  return `${startYear}_${endYear}`;
+}
+
 async function commitToGitHub(csvsByGameweek, githubToken) {
   const repo = 'JackD141/efl-site';
   const owner = 'JackD141';
   const branch = 'main';
+  const season = getCurrentSeasonLabel();
 
   for (const [gameweek, csvContent] of Object.entries(csvsByGameweek)) {
-    const filename = `data/player_stats_gw${gameweek}.csv`;
+    const filename = `data/${season}/player_stats_gw${gameweek}.csv`;
 
     // Get file SHA if it exists (for updating)
     let fileSha = null;

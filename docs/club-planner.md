@@ -79,7 +79,13 @@ claim was corrected. Always quote the spread and worst cases.
   left) and 575.81 (limited-picks scenario with history entered). It also reports the gain over greedy week-by-week
   choice (about +5.4 xP), the "other options this week" table (season-plan total if you take that club now), and a
   collapsed full-season plan labelled provisional.
-- **Suggestions are only for the current gameweek** (`plan.firstGw` = first gameweek whose deadline has not passed).
+- **Which gameweeks show**: every gameweek that still has a game to kick off (Fantasy EFL locks game by game, so a
+  gameweek stays editable for clubs that have not played until its last kick-off). Fixtures carry kick-off times and the
+  pages lock a club for that week once its game has kicked off (live clock, no refresh needed); locked clubs are tagged
+  and never suggested. (Originally the plan dropped a gameweek at its first kick-off; Jack pointed out he can still edit
+  it, so this was changed on 9 Oct 2026.)
+- **Suggestions are for the current gameweek** (`plan.firstGw`); once its two picks are entered and its first game has
+  kicked off (when Fantasy EFL opens the next gameweek) they move to the next gameweek. Previously:
   Each suggested club has **Add to GW n picks** (plus Add both); once both are in, the page says the picks are set and
   that the next gameweek's suggestions appear after the next refresh. Jack asked for this: he does not want GW n+1
   suggested before the refresh that follows the GW n deadline.

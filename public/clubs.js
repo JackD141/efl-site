@@ -39,6 +39,8 @@ function srcDot(src) {
     : '<span class="cp-dot cp-dot-model" title="Model estimate (no bookmaker odds yet)"></span>';
 }
 const weekOf = (club, gw) => state.clubWeek[club.id] && state.clubWeek[club.id][gw];
+// a club is locked for a gameweek once one of its games that week has kicked off (Fantasy EFL locks game by game)
+const kickedOff = wk => !!(wk && wk.fx && wk.fx.some(f => f.ko && new Date(f.ko).getTime() <= Date.now()));
 const gwMeta = gw => state.plan.gameweeks.find(g => g.gw === gw);
 const short = c => c.short || c.name;
 
@@ -181,7 +183,7 @@ function solve(weeks, capacity) {
     if (w.slots > 0) f.add(W0 + j, T, w.slots, 0);
     clubs.forEach((c, i) => {
       const wk = weekOf(c, w.gw);
-      if (w.slots > 0 && wk && wk.games > 0 && !wk.locked && !w.taken.has(c.id)) {
+      if (w.slots > 0 && wk && wk.games > 0 && !wk.locked && !kickedOff(wk) && !w.taken.has(c.id)) {
         edges.push({ id: f.add(C0 + i, W0 + j, 1, -wk.xp), club: c.id, j, xp: wk.xp });
       }
     });
@@ -217,7 +219,7 @@ function greedy(weeks, capacity) {
   for (const w of weeks) {
     const cand = state.plan.clubs
       .map(c => ({ c, wk: weekOf(c, w.gw) }))
-      .filter(x => x.wk && x.wk.games > 0 && !x.wk.locked && cap[x.c.id] > 0 && !w.taken.has(x.c.id))
+      .filter(x => x.wk && x.wk.games > 0 && !x.wk.locked && !kickedOff(x.wk) && cap[x.c.id] > 0 && !w.taken.has(x.c.id))
       .sort((a, b) => b.wk.xp - a.wk.xp).slice(0, w.slots);
     for (const x of cand) { cap[x.c.id] -= 1; total += x.wk.xp; }
   }
@@ -227,13 +229,17 @@ function computeResult() {
   const weeks = planWeeks();
   const capacity = capacities();
   const best = solve(weeks, capacity);
-  const target = weeks.find(w => w.gw === state.plan.firstGw);
-  const next = target && target.slots > 0 ? target : null; // suggestions only for the gameweek you can still pick for
+  // Suggest for the current gameweek; once its picks are set and it has kicked off (the game then opens the next
+  // gameweek for picking), move on to the next one.
+  const g0 = state.plan.gameweeks[0];
+  let target = weeks[0];
+  if (target && target.slots === 0 && g0 && new Date(g0.lockout).getTime() <= Date.now() && weeks[1]) target = weeks[1];
+  const next = target && target.slots > 0 ? target : null;
   const options = [];
   if (next) {
     const cand = state.plan.clubs
       .map(c => ({ c, wk: weekOf(c, next.gw) }))
-      .filter(x => x.wk && x.wk.games > 0 && !x.wk.locked && capacity[x.c.id] > 0 && !next.taken.has(x.c.id))
+      .filter(x => x.wk && x.wk.games > 0 && !x.wk.locked && !kickedOff(x.wk) && capacity[x.c.id] > 0 && !next.taken.has(x.c.id))
       .sort((a, b) => b.wk.xp - a.wk.xp).slice(0, 14);
     for (const x of cand) {
       const w2 = weeks.map(w => (w.gw === next.gw ? { ...w, slots: w.slots - 1, taken: new Set([...w.taken, x.c.id]) } : w));
@@ -401,9 +407,10 @@ function renderPlan() {
         <div class="cp-suggest-fx">${wk ? fixturesHtml(c, wk) : ''}</div><div class="cp-suggest-xp" data-tip="xptotal" data-club="${c.id}" data-gw="${r.target.gw}">${wk ? fmt(wk.xp) : '0.0'} xP</div>
         <button class="cp-link-btn" data-remove="${c.id}" data-gw="${r.target.gw}">Remove</button></div>`;
     }).join('');
-    const nextGw = state.plan.gameweeks[1] ? state.plan.gameweeks[1].gw : null;
+    const i = state.plan.gameweeks.findIndex(g => g.gw === r.target.gw);
+    const nextGw = state.plan.gameweeks[i + 1] ? state.plan.gameweeks[i + 1].gw : null;
     thisWeek = `<h4 class="cp-h4">GW ${r.target.gw} picks are set</h4><div class="cp-suggest-row">${cards}</div>
-      <p class="cp-note">${nextGw ? `Suggestions for GW ${nextGw} appear after the next refresh, once GW ${r.target.gw}'s deadline has passed.` : 'No later gameweeks to pick for.'}</p>`;
+      <p class="cp-note">${nextGw ? `Suggestions for GW ${nextGw} appear once GW ${r.target.gw}'s first game has kicked off (that is when Fantasy EFL opens GW ${nextGw}).` : 'No later gameweeks to pick for.'}</p>`;
   } else {
     thisWeek = '<p class="cp-note">No gameweek is open for picks.</p>';
   }
@@ -452,9 +459,10 @@ function renderPanel() {
   const picks = activePicks();
   const tabs = PROFILES.map(p => `<button class="cp-chip ${p === profile ? 'active' : ''}" data-profile="${p}">${p}</button>`).join('');
   const rows = [];
-  for (let gw = 1; gw <= state.plan.firstGw; gw++) {
+  const lastRow = Math.max(state.plan.firstGw, state.result.target ? state.result.target.gw : 0);
+  for (let gw = 1; gw <= lastRow; gw++) {
     const cur = picks[gw] || [];
-    rows.push(`<tr><td><strong>GW ${gw}</strong>${gw === state.plan.firstGw ? ' <span class="cp-tag">this week</span>' : ''}</td>
+    rows.push(`<tr><td><strong>GW ${gw}</strong>${state.result.target && gw === state.result.target.gw ? ' <span class="cp-tag">picking now</span>' : ''}</td>
       <td><select class="cp-pick" data-gw="${gw}" data-slot="0">${clubOptions(cur[0])}</select></td>
       <td><select class="cp-pick" data-gw="${gw}" data-slot="1">${clubOptions(cur[1])}</select></td></tr>`);
   }
@@ -508,7 +516,7 @@ function renderBest() {
     const left = picksLeft(c.id);
     return `<tr class="${left <= 0 ? 'cp-dim' : ''}">
       <td>${rankBadge(w.rank)}</td>
-      <td><a href="#" class="cp-club" data-club="${c.id}">${esc(c.name)}</a>${ps.picked.has(c.id) ? ' <span class="cp-tag cp-tag-picked" title="You have picked this club for this gameweek">picked</span>' : ps.planned.has(c.id) ? ' <span class="cp-tag cp-tag-plan" title="In your season plan for this gameweek">plan pick</span>' : ''}${w.locked ? ' <span class="cp-tag" title="This club has already played this gameweek, so it is locked">locked</span>' : ''}${w.games > 1 ? ' <span class="cp-tag cp-tag-double">double</span>' : ''}</td>
+      <td><a href="#" class="cp-club" data-club="${c.id}">${esc(c.name)}</a>${ps.picked.has(c.id) ? ' <span class="cp-tag cp-tag-picked" title="You have picked this club for this gameweek">picked</span>' : ps.planned.has(c.id) ? ' <span class="cp-tag cp-tag-plan" title="In your season plan for this gameweek">plan pick</span>' : ''}${w.locked || kickedOff(w) ? ' <span class="cp-tag" title="This club\'s game has kicked off, so it is locked for this gameweek">locked</span>' : ''}${w.games > 1 ? ' <span class="cp-tag cp-tag-double">double</span>' : ''}</td>
       <td class="cp-muted">${esc(c.league)}</td>
       <td>${fixturesHtml(c, w)}</td>
       <td class="cp-xp" data-tip="xptotal" data-club="${c.id}" data-gw="${gw}">${fmt(w.xp)}</td>

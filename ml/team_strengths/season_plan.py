@@ -23,7 +23,7 @@ def _club_rows(fx):
             h = side == "H"
             out.append(dict(
                 club_id=int(r.home_id if h else r.away_id), opp_id=int(r.away_id if h else r.home_id),
-                opp=r.away if h else r.home, ha=side, date=r.date, time=r.time,
+                opp=r.away if h else r.home, ha=side, date=r.date, time=r.time, ko=r.kickoff,
                 xp=r.ptsH if h else r.ptsA, win=r.pH if h else r.pA, draw=r.pD,
                 cs=r.csH if h else r.csA, g2=r.g2H if h else r.g2A, g4=r.g4H if h else r.g4A,
                 xg_for=r.xgH if h else r.xgA, xg_ag=r.xgA if h else r.xgH, src=r.source,
@@ -33,11 +33,11 @@ def _club_rows(fx):
 
 
 def build_plan(rounds, squads, fits, id2fd, book, as_of, league_names, book_src=None, market_lam=None):
-    # Only gameweeks whose pick deadline (first kick-off) has not passed: the plan always starts at the gameweek you can
-    # still pick for. After a deadline, re-run to move on to the next gameweek.
+    # Gameweeks that still have a game to kick off. Fantasy EFL locks game by game, so a gameweek stays pickable (for clubs
+    # that have not played) until its last kick-off; the page locks clubs whose game has started using the kick-off times.
     now = pd.Timestamp.now(tz="UTC")
     season = sorted((r for r in rounds if r.get("gameMode", "season") == "season" and r["status"] != "completed"
-                     and r.get("lockoutDate") and pd.Timestamp(r["lockoutDate"]) > now),
+                     and any(pd.Timestamp(g["date"]) > now for g in r["games"])),
                     key=lambda r: r["roundNumber"])
     clubs = {cid: dict(id=cid, name=s["name"], short=s.get("shortName") or s["name"], league=league_names[id2fd[cid][1]], weeks=[])
              for cid, s in squads.items() if cid in id2fd}
@@ -55,7 +55,7 @@ def build_plan(rounds, squads, fits, id2fd, book, as_of, league_names, book_src=
             fixtures = []
             if row["games"]:
                 for f in cr[cr.club_id == cid].sort_values(["date", "time"]).itertuples():
-                    fixtures.append(dict(opp=f.opp, ha=f.ha, date=f.date, xp=round(f.xp, 2), win=round(f.win, 4), draw=round(f.draw, 4),
+                    fixtures.append(dict(opp=f.opp, ha=f.ha, date=f.date, ko=f.ko, xp=round(f.xp, 2), win=round(f.win, 4), draw=round(f.draw, 4),
                                          cs=round(f.cs, 4), g2=round(f.g2, 4), g4=round(f.g4, 4), src=f.src,
                                          bk=None if f.bk is None else [round(x, 4) for x in f.bk],
                                          **({"bkSrc": f.bk_src} if isinstance(f.bk_src, str) else {})))

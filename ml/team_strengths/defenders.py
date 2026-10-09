@@ -80,7 +80,7 @@ def build_defender_plan(rounds, squads, players, fits, id2fd, book, book_src, ma
                                         full=("minutes_played", lambda s: int((s >= 60).sum())))
     now = pd.Timestamp.now(tz="UTC")
     season = sorted((r for r in rounds if r.get("gameMode", "season") == "season" and r["status"] != "completed"
-                     and r.get("lockoutDate") and pd.Timestamp(r["lockoutDate"]) > now), key=lambda r: r["roundNumber"])
+                     and any(pd.Timestamp(g["date"]) > now for g in r["games"])), key=lambda r: r["roundNumber"])
     completed = [r["roundNumber"] for r in rounds if r.get("gameMode", "season") == "season" and r["status"] == "completed"]
     no_saves = dict(pen=0.0, cards=0.0)
     clubs = {cid: dict(id=cid, name=s["name"], short=s.get("shortName") or s["name"], league=league_names[id2fd[cid][1]],
@@ -100,7 +100,7 @@ def build_defender_plan(rounds, squads, players, fits, id2fd, book, book_src, ma
                 cid, oid = (r.home_id, r.away_id) if home else (r.away_id, r.home_id)
                 lo, lp = (r.xgH, r.xgA) if home else (r.xgA, r.xgH)
                 p = fixture_points(lo, lp, home, 1.0, 10.0, no_saves)  # clean sheet / goals-conceded parts (saves ignored)
-                per.setdefault(int(cid), []).append(dict(oppId=int(oid), opp=r.away if home else r.home, ha="H" if home else "A", date=r.date,
+                per.setdefault(int(cid), []).append(dict(oppId=int(oid), opp=r.away if home else r.home, ha="H" if home else "A", date=r.date, ko=r.kickoff,
                                                          src=r.source, home=int(home), lamOwn=round(lo, 4), lamOpp=round(lp, 4),
                                                          cs=round(p["cs"], 4), xgc=round(p["xgc"], 3), gcPts=round(p["gcPts"], 4),
                                                          pg2=round(p["pg2"], 4), pg4=round(p["pg4"], 4)))
@@ -108,7 +108,7 @@ def build_defender_plan(rounds, squads, players, fits, id2fd, book, book_src, ma
             f = sorted(per.get(cid, []), key=lambda x: x["date"])
             c["weeks"].append(dict(gw=gw, games=len(f), fx=f))
         dates = sorted(g["date"][:10] for g in rnd["games"])
-        gameweeks.append(dict(gw=gw, start=dates[0], end=dates[-1], games=len(rnd["games"]),
+        gameweeks.append(dict(gw=gw, start=dates[0], end=dates[-1], games=len(rnd["games"]), lockout=rnd["lockoutDate"],
                               marketGames=int((fx.source == "market").sum())))
     defenders = []
     for p in players:

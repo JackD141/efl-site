@@ -1,4 +1,4 @@
-"""Weekly run.   python run_gameweek.py [gameweek]      (no argument = the next gameweek whose pick deadline has not passed)
+"""Weekly run.   python run_gameweek.py [gameweek]      (no argument = the first gameweek with a game still to kick off)
 
 1. download latest results/odds (football-data.co.uk) + EFL rounds/squads
 2. refit this season's per-league team strengths from the odds so far
@@ -33,8 +33,8 @@ def main(gw=None, override_files=()):
     squads = {s["id"]: s for s in squads_list}
     season_rounds = [r for r in rounds if r.get("gameMode", "season") == "season"]
     if gw is None:
-        now = pd.Timestamp.now(tz="UTC")  # the gameweek you can still pick for: first one whose deadline has not passed
-        gw = next(r["roundNumber"] for r in season_rounds if r["status"] != "completed" and pd.Timestamp(r["lockoutDate"]) > now)
+        now = pd.Timestamp.now(tz="UTC")  # first gameweek that still has a game to kick off (locking is game by game)
+        gw = next(r["roundNumber"] for r in season_rounds if r["status"] != "completed" and any(pd.Timestamp(g["date"]) > now for g in r["games"]))
     as_of = pd.Timestamp.today().normalize()
     print(f"Gameweek {gw}; fitting strengths as of {as_of.date()} ...")
     fixtures_csv = fetch_data.CACHE / "fd_fixtures.csv"

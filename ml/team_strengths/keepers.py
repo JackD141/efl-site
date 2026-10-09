@@ -158,7 +158,7 @@ def build_keeper_plan(rounds, squads, players, fits, id2fd, book, book_src, mark
     rolling = current_rolling(model)
     now = pd.Timestamp.now(tz="UTC")
     season = sorted((r for r in rounds if r.get("gameMode", "season") == "season" and r["status"] != "completed"
-                     and r.get("lockoutDate") and pd.Timestamp(r["lockoutDate"]) > now), key=lambda r: r["roundNumber"])
+                     and any(pd.Timestamp(g["date"]) > now for g in r["games"])), key=lambda r: r["roundNumber"])
     completed = [r["roundNumber"] for r in rounds if r.get("gameMode", "season") == "season" and r["status"] == "completed"]
     clubs = {cid: dict(id=cid, name=s["name"], short=s.get("shortName") or s["name"], league=league_names[id2fd[cid][1]], weeks=[])
              for cid, s in squads.items() if cid in id2fd}
@@ -170,7 +170,7 @@ def build_keeper_plan(rounds, squads, players, fits, id2fd, book, book_src, mark
         for r in fx.itertuples():
             for home in (True, False):
                 cid, oid = (r.home_id, r.away_id) if home else (r.away_id, r.home_id)
-                rows.append(dict(club=int(cid), opp_id=int(oid), opp=r.away if home else r.home, ha="H" if home else "A", date=r.date,
+                rows.append(dict(club=int(cid), opp_id=int(oid), opp=r.away if home else r.home, ha="H" if home else "A", date=r.date, ko=r.kickoff,
                                  lam_own=r.xgH if home else r.xgA, lam_opp=r.xgA if home else r.xgH, home=int(home), src=r.source,
                                  team_fd=id2fd[cid][0], opp_fd=id2fd[oid][0]))
         rows = pd.DataFrame(rows)
@@ -182,13 +182,13 @@ def build_keeper_plan(rounds, squads, players, fits, id2fd, book, book_src, mark
         per_club = {}
         for r in rows.itertuples():
             pts = fixture_points(r.lam_own, r.lam_opp, bool(r.home), r.mu, model["nb_r"], consts)
-            per_club.setdefault(r.club, []).append(dict(opp=r.opp, ha=r.ha, date=r.date, src=r.src,
+            per_club.setdefault(r.club, []).append(dict(opp=r.opp, ha=r.ha, date=r.date, ko=r.ko, src=r.src,
                                                         **{k: round(v, 4) for k, v in pts.items()}))
         for cid, c in clubs.items():
             f = sorted(per_club.get(cid, []), key=lambda x: x["date"])
             c["weeks"].append(dict(gw=gw, xp=round(sum(x["xp"] for x in f), 3), games=len(f), fx=f))
         dates = sorted(g_["date"][:10] for g_ in rnd["games"])
-        gameweeks.append(dict(gw=gw, start=dates[0], end=dates[-1], games=len(rnd["games"]),
+        gameweeks.append(dict(gw=gw, start=dates[0], end=dates[-1], games=len(rnd["games"]), lockout=rnd["lockoutDate"],
                               marketGames=int((fx.source == "market").sum()), modelGames=int((fx.source == "model").sum())))
     return dict(
         generatedAt=datetime.now(timezone.utc).isoformat(timespec="seconds"), season="2026/27",

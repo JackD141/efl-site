@@ -79,8 +79,8 @@ weeks count 0, doubles sum both games), each club's rank among all 72 clubs that
 club with its top 5 weeks (rank badge: 1 = the best club that week) and an xP-by-gameweek bar chart. To refresh the
 live page: run `run_gameweek.py`, then commit and push `public/data/club_plan.json`.
 
-**Weekly rhythm.** The page always works on the gameweek you can still pick for: the first one whose deadline (first
-kick-off) has not passed. Suggestions are for that gameweek only; once you have added both picks it says the picks are
+**Weekly rhythm.** The pages show every gameweek with a game still to kick off; a club is locked for a gameweek once its
+game kicks off (checked live in the browser). Suggestions are for that gameweek only; once you have added both picks it says the picks are
 set and waits. After the deadline passes, re-run and push: the page then moves on to the next gameweek. Entered picks
 persist in the browser, so each week is two clicks ("Add to picks" on each suggested club). In a double gameweek,
 re-run again once the midweek games are priced to replace model estimates with market odds.

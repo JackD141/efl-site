@@ -17,6 +17,8 @@ function fmtDate(iso, withDay) {
   return d.toLocaleDateString('en-GB', withDay ? { weekday: 'short', day: 'numeric', month: 'short' } : { day: 'numeric', month: 'short' });
 }
 const weekOf = (clubId, gw) => state.clubWeek[clubId] && state.clubWeek[clubId][gw];
+// a club is locked for a gameweek once one of its games that week has kicked off (Fantasy EFL locks game by game)
+const kickedOff = wk => !!(wk && wk.fx && wk.fx.some(f => f.ko && new Date(f.ko).getTime() <= Date.now()));
 const gwMeta = gw => state.plan.gameweeks.find(g => g.gw === gw);
 const shortOf = name => state.shortByName[name] || name;
 
@@ -154,6 +156,7 @@ function tags(d) {
   if (d.injury || d.status === 'injured') t.push(`<span class="cp-tag kp-tag-out">${esc(d.injury || 'injured')}</span>`);
   if (d.suspended) t.push('<span class="cp-tag kp-tag-out">suspended</span>');
   if (d.startedLast) t.push('<span class="cp-tag cp-tag-picked" title="Played 60+ minutes in his club\'s latest game">started last</span>');
+  if (kickedOff(weekOf(d.club, state.gw))) t.push('<span class="cp-tag" title="His club\'s game this gameweek has kicked off, so he is locked">locked</span>');
   return t.join(' ');
 }
 function render() {

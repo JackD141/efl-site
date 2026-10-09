@@ -123,7 +123,7 @@ def predict_gameweek(rounds, squads, gw, fits, id2fd, book, book_src=None, marke
         ptsA, sA = expected_points(M, False)
         b = book.get((g["homeId"], g["awayId"]))
         rows.append(dict(
-            date=g["date"][:10], time=g["date"][11:16], league=DIVS[div],
+            date=g["date"][:10], time=g["date"][11:16], kickoff=g["date"], league=DIVS[div],
             home_id=g["homeId"], away_id=g["awayId"], home=squads[g["homeId"]]["name"], away=squads[g["awayId"]]["name"],
             pH=P[0], pD=P[1], pA=P[2], pO25=P[3], xgH=lh, xgA=la,
             oddsH=1 / P[0], oddsD=1 / P[1], oddsA=1 / P[2],

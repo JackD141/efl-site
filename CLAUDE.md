@@ -24,6 +24,7 @@ serverless functions, deployed from `main` at https://efl-site.vercel.app (pushi
 
 ```bash
 # weekly refresh (Jack runs this himself, then commits + pushes the JSON; do not automate unless asked)
+# when he pastes Betfair prices: see ml/team_strengths/README.md "Odds overrides" (run_gameweek.py <gw> --override <csv>)
 cd ml/team_strengths && ../../venv/Scripts/python.exe run_gameweek.py        # next pick-able gameweek
 git add public/data/club_plan.json && git commit && git push                  # deploys the new data
 ```

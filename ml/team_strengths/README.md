@@ -48,10 +48,13 @@ Takes about 5 seconds. It does steps 1–5 below and writes to `output/`:
 4. **Predict** (`predict_gw.py`). For each fixture: expected goals for both sides from the two teams' strengths,
    the full score-probability matrix, then win/draw/loss, clean sheet, 2+ and 4+ goals, over 2.5.
 5. **Expected club points** (`club_points.py`). See scoring below. A club with two fixtures scores both.
-6. **Use the market where it exists.** For games that already have bookmaker or exchange odds, trust those. The
-   model's job is the games without odds (midweek) and the clean-sheet / goals probabilities the fantasy scoring
-   needs. Because the weekend odds are fed into the fit, model prices for those games are *not* independent of the
-   bookmakers' prices.
+6. **Use the market where it exists.** A game that has market odds uses the expected goals *those odds imply*
+   (per game, from 1X2 + over/under 2.5), not the strengths model: the market beats the model in every backtest. The
+   model's job is the games without odds (midweek) and, through the fit, anchoring those estimates to the market's
+   current view. (Until 9 Oct 2026 the code still used the model's smoothed numbers for games with odds while labelling
+   them "market"; fixed when Betfair prices were added. Average expected points were not biased by this: 4.374 model vs
+   4.381 market-implied over the 36 GW9 weekend games.) The market-implied 1X2 is reproduced to about 0.6pp on average
+   (draws slightly less well: the score model cannot match all four prices exactly).
 
 ## Club Planner page
 
@@ -79,6 +82,31 @@ to the decimal in two scenarios). It reports the suggested picks for this week, 
 season-plan cost of each, the full plan, and the gain over picking greedily week by week. It ignores risk: see the
 caveats on the page (fixtures change, strength estimates change, variance, covariance e.g. two clubs facing each
 other).
+
+## Odds overrides (Betfair Exchange etc.), on request
+
+When Jack pastes better prices than football-data's (e.g. Betfair Exchange back/lay from the website), swap them in
+for one run; nothing is overridden unless `--override` is passed.
+
+```bash
+cd ml/team_strengths
+# 1. save the pasted page text, e.g. overrides/gw10_betfair_paste.txt
+../../venv/Scripts/python.exe overrides.py import overrides/gw10_betfair_paste.txt overrides/gw10_betfair.csv
+# 2. run with it
+../../venv/Scripts/python.exe run_gameweek.py 10 --override overrides/gw10_betfair.csv
+```
+
+- The parser (`overrides.py`) reads Betfair Exchange "Match Odds" text: per match, home, away, matched amount, then back and
+  lay (each followed by its size) for home / draw / away. It checks every back price is at or below its lay price and
+  that each team name resolves to exactly one EFL squad (add to `BETFAIR_ALIASES` if not).
+- Each outcome's **mid-price = (back + lay) / 2**; margin removed as for any odds; football-data's over/under 2.5 is
+  still used. The mid-prices replace football-data's average 1X2 for the matching fixtures in that run, so they drive
+  both those games' expected points and the strengths fit (hence the midweek estimates). Fixtures not found in
+  football-data are reported and left alone.
+- The site's hover then says "Market = Betfair Exchange mid-price". Override files and the raw paste are kept in
+  `overrides/` (committed) as a record.
+- First use, GW9 (12 Championship weekend games): mean gap between the model's weekend win/draw/lose probabilities and
+  Betfair's fair prices fell from 2.6pp to 0.6pp; club expected points moved by up to about 0.5.
 
 ## Fantasy EFL club scoring
 

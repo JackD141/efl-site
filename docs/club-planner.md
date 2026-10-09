@@ -32,7 +32,8 @@ Weekly: `run_gameweek.py` = download data, fit strengths, predict fixtures, expe
 3. **Strengths**: one model per league, one fit per season (strengths are NOT carried between seasons). Weighted ridge
    regression `log(lambda) = base + home + attack[team] - conceded[opponent]` on the odds-implied expected goals,
    recency half-life **15 days**, ridge 0.1. Upcoming fixtures that already have odds are included as observations.
-4. **Predict** each fixture: score matrix -> win/draw/lose, clean sheet, 2+ and 4+ goals.
+4. **Predict** each fixture: score matrix -> win/draw/lose, clean sheet, 2+ and 4+ goals. A game that has market odds uses
+   the expected goals those odds imply (the market beats the model); only games without odds use the strengths model.
 5. **Expected club points** (`club_points.py`) from those probabilities and the scoring table.
 6. **Season plan** (`season_plan.py`): every gameweek whose deadline has not passed; per club per week xP, rank among
    all 72 clubs, fixtures with their probabilities, market/model flag, and the club's top-5 weeks.
@@ -48,6 +49,7 @@ Weekly: `run_gameweek.py` = download data, fit strengths, predict fixtures, expe
 | Per-season fits, no last-season prior | Team strength correlates ~0.7 year to year, but once ~8 gameweeks of odds exist, last season's ratings add nothing (tested) |
 | 15-day recency half-life | Weekly-refit backtest (2024/25 + 2025/26, 2,751 matches): 60d -> 2.66pp mean gap to closing odds, 15d -> 2.24pp; games >8pp off fell from 10% to 5.5%. Best at every horizon tested (1-12 weeks), blending a slower rating did not help |
 | No team-specific home advantage | Tested, no gain |
+| Games with odds use market-implied expected goals, not the model | Market beats the model in every backtest. Found on 9 Oct 2026: the pipeline had been labelling games "market" while using model-smoothed numbers; fixed alongside the Betfair override (model-vs-market xP had no net bias: 4.374 vs 4.381 over 36 games) |
 | Add upcoming-fixture odds to the fit | Midweek backtest small gain (2.74 -> 2.63pp at 60d); on GW9 vs Betfair (12 Championship games) mean gap 3.1pp -> 2.1pp, worst 10.7 -> 5.9pp. Side effect: model prices for games that have odds are not independent of the bookmakers |
 | One set of current ratings for the whole season plan | Horizon test above: error grows gently (2.2pp next week, 3.8pp 9-12 weeks out); beyond 12 weeks untested, where schedule (doubles/blanks) matters more than strengths |
 
@@ -92,6 +94,9 @@ claim was corrected. Always quote the spread and worst cases.
 2. In a double gameweek, re-run once the midweek games are priced in football-data (the run prints which dates are
    model-only). We do not yet know how many days before kick-off football-data lists midweek games.
 3. On the page, click **Add to picks** for the two suggested clubs (or choose differently).
+3a. **Betfair overrides on request**: when Jack pastes Betfair Exchange prices (first-round games), save the text under
+   `ml/team_strengths/overrides/`, run `python overrides.py import <paste> <csv>`, then `run_gameweek.py <gw> --override <csv>`
+   (mid-price = average of back and lay). Details in the README, "Odds overrides". Not built into the website by his choice.
 4. Jack does **not** want the refresh automated for now. If he asks later, the plan is in the README ("Automating the
    refresh"): a GitHub Actions workflow, first manual-trigger, then scheduled; test that EFL/football-data answer from
    GitHub runners first.

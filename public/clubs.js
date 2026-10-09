@@ -263,9 +263,9 @@ function oddsTip(club, wk, f) {
   const hasMk = !!f.bk;
   const opp = esc(state.shortByName[f.opp] || f.opp);
   return `<div class="cp-tip-title">${esc(short(club))} v ${opp} (${f.ha}) <span>GW ${wk.gw} · ${fmtDate(f.date, true)}</span></div>
-    <table class="cp-tip-table"><tr><th>${esc(short(club))}</th><th>Model</th>${hasMk ? '<th>Market</th>' : ''}</tr>
+    <table class="cp-tip-table"><tr><th>${esc(short(club))}</th><th>${hasMk ? 'Used in xP' : 'Model'}</th>${hasMk ? '<th>Market</th>' : ''}</tr>
     ${rows.map(r => `<tr><td>${r[0]}</td><td><strong>${odds(r[1])}</strong> <span>${pct(r[1])}</span></td>${hasMk ? `<td><strong>${odds(r[2])}</strong> <span>${pct(r[2])}</span></td>` : ''}</tr>`).join('')}</table>
-    <div class="cp-tip-foot">Decimal odds, no bookmaker margin. ${hasMk ? 'Market = bookmaker average with the margin removed.' : 'Model estimate: no bookmaker odds listed yet.'}</div>`;
+    <div class="cp-tip-foot">Decimal odds, no bookmaker margin. ${hasMk ? (f.bkSrc ? `Market = ${esc(f.bkSrc)} mid-price (average of back and lay) with the margin removed.` : 'Market = bookmaker average with the margin removed.') : 'Model estimate: no bookmaker odds listed yet.'}</div>`;
 }
 function components(fixtures) {
   const sc = state.plan.scoring;

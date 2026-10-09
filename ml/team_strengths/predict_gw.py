@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 
 from club_points import expected_points
-from per_season import RHO, devig, fit_strengths, implied_lambdas, lam_for, predict_probs, score_matrix
+from per_season import RHO, devig, fit_strengths, implied_lambdas, lam_for, predict_probs, probs_from_lams, score_matrix
 from strengths import DIVS
 
 warnings.filterwarnings("ignore")
@@ -84,13 +84,40 @@ def bookmaker_probs(fixtures_csv, squads):
     return out
 
 
-def predict_gameweek(rounds, squads, gw, fits, id2fd, book):
+def market_lambdas(fixtures_csv, squads):
+    """Expected goals implied by each upcoming game's own market odds (1X2 + over/under 2.5), keyed by (home_id, away_id).
+
+    For a game that has odds these are used directly: the market beats our strengths model (backtests in the README),
+    so the model is only for games without odds.
+    """
+    resolve = resolver(squads)
+    df = pd.read_csv(fixtures_csv, encoding="utf-8-sig")
+    df = df[df["Div"].isin(DIVS)].copy()
+    df = df.join(implied_lambdas(df, RHO, prefix="Avg")).dropna(subset=["lamH"])
+    return {(resolve(r["HomeTeam"]), resolve(r["AwayTeam"])): (r["lamH"], r["lamA"]) for _, r in df.iterrows()}
+
+
+def bookmaker_sources(fixtures_csv, squads):
+    """Where each game's market prices came from ('bookmaker average', or e.g. 'Betfair Exchange' when overridden)."""
+    resolve = resolver(squads)
+    df = pd.read_csv(fixtures_csv, encoding="utf-8-sig")
+    if "BookSrc" not in df.columns:
+        return {}
+    return {(resolve(r["HomeTeam"]), resolve(r["AwayTeam"])): r["BookSrc"] for _, r in df[df["Div"].isin(DIVS)].iterrows()}
+
+
+def predict_gameweek(rounds, squads, gw, fits, id2fd, book, book_src=None, market_lam=None):
     rnd = [r for r in rounds if r["roundNumber"] == gw and r.get("gameMode", "season") == "season"][0]
     rows = []
     for g in sorted(rnd["games"], key=lambda g: (g["date"], g["competitionId"])):
         hn, div = id2fd[g["homeId"]]
         an, _ = id2fd[g["awayId"]]
-        P, lh, la = predict_probs(fits[div], hn, an, RHO)
+        ml = (market_lam or {}).get((g["homeId"], g["awayId"]))
+        if ml is not None:  # market prices exist: use what they imply
+            lh, la = ml
+            P = probs_from_lams(lh, la, RHO)
+        else:  # no prices yet: our strengths model
+            P, lh, la = predict_probs(fits[div], hn, an, RHO)
         M = score_matrix(lh, la, RHO)
         ptsH, sH = expected_points(M, True)
         ptsA, sA = expected_points(M, False)
@@ -102,7 +129,8 @@ def predict_gameweek(rounds, squads, gw, fits, id2fd, book):
             oddsH=1 / P[0], oddsD=1 / P[1], oddsA=1 / P[2],
             csH=sH["clean_sheet"], csA=sA["clean_sheet"], g2H=sH["two_goals"], g2A=sA["two_goals"], g4H=sH["four_goals"], g4A=sA["four_goals"],
             ptsH=ptsH, ptsA=ptsA,
-            source="market" if b is not None else "model",
+            source="market" if ml is not None else "model",
+            bookSrc=None if b is None or not book_src else book_src.get((g["homeId"], g["awayId"])),
             bookH=None if b is None else b[0], bookD=None if b is None else b[1], bookA=None if b is None else b[2]))
     return pd.DataFrame(rows)
 

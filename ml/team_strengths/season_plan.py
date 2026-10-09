@@ -27,11 +27,12 @@ def _club_rows(fx):
                 xp=r.ptsH if h else r.ptsA, win=r.pH if h else r.pA, draw=r.pD,
                 cs=r.csH if h else r.csA, g2=r.g2H if h else r.g2A, g4=r.g4H if h else r.g4A,
                 xg_for=r.xgH if h else r.xgA, xg_ag=r.xgA if h else r.xgH, src=r.source,
-                bk=None if pd.isna(r.bookH) else [r.bookH, r.bookD, r.bookA] if h else [r.bookA, r.bookD, r.bookH]))
+                bk=None if pd.isna(r.bookH) else [r.bookH, r.bookD, r.bookA] if h else [r.bookA, r.bookD, r.bookH],
+                bk_src=r.bookSrc if isinstance(r.bookSrc, str) and r.bookSrc != "bookmaker average" else None))
     return pd.DataFrame(out)
 
 
-def build_plan(rounds, squads, fits, id2fd, book, as_of, league_names):
+def build_plan(rounds, squads, fits, id2fd, book, as_of, league_names, book_src=None, market_lam=None):
     # Only gameweeks whose pick deadline (first kick-off) has not passed: the plan always starts at the gameweek you can
     # still pick for. After a deadline, re-run to move on to the next gameweek.
     now = pd.Timestamp.now(tz="UTC")
@@ -43,7 +44,7 @@ def build_plan(rounds, squads, fits, id2fd, book, as_of, league_names):
     gameweeks, weekly = [], {}
     for rnd in season:
         gw = rnd["roundNumber"]
-        fx = predict_gameweek(rounds, squads, gw, fits, id2fd, book)
+        fx = predict_gameweek(rounds, squads, gw, fits, id2fd, book, book_src, market_lam)
         cr = _club_rows(fx)
         started = {g["homeId"] for g in rnd["games"] if g["status"] != "scheduled"} | {g["awayId"] for g in rnd["games"] if g["status"] != "scheduled"}
         per = cr.groupby("club_id").agg(xp=("xp", "sum"), games=("opp", "count"), cs=("cs", "sum"), win=("win", "sum"))
@@ -56,7 +57,8 @@ def build_plan(rounds, squads, fits, id2fd, book, as_of, league_names):
                 for f in cr[cr.club_id == cid].sort_values(["date", "time"]).itertuples():
                     fixtures.append(dict(opp=f.opp, ha=f.ha, date=f.date, xp=round(f.xp, 2), win=round(f.win, 4), draw=round(f.draw, 4),
                                          cs=round(f.cs, 4), g2=round(f.g2, 4), g4=round(f.g4, 4), src=f.src,
-                                         bk=None if f.bk is None else [round(x, 4) for x in f.bk]))
+                                         bk=None if f.bk is None else [round(x, 4) for x in f.bk],
+                                         **({"bkSrc": f.bk_src} if isinstance(f.bk_src, str) else {})))
             clubs[cid]["weeks"].append(dict(gw=gw, xp=round(row["xp"], 2), rank=int(row["rank"]), games=int(row["games"]),
                                             locked=bool(cid in started), fx=fixtures))
         dates = sorted(g["date"][:10] for g in rnd["games"])
@@ -83,5 +85,5 @@ def build_plan(rounds, squads, fits, id2fd, book, as_of, league_names):
 
 def write_site_json(plan, path=SITE_JSON):
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(plan, separators=(",", ":")), encoding="utf-8")
+    path.write_text(json.dumps(plan, separators=(",", ":"), allow_nan=False), encoding="utf-8")  # NaN would be invalid JSON and break the page
     return path

@@ -1,5 +1,7 @@
 # Team strengths and expected club points
 
+Full context for the whole Club Planner feature (decisions, evidence, gotchas, state of play): `docs/club-planner.md`.
+
 Our own model of how strong every EFL club is, used to price fixtures and to work out how many Fantasy EFL points
 each club is expected to score in a gameweek. It exists because bookmaker odds are not available for every fixture in
 time (e.g. midweek games in a double gameweek), and because the fantasy club scoring needs more than win/draw/loss:
@@ -67,7 +69,9 @@ re-run again once the midweek games are priced to replace model estimates with m
 Hovering a fixture shows the model's (and, where listed, the bookmakers') decimal win/draw/lose odds; hovering an xP
 number shows where it comes from (each outcome probability x its points).
 
-**My picks & season plan** (Jack and John profiles, saved in the browser's local storage; export/import for backup):
+**My picks & season plan** (Jack and John profiles, saved in the browser's local storage; export/import, and a passphrase-protected
+**cloud backup** via `api/club-picks.js` so picks can be loaded in another browser or a private window; see
+`docs/club-planner.md`):
 enter the two clubs picked in each gameweek so far. That gives each club's picks left (shown as a "Picks left" column)
 and drives an optimiser: choose 2 clubs per remaining gameweek, each club at most its picks left, to maximise total
 xP. It is an assignment problem solved exactly (min-cost flow in the browser, checked against an independent LP solver

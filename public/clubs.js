@@ -13,6 +13,7 @@ const state = {
   panelOpen: true, planOpen: false,
   store: { active: 'Jack', picks: { Jack: {}, John: {} } },
   result: null,
+  cloud: { pass: '', msg: '', kind: '', busy: false },
 };
 
 /* ---------- helpers ---------- */
@@ -42,13 +43,25 @@ const gwMeta = gw => state.plan.gameweeks.find(g => g.gw === gw);
 const short = c => c.short || c.name;
 
 /* ---------- saved picks (this browser only) ---------- */
+// Keep only picks whose club exists in the data, so stale or hand-edited saves can never break the page.
+function sanitizePicks(p) {
+  const picks = {};
+  let dropped = 0;
+  for (const [gw, ids] of Object.entries(p && typeof p === 'object' ? p : {})) {
+    if (!Array.isArray(ids)) { dropped++; continue; }
+    const clean = [0, 1].map(i => (ids[i] && state.byId[ids[i]] ? ids[i] : null));
+    dropped += [0, 1].filter(i => ids[i] && !clean[i]).length;
+    if (clean[0] || clean[1]) picks[gw] = clean;
+  }
+  return { picks, dropped };
+}
 function loadStore() {
   try {
     const raw = localStorage.getItem(STORE_KEY);
     if (!raw) return;
     const s = JSON.parse(raw);
     if (s && s.picks) {
-      for (const p of PROFILES) state.store.picks[p] = s.picks[p] || {};
+      for (const p of PROFILES) state.store.picks[p] = sanitizePicks(s.picks[p]).picks;
       if (PROFILES.includes(s.active)) state.store.active = s.active;
     }
   } catch (e) { /* storage unavailable: carry on without saving */ }
@@ -88,6 +101,39 @@ function removePick(gw, id) {
   if (!cur[0] && !cur[1]) delete picks[gw]; else picks[gw] = cur;
   saveStore();
   render();
+}
+
+/* ---------- cloud backup (api/club-picks.js) ---------- */
+async function cloudCall(action) {
+  const c = state.cloud;
+  const name = state.store.active;
+  if (c.pass.length < 4) { c.msg = 'Enter a passphrase of at least 4 characters.'; c.kind = 'err'; render(); return; }
+  c.busy = true; c.msg = action === 'save' ? 'Saving...' : 'Loading...'; c.kind = '';
+  render();
+  try {
+    const res = await fetch('/api/club-picks', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action, name, passphrase: c.pass, picks: action === 'save' ? activePicks() : undefined }),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.error || `Request failed (${res.status})`);
+    const when = new Date(data.savedAt).toLocaleString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
+    if (action === 'save') {
+      c.msg = `Saved ${name}'s picks to the cloud (${when})${data.created ? '. Passphrase set: use it to load them elsewhere.' : '.'}`; c.kind = 'ok';
+    } else if (Object.keys(activePicks()).length && !window.confirm(`Replace the picks in this browser for ${name} with the ones saved in the cloud (${when})?`)) {
+      c.msg = 'Load cancelled.'; c.kind = '';
+    } else {
+      const clean = sanitizePicks(data.picks);
+      state.store.picks[name] = clean.picks;
+      saveStore();
+      c.msg = `Loaded ${name}'s picks saved ${when}.${clean.dropped ? ` ${clean.dropped} pick(s) ignored: club not found.` : ''}`; c.kind = 'ok';
+    }
+  } catch (e) {
+    c.msg = e.message; c.kind = 'err';
+  } finally {
+    c.busy = false;
+    render();
+  }
 }
 
 /* ---------- optimiser: exact min-cost flow ----------
@@ -428,7 +474,14 @@ function renderPanel() {
             <thead><tr><th>Gameweek</th><th>Pick 1</th><th>Pick 2</th></tr></thead><tbody>${rows.join('')}</tbody></table></div>
           <div class="cp-used-box"><h4 class="cp-h4">Picks used</h4>
             <div>${usedChips || '<span class="cp-muted">Nothing entered yet: every club has all 5 picks left.</span>'}</div>
-            <div class="cp-btn-row"><button class="cp-link-btn" id="cp-export">Export</button><button class="cp-link-btn" id="cp-import">Import</button><button class="cp-link-btn" id="cp-clear">Clear ${esc(profile)}</button></div></div>
+            <div class="cp-btn-row"><button class="cp-link-btn" id="cp-export">Export</button><button class="cp-link-btn" id="cp-import">Import</button><button class="cp-link-btn" id="cp-clear">Clear ${esc(profile)}</button></div>
+            <div class="cp-cloud"><h4 class="cp-h4">Cloud backup <span class="cp-sub">save here, load from any browser</span></h4>
+              <input type="password" id="cp-cloud-pass" placeholder="Passphrase for ${esc(profile)}" value="${esc(state.cloud.pass)}" autocomplete="off" />
+              <div class="cp-btn-row">
+                <button class="cp-add-btn cp-cloud-btn" id="cp-cloud-save" ${state.cloud.busy ? 'disabled' : ''}>Save to cloud</button>
+                <button class="cp-add-btn cp-cloud-btn cp-cloud-load" id="cp-cloud-load" ${state.cloud.busy ? 'disabled' : ''}>Load from cloud</button></div>
+              <div class="cp-cloud-msg ${state.cloud.kind ? 'cp-cloud-' + state.cloud.kind : ''}">${esc(state.cloud.msg)}</div>
+              <p class="cp-note cp-small">The first save sets the passphrase for ${esc(profile)}. Picks and a hash of the passphrase are stored in the public GitHub repo, so use a passphrase you do not use anywhere else.</p></div></div>
         </div>
         ${renderPlan()}
       </div>
@@ -568,6 +621,9 @@ function bind() {
     b.dataset.addBoth.split(',').forEach(id => addPick(b.dataset.gw, +id));
   }));
   document.querySelectorAll('[data-remove]').forEach(b => b.addEventListener('click', () => removePick(b.dataset.gw, +b.dataset.remove)));
+  document.getElementById('cp-cloud-pass').addEventListener('input', e => { state.cloud.pass = e.target.value; });
+  document.getElementById('cp-cloud-save').addEventListener('click', () => cloudCall('save'));
+  document.getElementById('cp-cloud-load').addEventListener('click', () => cloudCall('load'));
   document.getElementById('cp-clear').addEventListener('click', () => {
     if (confirm(`Clear all picks entered for ${state.store.active}?`)) { state.store.picks[state.store.active] = {}; saveStore(); render(); }
   });
@@ -580,7 +636,7 @@ function bind() {
     try {
       const s = JSON.parse(raw);
       if (!s || !s.picks) throw new Error('bad format');
-      for (const p of PROFILES) state.store.picks[p] = s.picks[p] || {};
+      for (const p of PROFILES) state.store.picks[p] = sanitizePicks(s.picks[p]).picks;
       if (PROFILES.includes(s.active)) state.store.active = s.active;
       saveStore(); render();
     } catch (e) { alert('Could not read that. Paste the text exactly as exported.'); }

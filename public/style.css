@@ -840,3 +840,14 @@ input[type="range"]::-moz-range-thumb:hover {
 .cp-suggest-set { border-color: #2e9e5b; background: #f3fbf6; }
 .cp-set-tick { color: #1f7a45; font-size: 0.78rem; font-weight: bold; margin-left: 6px; }
 .cp-tag-picked { background: #dff3e7; color: #1f7a45; }
+
+.cp-cloud { margin-top: 16px; padding-top: 10px; border-top: 1px dashed #d8d8d8; }
+.cp-cloud input[type="password"] { width: 100%; padding: 7px 9px; border: 1px solid #ccc; border-radius: 4px; font-size: 0.88rem; margin-bottom: 6px; }
+.cp-cloud .cp-btn-row { margin-top: 4px; }
+.cp-cloud-btn { margin-top: 0; display: inline-block; }
+.cp-cloud-load { background: #555; }
+.cp-cloud-load:hover { background: #333; }
+.cp-cloud-btn:disabled { background: #ccc; cursor: not-allowed; }
+.cp-cloud-msg { min-height: 1.2em; margin-top: 8px; font-size: 0.82rem; }
+.cp-cloud-ok { color: #1f7a45; }
+.cp-cloud-err { color: #b3261e; }

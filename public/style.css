@@ -861,3 +861,66 @@ input[type="range"]::-moz-range-thumb:hover {
 .cp-tip tbody td:nth-child(2) { white-space: normal; }
 .kp-mins { width: 58px; padding: 4px 6px; border: 1px solid #ccc; border-radius: 4px; font-size: 0.85rem; text-align: center; }
 .kp-mins-edited { border-color: #f05a28; background: #fff3ee; font-weight: bold; }
+
+/* ---------- Optimal Picks (homepage) ---------- */
+.op-board { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: 18px; align-items: start; margin-bottom: 20px; }
+@media (max-width: 860px) { .op-board { grid-template-columns: 1fr; } }
+.op-pitch {
+  position: relative; border-radius: 10px; padding: 18px 8px 10px; overflow: hidden;
+  background: repeating-linear-gradient(180deg, #2f8f46 0, #2f8f46 48px, #2a8240 48px, #2a8240 96px);
+  box-shadow: inset 0 0 0 3px rgba(255,255,255,0.55);
+}
+.op-lines { position: absolute; inset: 0; pointer-events: none; }
+.op-lines::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; border-top: 2px solid rgba(255,255,255,0.45); }
+.op-box { position: absolute; left: 30%; right: 30%; top: 0; height: 16%; border: 2px solid rgba(255,255,255,0.45); border-top: none; }
+.op-circle { position: absolute; left: 50%; bottom: -60px; width: 120px; height: 120px; margin-left: -60px; border: 2px solid rgba(255,255,255,0.45); border-radius: 50%; }
+.op-row { position: relative; display: flex; justify-content: space-evenly; gap: 6px; margin: 6px 0 14px; }
+.op-player { width: 124px; text-align: center; cursor: default; }
+.op-shirt { position: relative; width: 56px; height: 52px; margin: 0 auto 2px; }
+.op-shirt svg { width: 100%; height: 100%; filter: drop-shadow(0 2px 2px rgba(0,0,0,0.35)); }
+.op-shirt path { stroke: rgba(0,0,0,0.25); stroke-width: 1.5; fill: #1f3d7a; }
+.op-lg-league1 path { fill: #c8102e; }
+.op-lg-league2 path { fill: #6a1b9a; }
+.op-gk path { fill: #f5c400; }
+.op-badge { position: absolute; left: -6px; top: -4px; width: 22px; height: 22px; border-radius: 50%; font-size: 0.75rem; font-weight: 800;
+  line-height: 22px; text-align: center; box-shadow: 0 1px 2px rgba(0,0,0,0.4); }
+.op-badge.op-inline { position: static; display: inline-block; }
+.op-cap { background: #111; color: #ffd200; }
+.op-vice { background: #fff; color: #111; }
+.op-act { position: absolute; right: -8px; top: -4px; width: 20px; height: 20px; border-radius: 50%; border: none; background: rgba(0,0,0,0.55);
+  color: #fff; font-size: 0.8rem; line-height: 20px; cursor: pointer; padding: 0; opacity: 0; transition: opacity 0.15s; }
+.op-player:hover .op-act, .op-act:focus { opacity: 1; }
+.op-act.op-pinned { right: auto; left: -6px; top: 26px; opacity: 1; background: #f05a28; }
+.op-plate { background: #14213d; color: #fff; border-radius: 4px 4px 0 0; padding: 3px 4px; }
+.op-name { font-size: 0.8rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.op-club { font-size: 0.68rem; opacity: 0.85; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.op-player .op-xp { background: #fff; color: #14213d; font-weight: 800; font-size: 0.85rem; border-radius: 0 0 4px 4px; padding: 1px 0; }
+.op-lock { font-size: 0.62rem; font-weight: 600; color: #b71c1c; }
+.op-clubs-row { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
+.op-clubcard { flex: 1 1 220px; display: flex; align-items: center; gap: 10px; background: #14213d; color: #fff; border-radius: 8px; padding: 8px 12px; }
+.op-clubcard.op-club-picked { background: #3a4a6b; }
+.op-crest { width: 40px; height: 40px; border-radius: 50%; background: #f05a28; color: #fff; font-weight: 800; font-size: 0.8rem;
+  display: flex; align-items: center; justify-content: center; flex: none; }
+.op-clubinfo { flex: 1; min-width: 0; }
+.op-clubcard .op-xp { font-size: 1.2rem; font-weight: 800; }
+.op-side { display: flex; flex-direction: column; gap: 10px; }
+.op-total { background: #f05a28; color: #fff; border-radius: 10px; padding: 14px; text-align: center; }
+.op-total-num { font-size: 2.4rem; font-weight: 800; line-height: 1; }
+.op-total-lab { text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.5px; }
+.op-total-split { font-size: 0.75rem; margin-top: 6px; opacity: 0.95; }
+.op-panel { background: #f5f5f5; border-radius: 8px; padding: 10px 12px; font-size: 0.88rem; display: flex; flex-direction: column; gap: 6px; }
+.op-panel p { margin: 0; line-height: 1.4; }
+.op-ftable { width: 100%; border-collapse: collapse; }
+.op-ftable td { padding: 3px 0; border-bottom: 1px solid #e3e3e3; }
+.op-ftable tr.op-best td { font-weight: 800; color: #f05a28; }
+.op-tools { display: flex; flex-direction: column; gap: 8px; margin: 6px 0 18px; }
+.op-tools input { margin-left: 6px; padding: 6px 10px; border: 1px solid #ccc; border-radius: 6px; min-width: 260px; max-width: 100%; }
+.op-chip { display: inline-flex; align-items: center; gap: 4px; background: #eee; border-radius: 12px; padding: 2px 4px 2px 10px; margin: 2px; }
+.op-act-inline { border: none; background: none; color: #f05a28; cursor: pointer; font-weight: 700; font-size: 0.8rem; }
+.op-alts { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 18px; }
+.op-alt h3 { font-size: 0.9rem; margin-bottom: 6px; }
+.op-alt-row { display: flex; align-items: center; justify-content: space-between; gap: 6px; padding: 4px 0; border-bottom: 1px solid #eee; font-size: 0.85rem; }
+.op-alt-row > span:first-child { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.op-alt-xp { font-weight: 700; }
+@media (max-width: 560px) { .op-player { width: 96px; } .op-name { font-size: 0.72rem; } }
+@media (hover: none) { .op-act { opacity: 1; } }

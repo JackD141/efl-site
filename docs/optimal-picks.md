@@ -1,0 +1,35 @@
+# Optimal Picks (homepage, v2, 9 Oct 2026)
+
+https://efl-site.vercel.app/ (`public/index.html` + `optimal.js`). It replaced the old heuristic `picks.html`, which
+now redirects here. The League Table moved to `league.html`.
+
+## What it shows
+For a chosen gameweek: a pitch graphic in the Fantasy EFL style with the best 7 players, captain (C) and vice-captain
+(V), the 2 clubs to pick, total expected points, each formation's best total, and the next-best options per position.
+
+## Rules applied (Fantasy EFL help centre, checked 9 Oct 2026)
+- 7 players: GK 1, DEF 2-3, MID 2-3, FWD 1-2. Formations 1-2-2-2, 1-2-3-1, 1-3-2-1.
+- At most 2 players from one club per gameweek. The **One Club** chip (toggle) removes the limit.
+- 2 clubs per gameweek; each club at most 5 times a season. Club picks do not count towards the player limit.
+- Captain scores double. Vice-captain scores double only if the captain does not play. Clubs cannot be captained.
+- Locking is game by game. You cannot switch captain to a player who has already played. Doubles score twice, blanks 0.
+- **Max Captain** chip (twice a season): the captain becomes the actual top scorer. Not modelled; the page says so.
+
+## How it works
+- Player xP per gameweek uses the same data and maths as the position pages (`keeper_plan.json`, `defender_plan.json`,
+  `mid_plan.json`, `fwd_plan.json`). Expected minutes are read from the minutes edits those pages save in this browser
+  (`efl_keeper_mins_v1`, `efl_defender_mins_v1`, `efl_mid_mins_v1`, `efl_fwd_mins_v1`).
+  - **The defender and attacker xP maths is copied in `optimal.js`.** If a model changes, update both places.
+- Players: an exact branch and bound maximising sum of xP + captain's xP (captain = highest xP) for each formation. It uses the
+  top 40 per position. Players whose game has kicked off are left out unless pinned.
+- Pin (must include) and exclude (×) per player, saved in this browser (`efl_optimal_v1`). Use pin for players already
+  in your team whose game has kicked off.
+- Clubs: the Club Planner's min-cost-flow season plan, using that profile's (Jack / John) picks saved by the Club Planner
+  (`efl_club_planner_v1`). This saves picks for clubs' best weeks. If the best two for this week alone differ, the page
+  says so. Clubs already entered for the gameweek are shown as picked.
+
+## Checks (9 Oct 2026, GW9)
+- Player xP equals the position pages for every expected starter (GW9, 10, 12): defenders and forwards exactly, keepers
+  within 0.0005 (rounding in the JSON). Midfielders use the same code as forwards.
+- Branch and bound equals brute force on a restricted pool for all three formations; the full solve takes about 4 ms.
+- Club choice equals the Club Planner's plan for the same profile.

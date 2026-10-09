@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Midfielder Picks — EFL Fantasy League</title>
+  <title>League Table — EFL Fantasy League</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-<body data-pos="MID">
+<body>
 
   <header>
     <h1>Dexter's Corner</h1>
@@ -15,19 +15,20 @@
       <a href="clubs.html" class="nav-link">Club Planner</a>
       <a href="keepers.html" class="nav-link">Keeper Picks</a>
       <a href="defenders.html" class="nav-link">Defender Picks</a>
-      <a href="midfielders.html" class="nav-link active">Midfielder Picks</a>
+      <a href="midfielders.html" class="nav-link">Midfielder Picks</a>
       <a href="forwards.html" class="nav-link">Forward Picks</a>
       <a href="players.html" class="nav-link">Player Stats</a>
-      <a href="league.html" class="nav-link">League Table</a>
+      <a href="league.html" class="nav-link active">League Table</a>
     </nav>
+    <button id="refresh-btn" onclick="loadTable()">Pull Latest League Table</button>
   </header>
 
   <main>
     <div id="status"></div>
-    <div id="kp-root"></div>
+    <div id="table-container"></div>
   </main>
 
-  <script src="attackers.js"></script>
+  <script src="app.js"></script>
 
 </body>
 </html>

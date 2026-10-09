@@ -58,7 +58,17 @@ weeks count 0, doubles sum both games), each club's rank among all 72 clubs that
 `public/clubs.html` + `clubs.js` show the best clubs for any gameweek, a season-at-a-glance table, and a popup per
 club with its top 5 weeks (rank badge: 1 = the best club that week) and an xP-by-gameweek bar chart. To refresh the
 live page: run `run_gameweek.py`, then commit and push `public/data/club_plan.json`.
-Assumes every club still has all 5 picks left; it does not yet know which picks you have used.
+Hovering a fixture shows the model's (and, where listed, the bookmakers') decimal win/draw/lose odds; hovering an xP
+number shows where it comes from (each outcome probability x its points).
+
+**My picks & season plan** (Jack and John profiles, saved in the browser's local storage; export/import for backup):
+enter the two clubs picked in each gameweek so far. That gives each club's picks left (shown as a "Picks left" column)
+and drives an optimiser: choose 2 clubs per remaining gameweek, each club at most its picks left, to maximise total
+xP. It is an assignment problem solved exactly (min-cost flow in the browser, checked against an independent LP solver
+to the decimal in two scenarios). It reports the suggested picks for this week, the other options this week with the
+season-plan cost of each, the full plan, and the gain over picking greedily week by week. It ignores risk: see the
+caveats on the page (fixtures change, strength estimates change, variance, covariance e.g. two clubs facing each
+other).
 
 ## Fantasy EFL club scoring
 

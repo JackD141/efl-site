@@ -26,7 +26,8 @@ def _club_rows(fx):
                 opp=r.away if h else r.home, ha=side, date=r.date, time=r.time,
                 xp=r.ptsH if h else r.ptsA, win=r.pH if h else r.pA, draw=r.pD,
                 cs=r.csH if h else r.csA, g2=r.g2H if h else r.g2A, g4=r.g4H if h else r.g4A,
-                xg_for=r.xgH if h else r.xgA, xg_ag=r.xgA if h else r.xgH, src=r.source))
+                xg_for=r.xgH if h else r.xgA, xg_ag=r.xgA if h else r.xgH, src=r.source,
+                bk=None if pd.isna(r.bookH) else [r.bookH, r.bookD, r.bookA] if h else [r.bookA, r.bookD, r.bookH]))
     return pd.DataFrame(out)
 
 
@@ -49,8 +50,9 @@ def build_plan(rounds, squads, fits, id2fd, book, as_of, league_names):
             fixtures = []
             if row["games"]:
                 for f in cr[cr.club_id == cid].sort_values(["date", "time"]).itertuples():
-                    fixtures.append(dict(opp=f.opp, ha=f.ha, date=f.date, xp=round(f.xp, 2), win=round(f.win, 3), draw=round(f.draw, 3),
-                                         cs=round(f.cs, 3), g2=round(f.g2, 3), g4=round(f.g4, 3), src=f.src))
+                    fixtures.append(dict(opp=f.opp, ha=f.ha, date=f.date, xp=round(f.xp, 2), win=round(f.win, 4), draw=round(f.draw, 4),
+                                         cs=round(f.cs, 4), g2=round(f.g2, 4), g4=round(f.g4, 4), src=f.src,
+                                         bk=None if f.bk is None else [round(x, 4) for x in f.bk]))
             clubs[cid]["weeks"].append(dict(gw=gw, xp=round(row["xp"], 2), rank=int(row["rank"]), games=int(row["games"]),
                                             locked=bool(cid in started), fx=fixtures))
         dates = sorted(g["date"][:10] for g in rnd["games"])

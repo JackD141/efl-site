@@ -5,7 +5,7 @@
 3. predict every fixture of the gameweek: games with market odds use what those odds imply; the rest use the strengths model
 4. convert to expected Fantasy EFL club points
 Optional: --override overrides/<file>.csv swaps pasted prices (see overrides.py) in for that run.
-Also writes public/data/keeper_plan.json (keeper expected points; needs data/2026_27 stats up to date for starters).
+Also writes public/data/keeper_plan.json and defender_plan.json (keeper / defender pages; need data/2026_27 stats up to date for starters).
 Outputs to output/: gw<N>_fixtures.csv, gw<N>_club_points.csv, ratings_<season>.csv, and public/data/club_plan.json
 (every remaining gameweek, for the site's Club Planner page)
 """
@@ -14,6 +14,7 @@ from pathlib import Path
 
 import pandas as pd
 
+import defenders
 import fetch_data
 import keepers
 import overrides
@@ -55,8 +56,11 @@ def main(gw=None, override_files=()):
     fx = predict_gameweek(rounds, squads, gw, fits, id2fd, book, book_src, market_lam)
     plan = season_plan.build_plan(rounds, squads, fits, id2fd, book, as_of, DIVS, book_src, market_lam)
     print(f"Season plan: {len(plan['gameweeks'])} gameweeks -> {season_plan.write_site_json(plan)}")
-    kp = keepers.build_keeper_plan(rounds, squads, fetch_data.efl_players(), fits, id2fd, book, book_src, market_lam, DIVS)
+    players = fetch_data.efl_players()
+    kp = keepers.build_keeper_plan(rounds, squads, players, fits, id2fd, book, book_src, market_lam, DIVS)
     print(f"Keeper plan: {len(kp['keepers'])} keepers -> {keepers.write_site_json(kp)}")
+    dp = defenders.build_defender_plan(rounds, squads, players, fits, id2fd, book, book_src, market_lam, DIVS)
+    print(f"Defender plan: {len(dp['defenders'])} defenders ({sum(x['xMins'] > 0 for x in dp['defenders'])} expected starters) -> {defenders.write_site_json(dp)}")
     if kp["latestCompletedGw"] > kp["startersFromGw"]:
         print(f"  WARNING: starters are based on local stats up to GW{kp['startersFromGw']} but GW{kp['latestCompletedGw']} has finished."
               " Press Export Stats on the Player Stats page and git pull, then re-run.")

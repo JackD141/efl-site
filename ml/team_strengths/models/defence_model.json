@@ -1,0 +1,752 @@
+{
+ "stats": {
+  "clr": {
+   "column": "clearances",
+   "unit": 4,
+   "model": "G4 + odds + home",
+   "features": [
+    "role",
+    "team",
+    "opp",
+    "lam_opp",
+    "lam_own",
+    "home"
+   ],
+   "window": 12,
+   "prior": 5.593395577721259,
+   "intercept": 1.6694001206796687,
+   "coef": [
+    0.34121885667255747,
+    0.1290659782543153,
+    0.08861133180192267,
+    -0.015527341600913694,
+    -0.04388384839708069,
+    -0.039027813270563955
+   ],
+   "scaler_mean": [
+    -0.013130112218862063,
+    1.7021021320759588,
+    1.7066758132058906,
+    0.249985278936774,
+    0.24505816457846863,
+    0.49917521994134895
+   ],
+   "scaler_sd": [
+    0.3744519429109948,
+    0.1555992688249759,
+    0.13661152641912783,
+    0.22471441498623843,
+    0.2253891586866843,
+    0.4999993207374113
+   ],
+   "nb_r": 7.578276580779122,
+   "test": {
+    "model": {
+     "poisson_dev": 1.8506584507864805,
+     "nb_loglik": -2.4148583151213967,
+     "mae": 2.37631717009955,
+     "mae_pts": 0.6349805491129173,
+     "mean_pred": 5.2595114518893675,
+     "mean_actual": 5.086956521739131
+    },
+    "baseline": {
+     "poisson_dev": 1.89200218565239,
+     "nb_loglik": -2.4252499363119044,
+     "mae": 2.446668267476619,
+     "mae_pts": 0.6458946955550308,
+     "mean_pred": 5.589159864293249,
+     "mean_actual": 5.086956521739131
+    },
+    "n": 1909
+   },
+   "validation": [
+    {
+     "model": "B0 league average",
+     "window": "-",
+     "poisson_dev": 2.74981,
+     "nb_loglik": -2.69498,
+     "mae": 3.13561,
+     "mae_pts": 0.75387,
+     "mean_pred": 5.5934,
+     "mean_actual": 5.8614
+    },
+    {
+     "model": "B1 player's own recent rate",
+     "window": "-",
+     "poisson_dev": 1.89776,
+     "nb_loglik": -2.50333,
+     "mae": 2.57041,
+     "mae_pts": 0.68668,
+     "mean_pred": 5.75253,
+     "mean_actual": 5.8614
+    },
+    {
+     "model": "G1 role",
+     "window": "-",
+     "poisson_dev": 2.05317,
+     "nb_loglik": -2.54399,
+     "mae": 2.67541,
+     "mae_pts": 0.7176,
+     "mean_pred": 5.82369,
+     "mean_actual": 5.8614
+    },
+    {
+     "model": "G2 role + team style",
+     "window": 4,
+     "poisson_dev": 1.94768,
+     "nb_loglik": -2.51713,
+     "mae": 2.61186,
+     "mae_pts": 0.69816,
+     "mean_pred": 5.8405,
+     "mean_actual": 5.8614
+    },
+    {
+     "model": "G3 + opponent style",
+     "window": 4,
+     "poisson_dev": 1.89621,
+     "nb_loglik": -2.50371,
+     "mae": 2.58774,
+     "mae_pts": 0.69322,
+     "mean_pred": 5.86514,
+     "mean_actual": 5.8614
+    },
+    {
+     "model": "G4 + odds + home",
+     "window": 4,
+     "poisson_dev": 1.87265,
+     "nb_loglik": -2.49736,
+     "mae": 2.56343,
+     "mae_pts": 0.68575,
+     "mean_pred": 5.8594,
+     "mean_actual": 5.8614
+    },
+    {
+     "model": "XGBoost (G4 features)",
+     "window": 4,
+     "poisson_dev": 1.8918,
+     "nb_loglik": -2.50692,
+     "mae": 2.56642,
+     "mae_pts": 0.6902,
+     "mean_pred": 5.80968,
+     "mean_actual": 5.8614
+    },
+    {
+     "model": "G2 role + team style",
+     "window": 8,
+     "poisson_dev": 1.9291,
+     "nb_loglik": -2.51201,
+     "mae": 2.59161,
+     "mae_pts": 0.69379,
+     "mean_pred": 5.82906,
+     "mean_actual": 5.8614
+    },
+    {
+     "model": "G3 + opponent style",
+     "window": 8,
+     "poisson_dev": 1.87418,
+     "nb_loglik": -2.49775,
+     "mae": 2.56543,
+     "mae_pts": 0.68689,
+     "mean_pred": 5.8499,
+     "mean_actual": 5.8614
+    },
+    {
+     "model": "G4 + odds + home",
+     "window": 8,
+     "poisson_dev": 1.85318,
+     "nb_loglik": -2.49207,
+     "mae": 2.54529,
+     "mae_pts": 0.68029,
+     "mean_pred": 5.8449,
+     "mean_actual": 5.8614
+    },
+    {
+     "model": "XGBoost (G4 features)",
+     "window": 8,
+     "poisson_dev": 1.8703,
+     "nb_loglik": -2.50153,
+     "mae": 2.54463,
+     "mae_pts": 0.6826,
+     "mean_pred": 5.79497,
+     "mean_actual": 5.8614
+    },
+    {
+     "model": "G2 role + team style",
+     "window": 12,
+     "poisson_dev": 1.91583,
+     "nb_loglik": -2.50837,
+     "mae": 2.58343,
+     "mae_pts": 0.69049,
+     "mean_pred": 5.82239,
+     "mean_actual": 5.8614
+    },
+    {
+     "model": "G3 + opponent style",
+     "window": 12,
+     "poisson_dev": 1.87078,
+     "nb_loglik": -2.49599,
+     "mae": 2.56609,
+     "mae_pts": 0.68625,
+     "mean_pred": 5.8451,
+     "mean_actual": 5.8614
+    },
+    {
+     "model": "G4 + odds + home",
+     "window": 12,
+     "poisson_dev": 1.85124,
+     "nb_loglik": -2.4907,
+     "mae": 2.54479,
+     "mae_pts": 0.67967,
+     "mean_pred": 5.84056,
+     "mean_actual": 5.8614
+    },
+    {
+     "model": "XGBoost (G4 features)",
+     "window": 12,
+     "poisson_dev": 1.86212,
+     "nb_loglik": -2.4983,
+     "mae": 2.54592,
+     "mae_pts": 0.68123,
+     "mean_pred": 5.79437,
+     "mean_actual": 5.8614
+    },
+    {
+     "model": "G2 role + team style",
+     "window": 46,
+     "poisson_dev": 1.91708,
+     "nb_loglik": -2.5084,
+     "mae": 2.58471,
+     "mae_pts": 0.69186,
+     "mean_pred": 5.84487,
+     "mean_actual": 5.8614
+    },
+    {
+     "model": "G3 + opponent style",
+     "window": 46,
+     "poisson_dev": 1.87103,
+     "nb_loglik": -2.49582,
+     "mae": 2.56541,
+     "mae_pts": 0.6867,
+     "mean_pred": 5.87203,
+     "mean_actual": 5.8614
+    },
+    {
+     "model": "G4 + odds + home",
+     "window": 46,
+     "poisson_dev": 1.85401,
+     "nb_loglik": -2.49113,
+     "mae": 2.54608,
+     "mae_pts": 0.68085,
+     "mean_pred": 5.86928,
+     "mean_actual": 5.8614
+    },
+    {
+     "model": "XGBoost (G4 features)",
+     "window": 46,
+     "poisson_dev": 1.8587,
+     "nb_loglik": -2.49765,
+     "mae": 2.54138,
+     "mae_pts": 0.6805,
+     "mean_pred": 5.82409,
+     "mean_actual": 5.8614
+    }
+   ]
+  },
+  "blk": {
+   "column": "blocks",
+   "unit": 2,
+   "model": "G4 + odds + home",
+   "features": [
+    "role",
+    "team",
+    "opp",
+    "lam_opp",
+    "lam_own",
+    "home"
+   ],
+   "window": 46,
+   "prior": 0.5809770767229738,
+   "intercept": -0.5473352103007769,
+   "coef": [
+    0.2859773081506944,
+    0.05431767168763563,
+    0.018218737510867597,
+    0.15170327523753283,
+    0.007080102434117995,
+    -0.012579308491238662
+   ],
+   "scaler_mean": [
+    -0.04391470577771368,
+    -0.5718911116739376,
+    -0.5692843381419264,
+    0.249985278936774,
+    0.24505816457846863,
+    0.49917521994134895
+   ],
+   "scaler_sd": [
+    0.5268716896196598,
+    0.2129807489951757,
+    0.20143343461526794,
+    0.22471441498623843,
+    0.2253891586866843,
+    0.4999993207374113
+   ],
+   "nb_r": 4.424913170520945,
+   "test": {
+    "model": {
+     "poisson_dev": 1.1482204002228575,
+     "nb_loglik": -1.0609218806854999,
+     "mae": 0.6902030205489912,
+     "mae_pts": 0.25680619174558283,
+     "mean_pred": 0.6373989136985851,
+     "mean_actual": 0.6448402304871661
+    },
+    "baseline": {
+     "poisson_dev": 1.1761930567619119,
+     "nb_loglik": -1.0727525160983273,
+     "mae": 0.6832643086495399,
+     "mae_pts": 0.251101254151135,
+     "mean_pred": 0.6014854812379794,
+     "mean_actual": 0.6448402304871661
+    },
+    "n": 1909
+   },
+   "validation": [
+    {
+     "model": "B0 league average",
+     "window": "-",
+     "poisson_dev": 1.13796,
+     "nb_loglik": -1.04315,
+     "mae": 0.682,
+     "mae_pts": 0.24182,
+     "mean_pred": 0.58098,
+     "mean_actual": 0.59896
+    },
+    {
+     "model": "B1 player's own recent rate",
+     "window": "-",
+     "poisson_dev": 1.08877,
+     "nb_loglik": -1.01979,
+     "mae": 0.64073,
+     "mae_pts": 0.23421,
+     "mean_pred": 0.58794,
+     "mean_actual": 0.59896
+    },
+    {
+     "model": "G1 role",
+     "window": "-",
+     "poisson_dev": 1.08244,
+     "nb_loglik": -1.01686,
+     "mae": 0.65419,
+     "mae_pts": 0.23798,
+     "mean_pred": 0.60104,
+     "mean_actual": 0.59896
+    },
+    {
+     "model": "G2 role + team style",
+     "window": 4,
+     "poisson_dev": 1.08054,
+     "nb_loglik": -1.01595,
+     "mae": 0.65271,
+     "mae_pts": 0.23705,
+     "mean_pred": 0.59899,
+     "mean_actual": 0.59896
+    },
+    {
+     "model": "G3 + opponent style",
+     "window": 4,
+     "poisson_dev": 1.07974,
+     "nb_loglik": -1.01559,
+     "mae": 0.65229,
+     "mae_pts": 0.23676,
+     "mean_pred": 0.59823,
+     "mean_actual": 0.59896
+    },
+    {
+     "model": "G4 + odds + home",
+     "window": 4,
+     "poisson_dev": 1.0683,
+     "nb_loglik": -1.01017,
+     "mae": 0.64602,
+     "mae_pts": 0.23531,
+     "mean_pred": 0.60295,
+     "mean_actual": 0.59896
+    },
+    {
+     "model": "XGBoost (G4 features)",
+     "window": 4,
+     "poisson_dev": 1.06883,
+     "nb_loglik": -1.00866,
+     "mae": 0.64817,
+     "mae_pts": 0.23268,
+     "mean_pred": 0.61113,
+     "mean_actual": 0.59896
+    },
+    {
+     "model": "G2 role + team style",
+     "window": 8,
+     "poisson_dev": 1.08066,
+     "nb_loglik": -1.01601,
+     "mae": 0.65304,
+     "mae_pts": 0.23727,
+     "mean_pred": 0.60051,
+     "mean_actual": 0.59896
+    },
+    {
+     "model": "G3 + opponent style",
+     "window": 8,
+     "poisson_dev": 1.0794,
+     "nb_loglik": -1.01541,
+     "mae": 0.65209,
+     "mae_pts": 0.2369,
+     "mean_pred": 0.59968,
+     "mean_actual": 0.59896
+    },
+    {
+     "model": "G4 + odds + home",
+     "window": 8,
+     "poisson_dev": 1.06839,
+     "nb_loglik": -1.0102,
+     "mae": 0.64655,
+     "mae_pts": 0.23538,
+     "mean_pred": 0.60334,
+     "mean_actual": 0.59896
+    },
+    {
+     "model": "XGBoost (G4 features)",
+     "window": 8,
+     "poisson_dev": 1.07673,
+     "nb_loglik": -1.01237,
+     "mae": 0.64929,
+     "mae_pts": 0.23222,
+     "mean_pred": 0.60535,
+     "mean_actual": 0.59896
+    },
+    {
+     "model": "G2 role + team style",
+     "window": 12,
+     "poisson_dev": 1.07971,
+     "nb_loglik": -1.01553,
+     "mae": 0.65325,
+     "mae_pts": 0.23749,
+     "mean_pred": 0.60223,
+     "mean_actual": 0.59896
+    },
+    {
+     "model": "G3 + opponent style",
+     "window": 12,
+     "poisson_dev": 1.07868,
+     "nb_loglik": -1.01504,
+     "mae": 0.65232,
+     "mae_pts": 0.23751,
+     "mean_pred": 0.60293,
+     "mean_actual": 0.59896
+    },
+    {
+     "model": "G4 + odds + home",
+     "window": 12,
+     "poisson_dev": 1.06789,
+     "nb_loglik": -1.00998,
+     "mae": 0.6468,
+     "mae_pts": 0.23563,
+     "mean_pred": 0.60499,
+     "mean_actual": 0.59896
+    },
+    {
+     "model": "XGBoost (G4 features)",
+     "window": 12,
+     "poisson_dev": 1.07531,
+     "nb_loglik": -1.0117,
+     "mae": 0.64824,
+     "mae_pts": 0.23275,
+     "mean_pred": 0.60815,
+     "mean_actual": 0.59896
+    },
+    {
+     "model": "G2 role + team style",
+     "window": 46,
+     "poisson_dev": 1.07781,
+     "nb_loglik": -1.01473,
+     "mae": 0.65315,
+     "mae_pts": 0.23791,
+     "mean_pred": 0.60467,
+     "mean_actual": 0.59896
+    },
+    {
+     "model": "G3 + opponent style",
+     "window": 46,
+     "poisson_dev": 1.07595,
+     "nb_loglik": -1.01387,
+     "mae": 0.65224,
+     "mae_pts": 0.23813,
+     "mean_pred": 0.60691,
+     "mean_actual": 0.59896
+    },
+    {
+     "model": "G4 + odds + home",
+     "window": 46,
+     "poisson_dev": 1.06699,
+     "nb_loglik": -1.00958,
+     "mae": 0.64698,
+     "mae_pts": 0.23617,
+     "mean_pred": 0.60751,
+     "mean_actual": 0.59896
+    },
+    {
+     "model": "XGBoost (G4 features)",
+     "window": 46,
+     "poisson_dev": 1.07116,
+     "nb_loglik": -1.00977,
+     "mae": 0.64812,
+     "mae_pts": 0.23332,
+     "mean_pred": 0.61173,
+     "mean_actual": 0.59896
+    }
+   ]
+  },
+  "tkl": {
+   "column": "tackles",
+   "unit": 2,
+   "model": "G3 + opponent style",
+   "features": [
+    "role",
+    "team",
+    "opp"
+   ],
+   "window": 46,
+   "prior": 1.5520558045515174,
+   "intercept": 0.3882317066377809,
+   "coef": [
+    0.2067384877520165,
+    0.0822503522824246,
+    0.06216070088849278
+   ],
+   "scaler_mean": [
+    -0.051974017931465596,
+    0.43766467515540347,
+    0.43844513154829584
+   ],
+   "scaler_sd": [
+    0.3386905283739383,
+    0.13827782292835858,
+    0.12665308501974945
+   ],
+   "nb_r": 6.922920944480173,
+   "test": {
+    "model": {
+     "poisson_dev": 1.3471226279833683,
+     "nb_loglik": -1.5758270115855968,
+     "mae": 1.0655312757091047,
+     "mae_pts": 0.5787081025972166,
+     "mean_pred": 1.5133927856641973,
+     "mean_actual": 1.4887375589313776
+    },
+    "baseline": {
+     "poisson_dev": 1.3489630838093662,
+     "nb_loglik": -1.576716940582085,
+     "mae": 1.0703932048972897,
+     "mae_pts": 0.5726273357024625,
+     "mean_pred": 1.5541682450113232,
+     "mean_actual": 1.4887375589313776
+    },
+    "n": 1909
+   },
+   "validation": [
+    {
+     "model": "B0 league average",
+     "window": "-",
+     "poisson_dev": 1.42702,
+     "nb_loglik": -1.63138,
+     "mae": 1.14026,
+     "mae_pts": 0.61985,
+     "mean_pred": 1.55206,
+     "mean_actual": 1.55295
+    },
+    {
+     "model": "B1 player's own recent rate",
+     "window": "-",
+     "poisson_dev": 1.32347,
+     "nb_loglik": -1.59006,
+     "mae": 1.06648,
+     "mae_pts": 0.57428,
+     "mean_pred": 1.54275,
+     "mean_actual": 1.55295
+    },
+    {
+     "model": "G1 role",
+     "window": "-",
+     "poisson_dev": 1.35217,
+     "nb_loglik": -1.60173,
+     "mae": 1.08175,
+     "mae_pts": 0.59019,
+     "mean_pred": 1.49594,
+     "mean_actual": 1.55295
+    },
+    {
+     "model": "G2 role + team style",
+     "window": 4,
+     "poisson_dev": 1.34126,
+     "nb_loglik": -1.59735,
+     "mae": 1.07829,
+     "mae_pts": 0.588,
+     "mean_pred": 1.51551,
+     "mean_actual": 1.55295
+    },
+    {
+     "model": "G3 + opponent style",
+     "window": 4,
+     "poisson_dev": 1.34171,
+     "nb_loglik": -1.59752,
+     "mae": 1.08098,
+     "mae_pts": 0.58824,
+     "mean_pred": 1.537,
+     "mean_actual": 1.55295
+    },
+    {
+     "model": "G4 + odds + home",
+     "window": 4,
+     "poisson_dev": 1.33974,
+     "nb_loglik": -1.59669,
+     "mae": 1.07733,
+     "mae_pts": 0.58573,
+     "mean_pred": 1.53344,
+     "mean_actual": 1.55295
+    },
+    {
+     "model": "XGBoost (G4 features)",
+     "window": 4,
+     "poisson_dev": 1.36202,
+     "nb_loglik": -1.60735,
+     "mae": 1.08805,
+     "mae_pts": 0.58999,
+     "mean_pred": 1.52131,
+     "mean_actual": 1.55295
+    },
+    {
+     "model": "G2 role + team style",
+     "window": 8,
+     "poisson_dev": 1.3414,
+     "nb_loglik": -1.59738,
+     "mae": 1.07776,
+     "mae_pts": 0.58768,
+     "mean_pred": 1.51167,
+     "mean_actual": 1.55295
+    },
+    {
+     "model": "G3 + opponent style",
+     "window": 8,
+     "poisson_dev": 1.3369,
+     "nb_loglik": -1.59561,
+     "mae": 1.07635,
+     "mae_pts": 0.58645,
+     "mean_pred": 1.52393,
+     "mean_actual": 1.55295
+    },
+    {
+     "model": "G4 + odds + home",
+     "window": 8,
+     "poisson_dev": 1.33586,
+     "nb_loglik": -1.59515,
+     "mae": 1.07314,
+     "mae_pts": 0.58423,
+     "mean_pred": 1.52047,
+     "mean_actual": 1.55295
+    },
+    {
+     "model": "XGBoost (G4 features)",
+     "window": 8,
+     "poisson_dev": 1.35439,
+     "nb_loglik": -1.60389,
+     "mae": 1.08153,
+     "mae_pts": 0.58708,
+     "mean_pred": 1.50285,
+     "mean_actual": 1.55295
+    },
+    {
+     "model": "G2 role + team style",
+     "window": 12,
+     "poisson_dev": 1.33974,
+     "nb_loglik": -1.5967,
+     "mae": 1.07626,
+     "mae_pts": 0.5872,
+     "mean_pred": 1.49932,
+     "mean_actual": 1.55295
+    },
+    {
+     "model": "G3 + opponent style",
+     "window": 12,
+     "poisson_dev": 1.33414,
+     "nb_loglik": -1.59444,
+     "mae": 1.07271,
+     "mae_pts": 0.58493,
+     "mean_pred": 1.50463,
+     "mean_actual": 1.55295
+    },
+    {
+     "model": "G4 + odds + home",
+     "window": 12,
+     "poisson_dev": 1.33404,
+     "nb_loglik": -1.59438,
+     "mae": 1.0704,
+     "mae_pts": 0.58311,
+     "mean_pred": 1.50389,
+     "mean_actual": 1.55295
+    },
+    {
+     "model": "XGBoost (G4 features)",
+     "window": 12,
+     "poisson_dev": 1.35233,
+     "nb_loglik": -1.60293,
+     "mae": 1.08135,
+     "mae_pts": 0.58631,
+     "mean_pred": 1.50051,
+     "mean_actual": 1.55295
+    },
+    {
+     "model": "G2 role + team style",
+     "window": 46,
+     "poisson_dev": 1.33732,
+     "nb_loglik": -1.59571,
+     "mae": 1.07511,
+     "mae_pts": 0.58656,
+     "mean_pred": 1.49292,
+     "mean_actual": 1.55295
+    },
+    {
+     "model": "G3 + opponent style",
+     "window": 46,
+     "poisson_dev": 1.32965,
+     "nb_loglik": -1.59257,
+     "mae": 1.06931,
+     "mae_pts": 0.58284,
+     "mean_pred": 1.48975,
+     "mean_actual": 1.55295
+    },
+    {
+     "model": "G4 + odds + home",
+     "window": 46,
+     "poisson_dev": 1.33007,
+     "nb_loglik": -1.59273,
+     "mae": 1.06774,
+     "mae_pts": 0.58134,
+     "mean_pred": 1.49171,
+     "mean_actual": 1.55295
+    },
+    {
+     "model": "XGBoost (G4 features)",
+     "window": 46,
+     "poisson_dev": 1.34923,
+     "nb_loglik": -1.60156,
+     "mae": 1.0796,
+     "mae_pts": 0.58538,
+     "mean_pred": 1.49609,
+     "mean_actual": 1.55295
+    }
+   ]
+  }
+ },
+ "role_games": 20,
+ "k_team": 12.0,
+ "k_role": 3.0,
+ "min_full": 85
+}

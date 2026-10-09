@@ -56,6 +56,13 @@ Takes about 5 seconds. It does steps 1–5 below and writes to `output/`:
    4.381 market-implied over the 36 GW9 weekend games.) The market-implied 1X2 is reproduced to about 0.6pp on average
    (draws slightly less well: the score model cannot match all four prices exactly).
 
+## Defender Picks page
+
+`run_gameweek.py` also writes `public/data/defender_plan.json` (model coefficients, each defender's role and rates, each
+club's style, fixture clean-sheet/goals-conceded inputs); `public/defenders.js` computes xP so minutes edits are instant.
+Retrain occasionally: `../../venv/Scripts/python.exe defence_model.py` (add `--total` for the end-to-end check).
+Details: `docs/defender-model.md`.
+
 ## Keeper Picks page
 
 `run_gameweek.py` also writes `public/data/keeper_plan.json` (keeper xP per fixture, expected starters and minutes) for

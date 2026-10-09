@@ -785,7 +785,8 @@ input[type="range"]::-moz-range-thumb:hover {
 .cp-fx-xp, .cp-xp[data-tip], .cp-suggest-xp[data-tip] { cursor: help; text-decoration: underline dotted #bbb; text-underline-offset: 3px; }
 .cp-tip {
   position: fixed; z-index: 3000; background: #1f2328; color: #f1f3f5; border-radius: 6px; padding: 10px 12px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.3); font-size: 0.8rem; line-height: 1.4; pointer-events: none; max-width: 300px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3); font-size: 0.8rem; line-height: 1.4; pointer-events: none;
+  width: max-content; max-width: 520px;
 }
 .cp-tip-title { font-weight: bold; margin-bottom: 6px; }
 .cp-tip-title span { display: block; font-weight: normal; color: #aab2bb; font-size: 0.72rem; }
@@ -855,3 +856,8 @@ input[type="range"]::-moz-range-thumb:hover {
 /* Keeper Picks */
 .kp-toggle { font-size: 0.85rem; color: #444; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
 .kp-tag-out { background: #fde2e1; color: #b3261e; }
+
+/* tooltip middle column (formulas) may wrap; numbers stay on one line */
+.cp-tip tbody td:nth-child(2) { white-space: normal; }
+.kp-mins { width: 58px; padding: 4px 6px; border: 1px solid #ccc; border-radius: 4px; font-size: 0.85rem; text-align: center; }
+.kp-mins-edited { border-color: #f05a28; background: #fff3ee; font-weight: bold; }

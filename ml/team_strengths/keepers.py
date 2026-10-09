@@ -4,8 +4,10 @@ xP if he starts = appearance 2 (99.6% of starting keepers play 60+)
                 + 5 x P(clean sheet) - E[floor(goals conceded / 2)]      (from the match score matrix: market odds or model)
                 + 2 x E[floor(saves / 3)]                                (saves_model.py: negative binomial, mean from odds)
                 + penalty saves and cards                                (keeper averages from the fantasy data)
-Keeper xP = P(start) x xP if he starts. P(start): the keeper who started his club's last game keeps his place with the
-historical rate (about 94%); available backups share the rest; injured / suspended keepers get 0.
+Keeper xP = (expected minutes / 90) x xP if he plays the whole game. Default expected minutes: 90 for the keeper who
+started his club's last game (if available), 0 for everyone else; editable on the page.
+Discrete scoring is handled with full distributions: saves points = 2 x [P(3+) + P(6+) + ...] from the negative binomial,
+goals-conceded points = -[P(2+) + P(4+) + ...] from the score matrix.
 """
 import glob
 import json
@@ -66,7 +68,9 @@ def fixture_points(lam_own, lam_opp, home, mu_saves, r, consts):
     pmf = nbinom.pmf(K_SAVES, r, r / (r + mu_saves))
     save_pts = float((pmf * 2 * (K_SAVES // 3)).sum())
     xp = APPEARANCE + CLEAN_SHEET * p_cs + gc_pts + save_pts + consts["pen"] + consts["cards"]
-    return dict(cs=p_cs, xgc=float((conceded * g).sum()), gcPts=gc_pts, saves=float(mu_saves), savePts=save_pts, xp=xp)
+    at_least = lambda dist, n: float(dist[n:].sum())
+    return dict(cs=p_cs, xgc=float((conceded * g).sum()), gcPts=gc_pts, pg2=at_least(conceded, 2), pg4=at_least(conceded, 4),
+                saves=float(mu_saves), savePts=save_pts, ps3=at_least(pmf, 3), ps6=at_least(pmf, 6), ps9=at_least(pmf, 9), xp=xp)
 
 
 # ---------- fantasy data: constants, starters ----------
@@ -130,14 +134,8 @@ def keeper_roster(players, squads, rounds, gk, consts):
             starter = int(last.at[club, "player_id"])
         elif avail:  # last starter unavailable or gone: the available keeper with most starts, then minutes
             starter = max(avail, key=lambda p: (starts.get(p["id"], 0), mins.get(p["id"], 0)))["id"]
-        backups = [p for p in avail if p["id"] != starter]
         for p in ks:
-            if not available(p):
-                ps = 0.0
-            elif p["id"] == starter:
-                ps = consts["p_keep"] if backups else 1.0
-            else:
-                ps = (1 - consts["p_keep"]) / len(backups)
+            ps = 1.0 if (available(p) and p["id"] == starter) else 0.0
             inj = p.get("injuryDetails") or {}
             ls = last_start.loc[p["id"]] if p["id"] in last_start.index else None
             out.append(dict(

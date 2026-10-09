@@ -21,8 +21,11 @@ What was built, versus the plan below:
   (93.7% over 3,236 starts); available backups share the rest; keepers with an injury/suspension flag or status
   "injured" in the EFL players feed get 0. Starters come from local `data/2026_27` stats, so press Export Stats and
   `git pull` before refreshing; the run and the page warn if the stats lag the latest completed gameweek.
-- Page: expected starters by default (P(start) >= 0.5), "Show backups and injured" toggle, league filter, search,
-  hover breakdowns, next-5-gameweeks total. Defenders deliberately not started.
+- Page: expected starters by default, "Show backups and injured" toggle, league filter, search, hover breakdowns,
+  next-5-gameweeks total.
+- Update (same day): expected minutes default to 90 for the expected starter and 0 for everyone else, with an
+  editable minutes box per keeper (xP x minutes/90, saved in the browser). Hovers show the step probabilities
+  (P(3+), P(6+), P(9+) saves; P(2+), P(4+) conceded) behind the discrete scoring. Defenders: see `docs/defender-model.md`.
 
 ---
 

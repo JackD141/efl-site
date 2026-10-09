@@ -304,6 +304,7 @@ function showTip(el, x, y) {
   moveTip(x, y);
 }
 function moveTip(x, y) {
+  if (window.innerWidth > 0) tip.style.maxWidth = Math.min(520, window.innerWidth - 16) + 'px'; // small screens
   const pad = 14, w = tip.offsetWidth, h = tip.offsetHeight;
   let left = x + pad, top = y + pad;
   if (left + w > window.innerWidth - 8) left = Math.max(8, x - w - pad);

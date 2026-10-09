@@ -62,7 +62,9 @@ def match_details(match_id):
         return json.loads(gzip.decompress(f.read_bytes()))
     d = get_json(f"{API}/matchDetails", {"matchId": match_id})
     RAW.mkdir(parents=True, exist_ok=True)
-    f.write_bytes(gzip.compress(json.dumps(d).encode("utf-8")))
+    tmp = f.with_suffix(".tmp")
+    tmp.write_bytes(gzip.compress(json.dumps(d).encode("utf-8")))
+    tmp.replace(f)  # atomic, so a parallel reader never sees half a file
     return d
 
 
@@ -121,5 +123,20 @@ def run(seasons):
                 print(f"  {i}/{len(todo)} matches, {len(out)} player rows", flush=True)
 
 
+def prefetch(seasons):
+    """Only download raw match files, newest match first (run alongside run() to speed it up; run() then reads the cache)."""
+    for season in seasons:
+        mdf = pd.read_csv(OUT / season.replace("/", "_") / "matches.csv")
+        todo = mdf[mdf["finished"] & ~mdf["cancelled"]].sort_values("utc", ascending=False)["match_id"]
+        for i, mid in enumerate(todo, 1):
+            if not (RAW / f"{mid}.json.gz").exists():
+                match_details(int(mid))
+            if i % 100 == 0:
+                print(f"  prefetch {season}: {i}/{len(todo)}", flush=True)
+
+
 if __name__ == "__main__":
-    run(sys.argv[1:] or SEASONS)
+    if sys.argv[1:2] == ["--prefetch"]:
+        prefetch(sys.argv[2:])
+    else:
+        run(sys.argv[1:] or SEASONS)

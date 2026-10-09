@@ -918,3 +918,7 @@ input[type="range"]::-moz-range-thumb:hover {
 .op-alt-xp { font-weight: 700; }
 @media (max-width: 560px) { .op-player { width: 96px; } .op-name { font-size: 0.72rem; } }
 @media (hover: none) { .op-act { opacity: 1; } }
+
+/* Player Picks: position switch */
+.pp-pos { margin-bottom: 14px; }
+.pp-pos a.cp-chip { text-decoration: none; display: inline-block; }

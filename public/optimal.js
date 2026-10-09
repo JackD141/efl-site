@@ -11,7 +11,7 @@ const FORMATIONS = [
 ];
 const POSITIONS = ['GK', 'DEF', 'MID', 'FWD'];
 const POS_NAME = { GK: 'Goalkeeper', DEF: 'Defender', MID: 'Midfielder', FWD: 'Forward' };
-const POS_PAGE = { GK: 'keepers.html', DEF: 'defenders.html', MID: 'midfielders.html', FWD: 'forwards.html' };
+const POS_PAGE = { GK: 'picks.html?pos=GK', DEF: 'picks.html?pos=DEF', MID: 'picks.html?pos=MID', FWD: 'picks.html?pos=FWD' };
 const MAX_PER_CLUB = 2;
 const MAX_USES = 5;
 const PICKS_PER_WEEK = 2;
@@ -259,7 +259,7 @@ function showTip(el, x, y) {
     html = `<div class="cp-tip-title">${esc(p.name)} <span>${POS_NAME[p.pos]} · ${esc(p.clubShort)} · expected minutes ${p.mins}${p.minsEdited ? ' (your edit)' : ''}</span></div>
       <table class="cp-tip-table">${p.fx.map(x => `<tr><td>v ${esc(shortOf(x.f.opp))} (${x.f.ha})</td><td><span>${fmtDate(x.f.date, true)}${x.f.src === 'market' ? ' · odds' : ' · model'}</span></td><td class="cp-tip-num">${fmt2(x.xp)}</td></tr>`).join('') || '<tr><td colspan="3">No fixture</td></tr>'}
       <tr class="cp-tip-total"><td colspan="2">Gameweek xP${cap ? ' (× 2 as captain)' : ''}</td><td class="cp-tip-num">${fmt2(p.xp * (cap ? 2 : 1))}</td></tr></table>
-      <div class="cp-tip-foot">Breakdown and minutes on the ${POS_NAME[p.pos]} Picks page. Click × on his shirt to exclude him.</div>`;
+      <div class="cp-tip-foot">Breakdown and minutes on <a href="${POS_PAGE[p.pos]}">Player Picks</a>. Click × on his shirt to exclude him.</div>`;
   } else if (el.dataset.club) {
     const wk = clubWeek(+el.dataset.club, state.gw);
     const c = state.plans.CLUB.clubs.find(q => q.id === +el.dataset.club);
@@ -381,8 +381,8 @@ function render() {
         captain scores double, plus 2 clubs, each club usable ${MAX_USES} times a season. Doubles score twice; blanks score nothing.
         Games that have already kicked off still count, so this is the best team for the whole gameweek.</li>
       <li>The team is the exact best for total xP with the captain counted twice (every formation is checked). Captain = highest xP, vice = second highest.</li>
-      <li>Player xP and expected minutes come from the <a href="keepers.html">Keeper</a>, <a href="defenders.html">Defender</a>, <a href="midfielders.html">Midfielder</a> and
-        <a href="forwards.html">Forward</a> pages, including any minutes you have edited there (saved in this browser). Set a player to 0 minutes there, or click × here, to leave him out.</li>
+      <li>Player xP and expected minutes come from the <a href="picks.html">Player Picks</a> page (keepers, defenders, midfielders and
+        forwards), including any minutes you have edited there (saved in this browser). Set a player to 0 minutes there, or click × here, to leave him out.</li>
       <li>Max Captain chip: the captain becomes whoever actually scores most, which is worth more than picking the highest xP when several players have similar xP (e.g. a double gameweek). Not modelled here.</li>
       <li>Single gameweeks are mostly luck: a 1-point xP gap is small.</li>
     </ul></div>

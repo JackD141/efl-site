@@ -8,7 +8,7 @@ serverless functions, deployed from `main` at https://efl-site.vercel.app (pushi
 
 | Path | What |
 |---|---|
-| `public/` | the site (vanilla HTML/JS/CSS, no build step): `index.html` **Optimal Picks** homepage (`optimal.js`; see docs/optimal-picks.md), `players.html` player stats + "Export Stats" button, `picks.html` redirect to the homepage, `clubs.html` **Club Planner**, `keepers.html` **Keeper Picks**, `defenders.html` **Defender Picks**, `midfielders.html` / `forwards.html` **Midfielder / Forward Picks** (shared `attackers.js`) (see docs) |
+| `public/` | the site (vanilla HTML/JS/CSS, no build step): `index.html` **Optimal Picks** homepage (`optimal.js`; see docs/optimal-picks.md), `players.html` player stats + "Export Stats" button, `clubs.html` **Club Planner**, `picks.html` **Player Picks** (one page, `?pos=GK|DEF|MID|FWD` loads `keepers.js` / `defenders.js` / `attackers.js`; the old keepers/defenders/midfielders/forwards.html redirect there) (see docs) |
 | `api/*.js` | Vercel functions (Node, `module.exports = async function handler(req, res)`): proxies to `fantasy.efl.com` JSON, `export-player-stats.js` (commits per-gameweek CSVs to GitHub), `club-picks.js` (cloud backup of club picks) |
 | `data/<season>/player_stats_gwN.csv` | per-gameweek player stats, one folder per season (`2025_26`, `2026_27`). Written by the Export Stats button |
 | `data/season_2025_26_final_totals.json` | final season-aggregate stats for last season, snapshotted before the API reset |

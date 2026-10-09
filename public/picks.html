@@ -2,8 +2,47 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="refresh" content="0; url=index.html" />
-  <title>Optimal Picks — EFL Fantasy League</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Player Picks — EFL Fantasy League</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body><p>Optimal Picks is now the <a href="index.html">home page</a>.</p></body>
+<body>
+
+  <header>
+    <h1>Dexter's Corner</h1>
+    <nav>
+      <a href="index.html" class="nav-link">Optimal Picks</a>
+      <a href="clubs.html" class="nav-link">Club Planner</a>
+      <a href="picks.html" class="nav-link active">Player Picks</a>
+      <a href="players.html" class="nav-link">Player Stats</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="cp-chips pp-pos" id="pp-pos"></div>
+    <div id="status"></div>
+    <div id="kp-root"></div>
+  </main>
+
+  <script>
+    // One page for all four positions: ?pos=GK|DEF|MID|FWD picks which position script runs (last choice remembered).
+    (function () {
+      var POS = { GK: ['Goalkeepers', 'keepers.js'], DEF: ['Defenders', 'defenders.js'], MID: ['Midfielders', 'attackers.js'], FWD: ['Forwards', 'attackers.js'] };
+      var q = (new URLSearchParams(location.search).get('pos') || '').toUpperCase();
+      var saved = null;
+      try { saved = localStorage.getItem('efl_picks_pos'); } catch (e) { /* ignore */ }
+      var pos = POS[q] ? q : (POS[saved] ? saved : 'MID');
+      try { localStorage.setItem('efl_picks_pos', pos); } catch (e) { /* ignore */ }
+      document.body.dataset.pos = pos;
+      document.title = POS[pos][0] + ' — Player Picks';
+      document.getElementById('pp-pos').innerHTML = Object.keys(POS).map(function (p) {
+        return '<a class="cp-chip ' + (p === pos ? 'active' : '') + '" href="picks.html?pos=' + p + '">' + POS[p][0] + '</a>';
+      }).join('');
+      var s = document.createElement('script');
+      s.src = POS[pos][1];
+      document.body.appendChild(s);
+    })();
+  </script>
+
+</body>
 </html>

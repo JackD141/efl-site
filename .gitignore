@@ -5,3 +5,9 @@ venv/
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
+
+# team-strengths pipeline: downloaded / regenerated
+data/football_data/
+ml/team_strengths/cache/
+ml/team_strengths/output/
+ml/team_strengths/*_results.csv

@@ -32,7 +32,11 @@ def _club_rows(fx):
 
 
 def build_plan(rounds, squads, fits, id2fd, book, as_of, league_names):
-    season = sorted((r for r in rounds if r.get("gameMode", "season") == "season" and r["status"] != "completed"),
+    # Only gameweeks whose pick deadline (first kick-off) has not passed: the plan always starts at the gameweek you can
+    # still pick for. After a deadline, re-run to move on to the next gameweek.
+    now = pd.Timestamp.now(tz="UTC")
+    season = sorted((r for r in rounds if r.get("gameMode", "season") == "season" and r["status"] != "completed"
+                     and r.get("lockoutDate") and pd.Timestamp(r["lockoutDate"]) > now),
                     key=lambda r: r["roundNumber"])
     clubs = {cid: dict(id=cid, name=s["name"], short=s.get("shortName") or s["name"], league=league_names[id2fd[cid][1]], weeks=[])
              for cid, s in squads.items() if cid in id2fd}

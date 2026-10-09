@@ -834,3 +834,9 @@ input[type="range"]::-moz-range-thumb:hover {
 .cp-tip tbody td span { color: #aab2bb; }
 .cp-tip tbody td.cp-tip-num { padding-right: 0; }
 .cp-tip tbody tr.cp-tip-total td { border-top: 1px solid #4a525a; padding-top: 4px; }
+
+.cp-add-btn { margin-top: 8px; display: block; background: #f05a28; color: #fff; border: none; border-radius: 4px; padding: 7px 12px; font-size: 0.82rem; font-weight: bold; cursor: pointer; }
+.cp-add-btn:hover { background: #d44d22; }
+.cp-suggest-set { border-color: #2e9e5b; background: #f3fbf6; }
+.cp-set-tick { color: #1f7a45; font-size: 0.78rem; font-weight: bold; margin-left: 6px; }
+.cp-tag-picked { background: #dff3e7; color: #1f7a45; }

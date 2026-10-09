@@ -58,6 +58,12 @@ weeks count 0, doubles sum both games), each club's rank among all 72 clubs that
 `public/clubs.html` + `clubs.js` show the best clubs for any gameweek, a season-at-a-glance table, and a popup per
 club with its top 5 weeks (rank badge: 1 = the best club that week) and an xP-by-gameweek bar chart. To refresh the
 live page: run `run_gameweek.py`, then commit and push `public/data/club_plan.json`.
+
+**Weekly rhythm.** The page always works on the gameweek you can still pick for: the first one whose deadline (first
+kick-off) has not passed. Suggestions are for that gameweek only; once you have added both picks it says the picks are
+set and waits. After the deadline passes, re-run and push: the page then moves on to the next gameweek. Entered picks
+persist in the browser, so each week is two clicks ("Add to picks" on each suggested club). In a double gameweek,
+re-run again once the midweek games are priced to replace model estimates with market odds.
 Hovering a fixture shows the model's (and, where listed, the bookmakers') decimal win/draw/lose odds; hovering an xP
 number shows where it comes from (each outcome probability x its points).
 
@@ -152,6 +158,22 @@ What it does **not** have, and why that is fine:
 Other routes (Betfair or Pinnacle APIs, The Odds API) would only add markets we showed we do not need, or earlier
 midweek prices. Pinnacle's own API has been closed to new users since July 2025 (access by request to
 api@pinnacle.com) and pinnacle.com is blocked in the tooling here, so it is not planned.
+
+## Automating the refresh (not built yet)
+
+Idea: a GitHub Actions workflow that runs `run_gameweek.py` and commits the regenerated `public/data/club_plan.json`
+(Vercel then redeploys). Steps and open questions:
+
+1. First a manually triggered workflow (a "Run workflow" button on GitHub), so a refresh needs no local terminal.
+2. Needs a small requirements file for the pipeline (numpy, pandas, scipy, scikit-learn, requests, matplotlib) and
+   permission for the workflow to commit to `main`.
+3. Open question to test: whether fantasy.efl.com's public `rounds.json`/`squads.json` and football-data.co.uk answer
+   requests from GitHub's runners (they work from a normal connection).
+4. Then a schedule: shortly after each gameweek's deadline (to move the page on), plus daily in double-gameweek
+   weeks until football-data lists the midweek games. We still need to see how many days before kick-off
+   football-data lists them (the run prints this).
+5. Saved picks live in each browser. Moving them to a shared store (for example a small file in the repo written by
+   an API route, like the stats export does) would make them follow Jack and John across devices.
 
 ## Known limits
 

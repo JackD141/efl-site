@@ -73,6 +73,23 @@ function pickWarnings() {
   return out;
 }
 
+function addPick(gw, id) {
+  const picks = activePicks();
+  const cur = (picks[gw] || [null, null]).slice();
+  if (cur.includes(id) || (cur[0] && cur[1])) return;
+  cur[cur[0] ? 1 : 0] = id;
+  picks[gw] = cur;
+  saveStore();
+  render();
+}
+function removePick(gw, id) {
+  const picks = activePicks();
+  const cur = (picks[gw] || []).map(x => (x === id ? null : x));
+  if (!cur[0] && !cur[1]) delete picks[gw]; else picks[gw] = cur;
+  saveStore();
+  render();
+}
+
 /* ---------- optimiser: exact min-cost flow ----------
    Source -> club (capacity = picks left) -> gameweek (1 pick per club per week, profit = xP) -> sink (open slots that week). */
 class MinCostFlow {
@@ -164,7 +181,8 @@ function computeResult() {
   const weeks = planWeeks();
   const capacity = capacities();
   const best = solve(weeks, capacity);
-  const next = weeks.find(w => w.slots > 0);
+  const target = weeks.find(w => w.gw === state.plan.firstGw);
+  const next = target && target.slots > 0 ? target : null; // suggestions only for the gameweek you can still pick for
   const options = [];
   if (next) {
     const cand = state.plan.clubs
@@ -179,7 +197,7 @@ function computeResult() {
     }
     options.sort((a, b) => b.planTotal - a.planTotal);
   }
-  state.result = { weeks, capacity, best, next, options, greedyTotal: greedy(weeks, capacity) };
+  state.result = { weeks, capacity, best, next, target, options, greedyTotal: greedy(weeks, capacity) };
 }
 
 /* ---------- tooltips ---------- */
@@ -272,10 +290,10 @@ function leftBadge(id) {
   const cls = n <= 0 ? 'cp-left-0' : n <= 2 ? 'cp-left-low' : '';
   return `<span class="cp-left ${cls}" title="${n} of ${MAX_USES} picks left for ${esc(state.store.active)}">${Math.max(0, n)}/${MAX_USES}</span>`;
 }
-function plannedIds(gw) {
+function pickState(gw) {
   const r = state.result;
   const w = r.weeks.find(x => x.gw === gw);
-  return new Set((r.best.byWeek[gw] || []).concat(w ? [...w.taken] : []));
+  return { planned: new Set(r.best.byWeek[gw] || []), picked: new Set(w ? [...w.taken] : []) };
 }
 
 function renderControls() {
@@ -320,13 +338,27 @@ function renderPlan() {
       const wk = weekOf(c, r.next.gw);
       return `<div class="cp-suggest"><a href="#" class="cp-club" data-club="${c.id}">${esc(c.name)}</a>
         <div class="cp-suggest-fx">${fixturesHtml(c, wk)}</div><div class="cp-suggest-xp" data-tip="xptotal" data-club="${c.id}" data-gw="${r.next.gw}">${fmt(wk.xp)} xP</div>
-        <div class="cp-muted cp-small">${picksLeft(c.id)} picks left before this week</div></div>`;
+        <div class="cp-muted cp-small">${picksLeft(c.id)} picks left before this week</div>
+        <button class="cp-add-btn" data-add="${c.id}" data-gw="${r.next.gw}">Add to GW ${r.next.gw} picks</button></div>`;
     }).join('');
+    const both = ids.length === 2 && r.next.slots === 2
+      ? `<button class="cp-link-btn" data-add-both="${ids.join(',')}" data-gw="${r.next.gw}">Add both to GW ${r.next.gw} picks</button>` : '';
     const clash = pairFaceEachOther(r.next.gw, ids) ? '<div class="cp-warn">⚠ These two clubs play each other this week, so one of them will lose.</div>' : '';
     thisWeek = `<h4 class="cp-h4">Suggested picks for GW ${r.next.gw}${already.length ? ` <span class="cp-sub">(already picked: ${already.map(c => esc(short(c))).join(', ')})</span>` : ''}</h4>
-      <div class="cp-suggest-row">${chips || '<span class="cp-muted">No eligible clubs.</span>'}</div>${clash}`;
+      <div class="cp-suggest-row">${chips || '<span class="cp-muted">No eligible clubs.</span>'}</div>${both}${clash}`;
+  } else if (r.target) {
+    const cards = [...r.target.taken].map(i => {
+      const c = state.byId[i];
+      const wk = weekOf(c, r.target.gw);
+      return `<div class="cp-suggest cp-suggest-set"><a href="#" class="cp-club" data-club="${c.id}">${esc(c.name)}</a> <span class="cp-set-tick">&#10003; picked</span>
+        <div class="cp-suggest-fx">${wk ? fixturesHtml(c, wk) : ''}</div><div class="cp-suggest-xp" data-tip="xptotal" data-club="${c.id}" data-gw="${r.target.gw}">${wk ? fmt(wk.xp) : '0.0'} xP</div>
+        <button class="cp-link-btn" data-remove="${c.id}" data-gw="${r.target.gw}">Remove</button></div>`;
+    }).join('');
+    const nextGw = state.plan.gameweeks[1] ? state.plan.gameweeks[1].gw : null;
+    thisWeek = `<h4 class="cp-h4">GW ${r.target.gw} picks are set</h4><div class="cp-suggest-row">${cards}</div>
+      <p class="cp-note">${nextGw ? `Suggestions for GW ${nextGw} appear after the next refresh, once GW ${r.target.gw}'s deadline has passed.` : 'No later gameweeks to pick for.'}</p>`;
   } else {
-    thisWeek = '<p class="cp-note">All remaining gameweeks already have two picks entered.</p>';
+    thisWeek = '<p class="cp-note">No gameweek is open for picks.</p>';
   }
   const options = r.options.length ? `
     <h4 class="cp-h4">Other options this week <span class="cp-sub">season plan total if you pick this club now (best other picks chosen for the rest)</span></h4>
@@ -361,7 +393,7 @@ function renderPlan() {
         <li>It assumes you keep to ${PICKS_PER_WEEK} picks a week, ${MAX_USES} per club, and that the picks you entered are correct.</li>
       </ul></div>
     ${options}
-    <details class="cp-sub-details" id="cp-plan-details" ${state.planOpen ? 'open' : ''}><summary>Full season plan</summary>
+    <details class="cp-sub-details" id="cp-plan-details" ${state.planOpen ? 'open' : ''}><summary>Full season plan <span class="cp-sub">provisional: later weeks change as the season goes on</span></summary>
       <div class="cp-plan-grid">
         <div class="cp-table-wrap"><table class="cp-table cp-table-tight"><thead><tr><th>Gameweek</th><th>Picks</th><th class="cp-right">xP</th></tr></thead><tbody>${weeksRows}</tbody></table></div>
         <div class="cp-table-wrap"><table class="cp-table cp-table-tight"><thead><tr><th>Club</th><th>Planned weeks</th><th class="cp-center">Left after</th></tr></thead><tbody>${usageRows}</tbody></table></div>
@@ -406,7 +438,7 @@ function renderPanel() {
 function renderBest() {
   const { gw } = state;
   const meta = gwMeta(gw);
-  const planned = plannedIds(gw);
+  const ps = pickState(gw);
   let rows = visibleClubs()
     .map(c => ({ c, w: weekOf(c, gw) }))
     .filter(r => r.w && r.w.games > 0)
@@ -422,7 +454,7 @@ function renderBest() {
     const left = picksLeft(c.id);
     return `<tr class="${left <= 0 ? 'cp-dim' : ''}">
       <td>${rankBadge(w.rank)}</td>
-      <td><a href="#" class="cp-club" data-club="${c.id}">${esc(c.name)}</a>${planned.has(c.id) ? ' <span class="cp-tag cp-tag-plan" title="In your season plan for this gameweek">plan pick</span>' : ''}${w.locked ? ' <span class="cp-tag" title="This club has already played this gameweek, so it is locked">locked</span>' : ''}${w.games > 1 ? ' <span class="cp-tag cp-tag-double">double</span>' : ''}</td>
+      <td><a href="#" class="cp-club" data-club="${c.id}">${esc(c.name)}</a>${ps.picked.has(c.id) ? ' <span class="cp-tag cp-tag-picked" title="You have picked this club for this gameweek">picked</span>' : ps.planned.has(c.id) ? ' <span class="cp-tag cp-tag-plan" title="In your season plan for this gameweek">plan pick</span>' : ''}${w.locked ? ' <span class="cp-tag" title="This club has already played this gameweek, so it is locked">locked</span>' : ''}${w.games > 1 ? ' <span class="cp-tag cp-tag-double">double</span>' : ''}</td>
       <td class="cp-muted">${esc(c.league)}</td>
       <td>${fixturesHtml(c, w)}</td>
       <td class="cp-xp" data-tip="xptotal" data-club="${c.id}" data-gw="${gw}">${fmt(w.xp)}</td>
@@ -478,6 +510,7 @@ function renderGlance() {
 function render() {
   computeResult();
   const { plan } = state;
+  const scrollY = window.scrollY;
   const asOf = new Date(plan.generatedAt).toLocaleString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
   root.innerHTML = renderControls() + renderPanel() + renderBest() + renderGlance() +
     `<p class="cp-foot">${esc(plan.notes.horizon)} Updated ${esc(asOf)}. Weeks with no fixture score 0, so do not pick a club that blanks.
@@ -485,6 +518,7 @@ function render() {
     <div id="cp-modal" class="games-modal" style="display:none"><div class="games-modal-content cp-modal-content" id="cp-modal-body"></div></div>`;
   tip.style.display = 'none';
   bind();
+  window.scrollTo(0, scrollY);
 }
 
 function bind() {
@@ -529,6 +563,11 @@ function bind() {
     if (!cur[0] && !cur[1]) delete picks[gw]; else picks[gw] = cur;
     saveStore(); render();
   }));
+  document.querySelectorAll('[data-add]').forEach(b => b.addEventListener('click', () => addPick(b.dataset.gw, +b.dataset.add)));
+  document.querySelectorAll('[data-add-both]').forEach(b => b.addEventListener('click', () => {
+    b.dataset.addBoth.split(',').forEach(id => addPick(b.dataset.gw, +id));
+  }));
+  document.querySelectorAll('[data-remove]').forEach(b => b.addEventListener('click', () => removePick(b.dataset.gw, +b.dataset.remove)));
   document.getElementById('cp-clear').addEventListener('click', () => {
     if (confirm(`Clear all picks entered for ${state.store.active}?`)) { state.store.picks[state.store.active] = {}; saveStore(); render(); }
   });

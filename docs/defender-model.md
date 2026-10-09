@@ -43,6 +43,26 @@ Team and opponent style clearly help clearances (each step improves validation l
 blocks the model is about level with the player's own recent rate. XGBoost was worse than the GLMs throughout.
 Clearance coefficients (standardised logs): role 0.34, team style 0.13, opponent style 0.09, odds small.
 
+### Against simple baselines (2026/27 full games, n=1,909; `python compare_baselines.py`)
+Baseline = the player's plain average count in his last X full games (any club). MAE/MSE are on the count; points MAE
+on floor(count/unit) (baselines given the same negative-binomial spread).
+
+| Stat | Predictor | MAE | MSE | Points MAE |
+|---|---|---|---|---|
+| Clearances | league average | 2.90 | 13.08 | 0.689 |
+| | his last 5 games | 2.65 | 12.17 | 0.686 |
+| | his last 10 games | 2.56 | 11.21 | 0.664 |
+| | his last 20 games | 2.53 | 10.87 | 0.659 |
+| | **model** | **2.38** | **9.62** | **0.635** |
+| Tackles | his last 20 games | 1.10 | 2.05 | 0.573 |
+| | model | 1.07 | 1.90 | 0.579 |
+| Blocks | his last 20 games | 0.69 | 0.83 | 0.254 |
+| | model | 0.69 | 0.76 | 0.257 |
+
+Clearances: the model cuts MSE by 12% against the best simple baseline. Tackles and blocks: slightly better MAE/MSE on
+counts, level on points (scored in steps of 2, which hides small gains). Short windows (3-5 games) are worse than
+longer ones: single-game counts are noisy.
+
 ## Other parts
 - Clean sheet and goals conceded: same per-fixture score matrix as the Club Planner and keepers, full distribution, so
   goals-conceded points = -[P(2+) + P(4+) + ...]; clearance points = P(4+) + P(8+) + ...; tackles/blocks = P(2+) + P(4+) + ...

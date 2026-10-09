@@ -19,6 +19,7 @@ serverless functions, deployed from `main` at https://efl-site.vercel.app (pushi
 
 - `docs/club-planner.md`: what the Club Planner is, every design decision and why, test results, gotchas, state of play.
 - `ml/team_strengths/README.md`: how to run the weekly pipeline and the model process/results.
+- `docs/goalkeeper-model-plan.md`: proposed goalkeeper (then defender) expected-points models: components, data findings, build order, open questions (not built yet).
 
 ## Commands
 

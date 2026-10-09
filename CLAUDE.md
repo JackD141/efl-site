@@ -8,7 +8,7 @@ serverless functions, deployed from `main` at https://efl-site.vercel.app (pushi
 
 | Path | What |
 |---|---|
-| `public/` | the site (vanilla HTML/JS/CSS, no build step): `index.html` league table, `players.html` player stats + "Export Stats" button, `picks.html` player picks (simple heuristic), `clubs.html` **Club Planner**, `keepers.html` **Keeper Picks**, `defenders.html` **Defender Picks** (see docs) |
+| `public/` | the site (vanilla HTML/JS/CSS, no build step): `index.html` league table, `players.html` player stats + "Export Stats" button, `picks.html` player picks (simple heuristic), `clubs.html` **Club Planner**, `keepers.html` **Keeper Picks**, `defenders.html` **Defender Picks**, `midfielders.html` / `forwards.html` **Midfielder / Forward Picks** (shared `attackers.js`) (see docs) |
 | `api/*.js` | Vercel functions (Node, `module.exports = async function handler(req, res)`): proxies to `fantasy.efl.com` JSON, `export-player-stats.js` (commits per-gameweek CSVs to GitHub), `club-picks.js` (cloud backup of club picks) |
 | `data/<season>/player_stats_gwN.csv` | per-gameweek player stats, one folder per season (`2025_26`, `2026_27`). Written by the Export Stats button |
 | `data/season_2025_26_final_totals.json` | final season-aggregate stats for last season, snapshotted before the API reset |
@@ -20,6 +20,8 @@ serverless functions, deployed from `main` at https://efl-site.vercel.app (pushi
 - `docs/club-planner.md`: what the Club Planner is, every design decision and why, test results, gotchas, state of play.
 - `ml/team_strengths/README.md`: how to run the weekly pipeline and the model process/results.
 - `docs/defender-model.md`: the defender model (role x club style x opponent style), evidence and checks.
+- `docs/attacker-model.md`: the midfielder / forward model (goals, assists, shots on target, key passes, interceptions).
+- `docs/TODO.md`: open items, including **getting historical player xG / xA data**.
 - `docs/goalkeeper-model-plan.md`: the keeper model (v1 built: saves model, keeper xP, expected minutes) and the original plan; defenders not started.
 
 ## Commands
@@ -28,7 +30,7 @@ serverless functions, deployed from `main` at https://efl-site.vercel.app (pushi
 # weekly refresh (Jack runs this himself, then commits + pushes the JSON; do not automate unless asked)
 # when he pastes Betfair prices: see ml/team_strengths/README.md "Odds overrides" (run_gameweek.py <gw> --override <csv>)
 cd ml/team_strengths && ../../venv/Scripts/python.exe run_gameweek.py        # next pick-able gameweek
-git add public/data/club_plan.json && git commit && git push                  # deploys the new data
+git add public/data/*_plan.json && git commit && git push                  # deploys the new data
 ```
 Use the repo's venv: `./venv/Scripts/python.exe` (Windows). The shell is Git Bash on Windows (CRLF warnings are normal).
 There is **no Node** on this machine, so API functions cannot be run locally: test their logic in the browser pane with

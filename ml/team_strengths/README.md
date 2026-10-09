@@ -63,6 +63,12 @@ club's style, fixture clean-sheet/goals-conceded inputs); `public/defenders.js` 
 Retrain occasionally: `../../venv/Scripts/python.exe defence_model.py` (add `--total` for the end-to-end check).
 Details: `docs/defender-model.md`.
 
+## Midfielder / Forward Picks pages
+
+`run_gameweek.py` also writes `public/data/mid_plan.json` and `fwd_plan.json` (`attackers.py`, model from
+`attack_model.py` -> `models/attack_model.json`); `public/attackers.js` computes xP for both pages. Retrain with
+`python attack_model.py` (and `--total` for the end-to-end check). Details: `docs/attacker-model.md`.
+
 ## Keeper Picks page
 
 `run_gameweek.py` also writes `public/data/keeper_plan.json` (keeper xP per fixture, expected starters and minutes) for

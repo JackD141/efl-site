@@ -16,6 +16,7 @@ import pandas as pd
 
 import attack_model as am
 import minutes_model as mm
+import mid_model
 from keepers import REPO
 from predict_gw import predict_gameweek
 
@@ -80,11 +81,17 @@ def build_plan(position, rounds, squads, players, fits, id2fd, book, book_src, m
     mins_json = mm.MODELS / f"minutes_model_{position.lower()}.json"
     xmins = mm.predict_next(position, players, rounds) if mins_json.exists() else None
     app_curve = json.loads(mins_json.read_text(encoding="utf-8"))["app_curve"] if xmins is not None else None
-    art = json.loads(am.MODEL_PATH.read_text(encoding="utf-8"))["positions"][position]
     d = am.load(position)
     cur = d[d["season"] == "2627"]
-    roles = _roles(d, art, {p["id"]: p["squadId"] for p in players})
-    styles = _styles(cur, art)
+    fm = {}
+    if position == "MID" and mid_model.MODEL_PATH.exists():
+        # v2: xG / xA targets, FotMob history, league step multipliers, carried-over club style (mid_model.py)
+        art = json.loads(mid_model.MODEL_PATH.read_text(encoding="utf-8"))
+        roles, styles, fm = mid_model.live_inputs(players, art)
+    else:
+        art = json.loads(am.MODEL_PATH.read_text(encoding="utf-8"))["positions"][position]
+        roles = _roles(d, art, {p["id"]: p["squadId"] for p in players})
+        styles = _styles(cur, art)
     rates, rate_priors = _player_rates(d)
     starters, local_gw = _starters(cur, rounds)
     apps = cur.groupby("player_id").agg(apps=("minutes_played", "size"), mins=("minutes_played", "sum"),
@@ -116,6 +123,8 @@ def build_plan(position, rounds, squads, players, fits, id2fd, book, book_src, m
         dates = sorted(g["date"][:10] for g in rnd["games"])
         gameweeks.append(dict(gw=gw, start=dates[0], end=dates[-1], games=len(rnd["games"]), lockout=rnd["lockoutDate"],
                               marketGames=int((fx.source == "market").sum())))
+    fm_default = dict(zip(("npxg", "pxg", "xa", "shots", "chances"), [round(v, 4) for v in
+                      mid_model.fmf.league_priors(mid_model.fmf.fotmob_history()).values()])) if fm else None
     plist = []
     for p in players:
         if p["position"] != position or p["status"] == "eliminated" or p["squadId"] not in clubs:
@@ -129,10 +138,12 @@ def build_plan(position, rounds, squads, players, fits, id2fd, book, book_src, m
             suspended=bool(p.get("suspensionDetails")), startedLast=p["id"] in starters,
             role={st: roles.get(p["id"], {}).get(st, 1.0) for st in art},
             rates=rates.get(p["id"], rate_priors),
+            **({"fm": fm.get(p["id"], fm_default)} if fm else {}),
             apps=int(a["apps"]) if a is not None else 0, starts60=int(a["full"]) if a is not None else 0,
             mins=int(a["mins"]) if a is not None else 0, totalPoints=p.get("totalPoints", 0)))
     model = {st: dict(features=c["features"], intercept=c["intercept"], coef=c["coef"], mean=c["scaler_mean"], sd=c["scaler_sd"],
-                      r=c["nb_r"], prior=c["prior"], window=c["window"], test=c["test"]) for st, c in art.items()}
+                      r=c["nb_r"], prior=c["prior"], window=c["window"], test=c["test"], target=c.get("target", c["column"]),
+                      scale=c.get("scale", 1.0), pens=bool(c.get("pens", False))) for st, c in art.items()}
     return dict(position=position, generatedAt=datetime.now(timezone.utc).isoformat(timespec="seconds"), season="2026/27",
                 firstGw=gameweeks[0]["gw"] if gameweeks else None, gameweeks=gameweeks, clubs=list(clubs.values()), players=plist,
                 startersFromGw=local_gw, latestCompletedGw=max(completed) if completed else 0,

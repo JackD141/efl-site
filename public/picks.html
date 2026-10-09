@@ -25,9 +25,10 @@
   </main>
 
   <script>
-    // One page for all four positions: ?pos=GK|DEF|MID|FWD picks which position script runs (last choice remembered).
+    // One page for all positions: ?pos=ALL|GK|DEF|MID|FWD picks which position script runs (last choice remembered).
     (function () {
-      var POS = { GK: ['Goalkeepers', 'keepers.js'], DEF: ['Defenders', 'defenders.js'], MID: ['Midfielders', 'attackers.js'], FWD: ['Forwards', 'attackers.js'] };
+      var POS = { GK: ['Goalkeepers', ['keepers.js']], DEF: ['Defenders', ['defenders.js']],
+                  MID: ['Midfielders', ['attackers.js']], FWD: ['Forwards', ['attackers.js']] };
       var q = (new URLSearchParams(location.search).get('pos') || '').toUpperCase();
       var saved = null;
       try { saved = localStorage.getItem('efl_picks_pos'); } catch (e) { /* ignore */ }
@@ -38,9 +39,14 @@
       document.getElementById('pp-pos').innerHTML = Object.keys(POS).map(function (p) {
         return '<a class="cp-chip ' + (p === pos ? 'active' : '') + '" href="picks.html?pos=' + p + '">' + POS[p][0] + '</a>';
       }).join('');
-      var s = document.createElement('script');
-      s.src = POS[pos][1];
-      document.body.appendChild(s);
+      // load the scripts in order (the All tab needs xp-core.js first)
+      (function next(list) {
+        if (!list.length) return;
+        var s = document.createElement('script');
+        s.src = list[0];
+        s.onload = function () { next(list.slice(1)); };
+        document.body.appendChild(s);
+      })(POS[pos][1]);
     })();
   </script>
 

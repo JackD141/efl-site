@@ -109,6 +109,23 @@ def main():
         out["team"][pos] = tres
         print(f"{pos} clubs changing league: style multiplier vs clubs staying (n clubs)")
         print("  " + " | ".join(f"{k}: up {v[1]['mult']:.2f} ({v[1]['n']}) down {v[-1]['mult']:.2f} ({v[-1]['n']})" for k, v in tres.items()))
+    # year-to-year persistence of club style (same-league clubs, full seasons): slope of log rate on last season's,
+    # within league; used to carry a club's style into the next season
+    out["persistence"] = {}
+    full = [(a, b) for a, b in pairs if b != seasons[-1]] or pairs
+    for pos in ("MID", "FWD", "DEF"):
+        ys = []
+        for a, b in full:
+            t1, t2 = team[(team["season"] == a) & (team["pos"] == pos)], team[(team["season"] == b) & (team["pos"] == pos)]
+            y = t1.merge(t2, on="team", suffixes=("_1", "_2"))
+            ys.append(y[y["league_1"] == y["league_2"]])
+        y = pd.concat(ys)
+        out["persistence"][pos] = {}
+        for k in STATS:
+            r1, r2 = np.log((y[f"{k}_1"] + 0.5) / (y["mins_1"] / 90)), np.log((y[f"{k}_2"] + 0.5) / (y["mins_2"] / 90))
+            r1, r2 = r1 - r1.groupby(y["league_1"]).transform("mean"), r2 - r2.groupby(y["league_2"]).transform("mean")
+            out["persistence"][pos][k] = round(float(np.clip(np.polyfit(r1, r2, 1)[0], 0, 1)), 3)
+        print(f"{pos} club style persistence:", out["persistence"][pos])
     path = REPO / "ml" / "team_strengths" / "models" / "league_steps.json"
     path.write_text(json.dumps(out, indent=1, default=lambda o: int(o) if isinstance(o, np.integer) else str(o)), encoding="utf-8")
     print("\nwrote", path)

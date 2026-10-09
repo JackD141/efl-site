@@ -36,6 +36,7 @@ function ratePer90(stat, d, club, f) {
   const m = state.plan.model[stat];
   const opp = state.clubs[f.oppId];
   const vals = { role: d.role[stat], team: club.style[stat].team, opp: opp ? opp.style[stat].opp : club.style[stat].opp, lam_own: f.lamOwn, lam_opp: f.lamOpp, home: f.home };
+  const fm = d.fm || {}; for (const k of Object.keys(fm)) vals['fm_' + k] = fm[k]; // FotMob history rates (midfielders)
   let z = m.intercept;
   m.features.forEach((name, i) => {
     const v = name === 'home' ? vals[name] : Math.log(Math.max(vals[name], 1e-4));
@@ -75,7 +76,12 @@ function fixtureXp(d, f, mins) {
   if (state.cache[key]) return state.cache[key];
   const p = state.plan, sc = p.scoring, club = state.clubs[d.club], t = mins / 90;
   const out = { mins, app: appPoints(p, mins), mu: {}, rate: {} };
-  for (const stat of Object.keys(p.model)) { out.rate[stat] = ratePer90(stat, d, club, f); out.mu[stat] = out.rate[stat] * t; }
+  // v2 midfielders: goals / assists come from predicted npxG / xA x conversion (+ his penalty-xG rate for goals)
+  for (const stat of Object.keys(p.model)) {
+    const m = p.model[stat];
+    out.rate[stat] = ratePer90(stat, d, club, f) * (m.scale || 1) + (m.pens && d.fm ? d.fm.pxg : 0);
+    out.mu[stat] = out.rate[stat] * t;
+  }
   const g = nb(out.mu.goals, p.model.goals.r, 1, [1, 2, 3]);
   const kp = nb(out.mu.kp, p.model.kp.r, sc.keyPassPer, [2, 4]);
   out.pGoal = g.atLeast[1]; out.pHat = g.atLeast[3]; out.kpSteps = kp.atLeast;
@@ -203,7 +209,7 @@ function render() {
       <td class="cp-right cp-muted">${fmt(n5)}</td></tr>`;
   }).join('');
   const t = s => plan.model[s].test;
-  const err = s => `${t(s).model.mse.toFixed(3)} vs ${t(s).own_rate.mse.toFixed(3)} (own rate) vs ${t(s).last10.mse.toFixed(3)} (last 10)`;
+  const err = s => !t(s).model ? '' : `${t(s).model.mse.toFixed(3)} vs ${t(s).own_rate.mse.toFixed(3)} (own rate) vs ${t(s).last10.mse.toFixed(3)} (last 10)`;
   const scoring = POS === 'MID'
     ? 'appearance, goals (+6), assists (+3), shots on target (+1 each), key passes (+1 per 2), interceptions (+2 each), hat-tricks (+5) and cards'
     : 'appearance, goals (+5), assists (+3), shots on target (+1 each), key passes (+1 per 2), hat-tricks (+5) and cards';
@@ -236,10 +242,21 @@ function render() {
       <li><strong>Each count</strong> = his role (his rate compared with ${POS === 'MID' ? 'midfield' : 'forward'} team-mates in the same games, so it moves with him between clubs)
         × his club's recent style × what this week's opponent concedes × the match odds (his team's and the opponent's expected goals) and home advantage.
         Rolling club and opponent styles use recent gameweeks; everything is shrunk towards the league average.</li>
-      <li>Tested on this season's games without having seen them (mean squared error, lower is better): goals ${err('goals')}; shots on target ${err('sot')};
+      ${t('goals').v2
+        ? `<li><strong>Goals and assists come from expected goals (xG) and expected assists (xA)</strong>: the model predicts his non-penalty xG and xA
+        per 90 (from FotMob data: his chances relative to team-mates, his club's and the opponent's style, the odds), which are much less noisy than goals and
+        assists, then converts them (goals ≈ ${state.plan.model.goals.scale.toFixed(2)} × npxG + his penalty xG; assists ≈ ${state.plan.model.assists.scale.toFixed(2)} × xA).
+        Shots and key passes also use his FotMob shots, chances created, xG and xA history.</li>
+        <li><strong>Moving clubs or leagues</strong>: numbers from another league are adjusted by how much players' output changes on stepping up or down
+        (measured on FotMob data, e.g. xG from League One counts about 0.8× in the Championship), and a club's style carries over
+        from last season, adjusted for promotion or relegation.</li>
+        <li>Tested on this season's games without having seen them (mean squared error, new model vs previous): goals ${t('goals').v2.mse.toFixed(4)} vs ${t('goals').v1.mse.toFixed(4)};
+        assists ${t('assists').v2.mse.toFixed(4)} vs ${t('assists').v1.mse.toFixed(4)}; shots on target ${t('sot').v2.mse.toFixed(3)} vs ${t('sot').v1.mse.toFixed(3)};
+        key passes ${t('kp').v2.mse.toFixed(3)} vs ${t('kp').v1.mse.toFixed(3)}; interceptions ${t('int').v2.mse.toFixed(3)} vs ${t('int').v1.mse.toFixed(3)}. Single games are still mostly luck.</li>`
+        : `<li>Tested on this season's games without having seen them (mean squared error, lower is better): goals ${err('goals')}; shots on target ${err('sot')};
         key passes ${err('kp')}. Mostly level with the player's own rate, better than a plain recent average, and the odds help for goals and shots.
         Whole-game xP beats each player's recent average points (error ${POS === 'MID' ? '2.53 vs 2.64' : '2.65 vs 2.72'}), but single games are mostly luck.</li>
-      <li>No expected-goals (xG) data yet: adding historical player xG/xA is on the to-do list and should sharpen goals and assists.</li>
+      <li>No expected-goals (xG) data used for ${LABEL.many.toLowerCase()} yet; midfielders already use it, forwards are next.</li>`}
     </ul></div>
     <p class="cp-foot">Updated ${esc(new Date(plan.generatedAt).toLocaleString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }))}.
       <span class="cp-legend"><span class="cp-dot cp-dot-market"></span> priced from odds <span class="cp-dot cp-dot-model"></span> model estimate</span></p>`;

@@ -64,7 +64,7 @@ def main(gw=None, override_files=()):
     print(f"Defender plan: {len(dp['defenders'])} defenders ({sum(x['xMins'] > 0 for x in dp['defenders'])} expected starters) -> {defenders.write_site_json(dp)}")
     for pos in ("MID", "FWD"):
         ap = attackers.build_plan(pos, rounds, squads, players, fits, id2fd, book, book_src, market_lam, DIVS)
-        print(f"{pos} plan: {len(ap['players'])} players ({sum(x['xMins'] > 0 for x in ap['players'])} expected starters) -> {attackers.write_site_json(ap)}")
+        print(f"{pos} plan: {len(ap['players'])} players ({sum(x['xMins'] >= 60 for x in ap['players'])} with 60+ expected minutes) -> {attackers.write_site_json(ap)}")
     if kp["latestCompletedGw"] > kp["startersFromGw"]:
         print(f"  WARNING: starters are based on local stats up to GW{kp['startersFromGw']} but GW{kp['latestCompletedGw']} has finished."
               " Press Export Stats on the Player Stats page and git pull, then re-run.")

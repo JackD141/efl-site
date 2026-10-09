@@ -43,6 +43,10 @@ K_ROLES = [3.0, 10.0, 30.0]  # pseudo full games at role 1.0 (rare stats like go
 ROLE_GAMES = 20
 MIN_ROW = 10  # minutes; very short cameos are too noisy to learn rates from
 TOL = 5e-4
+# Weight of games at a PREVIOUS club in the role (current club = 1). Chosen on 2026/27 summer movers (136 midfielders,
+# 757 appearances; exp_role_recency.py + notes in docs/attacker-model.md): creative stats depend on the new team's system,
+# goals / shots / interceptions travel with the player. Recency decay did not help (flat last ROLE_GAMES kept).
+CLUB_W = {"kp": 0.25, "assists": 0.25}
 FEATURE_SETS = {
     "G1 role": ["role"],
     "G2 role + team style": ["role", "team"],
@@ -64,26 +68,42 @@ def load(position):
     return dm.attach_odds(d).dropna(subset=["lam_own"]).reset_index(drop=True)
 
 
-def role_table(d, col, prior, k):
-    """As defence_model.role_table, but team-mates = same position, and shrinkage k is a parameter."""
+def role_table(d, col, prior, k, club_w=1.0):
+    """As defence_model.role_table, but team-mates = same position, shrinkage k is a parameter, and games at a previous
+    club can be down-weighted (club_w) relative to the club of the row being predicted."""
     tg = d.groupby(["season", "squad_id", "gameweek"]).agg(tx=(col, "sum"), tm=("minutes_played", "sum")).reset_index()
     x = d.merge(tg, on=["season", "squad_id", "gameweek"])
     mates_rate = (x["tx"] - x[col]) / ((x["tm"] - x["minutes_played"]).clip(lower=1) / 90)
     x["exp"] = mates_rate.where(x["tm"] > x["minutes_played"], prior) * x["minutes_played"] / 90
-    x = x.sort_values(["player_id", "season", "gameweek"])
+    x = x.sort_values(["player_id", "season", "gameweek"]).reset_index(drop=True)
     g = x.groupby("player_id")
     num = g[col].transform(lambda s: s.shift(1).rolling(ROLE_GAMES, min_periods=1).sum()).fillna(0)
     den = g["exp"].transform(lambda s: s.shift(1).rolling(ROLE_GAMES, min_periods=1).sum()).fillna(0)
     m90 = g["minutes_played"].transform(lambda s: s.shift(1).rolling(ROLE_GAMES, min_periods=1).sum()).fillna(0) / 90
     x["role"] = (num + k * prior) / (den + k * prior)
+    if club_w != 1.0:
+        x["role"] = club_weighted_role(x, col, prior, k, club_w)
     x["own_rate"] = (num + k * prior) / (m90 + k)
     x["last10_avg"] = g[col].transform(lambda s: s.shift(1).rolling(10, min_periods=1).mean())
     return x
 
 
-def build(d, col, n, prior, k):
+def club_weighted_role(x, col, prior, k, c):
+    """Role over the last ROLE_GAMES appearances with games at other clubs weighted c (x sorted by player, season, gw)."""
+    role = np.empty(len(x))
+    for _, idx in x.groupby("player_id").indices.items():
+        rows = x.iloc[idx]
+        y, e, club = rows[col].to_numpy(float), rows["exp"].to_numpy(float), rows["squad_id"].to_numpy()
+        for j in range(len(idx)):
+            lo = max(0, j - ROLE_GAMES)
+            w = np.where(club[lo:j] == club[j], 1.0, c)
+            role[idx[j]] = (np.dot(w, y[lo:j]) + k * prior) / (np.dot(w, e[lo:j]) + k * prior)
+    return role
+
+
+def build(d, col, n, prior, k, club_w=1.0):
     team, opp = dm.style_tables(d, col, n, prior)
-    x = role_table(d, col, prior, k)
+    x = role_table(d, col, prior, k, club_w)
     x = x.merge(team, on=["season", "squad_id", "gameweek"], how="left").merge(opp, on=["season", "opponent_id", "gameweek"], how="left")
     x["team"] = x["team"].fillna(prior)
     x["opp"] = x["opp"].fillna(prior)
@@ -127,7 +147,7 @@ def train_position(position):
         rows, best_cfg = [], None
         for k in K_ROLES:
             for n in WINDOWS:
-                x = build(d, col, n, prior, k)
+                x = build(d, col, n, prior, k, CLUB_W.get(stat, 1.0) if position == "MID" else 1.0)
                 x = x[x["minutes_played"] >= MIN_ROW]
                 tr = x[(x["season"] == "2526") & (x["gameweek"] <= 23)]
                 va = x[(x["season"] == "2526") & (x["gameweek"] > 23)]
@@ -156,7 +176,8 @@ def train_position(position):
         print(summary.round(4).to_string(index=False))
         print(f"chosen: {best['model']} (window {best['window']}, role shrinkage {k_best:g})")
         # test once
-        x = build(d, col, n_best, prior, k_best)
+        club_w = CLUB_W.get(stat, 1.0) if position == "MID" else 1.0
+        x = build(d, col, n_best, prior, k_best, club_w)
         x = x[x["minutes_played"] >= MIN_ROW]
         tv, te = x[x["season"] == "2526"], x[x["season"] == "2627"]
         f_tv = fit(tv, feats)
@@ -168,7 +189,7 @@ def train_position(position):
               f" | MSE {test['model']['mse']:.4f} / {test['own_rate']['mse']:.4f} / {test['last10']['mse']:.4f}"
               f" | log-lik {test['model']['nb_loglik']:.4f} / {test['own_rate']['nb_loglik']:.4f} / {test['last10']['nb_loglik']:.4f}")
         fin = fit(x, feats)
-        out[stat] = dict(column=col, model=best["model"], features=feats, window=n_best, k_role=k_best, prior=prior,
+        out[stat] = dict(column=col, model=best["model"], features=feats, window=n_best, k_role=k_best, club_w=club_w, prior=prior,
                          intercept=float(fin["model"].intercept_), coef=fin["model"].coef_.tolist(),
                          scaler_mean=fin["scaler"][0].tolist(), scaler_sd=fin["scaler"][1].tolist(), nb_r=fin["r"], test=test)
         print(f"final coefficients {json.dumps({kk: round(v, 3) for kk, v in zip(feats, fin['model'].coef_)})}; NB r {fin['r']:.1f}")

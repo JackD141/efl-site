@@ -11,3 +11,6 @@ data/football_data/
 ml/team_strengths/cache/
 ml/team_strengths/output/
 ml/team_strengths/*_results.csv
+
+# FotMob raw match cache (large; compact CSVs are kept)
+data/fotmob/raw/

@@ -125,6 +125,16 @@ function defenderFixtureXp(d, f) {
   total += sc.goal * d.rates.g90 * scale + sc.assist * d.rates.a90 * scale + sc.yellow * d.rates.y90 + sc.red * d.rates.r90 + p.other;
   return total; // if he plays 90; scaled by minutes / 90 like the Defender page
 }
+// expected appearance points for expected minutes: the minutes model's curve where the plan has one (a 45 can be a 50%
+// chance of starting), else the plain rule (2 for 60+, 1 below)
+function appPoints(plan, mins) {
+  const sc = plan.scoring, c = plan.appCurve;
+  if (!c) return mins >= 60 ? sc.appearance60 : mins > 0 ? sc.appearance : 0;
+  if (mins <= 0) return 0;
+  const i = Math.min(c.mins.length - 2, Math.floor(mins / (c.mins[1] - c.mins[0])));
+  const t = (mins - c.mins[i]) / (c.mins[i + 1] - c.mins[i]);
+  return c.pts[i] + t * (c.pts[i + 1] - c.pts[i]);
+}
 function attackerFixtureXp(pos, d, f, mins) {
   const p = state.plans[pos], sc = p.scoring, club = state.clubs[pos][d.club], opp = state.clubs[pos][f.oppId], t = mins / 90;
   if (mins <= 0) return 0;
@@ -135,7 +145,7 @@ function attackerFixtureXp(pos, d, f, mins) {
   }
   const g = nb(mu.goals, p.model.goals.r, 1, [3]);
   const r = d.rates;
-  return (mins >= 60 ? sc.appearance60 : sc.appearance) + sc.goal * mu.goals + sc.hatTrick * g.atLeast[3] + sc.assist * mu.assists
+  return appPoints(p, mins) + sc.goal * mu.goals + sc.hatTrick * g.atLeast[3] + sc.assist * mu.assists
     + sc.sot * mu.sot + nb(mu.kp, p.model.kp.r, sc.keyPassPer, [2]).pts + (p.model.int ? sc.interception * mu.int : 0)
     + t * (sc.yellow * r.y90 + sc.red * r.r90 + sc.penMiss * r.pm90 + sc.ownGoal * r.og90);
 }

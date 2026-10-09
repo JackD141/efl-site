@@ -59,12 +59,22 @@ function nb(mu, r, per, steps) {
   for (const s of steps) if (atLeast[s] === undefined) atLeast[s] = 0;
   return { pts, atLeast };
 }
+// expected appearance points for expected minutes: the minutes model's curve where the plan has one (a 45 can be a 50%
+// chance of starting), else the plain rule (2 for 60+, 1 below)
+function appPoints(plan, mins) {
+  const sc = plan.scoring, c = plan.appCurve;
+  if (!c) return mins >= 60 ? sc.appearance60 : mins > 0 ? sc.appearance : 0;
+  if (mins <= 0) return 0;
+  const i = Math.min(c.mins.length - 2, Math.floor(mins / (c.mins[1] - c.mins[0])));
+  const t = (mins - c.mins[i]) / (c.mins[i + 1] - c.mins[i]);
+  return c.pts[i] + t * (c.pts[i + 1] - c.pts[i]);
+}
 // expected points for one fixture if he plays `mins` minutes (counts scale with minutes)
 function fixtureXp(d, f, mins) {
   const key = `${d.id}|${f.oppId}|${f.date}|${mins}`;
   if (state.cache[key]) return state.cache[key];
   const p = state.plan, sc = p.scoring, club = state.clubs[d.club], t = mins / 90;
-  const out = { mins, app: mins >= 60 ? sc.appearance60 : mins > 0 ? sc.appearance : 0, mu: {}, rate: {} };
+  const out = { mins, app: appPoints(p, mins), mu: {}, rate: {} };
   for (const stat of Object.keys(p.model)) { out.rate[stat] = ratePer90(stat, d, club, f); out.mu[stat] = out.rate[stat] * t; }
   const g = nb(out.mu.goals, p.model.goals.r, 1, [1, 2, 3]);
   const kp = nb(out.mu.kp, p.model.kp.r, sc.keyPassPer, [2, 4]);
@@ -99,7 +109,7 @@ function breakdownRows(items) {
   const sum = fn => items.reduce((a, x) => a + fn(x), 0);
   const one = items.length === 1 ? items[0].r : null;
   const rows = [
-    ['Appearance', one ? (one.mins >= 60 ? '60+ minutes' : one.mins > 0 ? 'under 60 minutes' : 'does not play') : `per game, ${items.length} games`, sum(x => x.r.app)],
+    ['Appearance', state.plan.appCurve ? `expected, from ${items[0].r.mins} expected minutes` : one ? (one.mins >= 60 ? '60+ minutes' : one.mins > 0 ? 'under 60 minutes' : 'does not play') : `per game, ${items.length} games`, sum(x => x.r.app)],
     ['Goals', `${sc.goal} × ${sum(x => x.r.mu.goals).toFixed(2)} exp.${one ? ` · P(scores) ${pct(one.pGoal)}` : ''} + hat-trick ${sc.hatTrick} × P(3+)`, sum(x => x.r.goalPts)],
     ['Assists', `${sc.assist} × ${sum(x => x.r.mu.assists).toFixed(2)} exp.`, sum(x => x.r.assistPts)],
     ['Shots on target', `${sc.sot} × ${sum(x => x.r.mu.sot).toFixed(2)} exp.`, sum(x => x.r.sotPts)],
@@ -126,7 +136,7 @@ function showTip(el, x, y) {
     foot = `<div class="cp-tip-foot">Odds: ${esc(club.short)} expected goals ${f.lamOwn.toFixed(2)}, ${esc(opp ? opp.short : '?')} ${f.lamOpp.toFixed(2)}.
       His role vs ${POS === 'MID' ? 'midfield' : 'forward'} team-mates: goals ${d.role.goals.toFixed(2)}×, shots on target ${d.role.sot.toFixed(2)}×, key passes ${d.role.kp.toFixed(2)}×${d.role.int ? `, interceptions ${d.role.int.toFixed(2)}×` : ''}.</div>`;
   }
-  tip.innerHTML = `<div class="cp-tip-title">${esc(title)} <span>${esc(d.name)}: expected points if he plays ${mins} minutes</span></div>
+  tip.innerHTML = `<div class="cp-tip-title">${esc(title)} <span>${esc(d.name)}: expected points with ${mins} expected minutes</span></div>
     <table class="cp-tip-table">${rows.map(r => `<tr><td>${r[0]}</td><td><span>${r[1]}</span></td><td class="cp-tip-num">${fmt2(r[2])}</td></tr>`).join('')}
     <tr class="cp-tip-total"><td colspan="2">Total</td><td class="cp-tip-num">${fmt2(total)}</td></tr></table>${foot}`;
   tip.style.display = 'block';
@@ -167,7 +177,7 @@ function render() {
   const next5 = plan.gameweeks.filter(g => g.gw >= gw).slice(0, 5).map(g => g.gw);
   const list = plan.players.filter(d => {
     const c = state.clubs[d.club];
-    return c && (state.showAll || minsOf(d) > 0) && (state.league === 'All' || c.league === state.league)
+    return c && (state.showAll || minsOf(d) >= (state.plan.appCurve ? 30 : 1)) && (state.league === 'All' || c.league === state.league)
       && (!q || d.name.toLowerCase().includes(q) || c.name.toLowerCase().includes(q) || c.short.toLowerCase().includes(q));
   }).map(d => {
     const wk = weekXp(d, gw, minsOf(d));
@@ -205,7 +215,7 @@ function render() {
       <button id="kp-prev" class="cp-nav-btn">&#8592;</button><select id="kp-gw">${options}</select><button id="kp-next" class="cp-nav-btn">&#8594;</button>
       <div class="cp-chips">${chips}</div>
       <input id="kp-search" type="text" placeholder="Search ${LABEL.one.toLowerCase()} or club..." value="${esc(state.query)}" autocomplete="off" />
-      <label class="kp-toggle"><input type="checkbox" id="kp-all" ${state.showAll ? 'checked' : ''}/> Show non-starters and injured</label>
+      <label class="kp-toggle"><input type="checkbox" id="kp-all" ${state.showAll ? 'checked' : ''}/> ${state.plan.appCurve ? 'Show players under 30 expected minutes' : 'Show non-starters and injured'}</label>
       ${Object.keys(state.mins).length ? '<button class="cp-link-btn" id="kp-reset">Reset minutes</button>' : ''}
     </div>
     ${stale}
@@ -216,8 +226,13 @@ function render() {
         <th class="cp-right">xP</th><th class="cp-right" title="Expected points over this and the next 4 gameweeks">Next 5 GWs</th></tr></thead>
       <tbody>${rows || `<tr><td colspan="${hasInt ? 11 : 10}" class="cp-muted">No ${LABEL.many.toLowerCase()} match.</td></tr>`}</tbody></table></div>
     <div class="cp-caveat"><strong>How to read this</strong><ul>
-      <li><strong>Expected minutes</strong> default to 90 for players who played 60+ minutes in their club's latest game, else 0 (and 0 if injured or suspended).
-        Edit the box for the minutes he will play in each game: goals, shots and passes scale with minutes, and 60+ earns 2 appearance points (1 below 60). Edits are saved in this browser.</li>
+      ${plan.appCurve
+        ? `<li><strong>Expected minutes</strong> come from our minutes model: his recent minutes, starts and appearances at his club, how long since he last played,
+        whether he is new to the club, rest days and doubles (0 if injured or suspended). It is an average, so 45 can mean a 50% chance of starting.
+        Goals, shots and passes scale with expected minutes; appearance points follow the model's curve (e.g. 90 → 2.0, 60 → about 1.4, 30 → about 0.9).
+        Edit the box to override; edits are saved in this browser.</li>`
+        : `<li><strong>Expected minutes</strong> default to 90 for players who played 60+ minutes in their club's latest game, else 0 (and 0 if injured or suspended).
+        Edit the box for the minutes he will play in each game: goals, shots and passes scale with minutes, and 60+ earns 2 appearance points (1 below 60). Edits are saved in this browser.</li>`}
       <li><strong>Each count</strong> = his role (his rate compared with ${POS === 'MID' ? 'midfield' : 'forward'} team-mates in the same games, so it moves with him between clubs)
         × his club's recent style × what this week's opponent concedes × the match odds (his team's and the opponent's expected goals) and home advantage.
         Rolling club and opponent styles use recent gameweeks; everything is shrunk towards the league average.</li>

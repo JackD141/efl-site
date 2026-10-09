@@ -4,14 +4,18 @@ Per fixture with expected minutes m (counts scale with minutes; appearance = 2 i
   goals x (6 MID / 5 FWD) + 5 x P(3+ goals) + 3 x assists + shots on target + floor(key passes / 2) [+ 2 x interceptions, MID]
   - cards - 3 x missed penalties - 3 x own goals (player rates per 90, shrunk)
 Rates per 90 for goals/assists/SOT/key passes/interceptions come from attack_model.py (role x club style x opponent
-style x odds). Default minutes: 90 if he played 60+ in his club's latest game (and is available), else 0.
+style x odds). Default minutes: the minutes model's prediction for his club's next game (minutes_model.py; 0 if injured or
+suspended), with appearance points from its expected-minutes curve (appCurve); positions without a minutes model use
+90 if he played 60+ in his club's latest game, else 0, and appearance 2 if 60+ / 1 if under.
 """
 import json
 from datetime import datetime, timezone
 
+import numpy as np
 import pandas as pd
 
 import attack_model as am
+import minutes_model as mm
 from keepers import REPO
 from predict_gw import predict_gameweek
 
@@ -20,16 +24,18 @@ K_RATE = 40.0
 POINTS = {"MID": dict(goal=6, assist=3, sot=1, interception=2), "FWD": dict(goal=5, assist=3, sot=1, interception=0)}
 
 
-def _roles(d, cfgs):
+def _roles(d, cfgs, current_club):
     out = {}
     for stat, cfg in cfgs.items():
-        col, prior, k = cfg["column"], cfg["prior"], cfg["k_role"]
+        col, prior, k, c = cfg["column"], cfg["prior"], cfg["k_role"], cfg.get("club_w", 1.0)
         tg = d.groupby(["season", "squad_id", "gameweek"]).agg(tx=(col, "sum"), tm=("minutes_played", "sum")).reset_index()
         x = d.merge(tg, on=["season", "squad_id", "gameweek"])
         mates = (x["tx"] - x[col]) / ((x["tm"] - x["minutes_played"]).clip(lower=1) / 90)
         x["exp"] = mates.where(x["tm"] > x["minutes_played"], prior) * x["minutes_played"] / 90
-        last = x.sort_values(["player_id", "season", "gameweek"]).groupby("player_id").tail(am.ROLE_GAMES)
-        a = last.groupby("player_id").agg(num=(col, "sum"), den=("exp", "sum"))
+        last = x.sort_values(["player_id", "season", "gameweek"]).groupby("player_id").tail(am.ROLE_GAMES).copy()
+        last["w"] = np.where(last["squad_id"] == last["player_id"].map(current_club).fillna(last["squad_id"]), 1.0, c)
+        last["num"], last["den"] = last[col] * last["w"], last["exp"] * last["w"]
+        a = last.groupby("player_id").agg(num=("num", "sum"), den=("den", "sum"))
         for pid, r in a.iterrows():
             out.setdefault(int(pid), {})[stat] = round(float((r["num"] + k * prior) / (r["den"] + k * prior)), 4)
     return out
@@ -70,10 +76,14 @@ def _starters(cur, rounds):
 
 
 def build_plan(position, rounds, squads, players, fits, id2fd, book, book_src, market_lam, league_names):
+    # expected minutes: the minutes model where one exists for this position, else the old rule (90 if 60+ last game)
+    mins_json = mm.MODELS / f"minutes_model_{position.lower()}.json"
+    xmins = mm.predict_next(position, players, rounds) if mins_json.exists() else None
+    app_curve = json.loads(mins_json.read_text(encoding="utf-8"))["app_curve"] if xmins is not None else None
     art = json.loads(am.MODEL_PATH.read_text(encoding="utf-8"))["positions"][position]
     d = am.load(position)
     cur = d[d["season"] == "2627"]
-    roles = _roles(d, art)
+    roles = _roles(d, art, {p["id"]: p["squadId"] for p in players})
     styles = _styles(cur, art)
     rates, rate_priors = _player_rates(d)
     starters, local_gw = _starters(cur, rounds)
@@ -115,7 +125,7 @@ def build_plan(position, rounds, squads, players, fits, id2fd, book, book_src, m
         a = apps.loc[p["id"]] if p["id"] in apps.index else None
         plist.append(dict(
             id=p["id"], name=p.get("displayName") or f"{p['firstName']} {p['lastName']}", club=p["squadId"],
-            xMins=90 if (avail and p["id"] in starters) else 0, status=p["status"], injury=inj.get("type") if inj else None,
+            xMins=(int(round(xmins.get(p["id"], 0))) if xmins is not None else 90 if (avail and p["id"] in starters) else 0), status=p["status"], injury=inj.get("type") if inj else None,
             suspended=bool(p.get("suspensionDetails")), startedLast=p["id"] in starters,
             role={st: roles.get(p["id"], {}).get(st, 1.0) for st in art},
             rates=rates.get(p["id"], rate_priors),
@@ -126,7 +136,7 @@ def build_plan(position, rounds, squads, players, fits, id2fd, book, book_src, m
     return dict(position=position, generatedAt=datetime.now(timezone.utc).isoformat(timespec="seconds"), season="2026/27",
                 firstGw=gameweeks[0]["gw"] if gameweeks else None, gameweeks=gameweeks, clubs=list(clubs.values()), players=plist,
                 startersFromGw=local_gw, latestCompletedGw=max(completed) if completed else 0,
-                model=model, scoring=dict(appearance60=2, appearance=1, hatTrick=5, yellow=-1, red=-3, penMiss=-3, ownGoal=-3,
+                model=model, appCurve=app_curve, scoring=dict(appearance60=2, appearance=1, hatTrick=5, yellow=-1, red=-3, penMiss=-3, ownGoal=-3,
                                           keyPassPer=2, **POINTS[position]))
 
 

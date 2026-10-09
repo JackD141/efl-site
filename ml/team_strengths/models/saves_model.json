@@ -1,0 +1,208 @@
+{
+ "model": "M2 odds + home",
+ "features": [
+  "lam_opp",
+  "lam_own",
+  "home"
+ ],
+ "window": 3,
+ "k": 3,
+ "priors": {
+  "sot": 4.046950483091788,
+  "save_rate": 0.6757563323012646
+ },
+ "intercept": 0.9834103777731753,
+ "coef": [
+  0.2009489662778636,
+  0.030902622424253144,
+  -0.01961201763740424
+ ],
+ "scaler_mean": [
+  0.25135444640763266,
+  0.2513544464076327,
+  0.5
+ ],
+ "scaler_sd": [
+  0.24539929764670734,
+  0.24539929764670734,
+  0.500000001
+ ],
+ "nb_r": 14.551552354098575,
+ "validation": [
+  {
+   "model": "M0 league average",
+   "window": "-",
+   "poisson_dev": 1.45924,
+   "nb_loglik": -1.97819,
+   "mae_saves": 1.50553,
+   "mae_save_pts": 1.17659,
+   "mean_pred": 2.73475,
+   "mean_actual": 2.68146
+  },
+  {
+   "model": "M1 odds only",
+   "window": "-",
+   "poisson_dev": 1.3645,
+   "nb_loglik": -1.94143,
+   "mae_saves": 1.44174,
+   "mae_save_pts": 1.11148,
+   "mean_pred": 2.71435,
+   "mean_actual": 2.68146
+  },
+  {
+   "model": "M2 odds + home",
+   "window": "-",
+   "poisson_dev": 1.36303,
+   "nb_loglik": -1.94084,
+   "mae_saves": 1.44004,
+   "mae_save_pts": 1.11005,
+   "mean_pred": 2.70985,
+   "mean_actual": 2.68146
+  },
+  {
+   "model": "M3 + rolling shots",
+   "window": 3,
+   "poisson_dev": 1.36456,
+   "nb_loglik": -1.94155,
+   "mae_saves": 1.44163,
+   "mae_save_pts": 1.1114,
+   "mean_pred": 2.70841,
+   "mean_actual": 2.68146
+  },
+  {
+   "model": "M4 + rolling save rate",
+   "window": 3,
+   "poisson_dev": 1.36439,
+   "nb_loglik": -1.94148,
+   "mae_saves": 1.4416,
+   "mae_save_pts": 1.1114,
+   "mean_pred": 2.7078,
+   "mean_actual": 2.68146
+  },
+  {
+   "model": "XGBoost (M4 features)",
+   "window": 3,
+   "poisson_dev": 1.36835,
+   "nb_loglik": -1.94541,
+   "mae_saves": 1.44433,
+   "mae_save_pts": 1.10871,
+   "mean_pred": 2.71589,
+   "mean_actual": 2.68146
+  },
+  {
+   "model": "M3 + rolling shots",
+   "window": 6,
+   "poisson_dev": 1.36393,
+   "nb_loglik": -1.94128,
+   "mae_saves": 1.44124,
+   "mae_save_pts": 1.11115,
+   "mean_pred": 2.70862,
+   "mean_actual": 2.68146
+  },
+  {
+   "model": "M4 + rolling save rate",
+   "window": 6,
+   "poisson_dev": 1.36351,
+   "nb_loglik": -1.9411,
+   "mae_saves": 1.44127,
+   "mae_save_pts": 1.11086,
+   "mean_pred": 2.70745,
+   "mean_actual": 2.68146
+  },
+  {
+   "model": "XGBoost (M4 features)",
+   "window": 6,
+   "poisson_dev": 1.36696,
+   "nb_loglik": -1.94487,
+   "mae_saves": 1.44318,
+   "mae_save_pts": 1.10688,
+   "mean_pred": 2.71237,
+   "mean_actual": 2.68146
+  },
+  {
+   "model": "M3 + rolling shots",
+   "window": 10,
+   "poisson_dev": 1.36327,
+   "nb_loglik": -1.94097,
+   "mae_saves": 1.44079,
+   "mae_save_pts": 1.11101,
+   "mean_pred": 2.70643,
+   "mean_actual": 2.68146
+  },
+  {
+   "model": "M4 + rolling save rate",
+   "window": 10,
+   "poisson_dev": 1.36275,
+   "nb_loglik": -1.94077,
+   "mae_saves": 1.44064,
+   "mae_save_pts": 1.11067,
+   "mean_pred": 2.70461,
+   "mean_actual": 2.68146
+  },
+  {
+   "model": "XGBoost (M4 features)",
+   "window": 10,
+   "poisson_dev": 1.36674,
+   "nb_loglik": -1.94469,
+   "mae_saves": 1.44297,
+   "mae_save_pts": 1.10693,
+   "mean_pred": 2.70346,
+   "mean_actual": 2.68146
+  },
+  {
+   "model": "M3 + rolling shots",
+   "window": 46,
+   "poisson_dev": 1.36413,
+   "nb_loglik": -1.94133,
+   "mae_saves": 1.43966,
+   "mae_save_pts": 1.11115,
+   "mean_pred": 2.69307,
+   "mean_actual": 2.68146
+  },
+  {
+   "model": "M4 + rolling save rate",
+   "window": 46,
+   "poisson_dev": 1.36363,
+   "nb_loglik": -1.94112,
+   "mae_saves": 1.43966,
+   "mae_save_pts": 1.11084,
+   "mean_pred": 2.69097,
+   "mean_actual": 2.68146
+  },
+  {
+   "model": "XGBoost (M4 features)",
+   "window": 46,
+   "poisson_dev": 1.37297,
+   "nb_loglik": -1.94769,
+   "mae_saves": 1.44722,
+   "mae_save_pts": 1.11105,
+   "mean_pred": 2.70059,
+   "mean_actual": 2.68146
+  }
+ ],
+ "test": {
+  "model": {
+   "poisson_dev": 1.2697099429451686,
+   "nb_loglik": -1.9423717620836098,
+   "mae_saves": 1.4311971576467912,
+   "mae_save_pts": 1.1526056847281225,
+   "mean_pred": 2.8485996945962024,
+   "mean_actual": 2.792682926829268
+  },
+  "baseline": {
+   "poisson_dev": 1.3529031951623978,
+   "nb_loglik": -1.9758385835471761,
+   "mae_saves": 1.4726514501169856,
+   "mae_save_pts": 1.2071932575811122,
+   "mean_pred": 2.7169887278582925,
+   "mean_actual": 2.792682926829268
+  },
+  "n": 574
+ },
+ "trained_on": [
+  "2324",
+  "2425",
+  "2526",
+  "2627"
+ ]
+}

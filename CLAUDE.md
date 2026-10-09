@@ -8,7 +8,7 @@ serverless functions, deployed from `main` at https://efl-site.vercel.app (pushi
 
 | Path | What |
 |---|---|
-| `public/` | the site (vanilla HTML/JS/CSS, no build step): `index.html` league table, `players.html` player stats + "Export Stats" button, `picks.html` player picks (simple heuristic), `clubs.html` **Club Planner** (see below) |
+| `public/` | the site (vanilla HTML/JS/CSS, no build step): `index.html` league table, `players.html` player stats + "Export Stats" button, `picks.html` player picks (simple heuristic), `clubs.html` **Club Planner**, `keepers.html` **Keeper Picks** (see docs) |
 | `api/*.js` | Vercel functions (Node, `module.exports = async function handler(req, res)`): proxies to `fantasy.efl.com` JSON, `export-player-stats.js` (commits per-gameweek CSVs to GitHub), `club-picks.js` (cloud backup of club picks) |
 | `data/<season>/player_stats_gwN.csv` | per-gameweek player stats, one folder per season (`2025_26`, `2026_27`). Written by the Export Stats button |
 | `data/season_2025_26_final_totals.json` | final season-aggregate stats for last season, snapshotted before the API reset |
@@ -19,7 +19,7 @@ serverless functions, deployed from `main` at https://efl-site.vercel.app (pushi
 
 - `docs/club-planner.md`: what the Club Planner is, every design decision and why, test results, gotchas, state of play.
 - `ml/team_strengths/README.md`: how to run the weekly pipeline and the model process/results.
-- `docs/goalkeeper-model-plan.md`: proposed goalkeeper (then defender) expected-points models: components, data findings, build order, open questions (not built yet).
+- `docs/goalkeeper-model-plan.md`: the keeper model (v1 built: saves model, keeper xP, expected minutes) and the original plan; defenders not started.
 
 ## Commands
 

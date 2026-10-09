@@ -42,3 +42,10 @@ def efl():
         (CACHE / f"{name}.json").write_text(json.dumps(data), encoding="utf-8")
         out[name] = data
     return out["rounds"], out["squads"]
+
+
+def efl_players():
+    """All players with position, club, status and injury/suspension details (public, no login)."""
+    data = _get("https://fantasy.efl.com/json/fantasy/players.json", EFL_HEADERS).json()
+    (CACHE / "players.json").write_text(json.dumps(data), encoding="utf-8")
+    return data

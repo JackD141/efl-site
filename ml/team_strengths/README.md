@@ -56,6 +56,14 @@ Takes about 5 seconds. It does steps 1–5 below and writes to `output/`:
    4.381 market-implied over the 36 GW9 weekend games.) The market-implied 1X2 is reproduced to about 0.6pp on average
    (draws slightly less well: the score model cannot match all four prices exactly).
 
+## Keeper Picks page
+
+`run_gameweek.py` also writes `public/data/keeper_plan.json` (keeper xP per fixture, expected starters and minutes) for
+`public/keepers.html`. The saves model is trained separately and only needs re-running occasionally (e.g. monthly):
+`../../venv/Scripts/python.exe saves_model.py` (writes `models/saves_model.json`, prints validation/test results).
+Starters come from `data/2026_27` stats: press Export Stats on the Player Stats page and `git pull` first.
+Details and results: `docs/goalkeeper-model-plan.md`.
+
 ## Club Planner page
 
 `run_gameweek.py` also writes `public/data/club_plan.json`: expected club points for every remaining gameweek (blank

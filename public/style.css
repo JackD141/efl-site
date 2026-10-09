@@ -851,3 +851,7 @@ input[type="range"]::-moz-range-thumb:hover {
 .cp-cloud-msg { min-height: 1.2em; margin-top: 8px; font-size: 0.82rem; }
 .cp-cloud-ok { color: #1f7a45; }
 .cp-cloud-err { color: #b3261e; }
+
+/* Keeper Picks */
+.kp-toggle { font-size: 0.85rem; color: #444; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+.kp-tag-out { background: #fde2e1; color: #b3261e; }

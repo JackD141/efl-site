@@ -1,4 +1,32 @@
-# Goalkeeper expected-points model: plan (proposed, not built yet)
+# Goalkeeper expected-points model
+
+## Status: v1 built (9 Oct 2026), live at https://efl-site.vercel.app/keepers.html
+
+What was built, versus the plan below:
+- `ml/team_strengths/saves_model.py` trains the saves model; `keepers.py` turns it into keeper xP and expected minutes;
+  `run_gameweek.py` writes `public/data/keeper_plan.json`; `public/keepers.html` + `keepers.js` show it.
+- **Saves model** (time-based protocol: train 2023/24 + 2024/25, choose on 2025/26, test once on 2026/27 to date, then
+  refit on all 10,510 team-games). Candidates: league average; odds only (opponent expected goals); odds + own expected
+  goals + home; plus rolling opponent shots-on-target-for and team shots-on-target-against (windows 3/6/10/season, shrunk
+  to the league average with 3 pseudo-games, strictly earlier matches only); plus rolling save rate; XGBoost on the
+  richest set. **The odds carry almost all the signal; rolling shots/save-rate features add nothing at any window, and
+  XGBoost is worse than the GLM.** Rule: simplest model within 0.0005 validation log-likelihood of the best, which
+  chose "odds + home" (Poisson GLM on standardised logs, negative-binomial spread r ~ 14.6).
+  Test (574 team-games, unseen): NB log-likelihood -1.942 vs -1.976 baseline, saves-points MAE 1.153 vs 1.207,
+  calibration by quintile 2.27/2.56/2.81/3.06/3.54 predicted vs 2.32/2.35/2.68/2.98/3.63 actual.
+  The rolling-feature code stays in place (and `keepers.py` supports it) in case a retrain picks it.
+- **Keeper xP if he starts** = 2 + 5 P(CS) - E[floor(GC/2)] + 2 E[floor(S/3)] + 0.097 (penalty saves) - 0.056 (cards),
+  using the same per-fixture expected goals as the Club Planner (market odds where they exist, else the strengths model).
+- **Expected minutes** = 90 x P(start). The keeper who started his club's latest game keeps it with the measured rate
+  (93.7% over 3,236 starts); available backups share the rest; keepers with an injury/suspension flag or status
+  "injured" in the EFL players feed get 0. Starters come from local `data/2026_27` stats, so press Export Stats and
+  `git pull` before refreshing; the run and the page warn if the stats lag the latest completed gameweek.
+- Page: expected starters by default (P(start) >= 0.5), "Show backups and injured" toggle, league filter, search,
+  hover breakdowns, next-5-gameweeks total. Defenders deliberately not started.
+
+---
+
+# Original plan (written before building)
 
 Written 9 Oct 2026 after exploring the data. Nothing here is implemented; the numbers below are from quick checks
 (scripts were throwaway). Builds on `docs/club-planner.md` and `ml/team_strengths/`.

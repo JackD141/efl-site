@@ -878,10 +878,6 @@ input[type="range"]::-moz-range-thumb:hover {
 .op-player { width: 124px; text-align: center; cursor: default; }
 .op-shirt { position: relative; width: 56px; height: 52px; margin: 0 auto 2px; }
 .op-shirt svg { width: 100%; height: 100%; filter: drop-shadow(0 2px 2px rgba(0,0,0,0.35)); }
-.op-shirt path { stroke: rgba(0,0,0,0.25); stroke-width: 1.5; fill: #1f3d7a; }
-.op-lg-league1 path { fill: #c8102e; }
-.op-lg-league2 path { fill: #6a1b9a; }
-.op-gk path { fill: #f5c400; }
 .op-badge { position: absolute; left: -6px; top: -4px; width: 22px; height: 22px; border-radius: 50%; font-size: 0.75rem; font-weight: 800;
   line-height: 22px; text-align: center; box-shadow: 0 1px 2px rgba(0,0,0,0.4); }
 .op-badge.op-inline { position: static; display: inline-block; }
@@ -895,10 +891,8 @@ input[type="range"]::-moz-range-thumb:hover {
 .op-name { font-size: 0.8rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .op-club { font-size: 0.68rem; opacity: 0.85; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .op-player .op-xp { background: #fff; color: #14213d; font-weight: 800; font-size: 0.85rem; border-radius: 0 0 4px 4px; padding: 1px 0; }
-.op-lock { font-size: 0.62rem; font-weight: 600; color: #b71c1c; }
 .op-clubs-row { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
 .op-clubcard { flex: 1 1 220px; display: flex; align-items: center; gap: 10px; background: #14213d; color: #fff; border-radius: 8px; padding: 8px 12px; }
-.op-clubcard.op-club-picked { background: #3a4a6b; }
 .op-crest { width: 40px; height: 40px; border-radius: 50%; background: #f05a28; color: #fff; font-weight: 800; font-size: 0.8rem;
   display: flex; align-items: center; justify-content: center; flex: none; }
 .op-clubinfo { flex: 1; min-width: 0; }

@@ -1,6 +1,6 @@
 // Optimal Picks (homepage): best 7 players + 2 clubs + captain for a gameweek, under the Fantasy EFL rules.
 // xP comes from the same data and maths as the Keeper / Defender / Midfielder / Forward / Club pages; minutes edited on
-// those pages (saved in this browser) are used here too. Club picks left come from the Club Planner's saved picks.
+// those pages (saved in this browser) are used here too. Games that have already kicked off are not excluded.
 const statusEl = document.getElementById('status');
 const root = document.getElementById('op-root');
 
@@ -15,15 +15,13 @@ const POS_PAGE = { GK: 'keepers.html', DEF: 'defenders.html', MID: 'midfielders.
 const MAX_PER_CLUB = 2;
 const MAX_USES = 5;
 const PICKS_PER_WEEK = 2;
-const PROFILES = ['Jack', 'John'];
-const CLUB_STORE = 'efl_club_planner_v1';
 const OWN_STORE = 'efl_optimal_v1';
 const MINS_KEYS = { GK: 'efl_keeper_mins_v1', DEF: 'efl_defender_mins_v1', MID: 'efl_mid_mins_v1', FWD: 'efl_fwd_mins_v1' };
 const POOL_PER_POS = 40;
 
 const state = {
   plans: {}, clubs: {}, shortByName: {}, week: { GK: {}, DEF: {}, MID: {}, FWD: {}, CLUB: {} },
-  mins: {}, players: [], gw: null, profile: 'Jack', clubPicks: { Jack: {}, John: {} },
+  mins: {}, players: [], gw: null, abbrByName: {}, kitById: {},
   opts: { pinned: [], excluded: [], oneClub: false }, result: null,
 };
 
@@ -37,17 +35,56 @@ function fmtDate(iso, withDay) {
   const d = new Date(iso + 'T12:00:00');
   return d.toLocaleDateString('en-GB', withDay ? { weekday: 'short', day: 'numeric', month: 'short' } : { day: 'numeric', month: 'short' });
 }
-const kickedOff = wk => !!(wk && wk.fx && wk.fx.some(f => f.ko && new Date(f.ko).getTime() <= Date.now()));
 const shortOf = name => state.shortByName[name] || name;
 function abbr(name) {
+  if (state.abbrByName[name]) return state.abbrByName[name];
   const w = shortOf(name).replace(/[^A-Za-z ]/g, '').split(' ').filter(Boolean);
   return (w.length === 1 ? w[0].slice(0, 3) : w[0].slice(0, 2) + w[1][0]).toUpperCase();
+}
+
+/* ---------- kits: club colours from the EFL squad data, plus patterns / fixes for well-known kits (approximate) ---------- */
+const KITS = {
+  LIN: ['#e10613', '#ffffff', 'stripes'], SHU: ['#ed1c24', '#ffffff', 'stripes'], STO: ['#d7172f', '#ffffff', 'stripes'],
+  SOU: ['#e3051b', '#ffffff', 'stripes'], EXE: ['#e1211c', '#ffffff', 'stripes'], SHW: ['#0971ce', '#ffffff', 'stripes'],
+  HUD: ['#0971ce', '#ffffff', 'stripes'], WIG: ['#00539e', '#ffffff', 'stripes'], COL: ['#005eb8', '#ffffff', 'stripes'],
+  GRI: ['#111111', '#ffffff', 'stripes'], NOT: ['#111111', '#ffffff', 'stripes'], BRA: ['#72253d', '#f2b51c', 'stripes'],
+  WBA: ['#122f67', '#ffffff', 'stripes'], CLT: ['#e1231b', '#ffffff', 'stripes'],
+  BLA: ['#014898', '#ffffff', 'halves'], BRR: ['#1a51a0', '#ffffff', 'quarters'], WYC: ['#55b1e2', '#0b1f4b', 'quarters'],
+  QPR: ['#0054a2', '#ffffff', 'hoops'], REA: ['#0133a0', '#ffffff', 'hoops'], DON: ['#e2211c', '#ffffff', 'hoops'],
+  BUR: ['#6c1d45', '#99d6ea', 'sleeves'], WHU: ['#7a263a', '#1bb1e7', 'sleeves'], FLE: ['#e1211c', '#ffffff', 'sleeves'],
+  ROT: ['#e1211c', '#ffffff', 'sleeves'], WAT: ['#fbee23', '#111111', 'sleeves'], NOR: ['#fff200', '#00a650', 'sleeves'],
+  WOL: ['#fdb913', '#231f20', 'plain'], PNE: ['#ffffff', '#0e1d49', 'plain'], BOL: ['#ffffff', '#06205c', 'plain'],
+  TRA: ['#ffffff', '#001489', 'plain'], PVL: ['#ffffff', '#111111', 'plain'], MKD: ['#ffffff', '#e30613', 'plain'],
+  DER: ['#ffffff', '#111111', 'plain'], SWA: ['#ffffff', '#111111', 'plain'], BRO: ['#ffffff', '#111111', 'plain'],
+};
+function kitOf(clubId) {
+  const c = state.kitById[clubId] || {};
+  const k = KITS[c.abbr];
+  return k ? { a: k[0], b: k[1], pattern: k[2] } : { a: c.color || '#1f3d7a', b: c.textColor || '#ffffff', pattern: 'plain' };
+}
+const SHIRT_PATH = 'M21 3 L7 11 L2 26 L13 29 L13 57 L51 57 L51 29 L62 26 L57 11 L43 3 Q32 12 21 3 Z';
+let shirtSeq = 0;
+function shirtSvg(clubId, keeper) {
+  let { a, b, pattern } = kitOf(clubId);
+  if (keeper) { b = a; a = '#c6e33a'; pattern = 'sleeves'; } // keepers: a generic keeper kit with club-colour sleeves
+  const id = 'sh' + (++shirtSeq);
+  const over = {
+    plain: '',
+    stripes: [16, 28, 40].map(x => `<rect x="${x}" y="0" width="7" height="60" fill="${b}"/>`).join(''),
+    hoops: [14, 28, 42].map(y => `<rect x="0" y="${y}" width="64" height="7" fill="${b}"/>`).join(''),
+    halves: `<rect x="32" y="0" width="32" height="60" fill="${b}"/>`,
+    quarters: `<rect x="32" y="0" width="32" height="30" fill="${b}"/><rect x="0" y="30" width="32" height="30" fill="${b}"/>`,
+    sleeves: `<path d="M7 11 L2 26 L13 29 L16 14 Z M57 11 L62 26 L51 29 L48 14 Z" fill="${b}"/>`,
+  }[pattern] || '';
+  return `<svg viewBox="0 0 64 60" aria-hidden="true"><defs><clipPath id="${id}"><path d="${SHIRT_PATH}"/></clipPath></defs>
+    <g clip-path="url(#${id})"><rect x="0" y="0" width="64" height="60" fill="${a}"/>${over}</g>
+    <path d="${SHIRT_PATH}" fill="none" stroke="rgba(0,0,0,0.35)" stroke-width="1.5"/></svg>`;
 }
 function readJson(key, fallback) {
   try { const v = JSON.parse(localStorage.getItem(key) || 'null'); return v && typeof v === 'object' ? v : fallback; } catch (e) { return fallback; }
 }
 function saveOwn() {
-  try { localStorage.setItem(OWN_STORE, JSON.stringify({ ...state.opts, profile: state.profile })); } catch (e) { /* ignore */ }
+  try { localStorage.setItem(OWN_STORE, JSON.stringify(state.opts)); } catch (e) { /* ignore */ }
 }
 
 /* ---------- negative binomial helper (same as the position pages) ---------- */
@@ -114,78 +151,11 @@ function playerWeek(pl, gw) {
   return { wk, fx };
 }
 
-/* ---------- club picks (Club Planner store) and the Club Planner's season-aware optimiser ---------- */
-class MinCostFlow {
-  constructor(n) { this.n = n; this.g = Array.from({ length: n }, () => []); this.to = []; this.cap = []; this.cost = []; }
-  add(u, v, cap, cost) {
-    this.g[u].push(this.to.length); this.to.push(v); this.cap.push(cap); this.cost.push(cost);
-    this.g[v].push(this.to.length); this.to.push(u); this.cap.push(0); this.cost.push(-cost);
-    return this.to.length - 2;
-  }
-  run(s, t) {
-    const n = this.n;
-    for (;;) {
-      const dist = new Array(n).fill(Infinity), inq = new Array(n).fill(false), prev = new Array(n).fill(-1);
-      dist[s] = 0;
-      const q = [s];
-      inq[s] = true;
-      while (q.length) {
-        const u = q.shift();
-        inq[u] = false;
-        for (const e of this.g[u]) {
-          const v = this.to[e];
-          if (this.cap[e] > 0 && dist[u] + this.cost[e] < dist[v] - 1e-9) {
-            dist[v] = dist[u] + this.cost[e];
-            prev[v] = e;
-            if (!inq[v]) { inq[v] = true; q.push(v); }
-          }
-        }
-      }
-      if (dist[t] >= -1e-9) break;
-      for (let v = t; v !== s;) { const e = prev[v]; this.cap[e] -= 1; this.cap[e ^ 1] += 1; v = this.to[e ^ 1]; }
-    }
-  }
-}
+/* ---------- clubs: the two best for this gameweek ---------- */
 const clubWeek = (id, gw) => state.week.CLUB[id] && state.week.CLUB[id][gw];
-const clubOpen = (id, gw) => { const wk = clubWeek(id, gw); return !!(wk && wk.games > 0 && !wk.locked && !kickedOff(wk)); };
-function clubUsed() {
-  const used = {};
-  for (const ids of Object.values(state.clubPicks[state.profile] || {})) for (const id of ids || []) if (id) used[id] = (used[id] || 0) + 1;
-  return used;
-}
 function chooseClubs(gw) {
-  const picks = state.clubPicks[state.profile] || {};
-  const used = clubUsed();
-  const cap = {};
-  for (const c of state.plans.CLUB.clubs) cap[c.id] = Math.max(0, MAX_USES - (used[c.id] || 0));
-  const weeks = state.plans.CLUB.gameweeks.map(g => {
-    const have = (picks[g.gw] || []).filter(Boolean);
-    return { gw: g.gw, slots: Math.max(0, PICKS_PER_WEEK - have.length), taken: new Set(have) };
-  });
-  const clubs = state.plans.CLUB.clubs.filter(c => cap[c.id] > 0);
-  const S = 0, T = 1, C0 = 2, W0 = C0 + clubs.length;
-  const flow = new MinCostFlow(W0 + weeks.length);
-  clubs.forEach((c, i) => flow.add(S, C0 + i, cap[c.id], 0));
-  const edges = [];
-  weeks.forEach((w, j) => {
-    if (w.slots > 0) flow.add(W0 + j, T, w.slots, 0);
-    clubs.forEach((c, i) => {
-      if (w.slots > 0 && clubOpen(c.id, w.gw) && !w.taken.has(c.id)) {
-        const xp = clubWeek(c.id, w.gw).xp;
-        edges.push({ id: flow.add(C0 + i, W0 + j, 1, -xp), club: c.id, gw: w.gw });
-      }
-    });
-  });
-  flow.run(S, T);
-  const target = weeks.find(w => w.gw === gw) || { slots: PICKS_PER_WEEK, taken: new Set() };
-  const plan = edges.filter(e => e.gw === gw && flow.cap[e.id] === 0).map(e => e.club);
-  const greedy = state.plans.CLUB.clubs.filter(c => cap[c.id] > 0 && clubOpen(c.id, gw) && !target.taken.has(c.id))
-    .sort((a, b) => clubWeek(b.id, gw).xp - clubWeek(a.id, gw).xp).slice(0, target.slots).map(c => c.id);
-  const row = id => ({ id, club: state.plans.CLUB.clubs.find(c => c.id === id), wk: clubWeek(id, gw), left: cap[id] });
-  return {
-    already: [...target.taken].map(id => ({ ...row(id), picked: true })),
-    plan: plan.map(row), greedy: greedy.map(row), slots: target.slots,
-  };
+  return state.plans.CLUB.clubs.map(c => ({ id: c.id, club: c, wk: clubWeek(c.id, gw) }))
+    .filter(x => x.wk && x.wk.games > 0).sort((a, b) => b.wk.xp - a.wk.xp).slice(0, PICKS_PER_WEEK);
 }
 
 /* ---------- player optimiser: exact branch and bound, captain = highest xP (counts double) ---------- */
@@ -193,14 +163,14 @@ function optimise(gw) {
   const pinnedSet = new Set(state.opts.pinned), excluded = new Set(state.opts.excluded);
   const all = state.players.map(pl => {
     const w = playerWeek(pl, gw);
-    return { ...pl, fx: w.fx, xp: w.fx.reduce((a, x) => a + x.xp, 0), locked: kickedOff(w.wk) };
+    return { ...pl, fx: w.fx, xp: w.fx.reduce((a, x) => a + x.xp, 0) };
   });
   const byId = Object.fromEntries(all.map(p => [p.id, p]));
   const pinned = state.opts.pinned.map(id => byId[id]).filter(Boolean);
   const limit = state.opts.oneClub ? 7 : MAX_PER_CLUB;
   const pool = [];
   for (const pos of POSITIONS) {
-    pool.push(...all.filter(p => p.pos === pos && !pinnedSet.has(p.id) && !excluded.has(p.id) && !p.locked && p.mins > 0 && p.xp > 0)
+    pool.push(...all.filter(p => p.pos === pos && !pinnedSet.has(p.id) && !excluded.has(p.id) && p.mins > 0 && p.xp > 0)
       .sort((a, b) => b.xp - a.xp).slice(0, POOL_PER_POS));
   }
   pool.sort((a, b) => b.xp - a.xp);
@@ -279,7 +249,7 @@ function showTip(el, x, y) {
     html = `<div class="cp-tip-title">${esc(p.name)} <span>${POS_NAME[p.pos]} · ${esc(p.clubShort)} · expected minutes ${p.mins}${p.minsEdited ? ' (your edit)' : ''}</span></div>
       <table class="cp-tip-table">${p.fx.map(x => `<tr><td>v ${esc(shortOf(x.f.opp))} (${x.f.ha})</td><td><span>${fmtDate(x.f.date, true)}${x.f.src === 'market' ? ' · odds' : ' · model'}</span></td><td class="cp-tip-num">${fmt2(x.xp)}</td></tr>`).join('') || '<tr><td colspan="3">No fixture</td></tr>'}
       <tr class="cp-tip-total"><td colspan="2">Gameweek xP${cap ? ' (× 2 as captain)' : ''}</td><td class="cp-tip-num">${fmt2(p.xp * (cap ? 2 : 1))}</td></tr></table>
-      <div class="cp-tip-foot">Breakdown and minutes on the ${POS_NAME[p.pos]} Picks page. Click the card's × to exclude him, ⇧ to pin him.</div>`;
+      <div class="cp-tip-foot">Breakdown and minutes on the ${POS_NAME[p.pos]} Picks page. Click × on his shirt to exclude him.</div>`;
   } else if (el.dataset.club) {
     const wk = clubWeek(+el.dataset.club, state.gw);
     const c = state.plans.CLUB.clubs.find(q => q.id === +el.dataset.club);
@@ -310,46 +280,40 @@ document.addEventListener('mousemove', e => { if (tip.style.display === 'block')
 document.addEventListener('scroll', () => { tip.style.display = 'none'; }, true);
 
 /* ---------- render ---------- */
-const SHIRT = '<svg viewBox="0 0 64 60" aria-hidden="true"><path d="M21 3 L7 11 L2 26 L13 29 L13 57 L51 57 L51 29 L62 26 L57 11 L43 3 Q32 12 21 3 Z"/></svg>';
 function playerCard(p, best) {
   const cap = best.captain && best.captain.id === p.id, vice = best.vice && best.vice.id === p.id;
   const pinned = state.opts.pinned.includes(p.id);
   const fx = p.fx.length ? p.fx.map(x => `${abbr(x.f.opp)} (${x.f.ha})`).join(', ') : 'No fixture';
-  const lg = (state.plans.CLUB.clubs.find(c => c.id === p.club) || {}).league || '';
   return `<div class="op-player" data-tip="p" data-player="${p.id}">
-    <div class="op-shirt op-lg-${lg.replace(/\s+/g, '').toLowerCase()} ${p.pos === 'GK' ? 'op-gk' : ''}">${SHIRT}
+    <div class="op-shirt">${shirtSvg(p.club, p.pos === 'GK')}
       ${cap ? '<span class="op-badge op-cap" title="Captain: double points">C</span>' : vice ? '<span class="op-badge op-vice" title="Vice-captain: double points if the captain does not play">V</span>' : ''}
       <button class="op-act op-x" data-act="exclude" data-id="${p.id}" title="Exclude ${esc(p.name)} and re-optimise">×</button>
       ${pinned ? `<button class="op-act op-pinned" data-act="unpin" data-id="${p.id}" title="Pinned: click to unpin">⇧</button>` : ''}
     </div>
     <div class="op-plate"><div class="op-name">${esc(p.name)}</div><div class="op-club">${esc(p.clubShort)} · ${esc(fx)}</div></div>
-    <div class="op-xp">${fmt(p.xp * (cap ? 2 : 1))}${p.locked ? ' <span class="op-lock" title="His game has kicked off">locked</span>' : ''}</div>
+    <div class="op-xp">${fmt(p.xp * (cap ? 2 : 1))}</div>
   </div>`;
 }
-function clubCard(x, kind) {
-  const c = x.club;
-  return `<div class="op-clubcard ${kind === 'picked' ? 'op-club-picked' : ''}" data-tip="c" data-club="${x.id}">
-    <div class="op-crest">${esc(abbr(c.name))}</div>
+function clubCard(x) {
+  const c = x.club, k = kitOf(c.id);
+  return `<div class="op-clubcard" data-tip="c" data-club="${x.id}">
+    <div class="op-crest" style="background:${k.a};color:${k.b}">${esc(c.abbr || abbr(c.name))}</div>
     <div class="op-clubinfo"><strong>${esc(c.short || c.name)}</strong>
       <div class="op-club">${x.wk && x.wk.fx.length ? x.wk.fx.map(f => `${abbr(f.opp)} (${f.ha})`).join(', ') : 'No fixture'}</div>
-      <div class="op-club">${kind === 'picked' ? 'already picked this week' : `${Math.max(0, x.left - 1)} of ${MAX_USES} picks left after this`}</div></div>
+      <div class="op-club">${esc(c.league)}</div></div>
     <div class="op-xp">${x.wk ? fmt(x.wk.xp) : '0.0'}</div></div>`;
 }
 function render() {
   const scrollY = window.scrollY;
   const gw = state.gw;
   const meta = state.plans.CLUB.gameweeks.find(g => g.gw === gw);
+  shirtSeq = 0;
   const r = { players: optimise(gw), clubs: chooseClubs(gw) };
   state.result = r;
   const best = r.players.best;
-  const clubRows = [...r.clubs.already, ...r.clubs.plan];
-  const clubXp = clubRows.reduce((a, x) => a + (x.wk ? x.wk.xp : 0), 0);
-  const greedyXp = r.clubs.greedy.reduce((a, x) => a + x.wk.xp, 0);
-  const planXp = r.clubs.plan.reduce((a, x) => a + x.wk.xp, 0);
-  const sameClubs = r.clubs.greedy.map(x => x.id).sort().join() === r.clubs.plan.map(x => x.id).sort().join();
+  const clubRows = r.clubs;
+  const clubXp = clubRows.reduce((a, x) => a + x.wk.xp, 0);
   const options = state.plans.CLUB.gameweeks.map(g => `<option value="${g.gw}" ${g.gw === gw ? 'selected' : ''}>GW ${g.gw} · ${fmtDate(g.start)}${g.end !== g.start ? '–' + fmtDate(g.end) : ''}</option>`).join('');
-  const started = new Date(meta.lockout).getTime() <= Date.now();
-  const nClubPicks = Object.values(state.clubPicks[state.profile] || {}).reduce((a, ids) => a + (ids || []).filter(Boolean).length, 0);
 
   let pitch = '<div class="cp-warn">No valid team: check pinned players.</div>';
   if (best) {
@@ -361,7 +325,7 @@ function render() {
   const inTeam = new Set(best ? best.team.map(p => p.id) : []);
   const excluded = new Set(state.opts.excluded);
   const bench = POSITIONS.map(pos => {
-    const alts = r.players.all.filter(p => p.pos === pos && !inTeam.has(p.id) && !excluded.has(p.id) && !p.locked && p.mins > 0)
+    const alts = r.players.all.filter(p => p.pos === pos && !inTeam.has(p.id) && !excluded.has(p.id) && p.mins > 0)
       .sort((a, b) => b.xp - a.xp).slice(0, 5);
     return `<div class="op-alt"><h3>${POS_NAME[pos]}s</h3>${alts.map(p => `<div class="op-alt-row" data-tip="p" data-player="${p.id}">
       <span>${esc(p.name)} <span class="cp-muted cp-small">${esc(p.clubShort)}</span></span><span class="op-alt-xp">${fmt(p.xp)}</span>
@@ -376,13 +340,12 @@ function render() {
   root.innerHTML = `
     <div class="cp-controls">
       <button id="op-prev" class="cp-nav-btn">&#8592;</button><select id="op-gw">${options}</select><button id="op-next" class="cp-nav-btn">&#8594;</button>
-      <div class="cp-chips">${PROFILES.map(p => `<button class="cp-chip ${p === state.profile ? 'active' : ''}" data-profile="${p}" title="Use ${p}'s club picks from the Club Planner">${p}</button>`).join('')}</div>
       <label class="kp-toggle" title="One Club chip: no limit on players from one club this gameweek (once a season)"><input type="checkbox" id="op-oneclub" ${state.opts.oneClub ? 'checked' : ''}/> One Club chip</label>
     </div>
-    <h2 class="cp-h2">Best team for GW ${gw} <span class="cp-sub">${fmtDate(meta.start)}${meta.end !== meta.start ? ' – ' + fmtDate(meta.end) : ''} · ${meta.games} games${meta.doubles ? ` · ${meta.doubles} clubs play twice` : ''}${started ? ' · under way: players and clubs whose game has kicked off are left out unless pinned' : ''}</span></h2>
+    <h2 class="cp-h2">Best team for GW ${gw} <span class="cp-sub">${fmtDate(meta.start)}${meta.end !== meta.start ? ' – ' + fmtDate(meta.end) : ''} · ${meta.games} games${meta.doubles ? ` · ${meta.doubles} clubs play twice` : ''}</span></h2>
     <div class="op-board">
       <div class="op-left">${pitch}
-        <div class="op-clubs-row">${clubRows.map(x => clubCard(x, x.picked ? 'picked' : 'plan')).join('') || '<div class="cp-muted">No club picks available.</div>'}</div>
+        <div class="op-clubs-row">${clubRows.map(clubCard).join('') || '<div class="cp-muted">No club picks available.</div>'}</div>
       </div>
       <div class="op-side">
         <div class="op-total"><div class="op-total-num">${fmt(total)}</div><div class="op-total-lab">expected points</div>
@@ -390,14 +353,13 @@ function render() {
         ${best ? `<div class="op-panel"><div><span class="op-badge op-cap op-inline">C</span> <strong>${esc(best.captain.name)}</strong> ${fmt(best.captain.xp)} → ${fmt(2 * best.captain.xp)}</div>
           <div><span class="op-badge op-vice op-inline">V</span> ${esc(best.vice.name)} ${fmt(best.vice.xp)}</div></div>` : ''}
         <div class="op-panel"><strong>Formations</strong> <span class="cp-muted cp-small">(players incl. captain)</span><table class="op-ftable">${formations}</table></div>
-        <div class="op-panel"><strong>Clubs</strong> <span class="cp-muted cp-small">${esc(state.profile)} · ${nClubPicks} picks entered</span>
-          <p class="cp-small">Chosen by the <a href="clubs.html">Club Planner</a>'s season plan, which saves a club's 5 picks for its best weeks.
-          ${r.clubs.slots && !sameClubs ? `The best two for this week alone would be ${r.clubs.greedy.map(x => esc(x.club.short || x.club.name)).join(' + ')} (${fmt(greedyXp)} vs ${fmt(planXp)}), at the cost of picks worth more later.` : ''}
-          ${nClubPicks ? '' : 'No club picks entered for this profile yet: enter or load them on the Club Planner so picks left are right.'}</p></div>
+        <div class="op-panel"><strong>Clubs</strong>
+          <p class="cp-small">The two highest-xP clubs this gameweek. This ignores picks left (each club can be picked ${MAX_USES} times a season):
+          the <a href="clubs.html">Club Planner</a> tracks those and plans the whole season.</p></div>
       </div>
     </div>
     <div class="op-tools">
-      <div><label class="cp-small" for="op-pin">Pin a player into the team (e.g. one already in your side whose game has kicked off):</label>
+      <div><label class="cp-small" for="op-pin">Pin a player into the team:</label>
         <input id="op-pin" list="op-names" type="text" placeholder="Type a name..." autocomplete="off" /><datalist id="op-names">${names}</datalist></div>
       ${pinnedList.length ? `<div class="cp-small">Pinned: ${pinnedList.map(p => chip(p, 'unpin')).join(' ')}</div>` : ''}
       ${excludedList.length ? `<div class="cp-small">Excluded: ${excludedList.map(p => chip(p, 'unexclude')).join(' ')} <button class="cp-link-btn" id="op-reset">Clear all</button></div>` : ''}
@@ -406,7 +368,8 @@ function render() {
     <div class="op-alts">${bench}</div>
     <div class="cp-caveat"><strong>How this works</strong><ul>
       <li>Rules (Fantasy EFL help centre): 7 players in a 1-2-2-2, 1-2-3-1 or 1-3-2-1 formation, at most ${MAX_PER_CLUB} players from one club (unless the One Club chip is on),
-        captain scores double, plus 2 clubs, each club usable ${MAX_USES} times a season. Doubles score twice; blanks score nothing.</li>
+        captain scores double, plus 2 clubs, each club usable ${MAX_USES} times a season. Doubles score twice; blanks score nothing.
+        Games that have already kicked off still count, so this is the best team for the whole gameweek.</li>
       <li>The team is the exact best for total xP with the captain counted twice (every formation is checked). Captain = highest xP, vice = second highest.</li>
       <li>Player xP and expected minutes come from the <a href="keepers.html">Keeper</a>, <a href="defenders.html">Defender</a>, <a href="midfielders.html">Midfielder</a> and
         <a href="forwards.html">Forward</a> pages, including any minutes you have edited there (saved in this browser). Set a player to 0 minutes there, or click × here, to leave him out.</li>
@@ -428,7 +391,6 @@ function bind() {
   };
   document.getElementById('op-prev').addEventListener('click', () => step(-1));
   document.getElementById('op-next').addEventListener('click', () => step(1));
-  document.querySelectorAll('.cp-chip[data-profile]').forEach(b => b.addEventListener('click', () => { state.profile = b.dataset.profile; saveOwn(); render(); }));
   document.getElementById('op-oneclub').addEventListener('change', e => { state.opts.oneClub = e.target.checked; saveOwn(); render(); });
   document.querySelectorAll('[data-act]').forEach(b => b.addEventListener('click', e => {
     e.stopPropagation();
@@ -458,7 +420,11 @@ async function load() {
       return [k, await res.json()];
     }));
     state.plans = Object.fromEntries(got);
-    for (const c of state.plans.CLUB.clubs) state.shortByName[c.name] = c.short || c.name;
+    for (const c of state.plans.CLUB.clubs) {
+      state.shortByName[c.name] = c.short || c.name;
+      if (c.abbr) state.abbrByName[c.name] = c.abbr;
+      state.kitById[c.id] = c;
+    }
     for (const k of ['CLUB', 'GK', 'DEF', 'MID', 'FWD']) {
       for (const c of state.plans[k].clubs) {
         state.week[k][c.id] = Object.fromEntries(c.weeks.map(w => [w.gw, w]));
@@ -476,10 +442,7 @@ async function load() {
           mins: edited ? minsEdits[raw.id] : raw.xMins, minsEdited: edited && minsEdits[raw.id] !== raw.xMins });
       }
     }
-    const clubStore = readJson(CLUB_STORE, {});
-    for (const p of PROFILES) state.clubPicks[p] = (clubStore.picks && clubStore.picks[p]) || {};
     const own = readJson(OWN_STORE, {});
-    state.profile = PROFILES.includes(own.profile) ? own.profile : (PROFILES.includes(clubStore.active) ? clubStore.active : 'Jack');
     state.opts = { pinned: Array.isArray(own.pinned) ? own.pinned : [], excluded: Array.isArray(own.excluded) ? own.excluded : [], oneClub: !!own.oneClub };
     state.gw = state.plans.CLUB.firstGw;
     statusEl.textContent = '';

@@ -39,7 +39,8 @@ def build_plan(rounds, squads, fits, id2fd, book, as_of, league_names, book_src=
     season = sorted((r for r in rounds if r.get("gameMode", "season") == "season" and r["status"] != "completed"
                      and any(pd.Timestamp(g["date"]) > now for g in r["games"])),
                     key=lambda r: r["roundNumber"])
-    clubs = {cid: dict(id=cid, name=s["name"], short=s.get("shortName") or s["name"], league=league_names[id2fd[cid][1]], weeks=[])
+    clubs = {cid: dict(id=cid, name=s["name"], short=s.get("shortName") or s["name"], league=league_names[id2fd[cid][1]],
+                       abbr=s.get("abbreviation"), color=s.get("backgroundColor"), textColor=s.get("textColor"), weeks=[])
              for cid, s in squads.items() if cid in id2fd}
     gameweeks, weekly = [], {}
     for rnd in season:

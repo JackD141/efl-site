@@ -1,7 +1,7 @@
 # Optimal Picks (homepage, v2, 9 Oct 2026)
 
 https://efl-site.vercel.app/ (`public/index.html` + `optimal.js`). It replaced the old heuristic `picks.html`, which
-now redirects here. The League Table moved to `league.html`.
+now redirects here. The League Table page was removed (9 Oct 2026; it is in git history; `api/league.js` is now unused).
 
 ## What it shows
 For a chosen gameweek: a pitch graphic in the Fantasy EFL style with the best 7 players, captain (C) and vice-captain
@@ -20,16 +20,18 @@ For a chosen gameweek: a pitch graphic in the Fantasy EFL style with the best 7 
   `mid_plan.json`, `fwd_plan.json`). Expected minutes are read from the minutes edits those pages save in this browser
   (`efl_keeper_mins_v1`, `efl_defender_mins_v1`, `efl_mid_mins_v1`, `efl_fwd_mins_v1`).
   - **The defender and attacker xP maths is copied in `optimal.js`.** If a model changes, update both places.
-- Players: an exact branch and bound maximising sum of xP + captain's xP (captain = highest xP) for each formation. It uses the
-  top 40 per position. Players whose game has kicked off are left out unless pinned.
-- Pin (must include) and exclude (×) per player, saved in this browser (`efl_optimal_v1`). Use pin for players already
-  in your team whose game has kicked off.
-- Clubs: the Club Planner's min-cost-flow season plan, using that profile's (Jack / John) picks saved by the Club Planner
-  (`efl_club_planner_v1`). This saves picks for clubs' best weeks. If the best two for this week alone differ, the page
-  says so. Clubs already entered for the gameweek are shown as picked.
+- Players: an exact branch and bound maximising sum of xP + captain's xP (captain = highest xP) for each formation, over the
+  top 40 per position. Games that have already kicked off are **not** excluded (Jack's choice, 9 Oct 2026): the page
+  shows the best team for the whole gameweek.
+- Pin (must include) and exclude (x) per player, saved in this browser (`efl_optimal_v1`).
+- Clubs: simply the two highest-xP clubs that gameweek. There are no Jack / John profiles here and picks left are
+  ignored; the Club Planner handles picks left and season planning.
+- Shirts: our own SVG shirt coloured with each club's colours from the EFL squad data (`backgroundColor`, `textColor`,
+  `abbreviation`, written into `club_plan.json` by `season_plan.py`), plus a `KITS` table in `optimal.js` for stripes,
+  hoops, halves, quarters and sleeves of well-known kits (approximate). Keepers get a generic keeper kit with club-colour
+  sleeves. The EFL squad data also has official shirt image URLs (`jersey`); we do not use them (their artwork).
 
 ## Checks (9 Oct 2026, GW9)
 - Player xP equals the position pages for every expected starter (GW9, 10, 12): defenders and forwards exactly, keepers
   within 0.0005 (rounding in the JSON). Midfielders use the same code as forwards.
 - Branch and bound equals brute force on a restricted pool for all three formations; the full solve takes about 4 ms.
-- Club choice equals the Club Planner's plan for the same profile.

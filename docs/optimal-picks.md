@@ -1,6 +1,6 @@
 # Optimal Picks (homepage, v2, 9 Oct 2026)
 
-https://efl-site.vercel.app/ (`public/index.html` + `optimal.js`). It replaced the old heuristic `picks.html`, which
+https://dexters-corner.vercel.app/ (`public/index.html` + `optimal.js`). It replaced the old heuristic `picks.html`, which
 now redirects here. The League Table page was removed (9 Oct 2026; it is in git history; `api/league.js` is now unused).
 
 ## What it shows

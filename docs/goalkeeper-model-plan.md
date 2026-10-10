@@ -1,6 +1,6 @@
 # Goalkeeper expected-points model
 
-## Status: v1 built (9 Oct 2026), live at https://efl-site.vercel.app/keepers.html
+## Status: v1 built (9 Oct 2026), live at https://dexters-corner.vercel.app/keepers.html
 
 What was built, versus the plan below:
 - `ml/team_strengths/saves_model.py` trains the saves model; `keepers.py` turns it into keeper xP and expected minutes;

@@ -1,6 +1,6 @@
 # Defender expected-points model (v1, 9 Oct 2026)
 
-Live at https://efl-site.vercel.app/defenders.html. Code: `ml/team_strengths/defence_model.py` (training + checks),
+Live at https://dexters-corner.vercel.app/defenders.html. Code: `ml/team_strengths/defence_model.py` (training + checks),
 `defenders.py` (page data), `public/defenders.html` + `defenders.js` (the page computes xP from the exported model, so
 editing expected minutes recalculates instantly; checked equal to the Python calculation to 0.00005 for all 276 starters).
 

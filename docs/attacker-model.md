@@ -1,6 +1,6 @@
 # Midfielder and forward expected-points model (v1, 9 Oct 2026)
 
-Live at https://efl-site.vercel.app/midfielders.html and /forwards.html. Code: `ml/team_strengths/attack_model.py`
+Live at https://dexters-corner.vercel.app/midfielders.html and /forwards.html. Code: `ml/team_strengths/attack_model.py`
 (training and checks, artifact `models/attack_model.json`), `attackers.py` (page data `public/data/mid_plan.json`,
 `fwd_plan.json`), `public/attackers.js` (one script for both pages; `<body data-pos="MID|FWD">`). The page computes xP
 from the exported model, so editing minutes recalculates instantly. It matches the Python calculation to 0.0000005 (MID)

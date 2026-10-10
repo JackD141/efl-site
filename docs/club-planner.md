@@ -1,7 +1,7 @@
 # Club Planner: context, decisions and state
 
 Written so a new session can pick up without the conversation. Status at time of writing (9 Oct 2026, GW9 week):
-Club Planner is live at https://efl-site.vercel.app/clubs.html and Jack is happy with it. Process detail and model
+Club Planner is live at https://dexters-corner.vercel.app/clubs.html and Jack is happy with it. Process detail and model
 results are also in `ml/team_strengths/README.md`.
 
 ## 1. What it is and why

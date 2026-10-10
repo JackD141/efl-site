@@ -1,7 +1,7 @@
 # efl-site ("Dexter's Corner")
 
 Personal helper site for Fantasy EFL (English Football League fantasy game), by Jack Dexter. Static site plus Vercel
-serverless functions, deployed from `main` at https://efl-site.vercel.app (pushing `main` deploys). Repo is public:
+serverless functions, deployed from `main` at https://dexters-corner.vercel.app (pushing `main` deploys). Repo is public:
 `JackD141/efl-site`. Two people use it: **Jack** (the repo owner, who you are talking to) and **John**, a friend.
 
 ## Layout

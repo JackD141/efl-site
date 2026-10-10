@@ -23,7 +23,7 @@ For a chosen gameweek: a pitch graphic in the Fantasy EFL style with the best 7 
 - Players: an exact branch and bound maximising sum of xP + captain's xP (captain = highest xP) for each formation, over the
   top 40 per position. Games that have already kicked off are **not** excluded (Jack's choice, 9 Oct 2026): the page
   shows the best team for the whole gameweek.
-- Pin (must include) and exclude (x) per player, saved in this browser (`efl_optimal_v1`).
+- Pin (must include) per player and the One Club chip apply to the gameweek they were set in only; exclude (x) applies to every gameweek. Saved in this browser (`efl_optimal_v1`: pinnedByGw, oneClubGws, excluded).
 - Clubs: simply the two highest-xP clubs that gameweek. There are no Jack / John profiles here and picks left are
   ignored; the Club Planner handles picks left and season planning.
 - Shirts: our own SVG shirt coloured with each club's colours from the EFL squad data (`backgroundColor`, `textColor`,

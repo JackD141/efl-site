@@ -34,6 +34,12 @@ function fmtDate(iso, withDay) {
 function saveOwn() {
   try { localStorage.setItem(OWN_STORE, JSON.stringify(state.opts)); } catch (e) { /* ignore */ }
 }
+// pins and the One Club chip belong to one gameweek; exclusions apply to every gameweek
+const pinsFor = gw => (state.opts.pinnedByGw[gw] || []);
+function setPins(gw, ids) {
+  if (ids.length) state.opts.pinnedByGw[gw] = ids; else delete state.opts.pinnedByGw[gw];
+}
+const oneClubOn = gw => state.opts.oneClubGws.includes(gw);
 
 
 /* ---------- clubs: the two best for this gameweek ---------- */
@@ -45,14 +51,14 @@ function chooseClubs(gw) {
 
 /* ---------- player optimiser: exact branch and bound, captain = highest xP (counts double) ---------- */
 function optimise(gw) {
-  const pinnedSet = new Set(state.opts.pinned), excluded = new Set(state.opts.excluded);
+  const pinnedSet = new Set(pinsFor(gw)), excluded = new Set(state.opts.excluded);
   const all = state.players.map(pl => {
     const w = playerWeek(pl, gw);
     return { ...pl, fx: w.fx, xp: w.fx.reduce((a, x) => a + x.xp, 0) };
   });
   const byId = Object.fromEntries(all.map(p => [p.id, p]));
-  const pinned = state.opts.pinned.map(id => byId[id]).filter(Boolean);
-  const limit = state.opts.oneClub ? 7 : MAX_PER_CLUB;
+  const pinned = pinsFor(gw).map(id => byId[id]).filter(Boolean);
+  const limit = oneClubOn(gw) ? 7 : MAX_PER_CLUB;
   const pool = [];
   for (const pos of POSITIONS) {
     pool.push(...all.filter(p => p.pos === pos && !pinnedSet.has(p.id) && !excluded.has(p.id) && p.mins > 0 && p.xp > 0)
@@ -167,7 +173,7 @@ document.addEventListener('scroll', () => { tip.style.display = 'none'; }, true)
 /* ---------- render ---------- */
 function playerCard(p, best) {
   const cap = best.captain && best.captain.id === p.id, vice = best.vice && best.vice.id === p.id;
-  const pinned = state.opts.pinned.includes(p.id);
+  const pinned = pinsFor(state.gw).includes(p.id);
   const fx = p.fx.length ? p.fx.map(x => `${abbr(x.f.opp)} (${x.f.ha})`).join(', ') : 'No fixture';
   return `<div class="op-player" data-tip="p" data-player="${p.id}">
     <div class="op-shirt">${shirtSvg(p.club, p.pos === 'GK')}${spList(p.raw.tags)}
@@ -216,7 +222,7 @@ function render() {
       <span>${esc(p.name)} <span class="cp-muted cp-small">${esc(p.clubShort)}</span></span><span class="op-alt-xp">${fmt(p.xp)}</span>
       <button class="op-act-inline" data-act="pin" data-id="${p.id}" title="Pin him into the team">⇧ pin</button></div>`).join('') || '<div class="cp-muted cp-small">None</div>'}</div>`;
   }).join('');
-  const pinnedList = state.opts.pinned.map(id => r.players.byId[id]).filter(Boolean);
+  const pinnedList = pinsFor(gw).map(id => r.players.byId[id]).filter(Boolean);
   const excludedList = state.opts.excluded.map(id => r.players.byId[id]).filter(Boolean);
   const chip = (p, act) => `<span class="op-chip">${esc(p.name)} <button class="op-act-inline" data-act="${act}" data-id="${p.id}" title="Undo">×</button></span>`;
   const names = state.players.map(p => `<option value="${esc(`${p.name} (${p.clubShort}, ${p.pos})`)}"></option>`).join('');
@@ -225,7 +231,7 @@ function render() {
   root.innerHTML = `
     <div class="cp-controls">
       <button id="op-prev" class="cp-nav-btn">&#8592;</button><select id="op-gw">${options}</select><button id="op-next" class="cp-nav-btn">&#8594;</button>
-      <label class="kp-toggle" title="One Club chip: no limit on players from one club this gameweek (once a season)"><input type="checkbox" id="op-oneclub" ${state.opts.oneClub ? 'checked' : ''}/> One Club chip</label>
+      <label class="kp-toggle" title="One Club chip: no limit on players from one club in this gameweek only (once a season)"><input type="checkbox" id="op-oneclub" ${oneClubOn(gw) ? 'checked' : ''}/> One Club chip (GW ${gw})</label>
     </div>
     <h2 class="cp-h2">Best team for GW ${gw} <span class="cp-sub">${fmtDate(meta.start)}${meta.end !== meta.start ? ' – ' + fmtDate(meta.end) : ''} · ${meta.games} games${meta.doubles ? ` · ${meta.doubles} clubs play twice` : ''}</span></h2>
     <div class="op-board">
@@ -244,7 +250,7 @@ function render() {
       </div>
     </div>
     <div class="op-tools">
-      <div><label class="cp-small" for="op-pin">Pin a player into the team:</label>
+      <div><label class="cp-small" for="op-pin">Pin a player into the GW ${gw} team (pins apply to this gameweek only):</label>
         <input id="op-pin" list="op-names" type="text" placeholder="Type a name..." autocomplete="off" /><datalist id="op-names">${names}</datalist></div>
       ${pinnedList.length ? `<div class="cp-small">Pinned: ${pinnedList.map(p => chip(p, 'unpin')).join(' ')}</div>` : ''}
       ${excludedList.length ? `<div class="cp-small">Excluded: ${excludedList.map(p => chip(p, 'unexclude')).join(' ')} <button class="cp-link-btn" id="op-reset">Clear all</button></div>` : ''}
@@ -276,22 +282,25 @@ function bind() {
   };
   document.getElementById('op-prev').addEventListener('click', () => step(-1));
   document.getElementById('op-next').addEventListener('click', () => step(1));
-  document.getElementById('op-oneclub').addEventListener('change', e => { state.opts.oneClub = e.target.checked; saveOwn(); render(); });
+  document.getElementById('op-oneclub').addEventListener('change', e => {
+    state.opts.oneClubGws = state.opts.oneClubGws.filter(g => g !== state.gw).concat(e.target.checked ? [state.gw] : []);
+    saveOwn(); render();
+  });
   document.querySelectorAll('[data-act]').forEach(b => b.addEventListener('click', e => {
     e.stopPropagation();
-    const id = +b.dataset.id, o = state.opts;
+    const id = +b.dataset.id, o = state.opts, gw = state.gw;
     const drop = (arr, v) => arr.filter(x => x !== v);
-    if (b.dataset.act === 'exclude') { o.excluded = [...drop(o.excluded, id), id]; o.pinned = drop(o.pinned, id); }
+    if (b.dataset.act === 'exclude') { o.excluded = [...drop(o.excluded, id), id]; setPins(gw, drop(pinsFor(gw), id)); }
     if (b.dataset.act === 'unexclude') o.excluded = drop(o.excluded, id);
-    if (b.dataset.act === 'pin') { o.pinned = [...drop(o.pinned, id), id]; o.excluded = drop(o.excluded, id); }
-    if (b.dataset.act === 'unpin') o.pinned = drop(o.pinned, id);
+    if (b.dataset.act === 'pin') { setPins(gw, [...drop(pinsFor(gw), id), id]); o.excluded = drop(o.excluded, id); }
+    if (b.dataset.act === 'unpin') setPins(gw, drop(pinsFor(gw), id));
     saveOwn(); render();
   }));
   const reset = document.getElementById('op-reset');
   if (reset) reset.addEventListener('click', () => { state.opts.excluded = []; saveOwn(); render(); });
   document.getElementById('op-pin').addEventListener('change', e => {
     const p = state.players.find(q => `${q.name} (${q.clubShort}, ${q.pos})` === e.target.value);
-    if (p) { state.opts.pinned = [...state.opts.pinned.filter(x => x !== p.id), p.id]; state.opts.excluded = state.opts.excluded.filter(x => x !== p.id); saveOwn(); render(); }
+    if (p) { setPins(state.gw, [...pinsFor(state.gw).filter(x => x !== p.id), p.id]); state.opts.excluded = state.opts.excluded.filter(x => x !== p.id); saveOwn(); render(); }
   });
 }
 
@@ -300,8 +309,12 @@ async function load() {
   try {
     await loadXpData();
     const own = readJson(OWN_STORE, {});
-    state.opts = { pinned: Array.isArray(own.pinned) ? own.pinned : [], excluded: Array.isArray(own.excluded) ? own.excluded : [], oneClub: !!own.oneClub };
     state.gw = state.plans.CLUB.firstGw;
+    // pins / One Club are per gameweek; older saves (one list for every week) move to the current gameweek
+    const byGw = own.pinnedByGw && typeof own.pinnedByGw === 'object' ? own.pinnedByGw : {};
+    if (Array.isArray(own.pinned) && own.pinned.length && !byGw[state.gw]) byGw[state.gw] = own.pinned;
+    state.opts = { pinnedByGw: byGw, excluded: Array.isArray(own.excluded) ? own.excluded : [],
+      oneClubGws: Array.isArray(own.oneClubGws) ? own.oneClubGws : (own.oneClub ? [state.gw] : []) };
     statusEl.textContent = '';
     render();
   } catch (err) {

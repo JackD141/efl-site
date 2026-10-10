@@ -102,6 +102,25 @@ def keeper_constants(gk):
                 n_starts=int(len(st)))
 
 
+def model_minutes(players, rounds):
+    """Minutes model (minutes_model.py, GK) for each keeper's next game, scaled within each club so the keepers' expected
+    minutes add up to 90 (only one keeper plays); injured / suspended keepers get 0. None if no GK minutes model."""
+    import minutes_model as mm
+    if not (mm.MODELS / "minutes_model_gk.joblib").exists():
+        return None
+    pred = mm.predict_next("GK", players, rounds)
+    by_club = {}
+    for p in players:
+        if p["position"] == "GK" and p["id"] in pred:
+            by_club.setdefault(p["squadId"], []).append(p["id"])
+    out = {}
+    for ids in by_club.values():
+        tot = sum(pred[i] for i in ids)
+        for i in ids:
+            out[i] = 90.0 * pred[i] / tot if tot > 0 else 0.0
+    return out
+
+
 def keeper_roster(players, squads, rounds, gk, consts):
     cur = gk[gk["season"] == "2026_27"]
     date_of = {}
@@ -125,6 +144,7 @@ def keeper_roster(players, squads, rounds, gk, consts):
     for p in keepers:
         by_club.setdefault(p["squadId"], []).append(p)
     out = []
+    xm = model_minutes(players, rounds)
     for club, ks in by_club.items():
         def available(p):
             return p["status"] == "playing" and not p.get("injuryDetails") and not p.get("suspensionDetails")
@@ -136,6 +156,8 @@ def keeper_roster(players, squads, rounds, gk, consts):
             starter = max(avail, key=lambda p: (starts.get(p["id"], 0), mins.get(p["id"], 0)))["id"]
         for p in ks:
             ps = 1.0 if (available(p) and p["id"] == starter) else 0.0
+            if xm is not None:  # minutes model (start chance) where trained; the rule above stays as the fallback
+                ps = xm.get(p["id"], 0.0) / 90 if available(p) else 0.0
             inj = p.get("injuryDetails") or {}
             ls = last_start.loc[p["id"]] if p["id"] in last_start.index else None
             out.append(dict(

@@ -16,7 +16,7 @@ import pandas as pd
 
 import attack_model as am
 import minutes_model as mm
-import mid_model
+import player_model as pm
 from keepers import REPO
 from predict_gw import predict_gameweek
 
@@ -84,10 +84,10 @@ def build_plan(position, rounds, squads, players, fits, id2fd, book, book_src, m
     d = am.load(position)
     cur = d[d["season"] == "2627"]
     fm = {}
-    if position == "MID" and mid_model.MODEL_PATH.exists():
-        # v2: xG / xA targets, FotMob history, league step multipliers, carried-over club style (mid_model.py)
-        art = json.loads(mid_model.MODEL_PATH.read_text(encoding="utf-8"))
-        roles, styles, fm, mates = mid_model.live_inputs(players, art)
+    if pm.model_path(position).exists():
+        # v2: xG / xA targets, FotMob history, league step multipliers, carried-over club style (player_model.py)
+        art = json.loads(pm.model_path(position).read_text(encoding="utf-8"))
+        roles, styles, fm, mates = pm.live_inputs(players, art, position)
     else:
         art = json.loads(am.MODEL_PATH.read_text(encoding="utf-8"))["positions"][position]
         roles = _roles(d, art, {p["id"]: p["squadId"] for p in players})
@@ -123,11 +123,7 @@ def build_plan(position, rounds, squads, players, fits, id2fd, book, book_src, m
         dates = sorted(g["date"][:10] for g in rnd["games"])
         gameweeks.append(dict(gw=gw, start=dates[0], end=dates[-1], games=len(rnd["games"]), lockout=rnd["lockoutDate"],
                               marketGames=int((fx.source == "market").sum())))
-    if fm:  # players with no FotMob history get the league rates (what the shrinkage tends to)
-        pri = mid_model.fmf.league_priors(mid_model.fmf.fotmob_history())
-        fm_default = {f: round(pri[f.split("_", 1)[1]], 4) for f in next(iter(fm.values()))}
-    else:
-        fm_default = None
+    fm_default = pm.fm_defaults(fm) if fm else None  # players with no FotMob history: the league rates
     plist = []
     for p in players:
         if p["position"] != position or p["status"] == "eliminated" or p["squadId"] not in clubs:

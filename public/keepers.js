@@ -101,7 +101,7 @@ function render() {
   const next5 = plan.gameweeks.filter(g => g.gw >= gw).slice(0, 5).map(g => g.gw);
   let list = plan.keepers.filter(k => {
     const c = state.clubs[k.club];
-    return c && (state.showBackups || minsOf(k) > 0) && (state.league === 'All' || c.league === state.league)
+    return c && (state.showBackups || minsOf(k) >= 30) && (state.league === 'All' || c.league === state.league)
       && (!q || k.name.toLowerCase().includes(q) || c.name.toLowerCase().includes(q) || c.short.toLowerCase().includes(q));
   }).map(k => ({ k, c: state.clubs[k.club], w: weekOf(k.club, gw), xp: kxp(k, gw), n5: next5.reduce((a, g) => a + kxp(k, g), 0) }))
     .sort((a, b) => b.xp - a.xp);

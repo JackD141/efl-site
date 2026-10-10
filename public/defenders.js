@@ -33,9 +33,11 @@ function expectedCount(stat, d, club, f) {
   const m = state.plan.model[stat];
   const opp = state.clubs[f.oppId];
   const vals = { role: d.role[stat], team: club.style[stat].team, opp: opp ? opp.style[stat].opp : club.style[stat].opp, lam_opp: f.lamOpp, lam_own: f.lamOwn, home: f.home };
+  Object.assign(vals, d.fm || {}); // FotMob history rates (v2)
+  if (d.mates) vals.mates = d.mates[stat]; // team-mates' rate excluding him (v2)
   let z = m.intercept;
   m.features.forEach((name, i) => {
-    const v = name === 'home' ? vals[name] : Math.log(Math.max(vals[name], 1e-3));
+    const v = name === 'home' ? vals[name] : Math.log(Math.max(vals[name], m.floor || 1e-3));
     z += m.coef[i] * (v - m.mean[i]) / m.sd[i];
   });
   return Math.exp(z);
@@ -54,6 +56,37 @@ function nbSteps(mu, r, per, steps) {
   }
   for (const s of steps) if (atLeast[s] === undefined) atLeast[s] = 0;
   return { pts, atLeast };
+}
+// v2: expected appearance points and chance of 60+ minutes from the minutes model's curves
+function curveAt(c, mins, key) {
+  if (mins <= 0) return 0;
+  const i = Math.min(c.mins.length - 2, Math.floor(mins / (c.mins[1] - c.mins[0])));
+  const t = (mins - c.mins[i]) / (c.mins[i + 1] - c.mins[i]);
+  return c[key][i] + t * (c[key][i + 1] - c[key][i]);
+}
+// v2 expected points for one fixture with `mins` expected minutes: appearance from the minutes curve, clean sheet x
+// P(60+ minutes), everything else scales with minutes / 90; goals / assists from the npxG / xA models
+function fixtureXpV2(d, f, mins) {
+  const key = `${d.id}|${f.oppId}|${f.date}|${mins}`;
+  if (state.cache[key]) return state.cache[key];
+  const p = state.plan, sc = p.scoring, club = state.clubs[d.club], t = mins / 90;
+  const p60 = curveAt(p.p60Curve, mins, 'p');
+  const out = { mins, app: curveAt(p.appCurve, mins, 'pts'), cs: f.cs, p60, csPts: sc.cleanSheet * f.cs * p60, gcPts: f.gcPts * t, stats: {} };
+  let total = out.app + out.csPts + out.gcPts;
+  for (const [stat, cfg] of Object.entries(STATS)) {
+    const mu = expectedCount(stat, d, club, f) * t;
+    const s = nbSteps(mu, p.model[stat].r, cfg.per, cfg.steps);
+    out.stats[stat] = { mu, pts: s.pts, atLeast: s.atLeast };
+    total += s.pts;
+  }
+  const mg = p.model.goals, ma = p.model.assists, fm = d.fm || {};
+  out.goals = (expectedCount('goals', d, club, f) * mg.scale + (mg.pens ? fm.fm_pxg || 0 : 0)) * t;
+  out.assists = expectedCount('assists', d, club, f) * ma.scale * t;
+  out.attPts = sc.goal * out.goals + sc.assist * out.assists;
+  out.cardPts = t * (sc.yellow * d.rates.y90 + sc.red * d.rates.r90 + p.other);
+  out.xp = total + out.attPts + out.cardPts;
+  state.cache[key] = out;
+  return out;
 }
 function fixtureXp(d, f) {
   const key = `${d.id}|${f.oppId}|${f.date}`;
@@ -79,10 +112,11 @@ function fixtureXp(d, f) {
 function weekXp(d, gw) {
   const w = weekOf(d.club, gw);
   if (!w || !w.games) return { xp90: 0, fx: [] };
-  const fx = w.fx.map(f => ({ f, r: fixtureXp(d, f) }));
+  const fx = w.fx.map(f => ({ f, r: state.plan.v2 ? fixtureXpV2(d, f, minsOf(d)) : fixtureXp(d, f) }));
   return { xp90: fx.reduce((a, x) => a + x.r.xp, 0), fx };
 }
-const dxp = (d, gw) => (minsOf(d) / 90) * weekXp(d, gw).xp90;
+// v2 fixtures already include expected minutes; the old model is "if he plays 90" x minutes / 90
+const dxp = (d, gw) => (state.plan.v2 ? 1 : minsOf(d) / 90) * weekXp(d, gw).xp90;
 
 /* ---------- tooltip ---------- */
 const tip = document.createElement('div');
@@ -102,13 +136,14 @@ function breakdownRows(items) {
       : `+1 per ${cfg.per} · exp. ${sum(x => x.r.stats[stat].mu).toFixed(1)}`;
     return [cfg.name, detail, sum(x => x.r.stats[stat].pts)];
   };
+  const v2 = state.plan.v2;
   return [
-    ['Appearance', `${sc.appearance}${n > 1 ? ' × ' + n : ''}`, sc.appearance * n],
-    ['Clean sheet', `${sc.cleanSheet} × ${one ? pct(one.r.cs) : sum(x => x.r.cs).toFixed(2) + ' expected'}`, sum(x => x.r.csPts)],
+    v2 ? ['Appearance', `expected, from ${items[0].r.mins} expected minutes`, sum(x => x.r.app)] : ['Appearance', `${sc.appearance}${n > 1 ? ' × ' + n : ''}`, sc.appearance * n],
+    ['Clean sheet', `${sc.cleanSheet} × ${one ? pct(one.r.cs) : sum(x => x.r.cs).toFixed(2) + ' expected'}${v2 && one ? ` × P(60+ mins) ${pct(one.r.p60)}` : ''}`, sum(x => x.r.csPts)],
     ['Goals conceded', one ? `−[P(2+) ${pct(one.f.pg2)} + P(4+) ${pct(one.f.pg4)} + …] · exp. ${one.f.xgc.toFixed(2)}` : '−1 per 2', sum(x => x.r.gcPts)],
     statRow('clr'), statRow('tkl'), statRow('blk'),
     ['Goals / assists', `${sc.goal} × ${sum(x => x.r.goals).toFixed(3)} + ${sc.assist} × ${sum(x => x.r.assists).toFixed(3)}`, sum(x => x.r.attPts)],
-    ['Cards and other', 'his card rate', sum(x => x.r.cardPts + state.plan.other)],
+    ['Cards and other', 'his card rate', sum(x => x.r.cardPts + (v2 ? 0 : state.plan.other))],
   ];
 }
 function showTip(el, x, y) {
@@ -127,10 +162,11 @@ function showTip(el, x, y) {
     const opp = state.clubs[items[0].f.oppId];
     style = `<div class="cp-tip-foot">Style, clearances per defender per 90: ${esc(club.short)} defenders ${club.style.clr.team.toFixed(1)}; defenders facing ${esc(opp ? opp.short : '?')} ${opp ? opp.style.clr.opp.toFixed(1) : '?'} (league ${state.plan.model.clr.prior ? state.plan.model.clr.prior.toFixed(1) : '5.6'}). His role: ${d.role.clr.toFixed(2)}× team-mates.</div>`;
   }
-  tip.innerHTML = `<div class="cp-tip-title">${esc(title)} <span>${esc(d.name)}: expected points if he plays the whole game</span></div>
+  const v2 = state.plan.v2;
+  tip.innerHTML = `<div class="cp-tip-title">${esc(title)} <span>${esc(d.name)}: ${v2 ? `expected points with ${mins} expected minutes` : 'expected points if he plays the whole game'}</span></div>
     <table class="cp-tip-table">${rows.map(r => `<tr><td>${r[0]}</td><td><span>${r[1]}</span></td><td class="cp-tip-num">${fmt2(r[2])}</td></tr>`).join('')}
-    <tr class="cp-tip-total"><td colspan="2">If he plays 90</td><td class="cp-tip-num">${fmt2(total)}</td></tr>
-    ${el.dataset.tip === 'fx' ? '' : `<tr class="cp-tip-total"><td colspan="2">× expected minutes ${mins}/90</td><td class="cp-tip-num">${fmt2(total * mins / 90)}</td></tr>`}</table>${style}`;
+    <tr class="cp-tip-total"><td colspan="2">${v2 ? 'Total' : 'If he plays 90'}</td><td class="cp-tip-num">${fmt2(total)}</td></tr>
+    ${v2 || el.dataset.tip === 'fx' ? '' : `<tr class="cp-tip-total"><td colspan="2">× expected minutes ${mins}/90</td><td class="cp-tip-num">${fmt2(total * mins / 90)}</td></tr>`}</table>${style}`;
   tip.style.display = 'block';
   moveTip(x, y);
 }
@@ -168,7 +204,7 @@ function render() {
   const next5 = plan.gameweeks.filter(g => g.gw >= gw).slice(0, 5).map(g => g.gw);
   const list = plan.defenders.filter(d => {
     const c = state.clubs[d.club];
-    return c && (state.showAll || minsOf(d) > 0) && (state.league === 'All' || c.league === state.league)
+    return c && (state.showAll || minsOf(d) >= (plan.v2 ? 30 : 1)) && (state.league === 'All' || c.league === state.league)
       && (!q || d.name.toLowerCase().includes(q) || c.name.toLowerCase().includes(q) || c.short.toLowerCase().includes(q));
   }).map(d => ({ d, c: state.clubs[d.club], wk: weekXp(d, gw), xp: dxp(d, gw), n5: next5.reduce((a, g) => a + dxp(d, g), 0) }))
     .sort((a, b) => b.xp - a.xp);
@@ -212,14 +248,19 @@ function render() {
         <th class="cp-right">xP</th><th class="cp-right" title="Expected points over this and the next 4 gameweeks">Next 5 GWs</th></tr></thead>
       <tbody>${rows || '<tr><td colspan="10" class="cp-muted">No defenders match.</td></tr>'}</tbody></table></div>
     <div class="cp-caveat"><strong>How to read this</strong><ul>
-      <li><strong>Expected minutes</strong> default to 90 for defenders who played 60+ minutes in their club's latest game, else 0 (and 0 if injured or suspended).
-        Edit the box: xP scales with minutes/90, so 45 means a 50% chance he plays. Edits are saved in this browser; "Reset minutes" clears them.</li>
-      <li><strong>Clearances, tackles, blocks</strong> = his role (how many he makes compared with team-mates, measured at whichever club he was at, so it moves with him)
-        × his club's current defensive style × how much this week's opponent makes defenders work (long-ball sides force more clearances) × the odds.
-        Each club's and opponent's style is a rolling average of recent gameweeks. Points come from the full chances of reaching each step: e.g. clearance points = P(4+) + P(8+) + P(12+) + …</li>
-      <li>Tested on this season's games without having seen them: clearance points error ${t('clr').model.mae_pts.toFixed(3)} vs ${t('clr').baseline.mae_pts.toFixed(3)} for the player's own recent rate
-        (the style features help most here); tackles and blocks are about level with that baseline. Whole-game xP beats the player's recent average points
-        (error 2.69 vs 2.81) and ranks fixtures sensibly, but single games are mostly luck.</li>
+      ${plan.v2 ? `<li><strong>Expected minutes</strong> come from our minutes model (recent minutes, starts and appearances at his club, how long since
+        he last played, rest days, doubles; 0 if injured or suspended). Appearance points and the chance of reaching 60 minutes (needed for the clean sheet)
+        follow from it; everything else scales with minutes. Edit the box to override; edits are saved in this browser.</li>
+      <li><strong>Clearances, tackles, blocks</strong> = his share relative to defensive team-mates × his team-mates' current rate × how much this week's
+        opponent makes defenders work × the odds, plus his FotMob history over his last 40 games (any EFL club). Numbers from another league are adjusted by
+        the measured step-up / step-down change. Points use the full chance of reaching each step (clearance points = P(4+) + P(8+) + …).</li>
+      <li><strong>Goals and assists</strong> come from predicted xG and xA (FotMob), converted to goals and assists, rather than his raw goal record.</li>
+      <li>Tested on this season's games without having seen them (log-likelihood, closer to 0 is better; new model vs previous): clearances
+        ${t('clr').v2.loglik.toFixed(3)} vs ${t('clr').v1.loglik.toFixed(3)}, blocks ${t('blk').v2.loglik.toFixed(3)} vs ${t('blk').v1.loglik.toFixed(3)},
+        tackles ${t('tkl').v2.loglik.toFixed(3)} vs ${t('tkl').v1.loglik.toFixed(3)}, goals ${t('goals').v2.loglik.toFixed(3)} vs ${t('goals').v1.loglik.toFixed(3)},
+        assists ${t('assists').v2.loglik.toFixed(3)} vs ${t('assists').v1.loglik.toFixed(3)}. Single games are still mostly luck.</li>`
+      : `<li><strong>Expected minutes</strong> default to 90 for defenders who played 60+ minutes in their club's latest game, else 0 (and 0 if injured or suspended).
+        Edit the box: xP scales with minutes/90, so 45 means a 50% chance he plays. Edits are saved in this browser; "Reset minutes" clears them.</li>`}
       <li>Later gameweeks use the team-strength model and today's expected starters and club styles, so they are less certain.</li>
     </ul></div>
     <p class="cp-foot">Updated ${esc(new Date(plan.generatedAt).toLocaleString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }))}.

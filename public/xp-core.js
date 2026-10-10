@@ -93,6 +93,29 @@ function defenderFixtureXp(d, f) {
   total += sc.goal * d.rates.g90 * scale + sc.assist * d.rates.a90 * scale + sc.yellow * d.rates.y90 + sc.red * d.rates.r90 + p.other;
   return total; // if he plays 90; scaled by minutes / 90 like the Defender page
 }
+function curveAt(c, mins, key) {
+  if (mins <= 0) return 0;
+  const i = Math.min(c.mins.length - 2, Math.floor(mins / (c.mins[1] - c.mins[0])));
+  const t = (mins - c.mins[i]) / (c.mins[i + 1] - c.mins[i]);
+  return c[key][i] + t * (c[key][i + 1] - c[key][i]);
+}
+// v2 defenders (same as defenders.js fixtureXpV2): appearance from the minutes curve, clean sheet x P(60+ minutes), the
+// rest x minutes / 90, goals / assists from the npxG / xA models
+function defenderFixtureXpV2(d, f, mins) {
+  const p = state.plans.DEF, sc = p.scoring, club = state.clubs.DEF[d.club], opp = state.clubs.DEF[f.oppId], t = mins / 90;
+  if (mins <= 0) return 0;
+  const val = stat => {
+    const vals = { role: d.role[stat], team: club.style[stat].team, opp: opp ? opp.style[stat].opp : club.style[stat].opp, lam_opp: f.lamOpp, lam_own: f.lamOwn, home: f.home };
+    Object.assign(vals, d.fm || {});
+    if (d.mates) vals.mates = d.mates[stat];
+    return glm(p.model[stat], vals, p.model[stat].floor || 1e-3);
+  };
+  let total = curveAt(p.appCurve, mins, 'pts') + sc.cleanSheet * f.cs * curveAt(p.p60Curve, mins, 'p') + f.gcPts * t;
+  for (const [stat, cfg] of Object.entries(DEF_STATS)) total += nb(val(stat) * t, p.model[stat].r, cfg.per, cfg.steps).pts;
+  const mg = p.model.goals, fm = d.fm || {};
+  total += sc.goal * (val('goals') * mg.scale + (mg.pens ? fm.fm_pxg || 0 : 0)) * t + sc.assist * val('assists') * p.model.assists.scale * t;
+  return total + t * (sc.yellow * d.rates.y90 + sc.red * d.rates.r90 + p.other);
+}
 // expected appearance points for expected minutes: the minutes model's curve where the plan has one (a 45 can be a 50%
 // chance of starting), else the plain rule (2 for 60+, 1 below)
 function appPoints(plan, mins) {
@@ -127,7 +150,7 @@ function playerWeek(pl, gw) {
   const s = pl.mins / 90;
   let fx;
   if (pl.pos === 'GK') fx = wk.fx.map(f => ({ f, xp: s * f.xp }));
-  else if (pl.pos === 'DEF') fx = wk.fx.map(f => ({ f, xp: s * defenderFixtureXp(pl.raw, f) }));
+  else if (pl.pos === 'DEF') fx = wk.fx.map(f => ({ f, xp: state.plans.DEF.v2 ? defenderFixtureXpV2(pl.raw, f, pl.mins) : s * defenderFixtureXp(pl.raw, f) }));
   else fx = wk.fx.map(f => ({ f, xp: attackerFixtureXp(pl.pos, pl.raw, f, pl.mins) }));
   return { wk, fx };
 }

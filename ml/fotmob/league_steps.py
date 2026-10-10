@@ -21,7 +21,8 @@ FM = REPO / "data" / "fotmob"
 LEVEL = {"Championship": 1, "League One": 2, "League Two": 3}
 POS = {1.0: "DEF", 2.0: "MID", 3.0: "FWD"}
 STATS = {"int": "Interceptions", "kp": "Chances created", "sot": "Shots on target", "goals": "Goals", "assists": "Assists",
-         "npxg": "xG Non-penalty", "xa": "Expected assists (xA)", "shots": "Total shots"}
+         "npxg": "xG Non-penalty", "xa": "Expected assists (xA)", "shots": "Total shots", "clr": "Clearances", "blk": "Blocks",
+         "tkl": "Tackles"}
 MIN_MINS = 900   # minutes in each season for a player pair
 MIN_MINS_CUR = 450  # the current, unfinished season
 

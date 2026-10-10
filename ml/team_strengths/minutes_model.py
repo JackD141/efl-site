@@ -158,7 +158,8 @@ def predict_next(position, players, rounds):
 def models():
     return {
         "ridge": lambda: Ridge(alpha=1.0),
-        "gbm": lambda: HistGradientBoostingRegressor(max_iter=300, learning_rate=0.05, max_leaf_nodes=15, min_samples_leaf=50, l2_regularization=1.0),
+        "gbm": lambda: HistGradientBoostingRegressor(max_iter=300, learning_rate=0.05, max_leaf_nodes=15, min_samples_leaf=50, l2_regularization=1.0,
+                                                     random_state=0),
     }
 
 
@@ -201,6 +202,10 @@ def main(position="MID"):
     iso = IsotonicRegression(y_min=0, y_max=2, out_of_bounds="clip").fit(np.r_[pv, 0, 90], np.r_[app_points(va["mins"]), 0, 2])
     grid = np.arange(0, 91, 5)
     curve = [round(float(v), 3) for v in iso.predict(grid)]
+    # chance of 60+ minutes for a given expected minutes (clean sheets need 60+), same out-of-sample fit
+    iso60 = IsotonicRegression(y_min=0, y_max=1, out_of_bounds="clip").fit(np.r_[pv, 0, 90], np.r_[(va["mins"] >= 60).astype(float), 0, 1])
+    p60 = [round(float(v), 3) for v in iso60.predict(grid)]
+    print("P(60+ minutes) by xMins:", dict(zip(grid.tolist(), p60)))
     print("\nexpected appearance points by xMins:", dict(zip(grid.tolist(), curve)))
     te_app = iso.predict(pt)
     print(f"test: appearance points MAE {np.abs(app_points(te['mins']) - te_app).mean():.3f} (mean {te_app.mean():.2f} vs actual {app_points(te['mins']).mean():.2f})")
@@ -212,7 +217,7 @@ def main(position="MID"):
     MODELS.mkdir(exist_ok=True)
     joblib.dump(dict(model=final, features=feats_used, half_lives=HALF_LIVES), MODELS / f"minutes_model_{position.lower()}.joblib")
     (MODELS / f"minutes_model_{position.lower()}.json").write_text(json.dumps(dict(
-        model=best_row, features=feats_used, validation=res.to_dict("records"), test=test, app_curve=dict(mins=grid.tolist(), pts=curve)), indent=1), encoding="utf-8")
+        model=best_row, features=feats_used, validation=res.to_dict("records"), test=test, app_curve=dict(mins=grid.tolist(), pts=curve), p60_curve=dict(mins=grid.tolist(), p=p60)), indent=1), encoding="utf-8")
     if hasattr(final, "coef_"):
         print("coefficients:", {f: round(c, 2) for f, c in zip(feats_used, final.coef_)})
     return final

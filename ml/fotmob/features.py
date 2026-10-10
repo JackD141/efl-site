@@ -14,8 +14,9 @@ REPO = Path(__file__).resolve().parents[2]
 FM = REPO / "data" / "fotmob"
 N_GAMES = 20
 SIGNALS = {"npxg": "xG Non-penalty", "xg": "Expected goals (xG)", "xa": "Expected assists (xA)", "shots": "Total shots",
-           "chances": "Chances created", "sot": "Shots on target", "int": "Interceptions", "xgot": "Expected goals on target (xGOT)"}
-RATES = ("npxg", "pxg", "xa", "shots", "chances", "sot", "int", "xgot")
+           "chances": "Chances created", "sot": "Shots on target", "int": "Interceptions", "xgot": "Expected goals on target (xGOT)",
+           "clr": "Clearances", "blk": "Blocks", "tkl": "Tackles"}
+RATES = ("npxg", "pxg", "xa", "shots", "chances", "sot", "int", "xgot", "clr", "blk", "tkl")
 
 
 def fotmob_history():

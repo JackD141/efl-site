@@ -14,6 +14,8 @@ import numpy as np
 import pandas as pd
 
 import defence_model as dm
+import minutes_model as mm
+import player_model as pm
 from keepers import REPO, fixture_points
 from predict_gw import predict_gameweek
 
@@ -69,12 +71,26 @@ def _latest_starters(cur, rounds):
     return set(x.loc[x["minutes_played"] >= 60, "player_id"]), int(cur["gameweek"].max())
 
 
+UNITS = {"clr": 4, "blk": 2, "tkl": 2}
+
+
 def build_defender_plan(rounds, squads, players, fits, id2fd, book, book_src, market_lam, league_names):
     art = json.loads(dm.MODEL_PATH.read_text(encoding="utf-8"))
     d = dm.load_fantasy()
     cur = d[d["season"] == "2627"]
     roles, rates, priors = _rates_and_roles(d, art)
     styles = _styles(cur, art)
+    # v2 (player_model.py): clearances / blocks / tackles and goals / assists (via npxG / xA) with FotMob history, league
+    # step multipliers and carried-over club style; expected minutes from minutes_model.py
+    v2 = pm.model_path("DEF").exists() and (mm.MODELS / "minutes_model_def.json").exists()
+    fm = mates = {}
+    if v2:
+        art2 = json.loads(pm.model_path("DEF").read_text(encoding="utf-8"))
+        roles, styles, fm, mates = pm.live_inputs(players, art2, "DEF")
+        fm_default = pm.fm_defaults(fm)
+        mins_art = json.loads((mm.MODELS / "minutes_model_def.json").read_text(encoding="utf-8"))
+        xmins = mm.predict_next("DEF", players, rounds)
+        art = dict(art, stats={st: dict(prior=c["prior"]) for st, c in art2.items()})
     starters, local_gw = _latest_starters(cur, rounds)
     apps = cur.groupby("player_id").agg(apps=("minutes_played", "size"), mins=("minutes_played", "sum"),
                                         full=("minutes_played", lambda s: int((s >= 60).sum())))
@@ -120,21 +136,29 @@ def build_defender_plan(rounds, squads, players, fits, id2fd, book, book_src, ma
         a = apps.loc[p["id"]] if p["id"] in apps.index else None
         defenders.append(dict(
             id=p["id"], name=p.get("displayName") or f"{p['firstName']} {p['lastName']}", club=p["squadId"],
-            xMins=90 if (avail and p["id"] in starters) else 0, status=p["status"], injury=inj.get("type") if inj else None,
+            xMins=(int(round(xmins.get(p["id"], 0))) if v2 else 90 if (avail and p["id"] in starters) else 0), status=p["status"],
+            injury=inj.get("type") if inj else None,
             suspended=bool(p.get("suspensionDetails")), startedLast=p["id"] in starters,
             role={st: round(roles.get(p["id"], {}).get(st, 1.0), 4) for st in art["stats"]},
             rates={k: round(float(v), 5) for k, v in rr.items()},
+            **({"fm": fm.get(p["id"], fm_default), "mates": mates.get(p["id"], {})} if v2 else {}),
             apps=int(a["apps"]) if a is not None else 0, starts60=int(a["full"]) if a is not None else 0,
             mins=int(a["mins"]) if a is not None else 0, totalPoints=p.get("totalPoints", 0)))
-    model = {st: dict(features=c["features"], intercept=c["intercept"], coef=c["coef"], mean=c["scaler_mean"], sd=c["scaler_sd"], prior=c["prior"],
-                      r=c["nb_r"], unit=c["unit"], window=c["window"], test=c["test"]) for st, c in art["stats"].items()}
+    if v2:
+        model = {st: dict(features=c["features"], intercept=c["intercept"], coef=c["coef"], mean=c["scaler_mean"], sd=c["scaler_sd"], prior=c["prior"],
+                          r=c["nb_r"], unit=UNITS.get(st), window=c["window"], test=c["test"], target=c["target"], scale=c["scale"],
+                          pens=bool(c["pens"]), floor=1e-4) for st, c in art2.items()}
+    else:
+        model = {st: dict(features=c["features"], intercept=c["intercept"], coef=c["coef"], mean=c["scaler_mean"], sd=c["scaler_sd"], prior=c["prior"],
+                          r=c["nb_r"], unit=c["unit"], window=c["window"], test=c["test"]) for st, c in art["stats"].items()}
     lam_avg = float(np.mean([f["lamOwn"] for c in clubs.values() for w in c["weeks"] for f in w["fx"]] or [1.3]))
     other = float((-3 * d["own_goals"] - 3 * d["penalty_misses"] + 5 * d["hat_tricks"]).sum() / len(d))
     return dict(
         generatedAt=datetime.now(timezone.utc).isoformat(timespec="seconds"), season="2026/27",
         firstGw=gameweeks[0]["gw"] if gameweeks else None, gameweeks=gameweeks, clubs=list(clubs.values()), defenders=defenders,
         startersFromGw=local_gw, latestCompletedGw=max(completed) if completed else 0,
-        model=model, lamAvg=round(lam_avg, 4), other=round(other, 4),
+        model=model, lamAvg=round(lam_avg, 4), other=round(other, 4), v2=v2,
+        appCurve=mins_art["app_curve"] if v2 else None, p60Curve=mins_art["p60_curve"] if v2 else None,
         scoring=dict(appearance=2, cleanSheet=5, goal=7, assist=3, yellow=-1, red=-3))
 
 

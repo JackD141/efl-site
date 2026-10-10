@@ -253,7 +253,7 @@ function render() {
         from last season, adjusted for promotion or relegation.</li>
         <li>Tested on this season's games without having seen them (mean squared error, new model vs previous): goals ${t('goals').v2.mse.toFixed(4)} vs ${t('goals').v1.mse.toFixed(4)};
         assists ${t('assists').v2.mse.toFixed(4)} vs ${t('assists').v1.mse.toFixed(4)}; shots on target ${t('sot').v2.mse.toFixed(3)} vs ${t('sot').v1.mse.toFixed(3)};
-        key passes ${t('kp').v2.mse.toFixed(3)} vs ${t('kp').v1.mse.toFixed(3)}; interceptions ${t('int').v2.mse.toFixed(3)} vs ${t('int').v1.mse.toFixed(3)}. Single games are still mostly luck.</li>`
+        key passes ${t('kp').v2.mse.toFixed(3)} vs ${t('kp').v1.mse.toFixed(3)}${state.plan.model.int ? `; interceptions ${t('int').v2.mse.toFixed(3)} vs ${t('int').v1.mse.toFixed(3)}` : ''}. Single games are still mostly luck.</li>`
         : `<li>Tested on this season's games without having seen them (mean squared error, lower is better): goals ${err('goals')}; shots on target ${err('sot')};
         key passes ${err('kp')}. Mostly level with the player's own rate, better than a plain recent average, and the odds help for goals and shots.
         Whole-game xP beats each player's recent average points (error ${POS === 'MID' ? '2.53 vs 2.64' : '2.65 vs 2.72'}), but single games are mostly luck.</li>

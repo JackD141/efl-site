@@ -955,3 +955,59 @@ input[type="range"]::-moz-range-thumb:hover {
 /* set-piece tags */
 .cp-tag.pp-sp { background: #fff3e0; color: #e65100; }
 .op-sp { font-size: 0.6rem; font-weight: 700; color: #ffb74d; margin-left: 2px; }
+
+/* set-piece tags: vertical list next to the shirt */
+.pp-sp-list { display: inline-flex; flex-direction: column; gap: 1px; flex: none; }
+.pp-sp-tag { font-size: 0.55rem; font-weight: 800; letter-spacing: 0.3px; line-height: 1; padding: 2px 3px; border-radius: 2px;
+  background: #fff3e0; color: #e65100; cursor: help; white-space: nowrap; }
+.op-shirt .pp-sp-list { position: absolute; left: 100%; top: 2px; margin-left: 2px; }
+.op-shirt .pp-sp-tag { font-size: 0.5rem; background: rgba(255,255,255,0.92); }
+
+/* ---------- mobile ---------- */
+@media (max-width: 700px) {
+  header { padding: 10px 12px; gap: 8px; }
+  h1 { font-size: 1.05rem; }
+  nav { width: 100%; overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; scrollbar-width: none; gap: 4px; }
+  nav::-webkit-scrollbar { display: none; }
+  .nav-link { white-space: nowrap; padding: 6px 10px; font-size: 0.72rem; }
+  main { padding: 12px; }
+  .cp-intro { font-size: 0.85rem; }
+  .cp-table .opt { display: none; }
+  .cp-table thead th { padding: 7px 6px; font-size: 0.72rem; }
+  .cp-table td { padding: 7px 6px; font-size: 0.82rem; }
+  .pp-club { gap: 4px; }
+  .pp-shirt { width: 20px; height: 19px; }
+  .kp-mins { width: 52px; }
+  .cp-h2 { font-size: 1rem; }
+  .cp-sub { display: block; font-size: 0.72rem; }
+  .cp-caveat { font-size: 0.8rem; }
+  .bt-num { font-size: 1.5rem; }
+}
+@media (max-width: 480px) {
+  .cp-table .opt2 { display: none; }
+  .cp-chip { padding: 4px 9px; font-size: 0.75rem; }
+  .op-row { gap: 2px; }
+  .op-player { width: 84px; }
+  .op-shirt { width: 44px; height: 41px; }
+  .op-club { font-size: 0.6rem; }
+  .op-player .op-xp { font-size: 0.78rem; }
+}
+@media (max-width: 480px) {
+  .cp-intro { display: none; }
+  .cp-table td:nth-child(2) > .cp-small { display: none; }
+  .cp-table .cp-tag-picked { display: none; }
+  .pp-club > div:last-child { display: none; }
+  .cp-rank { width: 20px; height: 20px; line-height: 20px; font-size: 0.7rem; }
+  .cp-table td:first-child, .cp-table th:first-child { padding-left: 2px; padding-right: 2px; }
+  .cp-fx { font-size: 0.75rem; }
+}
+
+.fx-abbr { display: none; }
+@media (max-width: 480px) {
+  .fx-long { display: none; }
+  .fx-abbr { display: inline; }
+}
+@media (max-width: 480px) {
+  .cp-table td, .cp-table thead th { padding: 6px 3px; }
+  .kp-mins { width: 46px; padding: 3px; }
+}

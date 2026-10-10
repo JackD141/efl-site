@@ -131,7 +131,7 @@ function showTip(el, x, y) {
     const p = r.players.byId[+el.dataset.player];
     if (!p) return;
     const cap = r.best && r.best.captain && r.best.captain.id === p.id;
-    html = `<div class="cp-tip-title">${esc(p.name)} <span>${POS_NAME[p.pos]} · ${esc(p.clubShort)} · expected minutes ${p.mins}${p.minsEdited ? ' (your edit)' : ''}${(p.raw.tags || []).length ? ` · set pieces: ${p.raw.tags.join(', ')}` : ''}</span></div>
+    html = `<div class="cp-tip-title">${esc(p.name)} <span>${POS_NAME[p.pos]} · ${esc(p.clubShort)} · expected minutes ${p.mins}${p.minsEdited ? ' (your edit)' : ''}${(p.raw.tags || []).length ? ` · set pieces: ${esc(spText(p.raw.tags))}` : ''}</span></div>
       <table class="cp-tip-table">${p.fx.map(x => `<tr><td>v ${esc(shortOf(x.f.opp))} (${x.f.ha})</td><td><span>${fmtDate(x.f.date, true)}${x.f.src === 'market' ? ' · odds' : ' · model'}</span></td><td class="cp-tip-num">${fmt2(x.xp)}</td></tr>`).join('') || '<tr><td colspan="3">No fixture</td></tr>'}
       <tr class="cp-tip-total"><td colspan="2">Gameweek xP${cap ? ' (× 2 as captain)' : ''}</td><td class="cp-tip-num">${fmt2(p.xp * (cap ? 2 : 1))}</td></tr></table>
       <div class="cp-tip-foot">Breakdown and minutes on <a href="${POS_PAGE[p.pos]}">Player Picks</a>. Click × on his shirt to exclude him.</div>`;
@@ -170,12 +170,12 @@ function playerCard(p, best) {
   const pinned = state.opts.pinned.includes(p.id);
   const fx = p.fx.length ? p.fx.map(x => `${abbr(x.f.opp)} (${x.f.ha})`).join(', ') : 'No fixture';
   return `<div class="op-player" data-tip="p" data-player="${p.id}">
-    <div class="op-shirt">${shirtSvg(p.club, p.pos === 'GK')}
+    <div class="op-shirt">${shirtSvg(p.club, p.pos === 'GK')}${spList(p.raw.tags)}
       ${cap ? '<span class="op-badge op-cap" title="Captain: double points">C</span>' : vice ? '<span class="op-badge op-vice" title="Vice-captain: double points if the captain does not play">V</span>' : ''}
       <button class="op-act op-x" data-act="exclude" data-id="${p.id}" title="Exclude ${esc(p.name)} and re-optimise">×</button>
       ${pinned ? `<button class="op-act op-pinned" data-act="unpin" data-id="${p.id}" title="Pinned: click to unpin">⇧</button>` : ''}
     </div>
-    <div class="op-plate"><div class="op-name">${esc(p.name)}${(p.raw.tags || []).length ? ` <span class="op-sp" title="Set pieces">${p.raw.tags.join(' · ')}</span>` : ''}</div><div class="op-club">${esc(p.clubShort)} · ${esc(fx)}</div></div>
+    <div class="op-plate"><div class="op-name">${esc(p.name)}</div><div class="op-club">${esc(p.clubShort)} · ${esc(fx)}</div></div>
     <div class="op-xp">${fmt(p.xp * (cap ? 2 : 1))}</div>
   </div>`;
 }

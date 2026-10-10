@@ -152,14 +152,30 @@ def setpiece_features(rows, hist=None, const=None, n=SP_N):
     return r.set_index(rows.index)
 
 
-def setpiece_tags(r):
-    """Tags from the window's counts: Pens (took most of his team's penalties while playing, at least 2 of them),
-    Corners (a quarter or more of his team's corners, 10+), FKs (3+ direct free-kick shots)."""
+def latest_team_and_pen_takers(h, before):
+    """({player_id: his latest FotMob team id}, {team id: player_id who took that team's most recent penalty}) using
+    matches before `before`. Takers often change after a miss, so the most recent taker is the best guess at the
+    current one (our history only covers EFL games, e.g. not a player's Premier League seasons)."""
+    h = h[h["date"] < pd.Timestamp(before)]
+    team = h.sort_values("date").groupby("player_id")["fm_team_id"].last().to_dict()
+    pens = h[h["pens"] > 0].sort_values("date")
+    taker = pens.groupby("fm_team_id")["player_id"].last().to_dict()
+    return team, taker
+
+
+def setpiece_tags(r, recent_taker=False):
+    """Tags with a reason, from the window's counts (last SP_N games): Pens (took his team's most recent penalty, or
+    2+ and half or more of his team's penalties in his games), Corners (10+ and a quarter or more of his team's corners),
+    FKs (3+ direct free-kick shots)."""
     tags = []
-    if r.get("sp_pens", 0) >= 2 and r.get("fm_penshare", 0) >= 0.5:
-        tags.append("Pens")
-    if r.get("sp_corners", 0) >= 10 and r.get("fm_cornershare", 0) >= 0.25:
-        tags.append("Corners")
-    if r.get("sp_fk_shots", 0) >= 3:
-        tags.append("FKs")
+    pens, tpens = int(r.get("sp_pens", 0)), int(r.get("sp_team_pens", 0))
+    if (pens >= 2 and r.get("fm_penshare", 0) >= 0.5) or (recent_taker and pens >= 1):
+        why = f"took {pens} of his team's {tpens} penalties in his last {SP_N} games" + (", including the most recent" if recent_taker else "")
+        tags.append(dict(t="Pens", why=why))
+    corners, tcorners = int(r.get("sp_corners", 0)), int(r.get("sp_team_corners", 0))
+    if corners >= 10 and r.get("fm_cornershare", 0) >= 0.25:
+        tags.append(dict(t="Corners", why=f"took {corners} of his team's {tcorners} corners in his last {SP_N} games ({corners / max(tcorners, 1):.0%})"))
+    fks = int(r.get("sp_fk_shots", 0))
+    if fks >= 3:
+        tags.append(dict(t="FKs", why=f"{fks} direct free-kick shots in his last {SP_N} games"))
     return tags

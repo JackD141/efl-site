@@ -2,7 +2,6 @@ const statusEl = document.getElementById('status');
 const root = document.getElementById('kp-root');
 const LEAGUES = ['All', 'Championship', 'League 1', 'League 2'];
 const MINS_KEY = 'efl_defender_mins_v1';
-const SP_TITLES = { Pens: 'Takes most of his team\'s penalties (last 40 games, FotMob)', Corners: 'Takes a quarter or more of his team\'s corners', FKs: 'Shoots from direct free kicks' };
 const STATS = { clr: { name: 'Clearances', per: 4, steps: [4, 8, 12] }, blk: { name: 'Blocks', per: 2, steps: [2, 4] }, tkl: { name: 'Tackles', per: 2, steps: [2, 4] } };
 
 const state = { plan: null, clubs: {}, clubWeek: {}, shortByName: {}, gw: null, league: 'All', query: '', showAll: false, mins: {}, cache: {} };
@@ -220,7 +219,6 @@ function tags(d) {
   if (d.injury || d.status === 'injured') t.push(`<span class="cp-tag kp-tag-out">${esc(d.injury || 'injured')}</span>`);
   if (d.suspended) t.push('<span class="cp-tag kp-tag-out">suspended</span>');
   if (d.startedLast) t.push('<span class="cp-tag cp-tag-picked" title="Played 60+ minutes in his club\'s latest game">started last</span>');
-  for (const tg of d.tags || []) t.push(`<span class="cp-tag pp-sp" title="${SP_TITLES[tg] || ''}">${tg}</span>`);
   if (kickedOff(weekOf(d.club, state.gw))) t.push('<span class="cp-tag" title="His club\'s game this gameweek has kicked off, so he is locked">locked</span>');
   return t.join(' ');
 }
@@ -247,15 +245,15 @@ function render() {
     return `<tr class="${minsOf(d) <= 0 ? 'cp-dim' : ''}">
       <td><span class="cp-rank ${i < 3 ? 'cp-rank-' + (i + 1) : 'cp-rank-n'}">${i + 1}</span></td>
       <td><strong>${esc(d.name)}</strong> ${tags(d)}<div class="cp-muted cp-small">${d.starts60} games of 60+ this season</div></td>
-      <td class="pp-club">${shirtIcon(c, false)}<div>${esc(c.short)}<div class="cp-muted cp-small">${esc(c.league)}</div></div></td>
-      <td class="cp-center">${recentHtml(d.recent)}</td>
+      <td class="pp-club">${shirtIcon(c, false)}${spList(d.tags)}<div>${esc(c.short)}<div class="cp-muted cp-small">${esc(c.league)}</div></div></td>
+      <td class="cp-center opt2">${recentHtml(d.recent)}</td>
       <td class="cp-center"><input type="number" class="kp-mins ${edited(d) ? 'kp-mins-edited' : ''}" data-player="${d.id}" min="0" max="90" step="5" value="${minsOf(d)}" title="Expected minutes: 90 = plays the whole game; 45 = a 50% chance. Default ${d.xMins}." />${state.plan.p60Curve && minsOf(d) > 0 ? `<div class="cp-muted cp-small" title="Chance he plays 60+ minutes (the minutes model); expected minutes are an average that includes the chance he misses out">60+: ${pct(curveAt(state.plan.p60Curve, minsOf(d), 'p'))}</div>` : ''}</td>
-      <td>${wk.fx.length ? wk.fx.map((x, j) => `<span class="cp-fx" data-tip="fx" data-player="${d.id}" data-gw="${gw}" data-i="${j}"><span class="cp-dot ${x.f.src === 'market' ? 'cp-dot-market' : 'cp-dot-model'}"></span>${esc(shortOf(x.f.opp))} (${x.f.ha}) <span class="cp-fx-xp">${fmt(x.r.xp)}</span></span>`).join('') : '<span class="cp-muted">No fixture</span>'}</td>
-      <td class="cp-center">${wk.fx.length ? wk.fx.map(x => pct(x.r.cs)).join(' / ') : '–'}</td>
-      <td class="cp-center">${wk.fx.length ? sumStat('clr').toFixed(1) : '–'}</td>
-      <td class="cp-center">${wk.fx.length ? sumStat('tkl').toFixed(1) : '–'}</td>
+      <td>${wk.fx.length ? wk.fx.map((x, j) => `<span class="cp-fx" data-tip="fx" data-player="${d.id}" data-gw="${gw}" data-i="${j}"><span class="cp-dot ${x.f.src === 'market' ? 'cp-dot-market' : 'cp-dot-model'}"></span>${fxName(x.f.opp, esc(shortOf(x.f.opp)))} (${x.f.ha}) <span class="cp-fx-xp">${fmt(x.r.xp)}</span></span>`).join('') : '<span class="cp-muted">No fixture</span>'}</td>
+      <td class="cp-center opt">${wk.fx.length ? wk.fx.map(x => pct(x.r.cs)).join(' / ') : '–'}</td>
+      <td class="cp-center opt">${wk.fx.length ? sumStat('clr').toFixed(1) : '–'}</td>
+      <td class="cp-center opt">${wk.fx.length ? sumStat('tkl').toFixed(1) : '–'}</td>
       <td class="cp-xp" data-tip="total" data-player="${d.id}" data-gw="${gw}">${fmt(xp)}</td>
-      <td class="cp-right cp-muted">${fmt(n5)}</td></tr>`;
+      <td class="cp-right cp-muted opt">${fmt(n5)}</td></tr>`;
   }).join('');
   const t = s => plan.model[s].test;
   root.innerHTML = `
@@ -273,9 +271,9 @@ function render() {
     ${stale}
     <h2 class="cp-h2">Defenders for GW ${gw} <span class="cp-sub">${fmtDate(meta.start)}${meta.end !== meta.start ? ' – ' + fmtDate(meta.end) : ''} · ${meta.marketGames} of ${meta.games} games priced from odds · ${list.length} shown${list.length > shown.length ? ' (top 150 listed)' : ''}</span></h2>
     <div class="cp-table-wrap"><table class="cp-table">
-      <thead><tr><th>#</th><th>Defender</th><th>Club</th><th class="cp-center" title="Minutes in his last 5 games for this club, oldest first (dark = 60+, light = came on or off, grey = did not play)">Last 5 (mins)</th><th class="cp-center" title="Editable. 90 = plays the whole game; 45 = a 50% chance he plays. Saved in this browser.">Exp. mins</th>
-        <th>Fixtures (xP if he plays 90)</th><th class="cp-center">Clean sheet</th><th class="cp-center">Exp. clearances</th><th class="cp-center">Exp. tackles</th>
-        <th class="cp-right">xP</th><th class="cp-right" title="Expected points over this and the next 4 gameweeks">Next 5 GWs</th></tr></thead>
+      <thead><tr><th>#</th><th>Defender</th><th>Club</th><th class="cp-center opt2" title="Minutes in his last 5 games for this club, oldest first (dark = 60+, light = came on or off, grey = did not play)">Last 5 (mins)</th><th class="cp-center" title="Editable. 90 = plays the whole game; 45 = a 50% chance he plays. Saved in this browser.">Exp. mins</th>
+        <th>Fixtures (xP if he plays 90)</th><th class="cp-center opt">Clean sheet</th><th class="cp-center opt">Exp. clearances</th><th class="cp-center opt">Exp. tackles</th>
+        <th class="cp-right">xP</th><th class="cp-right opt" title="Expected points over this and the next 4 gameweeks">Next 5 GWs</th></tr></thead>
       <tbody>${rows || '<tr><td colspan="11" class="cp-muted">No defenders match.</td></tr>'}</tbody></table></div>
     <div class="cp-caveat"><strong>How to read this</strong><ul>
       ${plan.v2 ? `<li><strong>Expected minutes</strong> come from our minutes model (recent minutes, starts and appearances at his club, how long since
@@ -338,6 +336,7 @@ async function load() {
     for (const c of state.plan.clubs) {
       state.clubs[c.id] = c;
       state.shortByName[c.name] = c.short;
+      if (c.abbr) ABBR[c.name] = c.abbr;
       state.clubWeek[c.id] = Object.fromEntries(c.weeks.map(w => [w.gw, w]));
     }
     loadMins();

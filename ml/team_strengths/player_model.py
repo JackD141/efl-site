@@ -374,7 +374,10 @@ def live_inputs(players, art, pos, d=None, as_of=None):
     pr = fmf.setpiece_features(pr)
     used = sorted({f for a in art.values() for f in a["features"] if f.startswith("fm")} | {a.get("pen_col", "fm_pxg") for a in art.values()})
     fm = {int(r["player_id"]): {f: round(float(r[f]), 4) for f in used} for _, r in pr.iterrows()}
-    tags = {int(r["player_id"]): fmf.setpiece_tags(r) for _, r in pr.iterrows()}
+    sph = fmf.setpiece_history()
+    last_team, pen_taker = fmf.latest_team_and_pen_takers(sph, today)
+    tags = {int(r["player_id"]): fmf.setpiece_tags(r, pen_taker.get(last_team.get(int(r["player_id"]))) == int(r["player_id"]))
+            for _, r in pr.iterrows()}
     return roles, styles, fm, mates_out, tags
 
 

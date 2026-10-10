@@ -131,13 +131,13 @@ function render() {
       <td><span class="cp-rank ${i < 3 ? 'cp-rank-' + (i + 1) : 'cp-rank-n'}">${i + 1}</span></td>
       <td><strong>${esc(k.name)}</strong> ${statusTags(k)}<div class="cp-muted cp-small">${k.starts} starts this season</div></td>
       <td class="pp-club">${shirtIcon(c, true)}<div>${esc(c.short)}<div class="cp-muted cp-small">${esc(c.league)}</div></div></td>
-      <td class="cp-center">${recentHtml(k.recent)}</td>
+      <td class="cp-center opt2">${recentHtml(k.recent)}</td>
       <td class="cp-center"><input type="number" class="kp-mins ${edited(k) ? 'kp-mins-edited' : ''}" data-keeper="${k.id}" min="0" max="90" step="5" value="${minsOf(k)}" title="Expected minutes: 90 = plays the whole game; 45 = a 50% chance. Default ${k.xMins}." />${state.plan.p60Curve && minsOf(k) > 0 ? `<div class="cp-muted cp-small" title="Chance he plays 60+ minutes">60+: ${(curveAt(state.plan.p60Curve, minsOf(k), 'p') * 100).toFixed(0)}%</div>` : ''}</td>
-      <td>${w && w.games ? w.fx.map((f, j) => `<span class="cp-fx" data-tip="fx" data-keeper="${k.id}" data-gw="${gw}" data-i="${j}"><span class="cp-dot ${f.src === 'market' ? 'cp-dot-market' : 'cp-dot-model'}"></span>${esc(shortOf(f.opp))} (${f.ha}) <span class="cp-fx-xp">${fmt(f.xp)}</span></span>`).join('') : '<span class="cp-muted">No fixture</span>'}</td>
-      <td class="cp-center">${w && w.games ? w.fx.map(f => pct(f.cs)).join(' / ') : '–'}</td>
-      <td class="cp-center">${w && w.games ? w.fx.reduce((a, f) => a + f.saves, 0).toFixed(1) : '–'}</td>
+      <td>${w && w.games ? w.fx.map((f, j) => `<span class="cp-fx" data-tip="fx" data-keeper="${k.id}" data-gw="${gw}" data-i="${j}"><span class="cp-dot ${f.src === 'market' ? 'cp-dot-market' : 'cp-dot-model'}"></span>${fxName(f.opp, esc(shortOf(f.opp)))} (${f.ha}) <span class="cp-fx-xp">${fmt(f.xp)}</span></span>`).join('') : '<span class="cp-muted">No fixture</span>'}</td>
+      <td class="cp-center opt">${w && w.games ? w.fx.map(f => pct(f.cs)).join(' / ') : '–'}</td>
+      <td class="cp-center opt">${w && w.games ? w.fx.reduce((a, f) => a + f.saves, 0).toFixed(1) : '–'}</td>
       <td class="cp-xp" data-tip="total" data-keeper="${k.id}" data-gw="${gw}">${fmt(xp)}</td>
-      <td class="cp-right cp-muted">${fmt(n5)}</td>
+      <td class="cp-right cp-muted opt">${fmt(n5)}</td>
     </tr>`).join('');
   const m = plan.savesModel.test;
   root.innerHTML = `
@@ -155,8 +155,8 @@ function render() {
     ${stale}
     <h2 class="cp-h2">Keepers for GW ${gw} <span class="cp-sub">${fmtDate(meta.start)}${meta.end !== meta.start ? ' – ' + fmtDate(meta.end) : ''} · ${meta.marketGames} of ${meta.games} games priced from odds</span></h2>
     <div class="cp-table-wrap"><table class="cp-table">
-      <thead><tr><th>#</th><th>Keeper</th><th>Club</th><th class="cp-center" title="Minutes in his last 5 games for this club, oldest first (dark = 60+, light = came on or off, grey = did not play)">Last 5 (mins)</th><th class="cp-center" title="Editable. 90 = plays the whole game; 45 = a 50% chance he plays. Saved in this browser.">Exp. mins</th><th>Fixtures (xP if he starts)</th>
-        <th class="cp-center">Clean sheet</th><th class="cp-center">Exp. saves</th><th class="cp-right">xP</th><th class="cp-right" title="Expected points over this and the next 4 gameweeks">Next 5 GWs</th></tr></thead>
+      <thead><tr><th>#</th><th>Keeper</th><th>Club</th><th class="cp-center opt2" title="Minutes in his last 5 games for this club, oldest first (dark = 60+, light = came on or off, grey = did not play)">Last 5 (mins)</th><th class="cp-center" title="Editable. 90 = plays the whole game; 45 = a 50% chance he plays. Saved in this browser.">Exp. mins</th><th>Fixtures (xP if he starts)</th>
+        <th class="cp-center opt">Clean sheet</th><th class="cp-center opt">Exp. saves</th><th class="cp-right">xP</th><th class="cp-right opt" title="Expected points over this and the next 4 gameweeks">Next 5 GWs</th></tr></thead>
       <tbody>${rows || '<tr><td colspan="10" class="cp-muted">No keepers match.</td></tr>'}</tbody></table></div>
     <div class="cp-caveat"><strong>How to read this</strong><ul>
       <li><strong>Expected minutes</strong> default to 90 for the keeper who started his club's last game and 0 for everyone else (and 0 if injured or
@@ -213,6 +213,7 @@ async function load() {
     for (const c of state.plan.clubs) {
       state.clubs[c.id] = c;
       state.shortByName[c.name] = c.short;
+      if (c.abbr) ABBR[c.name] = c.abbr;
       state.clubWeek[c.id] = Object.fromEntries(c.weeks.map(w => [w.gw, w]));
     }
     loadMins();

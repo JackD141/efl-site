@@ -45,3 +45,16 @@ function recentHtml(list) {
   if (!list || !list.length) return '<span class="cp-muted cp-small">–</span>';
   return '<span class="pp-mins">' + list.map(m => `<span class="pp-m ${m >= 60 ? 'pp-m-full' : m > 0 ? 'pp-m-part' : 'pp-m-zero'}">${m}</span>`).join('') + '</span>';
 }
+// set-piece tags as a small vertical list next to the shirt; the reason shows on hover (title) and tap
+const SP_SHORT = { Pens: 'PEN', Corners: 'CRN', FKs: 'FK' };
+function spList(tags) {
+  if (!tags || !tags.length) return '';
+  return '<span class="pp-sp-list">' + tags.map(x => {
+    const t = typeof x === 'string' ? x : x.t, why = typeof x === 'string' ? '' : x.why;
+    return `<span class="pp-sp-tag" title="${t}: ${why}">${SP_SHORT[t] || t}</span>`;
+  }).join('') + '</span>';
+}
+const spText = tags => (tags || []).map(x => typeof x === 'string' ? x : `${x.t} (${x.why})`).join('; ');
+// opponent name: full on wide screens, the club's 3-letter code on phones (pages fill ABBR from their club list)
+const ABBR = {};
+const fxName = (name, short) => `<span class="fx-long">${short}</span><span class="fx-abbr" title="${short}">${ABBR[name] || short.slice(0, 3).toUpperCase()}</span>`;

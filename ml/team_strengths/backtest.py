@@ -13,8 +13,8 @@ Per gameweek g (all inputs as of g's first kick-off):
 - clubs: the two highest-xP clubs with picks left (each club 5 times a season)
 - score: real points; captain doubled (vice-captain if the captain did not play); club points from the real results
 Comparisons: a "form" picker (average points over each player's last 5 club games, same rules and same clubs) and the
-best possible team in hindsight. Known small leaks: the saves model and league step multipliers were fitted with some
-2026/27 data; feature choices were made on 2025/26 only.
+best possible team in hindsight. Leakage: none known (league step multipliers and FotMob shrinkage targets use completed
+seasons only, the saves model is refitted before each gameweek, feature choices were made on 2025/26 only).
 """
 import json
 import warnings
@@ -30,6 +30,7 @@ import club_points as cp
 import keepers as kp
 import minutes_model as mm
 import player_model as pm
+import saves_model as sm
 from per_season import lam_for, predict_probs, score_matrix
 from predict_gw import RHO, fit_current, resolver
 from strengths import DIVS
@@ -221,7 +222,8 @@ def main():
     built = {pos: {} for pos in arts}
     mins_feat = {pos: mm.add_features(mm.load_rows(pos)) for pos in POS}
     mins_json = {pos: json.loads((mm.MODELS / f"minutes_model_{pos.lower()}.json").read_text(encoding="utf-8")) for pos in POS}
-    saves_model = kp.load_model()
+    saves_model = kp.load_model()  # configuration only; coefficients are refitted before each gameweek below
+    saves_games = sm.team_games(["2324", "2425", "2526", "2627"])
     gk_rows = kp.fantasy_gk_rows()
     consts = kp.keeper_constants(gk_rows[gk_rows["season"] == "2025_26"])
     rows_all = pd.concat([mm.load_rows(pos).assign(pos=pos) for pos in POS], ignore_index=True)
@@ -238,6 +240,10 @@ def main():
         for f in fx:
             fx_by_club.setdefault(f["home"], []).append(f)
             fx_by_club.setdefault(f["away"], []).append(f)
+        # keeper saves model refitted on matches before this gameweek (the saved model was fitted including 2026/27)
+        fs = sm.fit_glm(saves_games[saves_games["date"] < start], saves_model["features"])
+        saves_gw = dict(saves_model, intercept=float(fs["model"].intercept_), coef=fs["model"].coef_.tolist(),
+                        scaler_mean=fs["scaler"][0].tolist(), scaler_sd=fs["scaler"][1].tolist(), nb_r=fs["r"])
         cur = rows_all[(rows_all["season"] == "2627") & (rows_all["gameweek"] == gw)]
         players = [dict(id=int(pid), squadId=int(g["squad_id"].iloc[0]), pos=g["pos"].iloc[0],
                         name=f"{g['first_name'].iloc[0]} {g['last_name'].iloc[0]}") for pid, g in cur.groupby("player_id")]
@@ -255,7 +261,7 @@ def main():
                     tot = sum(xm.get(i, 0) for i in ids)
                     for i in ids:
                         xm[i] = 90 * xm.get(i, 0) / tot if tot > 0 else 0.0
-                xp.update(keeper_xp(plist, fx_by_club, xm, saves_model, consts))
+                xp.update(keeper_xp(plist, fx_by_club, xm, saves_gw, consts))
                 continue
             art = pm.refit(data[pos], pos, arts[pos], gw, built[pos])
             d_cut = data[pos][(data[pos]["season"] == "2526") | (data[pos]["gameweek"] < gw)]

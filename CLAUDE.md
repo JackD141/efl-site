@@ -20,6 +20,7 @@ serverless functions, deployed from `main` at https://efl-site.vercel.app (pushi
 - `docs/club-planner.md`: what the Club Planner is, every design decision and why, test results, gotchas, state of play.
 - `ml/team_strengths/README.md`: how to run the weekly pipeline and the model process/results.
 - `docs/defender-model.md`: the defender model (role x club style x opponent style), evidence and checks.
+- `docs/ml-methodology.md`: **read first for any model work**: protocol, leakage rules + audit, experiment log, next steps.
 - `docs/player-models.md`: **current** player models for all positions (FotMob xG/xA, minutes model, protocol, results). Supersedes the stat parts of attacker-model.md / defender-model.md.
 - `docs/attacker-model.md`: the midfielder / forward model (goals, assists, shots on target, key passes, interceptions).
 - `docs/optimal-picks.md`: the homepage optimiser (rules, how xP is combined, checks).

@@ -38,7 +38,11 @@ def fotmob_history():
     return h.sort_values(["player_id", "date"]).reset_index(drop=True)
 
 
+PRIOR_BEFORE = pd.Timestamp("2026-07-01")  # league-average shrinkage targets from completed seasons only (no leakage)
+
+
 def league_priors(h):
+    h = h[h["date"] < PRIOR_BEFORE]
     m90 = h["mins"].sum() / 90
     return {k: float(h[k].sum() / m90) for k in RATES}
 

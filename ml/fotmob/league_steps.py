@@ -25,6 +25,7 @@ STATS = {"int": "Interceptions", "kp": "Chances created", "sot": "Shots on targe
          "tkl": "Tackles"}
 MIN_MINS = 900   # minutes in each season for a player pair
 MIN_MINS_CUR = 450  # the current, unfinished season
+CURRENT_SEASON = "2026/2027"  # excluded until it is complete (no leakage into its own evaluation)
 
 
 def load():
@@ -58,6 +59,9 @@ def main():
     d = load()
     team, pl = season_tables(d)
     seasons = sorted(d["season"].unique())
+    # completed seasons only: pairs ending in the unfinished current season would leak it into the features used to
+    # evaluate (and backtest) on it. Add 2025/26 -> 2026/27 once 2026/27 is over.
+    seasons = [s for s in seasons if s != CURRENT_SEASON]
     pairs = list(zip(seasons[:-1], seasons[1:]))
     out = {"role": {}, "team": {}, "pairs": [f"{a} -> {b}" for a, b in pairs]}
     for pos in ("MID", "FWD", "DEF"):

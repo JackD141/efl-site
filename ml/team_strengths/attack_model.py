@@ -75,7 +75,8 @@ def role_table(d, col, prior, k, club_w=1.0):
     x = d.merge(tg, on=["season", "squad_id", "gameweek"])
     mates_rate = (x["tx"] - x[col]) / ((x["tm"] - x["minutes_played"]).clip(lower=1) / 90)
     x["exp"] = mates_rate.where(x["tm"] > x["minutes_played"], prior) * x["minutes_played"] / 90
-    x = x.sort_values(["player_id", "season", "gameweek"]).reset_index(drop=True)
+    order = ["player_id", "season", "date", "gameweek"] if "date" in x else ["player_id", "season", "gameweek"]  # date: doubles
+    x = x.sort_values(order).reset_index(drop=True)
     g = x.groupby("player_id")
     num = g[col].transform(lambda s: s.shift(1).rolling(ROLE_GAMES, min_periods=1).sum()).fillna(0)
     den = g["exp"].transform(lambda s: s.shift(1).rolling(ROLE_GAMES, min_periods=1).sum()).fillna(0)

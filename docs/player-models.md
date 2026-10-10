@@ -49,6 +49,6 @@ shots-on-target history (MID), heavier shrinkage of history, league-adjusting Fo
 ## Backtest (`ml/team_strengths/backtest.py` -> public/data/backtest.json -> backtest.html)
 For each completed 2026/27 gameweek: models refitted on games before it (same feature choices), inputs built with the
 live code cut to that point, closing odds for fixtures, exact team optimiser (scipy milp), two best clubs with picks left;
-scored with real points (captain x2, vice if the captain did not play). GW1-8 (10 Oct 2026): model 594, form picker
-(last-5 average points, same clubs) 559, hindsight best 1383; model expected 646 (8% optimistic: winner's curse).
+scored with real points (captain x2, vice if the captain did not play). GW1-8 (10 Oct 2026, after the leakage fixes): model 587, form
+picker (last-5 average points, same clubs) 559, hindsight best 1383; model expected 646 (~9% optimistic: winner's curse).
 Re-run after each gameweek: `python backtest.py` (about 4 minutes).

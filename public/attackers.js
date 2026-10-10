@@ -36,7 +36,8 @@ function ratePer90(stat, d, club, f) {
   const m = state.plan.model[stat];
   const opp = state.clubs[f.oppId];
   const vals = { role: d.role[stat], team: club.style[stat].team, opp: opp ? opp.style[stat].opp : club.style[stat].opp, lam_own: f.lamOwn, lam_opp: f.lamOpp, home: f.home };
-  const fm = d.fm || {}; for (const k of Object.keys(fm)) vals['fm_' + k] = fm[k]; // FotMob history rates (midfielders)
+  Object.assign(vals, d.fm || {}); // FotMob history rates (midfielders): fm_* last 20, fm40_* last 40 appearances
+  if (d.mates) vals.mates = d.mates[stat]; // team-mates' rate excluding him
   let z = m.intercept;
   m.features.forEach((name, i) => {
     const v = name === 'home' ? vals[name] : Math.log(Math.max(vals[name], 1e-4));
@@ -79,7 +80,7 @@ function fixtureXp(d, f, mins) {
   // v2 midfielders: goals / assists come from predicted npxG / xA x conversion (+ his penalty-xG rate for goals)
   for (const stat of Object.keys(p.model)) {
     const m = p.model[stat];
-    out.rate[stat] = ratePer90(stat, d, club, f) * (m.scale || 1) + (m.pens && d.fm ? d.fm.pxg : 0);
+    out.rate[stat] = ratePer90(stat, d, club, f) * (m.scale || 1) + (m.pens && d.fm ? d.fm.fm_pxg : 0);
     out.mu[stat] = out.rate[stat] * t;
   }
   const g = nb(out.mu.goals, p.model.goals.r, 1, [1, 2, 3]);

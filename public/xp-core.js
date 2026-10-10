@@ -109,9 +109,10 @@ function attackerFixtureXp(pos, d, f, mins) {
   const mu = {};
   for (const stat of Object.keys(p.model)) {
     const vals = { role: d.role[stat], team: club.style[stat].team, opp: opp ? opp.style[stat].opp : club.style[stat].opp, lam_own: f.lamOwn, lam_opp: f.lamOpp, home: f.home };
-    const fm = d.fm || {}; for (const k of Object.keys(fm)) vals['fm_' + k] = fm[k]; // FotMob history rates (midfielders)
+    Object.assign(vals, d.fm || {}); // FotMob history rates (midfielders): fm_* last 20, fm40_* last 40 appearances
+    if (d.mates) vals.mates = d.mates[stat]; // team-mates' rate excluding him
     const m = p.model[stat];
-    mu[stat] = (glm(m, vals, 1e-4) * (m.scale || 1) + (m.pens && d.fm ? d.fm.pxg : 0)) * t;
+    mu[stat] = (glm(m, vals, 1e-4) * (m.scale || 1) + (m.pens && d.fm ? d.fm.fm_pxg : 0)) * t;
   }
   const g = nb(mu.goals, p.model.goals.r, 1, [3]);
   const r = d.rates;

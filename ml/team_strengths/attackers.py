@@ -87,7 +87,7 @@ def build_plan(position, rounds, squads, players, fits, id2fd, book, book_src, m
     if position == "MID" and mid_model.MODEL_PATH.exists():
         # v2: xG / xA targets, FotMob history, league step multipliers, carried-over club style (mid_model.py)
         art = json.loads(mid_model.MODEL_PATH.read_text(encoding="utf-8"))
-        roles, styles, fm = mid_model.live_inputs(players, art)
+        roles, styles, fm, mates = mid_model.live_inputs(players, art)
     else:
         art = json.loads(am.MODEL_PATH.read_text(encoding="utf-8"))["positions"][position]
         roles = _roles(d, art, {p["id"]: p["squadId"] for p in players})
@@ -123,8 +123,11 @@ def build_plan(position, rounds, squads, players, fits, id2fd, book, book_src, m
         dates = sorted(g["date"][:10] for g in rnd["games"])
         gameweeks.append(dict(gw=gw, start=dates[0], end=dates[-1], games=len(rnd["games"]), lockout=rnd["lockoutDate"],
                               marketGames=int((fx.source == "market").sum())))
-    fm_default = dict(zip(("npxg", "pxg", "xa", "shots", "chances"), [round(v, 4) for v in
-                      mid_model.fmf.league_priors(mid_model.fmf.fotmob_history()).values()])) if fm else None
+    if fm:  # players with no FotMob history get the league rates (what the shrinkage tends to)
+        pri = mid_model.fmf.league_priors(mid_model.fmf.fotmob_history())
+        fm_default = {f: round(pri[f.split("_", 1)[1]], 4) for f in next(iter(fm.values()))}
+    else:
+        fm_default = None
     plist = []
     for p in players:
         if p["position"] != position or p["status"] == "eliminated" or p["squadId"] not in clubs:
@@ -138,7 +141,7 @@ def build_plan(position, rounds, squads, players, fits, id2fd, book, book_src, m
             suspended=bool(p.get("suspensionDetails")), startedLast=p["id"] in starters,
             role={st: roles.get(p["id"], {}).get(st, 1.0) for st in art},
             rates=rates.get(p["id"], rate_priors),
-            **({"fm": fm.get(p["id"], fm_default)} if fm else {}),
+            **({"fm": fm.get(p["id"], fm_default), "mates": mates.get(p["id"], {})} if fm else {}),
             apps=int(a["apps"]) if a is not None else 0, starts60=int(a["full"]) if a is not None else 0,
             mins=int(a["mins"]) if a is not None else 0, totalPoints=p.get("totalPoints", 0)))
     model = {st: dict(features=c["features"], intercept=c["intercept"], coef=c["coef"], mean=c["scaler_mean"], sd=c["scaler_sd"],

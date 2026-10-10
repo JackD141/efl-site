@@ -46,9 +46,23 @@ SPEC = {
     "int": dict(column="interceptions", target="interceptions", fm="int", pens=False, extra=[]),
 }
 BASE = ["role", "team", "opp", "lam_own", "lam_opp", "home"]
-FEATURE_SETS = {"G1 role": ["role"], "G2 + team": ["role", "team"], "G3 + opp": ["role", "team", "opp"], "G4 + odds/home": BASE}
-WINDOWS = [4, 8, 12, 46]
+# "mates": his CURRENT team-mates' rate (same position, this club, last N gameweeks, excluding him), so role (his share
+# relative to team-mates) multiplies the environment he actually plays in. "team" includes his own output, which
+# double-counts high-role players (the Morris problem). fm40_* = FotMob history over 40 instead of 20 appearances.
+BM = ["role", "mates", "opp", "lam_own", "lam_opp", "home"]
+CANDIDATES = {  # in order of preference when within TOL (incumbent first, then the simpler alternatives)
+    "goals": {"v2": BASE, "mates": BM, "mates + npxG hist": BM + ["fm_npxg"], "mates + npxG hist40": BM + ["fm40_npxg"]},
+    "assists": {"v2": BASE + ["fm_xa"], "mates": BM + ["fm_xa"], "mates hist40": BM + ["fm40_xa"]},
+    "sot": {"v2": BASE + ["fm_shots", "fm_npxg"], "mates": BM + ["fm_shots", "fm_npxg"], "mates + SOT hist": BM + ["fm_sot", "fm_npxg"],
+            "mates + SOT + shots hist": BM + ["fm_sot", "fm_shots", "fm_npxg"], "mates + SOT hist40": BM + ["fm40_sot", "fm40_npxg"]},
+    "kp": {"v2": BASE + ["fm_chances", "fm_xa"], "mates": BM + ["fm_chances", "fm_xa"], "mates hist40": BM + ["fm40_chances", "fm40_xa"]},
+    "int": {"v2": ["role", "team", "opp"], "mates": ["role", "mates", "opp"], "mates + int hist": ["role", "mates", "opp", "fm_int"],
+            "mates + int hist40": ["role", "mates", "opp", "fm40_int"]},
+}
+WINDOWS = [8, 12, 46]
 K_ROLES = [3.0, 10.0, 30.0]
+# rolling-origin validation inside 2025/26 (2026/27 is touched once, at the end)
+FOLDS = [(17, 26), (26, 35)]  # (train up to GW a, validate a+1..b)
 ROLE_GAMES, MIN_ROW, TOL = 20, 10, 5e-4
 N0_ROLE, N0_TEAM = 30.0, 14.0  # shrink measured multipliers towards 1: weight n / (n + n0)
 KEY = ["season", "player_id", "squad_id", "opponent_id", "is_home"]
@@ -77,7 +91,9 @@ def league_adjustments():
 
 def load():
     d = am.load("MID").drop(columns=["hid", "aid"])
-    d = fmf.signal_rates(mm.attach_dates(d), k=3.0)
+    hist = fmf.fotmob_history()
+    d = fmf.signal_rates(mm.attach_dates(d), k=3.0, hist=hist)
+    d = fmf.signal_rates(d, k=3.0, n=40, hist=hist, prefix="fm40_")
     fm = link_fotmob.fotmob_for_efl()[KEY + ["fm_minutes", "npxg", "xa"]].rename(columns={"npxg": "m_npxg", "xa": "m_xa"})
     d = d.merge(fm, on=KEY, how="left")
     d["linked"] = d["fm_minutes"].notna()
@@ -135,6 +151,31 @@ def style_tables(d, col, n, prior, adj):
     return team, opp, carry
 
 
+def mates_table(d, col, n, prior, carry):
+    """Per (season, player, club, gameweek): his club's same-position rate per 90 over the previous n gameweeks of this
+    season EXCLUDING his own minutes and output, shrunk with K_TEAM pseudo-90s to the club's prior (carried over for
+    2026/27, league average for 2025/26)."""
+    out = []
+    gws = np.arange(1, 47)
+    club = d.groupby(["season", "squad_id", "gameweek"]).agg(x=(col, "sum"), m=("minutes_played", "sum"))
+    own = d.groupby(["season", "player_id", "squad_id", "gameweek"]).agg(x=(col, "sum"), m=("minutes_played", "sum"))
+
+    def roll(series):
+        return pd.Series(0.0, index=gws).add(series, fill_value=0).shift(1).rolling(n, min_periods=1).sum().fillna(0)
+    club_roll = {}
+    for (season, cid), g in club.groupby(level=[0, 1]):
+        g = g.droplevel([0, 1])
+        club_roll[(season, cid)] = (roll(g["x"]), roll(g["m"]))
+    for (season, pid, cid), g in own.groupby(level=[0, 1, 2]):
+        g = g.droplevel([0, 1, 2])
+        cx, cm = club_roll[(season, cid)]
+        ox, om = roll(g["x"]), roll(g["m"])
+        p0 = carry.get(cid, prior) if season == "2627" else prior
+        val = ((cx - ox).clip(lower=0) + dm.K_TEAM * p0) / ((cm - om).clip(lower=0) / 90 + dm.K_TEAM)
+        out.append(pd.DataFrame({"season": season, "player_id": pid, "squad_id": cid, "gameweek": gws, "mates": val.to_numpy()}))
+    return pd.concat(out, ignore_index=True)
+
+
 def build(d, stat, n, k, adj):
     spec = SPEC[stat]
     tcol = spec["target"]
@@ -145,6 +186,8 @@ def build(d, stat, n, k, adj):
     x = role_table(rows, tcol, prior, k, adj[stat]["role"])
     x = x.merge(team, on=["season", "squad_id", "gameweek"], how="left").merge(opp, on=["season", "opponent_id", "gameweek"], how="left")
     x["team"], x["opp"] = x["team"].fillna(prior), x["opp"].fillna(prior)
+    x = x.merge(mates_table(rows, tcol, n, prior, carry), on=["season", "player_id", "squad_id", "gameweek"], how="left")
+    x["mates"] = x["mates"].fillna(prior)
     x["y"], x["cnt"], x["t"] = x[tcol], x[spec["column"]], x["minutes_played"] / 90
     return x[x["minutes_played"] >= MIN_ROW], prior, carry
 
@@ -174,49 +217,55 @@ def score(y, mu, r):
 def main():
     d = load()
     adj = league_adjustments()
-    old = json.loads(am.MODEL_PATH.read_text(encoding="utf-8"))["positions"]["MID"]
+    prev = json.loads(MODEL_PATH.read_text(encoding="utf-8")) if MODEL_PATH.exists() else {}
     out = {}
     for stat, spec in SPEC.items():
-        sets = dict(FEATURE_SETS)
-        if spec["extra"]:
-            sets["G5 + FotMob history"] = BASE + spec["extra"]
-        rows = []
+        cands = CANDIDATES[stat]
+        rows, built = [], {}
         for k in K_ROLES:
             for n in WINDOWS:
-                x, prior, _ = build(d, stat, n, k, adj)
-                tr = x[(x["season"] == "2526") & (x["gameweek"] <= 23)]
-                va = x[(x["season"] == "2526") & (x["gameweek"] > 23)]
-                for name, feats in sets.items():
-                    if n != WINDOWS[0] and not any(f in ("team", "opp") for f in feats):
-                        continue
-                    f = fit(tr, feats, stat)
-                    rows.append(dict(model=name, window=n, k=k, **score(va["cnt"].to_numpy(), predict(f, va, stat), f["r"])))
+                x, prior, carry = build(d, stat, n, k, adj)
+                built[(n, k)] = (x, prior, carry)
+                s25 = x[x["season"] == "2526"]
+                for name, feats in cands.items():
+                    ll, mse = [], []
+                    for a, b in FOLDS:
+                        tr, va = s25[s25["gameweek"] <= a], s25[(s25["gameweek"] > a) & (s25["gameweek"] <= b)]
+                        f = fit(tr, feats, stat)
+                        sc = score(va["cnt"].to_numpy(), predict(f, va, stat), f["r"])
+                        ll.append(sc["loglik"]); mse.append(sc["mse"])
+                    rows.append(dict(model=name, window=n, k=k, loglik=float(np.mean(ll)), mse=float(np.mean(mse)), fold_ll=[round(v, 4) for v in ll]))
         res = pd.DataFrame(rows)
-        res["complexity"] = res["model"].map(list(sets).index)
-        best = res[res["loglik"] >= res["loglik"].max() - TOL].sort_values(["complexity", "loglik"], ascending=[True, False]).iloc[0]
-        feats, n_best, k_best = sets[best["model"]], int(best["window"]), float(best["k"])
-        print(f"\n=== MID {stat} (target {spec['target']}): validation best per model ===")
-        print(res.sort_values("loglik", ascending=False).groupby("model").head(1).round(4).to_string(index=False))
+        res["pref"] = res["model"].map(list(cands).index)
+        best = res[res["loglik"] >= res["loglik"].max() - TOL].sort_values(["pref", "loglik"], ascending=[True, False]).iloc[0]
+        print(f"\n=== MID {stat} (target {spec['target']}): mean validation over {len(FOLDS)} folds, best per candidate ===")
+        print(res.sort_values("loglik", ascending=False).groupby("model").head(1)[["model", "window", "k", "loglik", "mse", "fold_ll"]].round(4).to_string(index=False))
+        feats, n_best, k_best = cands[best["model"]], int(best["window"]), float(best["k"])
         print(f"chosen: {best['model']}, window {n_best}, role shrinkage {k_best:g}")
-        x, prior, carry = build(d, stat, n_best, k_best, adj)
+        x, prior, carry = built[(n_best, k_best)]
         tv, te = x[x["season"] == "2526"], x[x["season"] == "2627"]
         f = fit(tv, feats, stat)
         test = score(te["cnt"].to_numpy(), predict(f, te, stat), f["r"])
-        # the live v1 model on the same rows, for comparison
-        xo = am.build(d, spec["column"], old[stat]["window"], old[stat]["prior"], old[stat]["k_role"], old[stat].get("club_w", 1.0))
-        xo = xo[xo["minutes_played"] >= MIN_ROW]
-        keys = ["player_id", "season", "gameweek", "opponent_id"]
-        xo = xo.merge(te[keys], on=keys)
-        xall = am.build(d, spec["column"], old[stat]["window"], old[stat]["prior"], old[stat]["k_role"], old[stat].get("club_w", 1.0))
-        fo = am.fit(xall[(xall["season"] == "2526") & (xall["minutes_played"] >= MIN_ROW)], old[stat]["features"])
-        test_v1 = score(xo["y"].to_numpy(), am.predict(fo, xo), fo["r"])
-        print(f"TEST 2026/27 (n={len(te)}): v2 loglik {test['loglik']:.4f} mse {test['mse']:.4f} | v1 (live) loglik {test_v1['loglik']:.4f} mse {test_v1['mse']:.4f}"
-              f" (n={len(xo)}) | conversion {f['scale']:.3f}")
+        # incumbent (previous saved configuration) on the same test rows
+        inc = prev.get(stat)
+        test_inc = None
+        if inc:
+            xi = built.get((inc["window"], inc["k_role"]))
+            if xi is None:
+                xi = build(d, stat, inc["window"], inc["k_role"], adj)
+            xi = xi[0]
+            fi = fit(xi[xi["season"] == "2526"], inc["features"], stat)
+            tei = xi[xi["season"] == "2627"]
+            test_inc = score(tei["cnt"].to_numpy(), predict(fi, tei, stat), fi["r"])
+        print(f"TEST 2026/27 (once; n={len(te)}): chosen loglik {test['loglik']:.4f} mse {test['mse']:.4f}"
+              + (f" | previous v2 loglik {test_inc['loglik']:.4f} mse {test_inc['mse']:.4f}" if test_inc else "") + f" | conversion {f['scale']:.3f}")
         fin = fit(x, feats, stat)
         out[stat] = dict(column=spec["column"], target=spec["target"], pens=spec["pens"], model=best["model"], features=feats, window=n_best,
                          k_role=k_best, prior=prior, scale=fin["scale"], intercept=float(fin["model"].intercept_), coef=fin["model"].coef_.tolist(),
                          scaler_mean=fin["scaler"][0].tolist(), scaler_sd=fin["scaler"][1].tolist(), nb_r=fin["r"],
-                         league=adj[stat], carry={str(c): v for c, v in carry.items()}, test=dict(v2=test, v1=test_v1, n=int(len(te))))
+                         league=adj[stat], carry={str(c): v for c, v in carry.items()},
+                         validation=res.drop(columns=["pref"]).to_dict("records"),
+                         test=dict(v2=test, v1=test_inc or test, n=int(len(te))))
         print("final coefficients", {kk: round(v, 3) for kk, v in zip(feats, fin["model"].coef_)})
     MODEL_PATH.write_text(json.dumps(out, indent=1), encoding="utf-8")
     print("\nsaved", MODEL_PATH)
@@ -234,7 +283,7 @@ def live_inputs(players, art=None):
     d = load()
     lv = levels()["2627"]
     cur_club = {p["id"]: p["squadId"] for p in players}
-    roles, styles = {}, {}
+    roles, styles, mates_out = {}, {}, {}
     last_gw = int(d.loc[d["season"] == "2627", "gameweek"].max())
     for stat, a in art.items():
         spec = SPEC[stat]
@@ -264,8 +313,20 @@ def live_inputs(players, art=None):
                 styles.setdefault(int(cid), {}).setdefault(stat, {})[name] = round(float((r["x"] + dm.K_TEAM * p0) / (r["m"] / 90 + dm.K_TEAM)), 4)
         for cid, p0 in carry.items():  # clubs with no games yet in the window keep their carried prior
             styles.setdefault(cid, {}).setdefault(stat, {}).setdefault("team", round(float(p0), 4))
+        # team-mates' rate excluding the player (his current club, same window)
+        club = w.groupby("squad_id").agg(x=(tcol, "sum"), m=("minutes_played", "sum"))
+        own = w.groupby(["player_id", "squad_id"]).agg(x=(tcol, "sum"), m=("minutes_played", "sum"))
+        for p in players:
+            cid, pid = p["squadId"], p["id"]
+            cx, cm = (club.at[cid, "x"], club.at[cid, "m"]) if cid in club.index else (0.0, 0.0)
+            ox, om = (own.at[(pid, cid), "x"], own.at[(pid, cid), "m"]) if (pid, cid) in own.index else (0.0, 0.0)
+            p0 = carry.get(cid, prior)
+            mates_out.setdefault(pid, {})[stat] = round(float((max(cx - ox, 0) + dm.K_TEAM * p0) / (max(cm - om, 0) / 90 + dm.K_TEAM)), 4)
+    # FotMob history features, named as in the model (fm_* = last 20 appearances, fm40_* = last 40); fm_pxg = penalty xG
     today = pd.Timestamp.now().normalize()
-    pr = fmf.signal_rates(pd.DataFrame({"player_id": [p["id"] for p in players], "date": today}), k=3.0)
-    fm = {int(r.player_id): dict(npxg=round(r.fm_npxg, 4), pxg=round(r.fm_pxg, 4), xa=round(r.fm_xa, 4), shots=round(r.fm_shots, 4),
-                                 chances=round(r.fm_chances, 4)) for r in pr.itertuples()}
-    return roles, styles, fm
+    hist = fmf.fotmob_history()
+    pr = fmf.signal_rates(pd.DataFrame({"player_id": [p["id"] for p in players], "date": today}), k=3.0, hist=hist)
+    pr = fmf.signal_rates(pr, k=3.0, n=40, hist=hist, prefix="fm40_")
+    used = sorted({f for a in art.values() for f in a["features"] if f.startswith("fm")} | {"fm_pxg"})
+    fm = {int(r["player_id"]): {f: round(float(r[f]), 4) for f in used} for _, r in pr.iterrows()}
+    return roles, styles, fm, mates_out

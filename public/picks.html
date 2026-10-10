@@ -27,8 +27,8 @@
   <script>
     // One page for all positions: ?pos=ALL|GK|DEF|MID|FWD picks which position script runs (last choice remembered).
     (function () {
-      var POS = { GK: ['Goalkeepers', ['keepers.js']], DEF: ['Defenders', ['defenders.js']],
-                  MID: ['Midfielders', ['attackers.js']], FWD: ['Forwards', ['attackers.js']] };
+      var POS = { GK: ['Goalkeepers', ['kits.js', 'keepers.js']], DEF: ['Defenders', ['kits.js', 'defenders.js']],
+                  MID: ['Midfielders', ['kits.js', 'attackers.js']], FWD: ['Forwards', ['kits.js', 'attackers.js']] };
       var q = (new URLSearchParams(location.search).get('pos') || '').toUpperCase();
       var saved = null;
       try { saved = localStorage.getItem('efl_picks_pos'); } catch (e) { /* ignore */ }

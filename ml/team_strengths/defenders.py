@@ -99,7 +99,9 @@ def build_defender_plan(rounds, squads, players, fits, id2fd, book, book_src, ma
                      and any(pd.Timestamp(g["date"]) > now for g in r["games"])), key=lambda r: r["roundNumber"])
     completed = [r["roundNumber"] for r in rounds if r.get("gameMode", "season") == "season" and r["status"] == "completed"]
     no_saves = dict(pen=0.0, cards=0.0)
+    recent = mm.recent_minutes("DEF", players)
     clubs = {cid: dict(id=cid, name=s["name"], short=s.get("shortName") or s["name"], league=league_names[id2fd[cid][1]],
+                       abbr=s.get("abbreviation"), color=s.get("backgroundColor"), textColor=s.get("textColor"), 
                        style={st: {k: round(v, 4) for k, v in styles.get(cid, {}).get(st, {}).items()} for st in art["stats"]}, weeks=[])
              for cid, s in squads.items() if cid in id2fd}
     for cid, c in clubs.items():  # clubs without data this season fall back to the league average
@@ -143,7 +145,7 @@ def build_defender_plan(rounds, squads, players, fits, id2fd, book, book_src, ma
             rates={k: round(float(v), 5) for k, v in rr.items()},
             **({"fm": fm.get(p["id"], fm_default), "mates": mates.get(p["id"], {})} if v2 else {}),
             apps=int(a["apps"]) if a is not None else 0, starts60=int(a["full"]) if a is not None else 0,
-            mins=int(a["mins"]) if a is not None else 0, totalPoints=p.get("totalPoints", 0)))
+            mins=int(a["mins"]) if a is not None else 0, totalPoints=p.get("totalPoints", 0), recent=recent.get(p["id"], [])))
     if v2:
         model = {st: dict(features=c["features"], intercept=c["intercept"], coef=c["coef"], mean=c["scaler_mean"], sd=c["scaler_sd"], prior=c["prior"],
                           r=c["nb_r"], unit=UNITS.get(st), window=c["window"], test=c["test"], target=c["target"], scale=c["scale"],

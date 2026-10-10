@@ -922,3 +922,13 @@ input[type="range"]::-moz-range-thumb:hover {
 /* Player Picks: position switch */
 .pp-pos { margin-bottom: 14px; }
 .pp-pos a.cp-chip { text-decoration: none; display: inline-block; }
+
+/* Player Picks: club shirt next to the club name, last-5 minutes chips */
+.pp-club { display: flex; align-items: center; gap: 8px; }
+.pp-shirt { display: inline-block; width: 26px; height: 24px; flex: none; }
+.pp-shirt svg { width: 100%; height: 100%; }
+.pp-mins { display: inline-flex; gap: 2px; }
+.pp-m { min-width: 20px; padding: 1px 2px; border-radius: 3px; font-size: 0.7rem; font-weight: 600; text-align: center; }
+.pp-m-full { background: #1b5e20; color: #fff; }
+.pp-m-part { background: #a5d6a7; color: #1b3a1d; }
+.pp-m-zero { background: #e0e0e0; color: #757575; }

@@ -14,44 +14,10 @@ function abbr(name) {
   return (w.length === 1 ? w[0].slice(0, 3) : w[0].slice(0, 2) + w[1][0]).toUpperCase();
 }
 
-/* ---------- kits: club colours from the EFL squad data, plus patterns / fixes for well-known kits (approximate) ---------- */
-const KITS = {
-  LIN: ['#e10613', '#ffffff', 'stripes'], SHU: ['#ed1c24', '#ffffff', 'stripes'], STO: ['#d7172f', '#ffffff', 'stripes'],
-  SOU: ['#e3051b', '#ffffff', 'stripes'], EXE: ['#e1211c', '#ffffff', 'stripes'], SHW: ['#0971ce', '#ffffff', 'stripes'],
-  HUD: ['#0971ce', '#ffffff', 'stripes'], WIG: ['#00539e', '#ffffff', 'stripes'], COL: ['#005eb8', '#ffffff', 'stripes'],
-  GRI: ['#111111', '#ffffff', 'stripes'], NOT: ['#111111', '#ffffff', 'stripes'], BRA: ['#72253d', '#f2b51c', 'stripes'],
-  WBA: ['#122f67', '#ffffff', 'stripes'], CLT: ['#e1231b', '#ffffff', 'stripes'],
-  BLA: ['#014898', '#ffffff', 'halves'], BRR: ['#1a51a0', '#ffffff', 'quarters'], WYC: ['#55b1e2', '#0b1f4b', 'quarters'],
-  QPR: ['#0054a2', '#ffffff', 'hoops'], REA: ['#0133a0', '#ffffff', 'hoops'], DON: ['#e2211c', '#ffffff', 'hoops'],
-  BUR: ['#6c1d45', '#99d6ea', 'sleeves'], WHU: ['#7a263a', '#1bb1e7', 'sleeves'], FLE: ['#e1211c', '#ffffff', 'sleeves'],
-  ROT: ['#e1211c', '#ffffff', 'sleeves'], WAT: ['#fbee23', '#111111', 'sleeves'], NOR: ['#fff200', '#00a650', 'sleeves'],
-  WOL: ['#fdb913', '#231f20', 'plain'], PNE: ['#ffffff', '#0e1d49', 'plain'], BOL: ['#ffffff', '#06205c', 'plain'],
-  TRA: ['#ffffff', '#001489', 'plain'], PVL: ['#ffffff', '#111111', 'plain'], MKD: ['#ffffff', '#e30613', 'plain'],
-  DER: ['#ffffff', '#111111', 'plain'], SWA: ['#ffffff', '#111111', 'plain'], BRO: ['#ffffff', '#111111', 'plain'],
-};
-function kitOf(clubId) {
-  const c = state.kitById[clubId] || {};
-  const k = KITS[c.abbr];
-  return k ? { a: k[0], b: k[1], pattern: k[2] } : { a: c.color || '#1f3d7a', b: c.textColor || '#ffffff', pattern: 'plain' };
-}
-const SHIRT_PATH = 'M21 3 L7 11 L2 26 L13 29 L13 57 L51 57 L51 29 L62 26 L57 11 L43 3 Q32 12 21 3 Z';
-let shirtSeq = 0;
-function shirtSvg(clubId, keeper) {
-  let { a, b, pattern } = kitOf(clubId);
-  if (keeper) { b = a; a = '#c6e33a'; pattern = 'sleeves'; } // keepers: a generic keeper kit with club-colour sleeves
-  const id = 'sh' + (++shirtSeq);
-  const over = {
-    plain: '',
-    stripes: [16, 28, 40].map(x => `<rect x="${x}" y="0" width="7" height="60" fill="${b}"/>`).join(''),
-    hoops: [14, 28, 42].map(y => `<rect x="0" y="${y}" width="64" height="7" fill="${b}"/>`).join(''),
-    halves: `<rect x="32" y="0" width="32" height="60" fill="${b}"/>`,
-    quarters: `<rect x="32" y="0" width="32" height="30" fill="${b}"/><rect x="0" y="30" width="32" height="30" fill="${b}"/>`,
-    sleeves: `<path d="M7 11 L2 26 L13 29 L16 14 Z M57 11 L62 26 L51 29 L48 14 Z" fill="${b}"/>`,
-  }[pattern] || '';
-  return `<svg viewBox="0 0 64 60" aria-hidden="true"><defs><clipPath id="${id}"><path d="${SHIRT_PATH}"/></clipPath></defs>
-    <g clip-path="url(#${id})"><rect x="0" y="0" width="64" height="60" fill="${a}"/>${over}</g>
-    <path d="${SHIRT_PATH}" fill="none" stroke="rgba(0,0,0,0.35)" stroke-width="1.5"/></svg>`;
-}
+// kits: see kits.js (loaded first)
+const kitOf = clubId => kitForClub(state.kitById[clubId]);
+const shirtSvg = (clubId, keeper) => shirtSvgFor(state.kitById[clubId], keeper);
+
 function readJson(key, fallback) {
   try { const v = JSON.parse(localStorage.getItem(key) || 'null'); return v && typeof v === 'object' ? v : fallback; } catch (e) { return fallback; }
 }

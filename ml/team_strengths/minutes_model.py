@@ -155,6 +155,14 @@ def predict_next(position, players, rounds):
     return out
 
 
+def recent_minutes(position, players, n=5):
+    """Minutes in each player's last n games for his CURRENT club (0 = in the squad but did not play), oldest first."""
+    d = load_rows(position).sort_values(["date", "gameweek"])
+    cur = {p["id"]: p["squadId"] for p in players if p["position"] == position}
+    d = d[d["player_id"].map(cur) == d["squad_id"]]
+    return {int(pid): [int(m) for m in g["minutes_played"].tail(n)] for pid, g in d.groupby("player_id")}
+
+
 def models():
     return {
         "ridge": lambda: Ridge(alpha=1.0),

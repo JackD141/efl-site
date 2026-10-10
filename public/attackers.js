@@ -201,7 +201,8 @@ function render() {
     return `<tr class="${minsOf(d) <= 0 ? 'cp-dim' : ''}">
       <td><span class="cp-rank ${i < 3 ? 'cp-rank-' + (i + 1) : 'cp-rank-n'}">${i + 1}</span></td>
       <td><strong>${esc(d.name)}</strong> ${tags(d)}<div class="cp-muted cp-small">${d.starts60} games of 60+ this season · ${d.totalPoints} pts</div></td>
-      <td>${esc(c.short)}<div class="cp-muted cp-small">${esc(c.league)}</div></td>
+      <td class="pp-club">${shirtIcon(c, false)}<div>${esc(c.short)}<div class="cp-muted cp-small">${esc(c.league)}</div></div></td>
+      <td class="cp-center">${recentHtml(d.recent)}</td>
       <td class="cp-center"><input type="number" class="kp-mins ${edited(d) ? 'kp-mins-edited' : ''}" data-player="${d.id}" min="0" max="90" step="5" value="${minsOf(d)}" title="Expected minutes per game. Default ${d.xMins}." /></td>
       <td>${wk.fx.length ? wk.fx.map((x, j) => `<span class="cp-fx" data-tip="fx" data-player="${d.id}" data-gw="${gw}" data-i="${j}"><span class="cp-dot ${x.f.src === 'market' ? 'cp-dot-market' : 'cp-dot-model'}"></span>${esc(shortOf(x.f.opp))} (${x.f.ha}) <span class="cp-fx-xp">${fmt(x.r.xp)}</span></span>`).join('') : '<span class="cp-muted">No fixture</span>'}</td>
       <td class="cp-center">${wk.fx.length ? wk.fx.map(x => pct(x.r.pGoal)).join(' / ') : '–'}</td>
@@ -228,10 +229,10 @@ function render() {
     ${stale}
     <h2 class="cp-h2">${LABEL.many} for GW ${gw} <span class="cp-sub">${fmtDate(meta.start)}${meta.end !== meta.start ? ' – ' + fmtDate(meta.end) : ''} · ${meta.marketGames} of ${meta.games} games priced from odds · ${list.length} shown${list.length > shown.length ? ' (top 150 listed)' : ''}</span></h2>
     <div class="cp-table-wrap"><table class="cp-table">
-      <thead><tr><th>#</th><th>${LABEL.one}</th><th>Club</th><th class="cp-center" title="Editable. Minutes he plays in each game; counts scale with minutes, 60+ earns the 2-point appearance. Saved in this browser.">Exp. mins</th>
+      <thead><tr><th>#</th><th>${LABEL.one}</th><th>Club</th><th class="cp-center" title="Minutes in his last 5 games for this club, oldest first (dark = 60+, light = came on or off, grey = did not play)">Last 5 (mins)</th><th class="cp-center" title="Editable. Minutes he plays in each game; counts scale with minutes, 60+ earns the 2-point appearance. Saved in this browser.">Exp. mins</th>
         <th>Fixtures (xP)</th><th class="cp-center">P(scores)</th><th class="cp-center">Exp. shots on target</th><th class="cp-center">Exp. key passes</th>${hasInt ? '<th class="cp-center">Exp. interceptions</th>' : ''}
         <th class="cp-right">xP</th><th class="cp-right" title="Expected points over this and the next 4 gameweeks">Next 5 GWs</th></tr></thead>
-      <tbody>${rows || `<tr><td colspan="${hasInt ? 11 : 10}" class="cp-muted">No ${LABEL.many.toLowerCase()} match.</td></tr>`}</tbody></table></div>
+      <tbody>${rows || `<tr><td colspan="${hasInt ? 12 : 11}" class="cp-muted">No ${LABEL.many.toLowerCase()} match.</td></tr>`}</tbody></table></div>
     <div class="cp-caveat"><strong>How to read this</strong><ul>
       ${plan.appCurve
         ? `<li><strong>Expected minutes</strong> come from our minutes model: his recent minutes, starts and appearances at his club, how long since he last played,

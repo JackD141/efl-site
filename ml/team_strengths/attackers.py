@@ -100,7 +100,9 @@ def build_plan(position, rounds, squads, players, fits, id2fd, book, book_src, m
     season = sorted((r for r in rounds if r.get("gameMode", "season") == "season" and r["status"] != "completed"
                      and any(pd.Timestamp(g["date"]) > now for g in r["games"])), key=lambda r: r["roundNumber"])
     completed = [r["roundNumber"] for r in rounds if r.get("gameMode", "season") == "season" and r["status"] == "completed"]
+    recent = mm.recent_minutes(position, players)
     clubs = {cid: dict(id=cid, name=s["name"], short=s.get("shortName") or s["name"], league=league_names[id2fd[cid][1]],
+                       abbr=s.get("abbreviation"), color=s.get("backgroundColor"), textColor=s.get("textColor"), 
                        style={st: {"team": styles.get(cid, {}).get(st, {}).get("team", round(cfg["prior"], 4)),
                                    "opp": styles.get(cid, {}).get(st, {}).get("opp", round(cfg["prior"], 4))} for st, cfg in art.items()},
                        weeks=[])
@@ -139,7 +141,7 @@ def build_plan(position, rounds, squads, players, fits, id2fd, book, book_src, m
             rates=rates.get(p["id"], rate_priors),
             **({"fm": fm.get(p["id"], fm_default), "mates": mates.get(p["id"], {})} if fm else {}),
             apps=int(a["apps"]) if a is not None else 0, starts60=int(a["full"]) if a is not None else 0,
-            mins=int(a["mins"]) if a is not None else 0, totalPoints=p.get("totalPoints", 0)))
+            mins=int(a["mins"]) if a is not None else 0, totalPoints=p.get("totalPoints", 0), recent=recent.get(p["id"], [])))
     model = {st: dict(features=c["features"], intercept=c["intercept"], coef=c["coef"], mean=c["scaler_mean"], sd=c["scaler_sd"],
                       r=c["nb_r"], prior=c["prior"], window=c["window"], test=c["test"], target=c.get("target", c["column"]),
                       scale=c.get("scale", 1.0), pens=bool(c.get("pens", False))) for st, c in art.items()}

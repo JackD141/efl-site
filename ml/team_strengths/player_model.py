@@ -38,7 +38,7 @@ HERE = Path(__file__).parent
 STEPS_PATH = HERE / "models" / "league_steps.json"
 BASE = ["role", "team", "opp", "lam_own", "lam_opp", "home"]
 BM = ["role", "mates", "opp", "lam_own", "lam_opp", "home"]
-G = dict(column="goals_scored", target="m_npxg", fm="npxg", pens=True)
+G = dict(column="goals_scored", target="m_npxg", fm="npxg", pens=True, pen_col="fm_penrate")  # + penalty share x league pen rate
 A = dict(column="assists", target="m_xa", fm="xa", pens=False)
 SPECS = {
     "MID": {"goals": G, "assists": A,
@@ -60,7 +60,8 @@ ATTACK_CANDS = {
     "sot": {"base + shots/npxG hist": BASE + ["fm_shots", "fm_npxg"], "mates + shots/npxG hist": BM + ["fm_shots", "fm_npxg"],
             "mates + shots/npxG hist40": BM + ["fm40_shots", "fm40_npxg"]},
     "kp": {"base + chances/xA hist": BASE + ["fm_chances", "fm_xa"], "mates + chances/xA hist": BM + ["fm_chances", "fm_xa"],
-           "mates + chances/xA hist40": BM + ["fm40_chances", "fm40_xa"]},
+           "mates + chances/xA hist40": BM + ["fm40_chances", "fm40_xa"],
+           "mates + chances/xA hist40 + corner share": BM + ["fm40_chances", "fm40_xa", "fm_cornershare"]},
     "int": {"base": ["role", "team", "opp"], "mates": ["role", "mates", "opp"], "mates + int hist": ["role", "mates", "opp", "fm_int"],
             "mates + int hist40": ["role", "mates", "opp", "fm40_int"]},
 }
@@ -108,6 +109,7 @@ def load(pos):
     hist = fmf.fotmob_history()
     d = fmf.signal_rates(mm.attach_dates(d), k=3.0, hist=hist)
     d = fmf.signal_rates(d, k=3.0, n=40, hist=hist, prefix="fm40_")
+    d = fmf.setpiece_features(d)  # penalty / corner shares, free kicks (exp_setpieces.py)
     fm = link_fotmob.fotmob_for_efl()[KEY + ["fm_minutes", "npxg", "xa"]].rename(columns={"npxg": "m_npxg", "xa": "m_xa"})
     d = d.merge(fm, on=KEY, how="left")
     d["linked"] = d["fm_minutes"].notna()
@@ -208,7 +210,7 @@ def fit(x, feats, spec):
     X, sc = am.design(x, feats)
     m = PoissonRegressor(alpha=1e-4, max_iter=3000).fit(X, x["y"] / x["t"], sample_weight=x["t"])
     raw = m.predict(X) * x["t"]
-    pen = (x["fm_pxg"] * x["t"]).to_numpy() if spec["pens"] else 0.0
+    pen = (x[spec.get("pen_col", "fm_pxg")] * x["t"]).to_numpy() if spec["pens"] else 0.0
     scale = 1.0 if spec["target"] == spec["column"] else float((x["cnt"].sum() - np.sum(pen)) / raw.sum())
     mu = scale * raw + pen
     return dict(model=m, scaler=sc, feats=feats, scale=scale, r=nb_r(x["cnt"].to_numpy(), np.asarray(mu)))
@@ -216,7 +218,7 @@ def fit(x, feats, spec):
 
 def predict(f, x, spec):
     raw = f["model"].predict(am.design(x, f["feats"], f["scaler"])[0]) * x["t"].to_numpy()
-    pen = (x["fm_pxg"] * x["t"]).to_numpy() if spec["pens"] else 0.0
+    pen = (x[spec.get("pen_col", "fm_pxg")] * x["t"]).to_numpy() if spec["pens"] else 0.0
     return f["scale"] * raw + pen
 
 
@@ -305,7 +307,8 @@ def main(pos):
         print(f"TEST 2026/27 (once; n={len(te)}): chosen loglik {test['loglik']:.4f} mse {test['mse']:.4f} | {inc_name} loglik "
               f"{test_inc['loglik']:.4f} mse {test_inc['mse']:.4f} | conversion {f['scale']:.3f}")
         fin = fit(x, feats, spec)
-        out[stat] = dict(column=spec["column"], target=spec["target"], pens=spec["pens"], model=best["model"], features=feats, window=n_best,
+        out[stat] = dict(column=spec["column"], target=spec["target"], pens=spec["pens"], pen_col=spec.get("pen_col", "fm_pxg"),
+                         model=best["model"], features=feats, window=n_best,
                          k_role=k_best, prior=prior, scale=fin["scale"], intercept=float(fin["model"].intercept_), coef=fin["model"].coef_.tolist(),
                          scaler_mean=fin["scaler"][0].tolist(), scaler_sd=fin["scaler"][1].tolist(), nb_r=fin["r"],
                          league=adj, carry={str(c): v for c, v in carry.items()}, validation=res.drop(columns=["pref"]).to_dict("records"),
@@ -368,9 +371,11 @@ def live_inputs(players, art, pos, d=None, as_of=None):
     hist = fmf.fotmob_history()
     pr = fmf.signal_rates(pd.DataFrame({"player_id": [p["id"] for p in plist], "date": today}), k=3.0, hist=hist)
     pr = fmf.signal_rates(pr, k=3.0, n=40, hist=hist, prefix="fm40_")
-    used = sorted({f for a in art.values() for f in a["features"] if f.startswith("fm")} | {"fm_pxg"})
+    pr = fmf.setpiece_features(pr)
+    used = sorted({f for a in art.values() for f in a["features"] if f.startswith("fm")} | {a.get("pen_col", "fm_pxg") for a in art.values()})
     fm = {int(r["player_id"]): {f: round(float(r[f]), 4) for f in used} for _, r in pr.iterrows()}
-    return roles, styles, fm, mates_out
+    tags = {int(r["player_id"]): fmf.setpiece_tags(r) for _, r in pr.iterrows()}
+    return roles, styles, fm, mates_out, tags
 
 
 def refit(d, pos, art, before_gw, built=None):
@@ -393,10 +398,11 @@ def refit(d, pos, art, before_gw, built=None):
 
 
 def fm_defaults(fm):
-    """FotMob feature values for a player with no history: the league rates the shrinkage tends to."""
+    """FotMob feature values for a player with no history: what the shrinkage tends to (league rates / typical shares)."""
     pri = fmf.league_priors(fmf.fotmob_history())
+    sp = fmf.setpiece_features(pd.DataFrame({"player_id": [-1], "date": [pd.Timestamp.now().normalize()]})).iloc[0]
     keys = next(iter(fm.values())).keys() if fm else []
-    return {f: round(pri[f.split("_", 1)[1]], 4) for f in keys}
+    return {f: round(float(sp[f]) if f in sp.index else pri[f.split("_", 1)[1]], 4) for f in keys}
 
 
 if __name__ == "__main__":

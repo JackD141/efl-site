@@ -5,6 +5,7 @@ const POS = document.body.dataset.pos;
 const LABEL = POS === 'MID' ? { one: 'Midfielder', many: 'Midfielders', file: 'mid_plan.json' } : { one: 'Forward', many: 'Forwards', file: 'fwd_plan.json' };
 const LEAGUES = ['All', 'Championship', 'League 1', 'League 2'];
 const MINS_KEY = `efl_${POS.toLowerCase()}_mins_v1`;
+const SP_TITLES = { Pens: 'Takes most of his team\'s penalties (last 40 games, FotMob)', Corners: 'Takes a quarter or more of his team\'s corners', FKs: 'Shoots from direct free kicks' };
 const STATS = { goals: 'Goals', assists: 'Assists', sot: 'Shots on target', kp: 'Key passes', int: 'Interceptions' };
 
 const state = { plan: null, clubs: {}, clubWeek: {}, shortByName: {}, gw: null, league: 'All', query: '', showAll: false, mins: {}, cache: {} };
@@ -71,16 +72,20 @@ function appPoints(plan, mins) {
   const t = (mins - c.mins[i]) / (c.mins[i + 1] - c.mins[i]);
   return c.pts[i] + t * (c.pts[i + 1] - c.pts[i]);
 }
-// expected points for one fixture if he plays `mins` minutes (counts scale with minutes)
-function fixtureXp(d, f, mins) {
-  const key = `${d.id}|${f.oppId}|${f.date}|${mins}`;
-  if (state.cache[key]) return state.cache[key];
+function curveAt(c, mins, key) {
+  if (!c || mins <= 0) return 0;
+  const i = Math.min(c.mins.length - 2, Math.floor(mins / (c.mins[1] - c.mins[0])));
+  const t = (mins - c.mins[i]) / (c.mins[i + 1] - c.mins[i]);
+  return c[key][i] + t * (c[key][i + 1] - c[key][i]);
+}
+// expected points for one fixture if he plays exactly `mins` minutes with `app` appearance points
+function compsAt(d, f, mins, app) {
   const p = state.plan, sc = p.scoring, club = state.clubs[d.club], t = mins / 90;
-  const out = { mins, app: appPoints(p, mins), mu: {}, rate: {} };
-  // v2 midfielders: goals / assists come from predicted npxG / xA x conversion (+ his penalty-xG rate for goals)
+  const out = { mins, app, mu: {}, rate: {} };
+  // goals / assists come from predicted npxG / xA x conversion (+ his penalty term for goals)
   for (const stat of Object.keys(p.model)) {
     const m = p.model[stat];
-    out.rate[stat] = ratePer90(stat, d, club, f) * (m.scale || 1) + (m.pens && d.fm ? d.fm.fm_pxg : 0);
+    out.rate[stat] = ratePer90(stat, d, club, f) * (m.scale || 1) + (m.pens && d.fm ? d.fm[m.penCol || 'fm_pxg'] || 0 : 0);
     out.mu[stat] = out.rate[stat] * t;
   }
   const g = nb(out.mu.goals, p.model.goals.r, 1, [1, 2, 3]);
@@ -94,6 +99,35 @@ function fixtureXp(d, f, mins) {
   const r = d.rates;
   out.cardPts = t * (sc.yellow * r.y90 + sc.red * r.r90 + sc.penMiss * r.pm90 + sc.ownGoal * r.og90);
   out.xp = out.app + out.goalPts + out.assistPts + out.sotPts + out.kpPts + out.intPts + out.cardPts;
+  return out;
+}
+// chance of each minutes scenario for an expected-minutes value: P(60+) from the minutes model's curve, P(1-59) from the
+// expected appearance points (= 2 P(60+) + 1 P(1-59)); the rest is not playing
+function scenarios(mins) {
+  const p = state.plan;
+  const p60 = curveAt(p.p60Curve, mins, 'p');
+  return { p60, part: Math.max(0, appPoints(p, mins) - 2 * p60) };
+}
+// expected points for one fixture with `mins` expected minutes. With the minutes-scenario mixture (minsMix in the plan):
+// P(60+) x points if he plays his usual full game + P(1-59) x points from a typical part game. Thresholds (key passes
+// per 2, hat-tricks) are then evaluated on the minutes he would actually play, not on the average.
+function fixtureXp(d, f, mins) {
+  const key = `${d.id}|${f.oppId}|${f.date}|${mins}`;
+  if (state.cache[key]) return state.cache[key];
+  const p = state.plan;
+  let out;
+  if (p.minsMix && p.p60Curve && mins > 0) {
+    const s = scenarios(mins);
+    const full = compsAt(d, f, d.mFull || p.minsMix.full, p.scoring.appearance60);
+    const part = compsAt(d, f, p.minsMix.part, p.scoring.appearance);
+    const mix = (a, b) => s.p60 * a + s.part * b;
+    out = { mins, p60: s.p60, pPart: s.part, rate: full.rate, mu: {}, kpSteps: {} };
+    for (const k of ['app', 'goalPts', 'assistPts', 'sotPts', 'kpPts', 'intPts', 'cardPts', 'xp', 'pGoal', 'pHat']) out[k] = mix(full[k], part[k]);
+    for (const k of Object.keys(full.mu)) out.mu[k] = mix(full.mu[k], part.mu[k]);
+    for (const k of Object.keys(full.kpSteps)) out.kpSteps[k] = mix(full.kpSteps[k], part.kpSteps[k]);
+  } else {
+    out = compsAt(d, f, mins, appPoints(p, mins));
+  }
   state.cache[key] = out;
   return out;
 }
@@ -171,6 +205,7 @@ function tags(d) {
   if (d.injury || d.status === 'injured') t.push(`<span class="cp-tag kp-tag-out">${esc(d.injury || 'injured')}</span>`);
   if (d.suspended) t.push('<span class="cp-tag kp-tag-out">suspended</span>');
   if (d.startedLast) t.push('<span class="cp-tag cp-tag-picked" title="Played 60+ minutes in his club\'s latest game">started last</span>');
+  for (const tg of d.tags || []) t.push(`<span class="cp-tag pp-sp" title="${SP_TITLES[tg] || ''}">${tg}</span>`);
   if (kickedOff(weekOf(d.club, state.gw))) t.push('<span class="cp-tag" title="His club\'s game this gameweek has kicked off, so he is locked">locked</span>');
   return t.join(' ');
 }
@@ -203,7 +238,7 @@ function render() {
       <td><strong>${esc(d.name)}</strong> ${tags(d)}<div class="cp-muted cp-small">${d.starts60} games of 60+ this season · ${d.totalPoints} pts</div></td>
       <td class="pp-club">${shirtIcon(c, false)}<div>${esc(c.short)}<div class="cp-muted cp-small">${esc(c.league)}</div></div></td>
       <td class="cp-center">${recentHtml(d.recent)}</td>
-      <td class="cp-center"><input type="number" class="kp-mins ${edited(d) ? 'kp-mins-edited' : ''}" data-player="${d.id}" min="0" max="90" step="5" value="${minsOf(d)}" title="Expected minutes per game. Default ${d.xMins}." /></td>
+      <td class="cp-center"><input type="number" class="kp-mins ${edited(d) ? 'kp-mins-edited' : ''}" data-player="${d.id}" min="0" max="90" step="5" value="${minsOf(d)}" title="Expected minutes per game. Default ${d.xMins}." />${state.plan.p60Curve && minsOf(d) > 0 ? `<div class="cp-muted cp-small" title="Chance he plays 60+ minutes (the minutes model); the expected minutes are an average that includes the chance he misses out or comes off early">60+: ${pct(curveAt(state.plan.p60Curve, minsOf(d), 'p'))}</div>` : ''}</td>
       <td>${wk.fx.length ? wk.fx.map((x, j) => `<span class="cp-fx" data-tip="fx" data-player="${d.id}" data-gw="${gw}" data-i="${j}"><span class="cp-dot ${x.f.src === 'market' ? 'cp-dot-market' : 'cp-dot-model'}"></span>${esc(shortOf(x.f.opp))} (${x.f.ha}) <span class="cp-fx-xp">${fmt(x.r.xp)}</span></span>`).join('') : '<span class="cp-muted">No fixture</span>'}</td>
       <td class="cp-center">${wk.fx.length ? wk.fx.map(x => pct(x.r.pGoal)).join(' / ') : '–'}</td>
       ${cell('sot')}${cell('kp')}${hasInt ? cell('int') : ''}

@@ -26,7 +26,23 @@ const weekOf = (clubId, gw) => state.clubWeek[clubId] && state.clubWeek[clubId][
 const kickedOff = wk => !!(wk && wk.fx && wk.fx.some(f => f.ko && new Date(f.ko).getTime() <= Date.now()));
 const gwMeta = gw => state.plan.gameweeks.find(g => g.gw === gw);
 const shortOf = name => state.shortByName[name] || name;
-const kxp = (k, gw) => { const w = weekOf(k.club, gw); return w ? (minsOf(k) / 90) * w.xp : 0; };
+function curveAt(c, mins, key) {
+  if (!c || mins <= 0) return 0;
+  const i = Math.min(c.mins.length - 2, Math.floor(mins / (c.mins[1] - c.mins[0])));
+  const t = (mins - c.mins[i]) / (c.mins[i + 1] - c.mins[i]);
+  return c[key][i] + t * (c[key][i + 1] - c[key][i]);
+}
+// keeper xP for a gameweek: with the minutes-scenario curves, P(60+) x his full-game xP + P(1-59) x 1 appearance point;
+// otherwise minutes / 90 x full-game xP
+function kxp(k, gw) {
+  const w = weekOf(k.club, gw), m = minsOf(k), p = state.plan;
+  if (!w) return 0;
+  if (p.minsMix && p.p60Curve) {
+    const p60 = curveAt(p.p60Curve, m, 'p'), part = Math.max(0, curveAt(p.appCurve, m, 'pts') - 2 * p60);
+    return p60 * w.xp + part * w.games;
+  }
+  return (m / 90) * w.xp;
+}
 
 /* ---------- tooltip ---------- */
 const tip = document.createElement('div');
@@ -116,7 +132,7 @@ function render() {
       <td><strong>${esc(k.name)}</strong> ${statusTags(k)}<div class="cp-muted cp-small">${k.starts} starts this season</div></td>
       <td class="pp-club">${shirtIcon(c, true)}<div>${esc(c.short)}<div class="cp-muted cp-small">${esc(c.league)}</div></div></td>
       <td class="cp-center">${recentHtml(k.recent)}</td>
-      <td class="cp-center"><input type="number" class="kp-mins ${edited(k) ? 'kp-mins-edited' : ''}" data-keeper="${k.id}" min="0" max="90" step="5" value="${minsOf(k)}" title="Expected minutes: 90 = plays the whole game; 45 = a 50% chance. Default ${k.xMins}." /></td>
+      <td class="cp-center"><input type="number" class="kp-mins ${edited(k) ? 'kp-mins-edited' : ''}" data-keeper="${k.id}" min="0" max="90" step="5" value="${minsOf(k)}" title="Expected minutes: 90 = plays the whole game; 45 = a 50% chance. Default ${k.xMins}." />${state.plan.p60Curve && minsOf(k) > 0 ? `<div class="cp-muted cp-small" title="Chance he plays 60+ minutes">60+: ${(curveAt(state.plan.p60Curve, minsOf(k), 'p') * 100).toFixed(0)}%</div>` : ''}</td>
       <td>${w && w.games ? w.fx.map((f, j) => `<span class="cp-fx" data-tip="fx" data-keeper="${k.id}" data-gw="${gw}" data-i="${j}"><span class="cp-dot ${f.src === 'market' ? 'cp-dot-market' : 'cp-dot-model'}"></span>${esc(shortOf(f.opp))} (${f.ha}) <span class="cp-fx-xp">${fmt(f.xp)}</span></span>`).join('') : '<span class="cp-muted">No fixture</span>'}</td>
       <td class="cp-center">${w && w.games ? w.fx.map(f => pct(f.cs)).join(' / ') : '–'}</td>
       <td class="cp-center">${w && w.games ? w.fx.reduce((a, f) => a + f.saves, 0).toFixed(1) : '–'}</td>

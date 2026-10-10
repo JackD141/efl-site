@@ -82,3 +82,84 @@ def signal_rates(rows, k=5.0, n=N_GAMES, hist=None, priors=None, prefix="fm_", s
     drop = [c for c in list(priors) + lvl_cols if c in r]
     r = r.rename(columns={"m90": f"{prefix}n90"}).drop(columns=drop).sort_values("_ord").drop(columns="_ord")
     return r.set_index(rows.index)
+
+
+# ---------- set pieces (set_pieces.py + the 'Corners' stat) ----------
+SP_N = 40          # appearances looked back over
+SP_PSEUDO = {"pen": 2.0, "corner": 10.0}  # pseudo-events at the typical share (shrinkage for small samples)
+
+
+def setpiece_history():
+    """Per player per FotMob appearance: penalties / corners / direct free kicks he took, and his team's penalties and
+    corners in that match."""
+    frames = []
+    for f in sorted(FM.glob("*/player_matches.csv")):
+        pm = pd.read_csv(f, low_memory=False)
+        pm = pm[pd.to_numeric(pm["Minutes played"], errors="coerce").fillna(0) > 0]
+        frames.append(pm[["match_id", "fm_player_id", "fm_team_id", "utc", "Minutes played"] + (["Corners"] if "Corners" in pm else [])])
+    h = pd.concat(frames, ignore_index=True).rename(columns={"Minutes played": "mins", "Corners": "corners"})
+    h["mins"] = pd.to_numeric(h["mins"], errors="coerce").fillna(0)
+    h["corners"] = pd.to_numeric(h.get("corners"), errors="coerce").fillna(0)
+    sp = pd.read_csv(FM / "set_pieces.csv")
+    h = h.merge(sp.drop(columns=["fm_team_id"]), on=["match_id", "fm_player_id"], how="left")
+    for c in ("pens", "pen_goals", "pen_xg", "fk_shots", "fk_xg"):
+        h[c] = h[c].fillna(0)
+    team = h.groupby(["match_id", "fm_team_id"]).agg(team_pens=("pens", "sum"), team_corners=("corners", "sum")).reset_index()
+    h = h.merge(team, on=["match_id", "fm_team_id"])
+    mp = pd.read_csv(FM / "player_map.csv")[["fm_player_id", "player_id"]]
+    h = h.merge(mp, on="fm_player_id")
+    h["date"] = pd.to_datetime(h["utc"], utc=True).dt.tz_localize(None).dt.normalize()
+    return h.sort_values(["player_id", "date"]).reset_index(drop=True)
+
+
+def setpiece_constants(h):
+    """League constants from completed seasons only: typical share of his team's penalties / corners for a player in
+    the game, penalties per team-match, penalty conversion."""
+    h = h[h["date"] < PRIOR_BEFORE]
+    team_matches = h.drop_duplicates(["match_id", "fm_team_id"])
+    return dict(pen_share0=float(h["pens"].sum() / h["team_pens"].sum()), corner_share0=float(h["corners"].sum() / h["team_corners"].sum()),
+                pens_per_team_match=float(team_matches["team_pens"].mean()), pen_conv=float(h["pen_goals"].sum() / h["pens"].sum()),
+                fk_shots90=float(h["fk_shots"].sum() / (h["mins"].sum() / 90)), fk_xg90=float(h["fk_xg"].sum() / (h["mins"].sum() / 90)),
+                corners90=float(h["corners"].sum() / (h["mins"].sum() / 90)))
+
+
+def setpiece_features(rows, hist=None, const=None, n=SP_N):
+    """As of each row's date (strictly before): fm_penshare, fm_penrate (expected penalty goals per 90 if he plays the
+    game: share x league penalties per team-match x conversion), fm_cornershare, fm_corners (per 90), fm_fkxg (per 90)."""
+    h = setpiece_history() if hist is None else hist
+    c = const or setpiece_constants(h)
+    g = h.groupby("player_id")
+    roll = pd.DataFrame({"player_id": h["player_id"], "date": h["date"]})
+    for col in ("mins", "pens", "team_pens", "corners", "team_corners", "fk_xg", "fk_shots"):
+        roll["s_" + col] = g[col].transform(lambda s: s.rolling(n, min_periods=1).sum())
+    roll = roll.drop_duplicates(["player_id", "date"], keep="last").sort_values("date")
+    r = rows.copy()
+    r["_ord"] = np.arange(len(r))
+    r["date"] = pd.to_datetime(r["date"]).dt.normalize()
+    r = pd.merge_asof(r.sort_values("date"), roll, on="date", by="player_id", allow_exact_matches=False, direction="backward")
+    for col in [x for x in roll if x.startswith("s_")]:
+        r[col] = r[col].fillna(0)
+    pp, cp = SP_PSEUDO["pen"], SP_PSEUDO["corner"]
+    r["fm_penshare"] = (r["s_pens"] + pp * c["pen_share0"]) / (r["s_team_pens"] + pp)
+    r["fm_penrate"] = r["fm_penshare"] * c["pens_per_team_match"] * c["pen_conv"]
+    r["fm_cornershare"] = (r["s_corners"] + cp * c["corner_share0"]) / (r["s_team_corners"] + cp)
+    r["fm_corners"] = (r["s_corners"] + 3 * c["corners90"]) / (r["s_mins"] / 90 + 3)
+    r["fm_fkxg"] = (r["s_fk_xg"] + 3 * c["fk_xg90"]) / (r["s_mins"] / 90 + 3)
+    # raw counts over the window, for the "Pens" / "Corners" / "FKs" tags on the site
+    r = r.rename(columns={"s_pens": "sp_pens", "s_team_pens": "sp_team_pens", "s_corners": "sp_corners",
+                          "s_team_corners": "sp_team_corners", "s_fk_shots": "sp_fk_shots"})
+    r = r.drop(columns=[x for x in roll if x.startswith("s_") and x in r]).sort_values("_ord").drop(columns="_ord")
+    return r.set_index(rows.index)
+
+
+def setpiece_tags(r):
+    """Tags from the window's counts: Pens (took most of his team's penalties while playing, at least 2 of them),
+    Corners (a quarter or more of his team's corners, 10+), FKs (3+ direct free-kick shots)."""
+    tags = []
+    if r.get("sp_pens", 0) >= 2 and r.get("fm_penshare", 0) >= 0.5:
+        tags.append("Pens")
+    if r.get("sp_corners", 0) >= 10 and r.get("fm_cornershare", 0) >= 0.25:
+        tags.append("Corners")
+    if r.get("sp_fk_shots", 0) >= 3:
+        tags.append("FKs")
+    return tags

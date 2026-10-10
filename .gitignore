@@ -14,3 +14,5 @@ ml/team_strengths/*_results.csv
 
 # FotMob raw match cache (large; compact CSVs are kept)
 data/fotmob/raw/
+public/data/check_xp.json
+data/fotmob/

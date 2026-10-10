@@ -163,6 +163,26 @@ def recent_minutes(position, players, n=5):
     return {int(pid): [int(m) for m in g["minutes_played"].tail(n)] for pid, g in d.groupby("player_id")}
 
 
+def full_minutes(position, players, prior, n=10, k=3.0):
+    """His average minutes in his last n games of 60+ at his CURRENT club, shrunk to the position average with k
+    pseudo-games: the minutes of the "plays the full game" scenario (a nailed 90-minute man gets ~90, not ~84)."""
+    d = load_rows(position).sort_values(["date", "gameweek"])
+    cur = {p["id"]: p["squadId"] for p in players if p["position"] == position}
+    d = d[(d["player_id"].map(cur) == d["squad_id"]) & (d["minutes_played"] >= 60)]
+    out = {}
+    for pid, g in d.groupby("player_id"):
+        m = g["minutes_played"].clip(upper=90).tail(n)
+        out[int(pid)] = round(float((m.sum() + k * prior) / (len(m) + k)), 1)
+    return out
+
+
+def mixture_inputs(position, players):
+    """(plan fields, {player id: full-game minutes}) for the minutes-scenario mixture used by the pages."""
+    js = json.loads((MODELS / f"minutes_model_{position.lower()}.json").read_text(encoding="utf-8"))
+    b = js["bucket_minutes"]
+    return dict(appCurve=js["app_curve"], p60Curve=js["p60_curve"], minsMix=b), full_minutes(position, players, b["full"])
+
+
 def models():
     return {
         "ridge": lambda: Ridge(alpha=1.0),
@@ -214,6 +234,12 @@ def main(position="MID"):
     iso60 = IsotonicRegression(y_min=0, y_max=1, out_of_bounds="clip").fit(np.r_[pv, 0, 90], np.r_[(va["mins"] >= 60).astype(float), 0, 1])
     p60 = [round(float(v), 3) for v in iso60.predict(grid)]
     print("P(60+ minutes) by xMins:", dict(zip(grid.tolist(), p60)))
+    # average minutes when he plays 60+ and when he plays 1-59 (training season), for the minutes-scenario mixture:
+    # xP = P(60+) x xP(full) + P(1-59) x xP(part), with P(1-59) = expected appearance points - 2 x P(60+)
+    s25 = d[d["season"] == "2526"]
+    bucket = dict(full=round(float(s25.loc[s25["mins"] >= 60, "mins"].mean()), 1),
+                  part=round(float(s25.loc[(s25["mins"] > 0) & (s25["mins"] < 60), "mins"].mean()), 1))
+    print("average minutes given 60+ / given 1-59:", bucket)
     print("\nexpected appearance points by xMins:", dict(zip(grid.tolist(), curve)))
     te_app = iso.predict(pt)
     print(f"test: appearance points MAE {np.abs(app_points(te['mins']) - te_app).mean():.3f} (mean {te_app.mean():.2f} vs actual {app_points(te['mins']).mean():.2f})")
@@ -225,7 +251,7 @@ def main(position="MID"):
     MODELS.mkdir(exist_ok=True)
     joblib.dump(dict(model=final, features=feats_used, half_lives=HALF_LIVES), MODELS / f"minutes_model_{position.lower()}.joblib")
     (MODELS / f"minutes_model_{position.lower()}.json").write_text(json.dumps(dict(
-        model=best_row, features=feats_used, validation=res.to_dict("records"), test=test, app_curve=dict(mins=grid.tolist(), pts=curve), p60_curve=dict(mins=grid.tolist(), p=p60)), indent=1), encoding="utf-8")
+        model=best_row, features=feats_used, validation=res.to_dict("records"), test=test, app_curve=dict(mins=grid.tolist(), pts=curve), p60_curve=dict(mins=grid.tolist(), p=p60), bucket_minutes=bucket), indent=1), encoding="utf-8")
     if hasattr(final, "coef_"):
         print("coefficients:", {f: round(c, 2) for f, c in zip(feats_used, final.coef_)})
     return final

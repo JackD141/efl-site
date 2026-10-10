@@ -221,10 +221,21 @@ def build_keeper_plan(rounds, squads, players, fits, id2fd, book, book_src, mark
         generatedAt=datetime.now(timezone.utc).isoformat(timespec="seconds"), season="2026/27",
         firstGw=gameweeks[0]["gw"] if gameweeks else None, gameweeks=gameweeks, clubs=list(clubs.values()), keepers=roster,
         startersFromGw=local_gw, latestCompletedGw=max(completed) if completed else 0,
+        **_keeper_mix(),
         constants=dict(appearance=APPEARANCE, cleanSheet=CLEAN_SHEET, pen=round(consts["pen"], 3), cards=round(consts["cards"], 3),
                        pKeep=round(consts["p_keep"], 3), nStarts=consts["n_starts"]),
         savesModel=dict(name=model["model"], features=model["features"], nbR=round(model["nb_r"], 2),
                         test=model["test"]))
+
+
+def _keeper_mix():
+    """Minutes-scenario curves for keepers (minutes_model.py, GK): xP = P(60+) x xP(full game) + P(1-59) x 1."""
+    import minutes_model as mm
+    f = mm.MODELS / "minutes_model_gk.json"
+    if not f.exists():
+        return {}
+    js = json.loads(f.read_text(encoding="utf-8"))
+    return dict(appCurve=js["app_curve"], p60Curve=js["p60_curve"], minsMix=js["bucket_minutes"])
 
 
 def write_site_json(plan, path=SITE_JSON):

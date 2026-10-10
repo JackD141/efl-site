@@ -951,3 +951,7 @@ input[type="range"]::-moz-range-thumb:hover {
 .bt-tip i, .bt-legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: middle; }
 .bt-legend { display: flex; gap: 18px; flex-wrap: wrap; font-size: 0.8rem; color: #555; margin: 6px 0 18px; }
 .bt-team { margin: 6px 0 10px; }
+
+/* set-piece tags */
+.cp-tag.pp-sp { background: #fff3e0; color: #e65100; }
+.op-sp { font-size: 0.6rem; font-weight: 700; color: #ffb74d; margin-left: 2px; }

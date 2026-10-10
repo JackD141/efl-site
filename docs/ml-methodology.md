@@ -6,7 +6,13 @@ Read this before changing any model. Companion docs: `docs/player-models.md` (wh
 ## 1. The prediction problem
 Expected Fantasy EFL points per player per gameweek = sum over his fixtures of the expected points of each scoring
 component. Components are modelled separately (never points directly):
-- minutes: `minutes_model.py` (one model per position) -> expected minutes, expected appearance points and P(60+) curves
+- minutes: `minutes_model.py` (one model per position) -> expected minutes, expected appearance points and P(60+) curves,
+  average minutes of a full (60+) and a part (1-59) game, and each player's own full-game minutes
+- **minutes scenarios** (since 10 Oct): a fixture's xP = P(60+) x xP if he plays his usual full game (his own average
+  minutes in his last 10 games of 60+, shrunk; appearance 2; clean sheet counts) + P(1-59) x xP of a typical part game
+  (appearance 1). P(1-59) = expected appearance points - 2 P(60+). Thresholds (clearances per 4, key passes per 2,
+  saves per 3, goals conceded per 2) are therefore evaluated on minutes he would actually play, not on the average
+  (E[f(minutes)] instead of f(E[minutes])). Pages show "60+: x%" under the expected minutes.
 - per-90 rates of each scoring stat: `player_model.py` (MID, FWD, DEF), Poisson GLM with minutes as exposure
 - goals / assists through their expected versions (npxG / xA from FotMob), converted with a fitted factor
 - clean sheets / goals conceded / keeper saves: from the match odds (`keepers.py`, `saves_model.py`)
@@ -22,6 +28,11 @@ so minute edits are instant. Any model change must be mirrored there and checked
 | Closing odds -> expected goals | football-data.co.uk (`fetch_data.py`, `per_season.lam_for`) | yes (pre-match market view) |
 | Team-strength fits for games without odds | `predict_gw.fit_current(as_of)` | yes (matches before as_of) |
 | League of each club per season | EFL squads `competitionId` | yes (known before the season) |
+
+FotMob data is NOT in the repo (`data/fotmob/` is gitignored: FotMob's terms disallow automated access and the files are
+large). It lives in this machine's working copy. To rebuild from scratch (about an hour, polite rate):
+`cd ml/fotmob && python fetch_fotmob.py 2024/2025 2025/2026 2026/2027 && python link_fotmob.py && python set_pieces.py`.
+Weekly: `python fetch_fotmob.py 2026/2027 && python link_fotmob.py && python set_pieces.py`, then `run_gameweek.py`.
 
 ## 3. Protocol (do not deviate)
 - **Selection** (features, windows, role shrinkage, model class): two rolling-origin validation folds inside 2025/26:
@@ -73,22 +84,26 @@ Re-run this audit whenever a feature is added: write down, for the new feature, 
 | 10 Oct | GBM (HistGradientBoosting, Poisson, exposure) vs GLM | GBM worse on 10/13 stats (up to -0.006) | rejected |
 | 10 Oct | 50/50 GLM + GBM blend | better on 9/13 but > TOL only for MID goals (+0.0006), MID SOT (+0.0007), DEF clearances (+0.0022) | not adopted: tiny gains, would need precomputed rates on the site; revisit with more data |
 | 10 Oct | Leakage fixes (section 4) and retrain | 12/13 identical choices; MID SOT now "mates + shots/npxG hist40" (test -0.6320 vs -0.6351) | adopted |
+| 10 Oct | Set pieces (`ml/fotmob/set_pieces.py`, `features.setpiece_features`): corner share -> key passes | val +0.0011 MID, +0.0019 FWD; test -1.1909 vs -1.1942 MID, -1.0649 vs -1.0705 FWD | adopted |
+| 10 Oct | Penalty term = penalty SHARE x league penalties per team-match x conversion (instead of recent penalty xG) | val +0.0001 to +0.0005, never worse; same complexity | adopted |
+| 10 Oct | Direct free-kick xG per 90 in goals; corners in assists | no gain / negative | rejected |
+| 10 Oct | Minutes scenarios (E[f(minutes)]) vs straight scaling by expected minutes / 90 | backtest GW1-8, 13,529 player-gameweeks: MSE 8.543 vs 8.563 (better for every position), mean xP 2.404 vs 2.415 actual (2.389 before) | adopted (principled + evidence) |
+Set-piece numbers: `ml/team_strengths/models/exp_setpieces_results.json` (`exp_setpieces.py`).
 Full GBM numbers: `ml/team_strengths/models/exp_gbm_results.json`.
 
 ## 6. Checks before shipping
-- JS equals Python: for every expected starter, compute the gameweek xP in Python from the plan JSON (same formula as the
-  page) and in the browser (`weekXp` / `pxp` / `kxp` / `dxp` on the page); max difference should be ~1e-6 (Poisson vs
-  NB rounding for forwards' goals ~2e-5).
+- JS equals Python: `python ml/team_strengths/check_site_maths.py` writes the reference (public/data/check_xp.json,
+  gitignored); compare on each Player Picks tab and the homepage (`playerWeek`) as described in its docstring. 10 Oct:
+  max difference 1e-9 (MID / DEF), 2e-5 (FWD, Poisson goals), keepers 5e-4 on the homepage (JSON rounding).
 - Pages load with no error on all positions, the homepage optimiser runs, backtest page renders.
-- Backtest (`python backtest.py`, ~4 min): GW1-8 clean run 10 Oct: model 587, form picker 559, hindsight best 1383,
-  model expected 646 (about 9% optimistic: picking the top projections selects ones that came out high).
+- Backtest (`python backtest.py`, ~7 min): GW1-8, 10 Oct after set pieces + minutes scenarios: model 611, form picker
+  559, hindsight best 1383, model expected about 635. It also prints xP calibration over all player-gameweeks (MSE /
+  MAE, mixture vs straight scaling). Single gameweeks are noise; judge totals and the calibration lines.
 
 ## 7. Known issues and next steps (ranked)
-1. **Set pieces / penalties** (Jack, 10 Oct): today only "penalty xG per 90 over the last 20 games" feeds goals. Better:
-   from FotMob raw files (`data/fotmob/raw/*.json.gz`, shotmap `situation` = Penalty / FreeKick / FromCorner, and the
-   per-match "Corners" stat) build, as of each match: his share of his team's penalties, corners taken per 90, direct
-   free-kick shots per 90. Candidate features for goals (pen share x team penalty rate) and assists / key passes (corner
-   share). Tags ("Pens", "Corners", "FKs") on the pages. All strictly pre-match, so usable in training.
+1. DONE 10 Oct: set pieces (penalty share, corner share, free kicks) + "Pens" / "Corners" / "FKs" tags on the pages and
+   the homepage. Possible next: team penalty rate scaled by the team's expected goals; corner share for assists of
+   defenders (val +0.0004, below TOL: retest with more data).
 2. **Minutes-dependence of per-90 rates**: actual / predicted by REALISED minutes is ~1.2-1.4 for 10-30 minute cameos,
    ~0.7-0.9 for 30-75, ~1.0 for 75+ (partly selection: players are subbed when it is not going well). Test the
    decision-relevant version: calibration by EXPECTED minutes (minutes model out of sample) end-to-end; if rotation

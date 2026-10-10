@@ -86,10 +86,11 @@ def build_defender_plan(rounds, squads, players, fits, id2fd, book, book_src, ma
     fm = mates = {}
     if v2:
         art2 = json.loads(pm.model_path("DEF").read_text(encoding="utf-8"))
-        roles, styles, fm, mates = pm.live_inputs(players, art2, "DEF")
+        roles, styles, fm, mates, sp_tags = pm.live_inputs(players, art2, "DEF")
         fm_default = pm.fm_defaults(fm)
         mins_art = json.loads((mm.MODELS / "minutes_model_def.json").read_text(encoding="utf-8"))
         xmins = mm.predict_next("DEF", players, rounds)
+        mix_fields, m_full = mm.mixture_inputs("DEF", players)
         art = dict(art, stats={st: dict(prior=c["prior"]) for st, c in art2.items()})
     starters, local_gw = _latest_starters(cur, rounds)
     apps = cur.groupby("player_id").agg(apps=("minutes_played", "size"), mins=("minutes_played", "sum"),
@@ -143,13 +144,14 @@ def build_defender_plan(rounds, squads, players, fits, id2fd, book, book_src, ma
             suspended=bool(p.get("suspensionDetails")), startedLast=p["id"] in starters,
             role={st: round(roles.get(p["id"], {}).get(st, 1.0), 4) for st in art["stats"]},
             rates={k: round(float(v), 5) for k, v in rr.items()},
-            **({"fm": fm.get(p["id"], fm_default), "mates": mates.get(p["id"], {})} if v2 else {}),
+            **({"fm": fm.get(p["id"], fm_default), "mates": mates.get(p["id"], {}), "tags": sp_tags.get(p["id"], [])} if v2 else {}),
             apps=int(a["apps"]) if a is not None else 0, starts60=int(a["full"]) if a is not None else 0,
-            mins=int(a["mins"]) if a is not None else 0, totalPoints=p.get("totalPoints", 0), recent=recent.get(p["id"], [])))
+            mins=int(a["mins"]) if a is not None else 0, totalPoints=p.get("totalPoints", 0), recent=recent.get(p["id"], []),
+            **({"mFull": m_full.get(p["id"], mix_fields["minsMix"]["full"])} if v2 else {})))
     if v2:
         model = {st: dict(features=c["features"], intercept=c["intercept"], coef=c["coef"], mean=c["scaler_mean"], sd=c["scaler_sd"], prior=c["prior"],
                           r=c["nb_r"], unit=UNITS.get(st), window=c["window"], test=c["test"], target=c["target"], scale=c["scale"],
-                          pens=bool(c["pens"]), floor=1e-4) for st, c in art2.items()}
+                          pens=bool(c["pens"]), penCol=c.get("pen_col", "fm_pxg"), floor=1e-4) for st, c in art2.items()}
     else:
         model = {st: dict(features=c["features"], intercept=c["intercept"], coef=c["coef"], mean=c["scaler_mean"], sd=c["scaler_sd"], prior=c["prior"],
                           r=c["nb_r"], unit=c["unit"], window=c["window"], test=c["test"]) for st, c in art["stats"].items()}
@@ -161,6 +163,7 @@ def build_defender_plan(rounds, squads, players, fits, id2fd, book, book_src, ma
         startersFromGw=local_gw, latestCompletedGw=max(completed) if completed else 0,
         model=model, lamAvg=round(lam_avg, 4), other=round(other, 4), v2=v2,
         appCurve=mins_art["app_curve"] if v2 else None, p60Curve=mins_art["p60_curve"] if v2 else None,
+        minsMix=mins_art.get("bucket_minutes") if v2 else None,
         scoring=dict(appearance=2, cleanSheet=5, goal=7, assist=3, yellow=-1, red=-3))
 
 

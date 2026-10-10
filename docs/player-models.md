@@ -23,6 +23,13 @@ history per 90 over his last 20 or 40 appearances. Negative-binomial spread for 
   promotion / relegation multipliers) instead of resetting to the league average.
 - Clean sheets / goals conceded (DEF, GK) and saves (GK) come from the match odds as before.
 
+## Set pieces (10 Oct)
+`ml/fotmob/set_pieces.py` reads penalties and direct free kicks from FotMob shot maps; corners come from the match stats.
+As of each match (last 40 appearances): share of his team's penalties (shrunk with 2 pseudo-penalties at the typical
+share), share of his team's corners, free-kick xG per 90. Goals add share x 0.094 penalties per team-match x 75%
+conversion per 90; key passes use corner share. Tags: Pens (2+ penalties and half or more of his team's), Corners (10+ and
+a quarter or more), FKs (3+ free-kick shots).
+
 ## Minutes
 Ridge regression on: recent minutes / starts / appearances at his club (several decays), FotMob started / subbed-off
 history, run of 0-minute games, games at the club, rest days, second game of a double. Expected appearance points and

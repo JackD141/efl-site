@@ -1,0 +1,154 @@
+[
+ {
+  "pos":"MID",
+  "stat":"goals",
+  "candidate":"penalty share term",
+  "val":-0.2739446024,
+  "live":-0.2740106043,
+  "gain":0.0000660019
+ },
+ {
+  "pos":"MID",
+  "stat":"goals",
+  "candidate":"+ free-kick xG",
+  "val":-0.2739715819,
+  "live":-0.2740106043,
+  "gain":0.0000390224
+ },
+ {
+  "pos":"MID",
+  "stat":"goals",
+  "candidate":"penalty share + free-kick xG",
+  "val":-0.2738951633,
+  "live":-0.2740106043,
+  "gain":0.000115441
+ },
+ {
+  "pos":"MID",
+  "stat":"assists",
+  "candidate":"+ corners per 90",
+  "val":-0.3065959143,
+  "live":-0.3067594675,
+  "gain":0.0001635532
+ },
+ {
+  "pos":"MID",
+  "stat":"assists",
+  "candidate":"+ corner share",
+  "val":-0.3067429721,
+  "live":-0.3067594675,
+  "gain":0.0000164954
+ },
+ {
+  "pos":"MID",
+  "stat":"kp",
+  "candidate":"+ corners per 90",
+  "val":-1.1399704795,
+  "live":-1.1408462265,
+  "gain":0.0008757471
+ },
+ {
+  "pos":"MID",
+  "stat":"kp",
+  "candidate":"+ corner share",
+  "val":-1.1397300741,
+  "live":-1.1408462265,
+  "gain":0.0011161524
+ },
+ {
+  "pos":"FWD",
+  "stat":"goals",
+  "candidate":"penalty share term",
+  "val":-0.4606210975,
+  "live":-0.4611038248,
+  "gain":0.0004827273
+ },
+ {
+  "pos":"FWD",
+  "stat":"goals",
+  "candidate":"+ free-kick xG",
+  "val":-0.4611427232,
+  "live":-0.4611038248,
+  "gain":-0.0000388984
+ },
+ {
+  "pos":"FWD",
+  "stat":"goals",
+  "candidate":"penalty share + free-kick xG",
+  "val":-0.4606571054,
+  "live":-0.4611038248,
+  "gain":0.0004467194
+ },
+ {
+  "pos":"FWD",
+  "stat":"assists",
+  "candidate":"+ corners per 90",
+  "val":-0.326150532,
+  "live":-0.3254591815,
+  "gain":-0.0006913505
+ },
+ {
+  "pos":"FWD",
+  "stat":"assists",
+  "candidate":"+ corner share",
+  "val":-0.3261671509,
+  "live":-0.3254591815,
+  "gain":-0.0007079694
+ },
+ {
+  "pos":"FWD",
+  "stat":"kp",
+  "candidate":"+ corners per 90",
+  "val":-1.0067834927,
+  "live":-1.0085262259,
+  "gain":0.0017427332
+ },
+ {
+  "pos":"FWD",
+  "stat":"kp",
+  "candidate":"+ corner share",
+  "val":-1.0066194227,
+  "live":-1.0085262259,
+  "gain":0.0019068032
+ },
+ {
+  "pos":"DEF",
+  "stat":"goals",
+  "candidate":"penalty share term",
+  "val":-0.1714103716,
+  "live":-0.171467891,
+  "gain":0.0000575194
+ },
+ {
+  "pos":"DEF",
+  "stat":"goals",
+  "candidate":"+ free-kick xG",
+  "val":-0.1714740029,
+  "live":-0.171467891,
+  "gain":-0.0000061119
+ },
+ {
+  "pos":"DEF",
+  "stat":"goals",
+  "candidate":"penalty share + free-kick xG",
+  "val":-0.1714090925,
+  "live":-0.171467891,
+  "gain":0.0000587985
+ },
+ {
+  "pos":"DEF",
+  "stat":"assists",
+  "candidate":"+ corners per 90",
+  "val":-0.2100335224,
+  "live":-0.2103766863,
+  "gain":0.0003431639
+ },
+ {
+  "pos":"DEF",
+  "stat":"assists",
+  "candidate":"+ corner share",
+  "val":-0.2099660859,
+  "live":-0.2103766863,
+  "gain":0.0004106004
+ }
+]

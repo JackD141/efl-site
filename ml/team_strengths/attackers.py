@@ -81,13 +81,14 @@ def build_plan(position, rounds, squads, players, fits, id2fd, book, book_src, m
     mins_json = mm.MODELS / f"minutes_model_{position.lower()}.json"
     xmins = mm.predict_next(position, players, rounds) if mins_json.exists() else None
     app_curve = json.loads(mins_json.read_text(encoding="utf-8"))["app_curve"] if xmins is not None else None
+    mix_fields, m_full = mm.mixture_inputs(position, players) if xmins is not None else ({}, {})
     d = am.load(position)
     cur = d[d["season"] == "2627"]
     fm = {}
     if pm.model_path(position).exists():
         # v2: xG / xA targets, FotMob history, league step multipliers, carried-over club style (player_model.py)
         art = json.loads(pm.model_path(position).read_text(encoding="utf-8"))
-        roles, styles, fm, mates = pm.live_inputs(players, art, position)
+        roles, styles, fm, mates, sp_tags = pm.live_inputs(players, art, position)
     else:
         art = json.loads(am.MODEL_PATH.read_text(encoding="utf-8"))["positions"][position]
         roles = _roles(d, art, {p["id"]: p["squadId"] for p in players})
@@ -139,16 +140,17 @@ def build_plan(position, rounds, squads, players, fits, id2fd, book, book_src, m
             suspended=bool(p.get("suspensionDetails")), startedLast=p["id"] in starters,
             role={st: roles.get(p["id"], {}).get(st, 1.0) for st in art},
             rates=rates.get(p["id"], rate_priors),
-            **({"fm": fm.get(p["id"], fm_default), "mates": mates.get(p["id"], {})} if fm else {}),
+            **({"fm": fm.get(p["id"], fm_default), "mates": mates.get(p["id"], {}), "tags": sp_tags.get(p["id"], [])} if fm else {}),
             apps=int(a["apps"]) if a is not None else 0, starts60=int(a["full"]) if a is not None else 0,
-            mins=int(a["mins"]) if a is not None else 0, totalPoints=p.get("totalPoints", 0), recent=recent.get(p["id"], [])))
+            mins=int(a["mins"]) if a is not None else 0, totalPoints=p.get("totalPoints", 0), recent=recent.get(p["id"], []),
+            **({"mFull": m_full.get(p["id"], mix_fields["minsMix"]["full"])} if mix_fields else {})))
     model = {st: dict(features=c["features"], intercept=c["intercept"], coef=c["coef"], mean=c["scaler_mean"], sd=c["scaler_sd"],
                       r=c["nb_r"], prior=c["prior"], window=c["window"], test=c["test"], target=c.get("target", c["column"]),
-                      scale=c.get("scale", 1.0), pens=bool(c.get("pens", False))) for st, c in art.items()}
+                      scale=c.get("scale", 1.0), pens=bool(c.get("pens", False)), penCol=c.get("pen_col", "fm_pxg")) for st, c in art.items()}
     return dict(position=position, generatedAt=datetime.now(timezone.utc).isoformat(timespec="seconds"), season="2026/27",
                 firstGw=gameweeks[0]["gw"] if gameweeks else None, gameweeks=gameweeks, clubs=list(clubs.values()), players=plist,
                 startersFromGw=local_gw, latestCompletedGw=max(completed) if completed else 0,
-                model=model, appCurve=app_curve, scoring=dict(appearance60=2, appearance=1, hatTrick=5, yellow=-1, red=-3, penMiss=-3, ownGoal=-3,
+                model=model, appCurve=app_curve, p60Curve=mix_fields.get("p60Curve"), minsMix=mix_fields.get("minsMix"), scoring=dict(appearance60=2, appearance=1, hatTrick=5, yellow=-1, red=-3, penMiss=-3, ownGoal=-3,
                                           keyPassPer=2, **POINTS[position]))
 
 

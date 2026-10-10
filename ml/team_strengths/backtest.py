@@ -130,14 +130,15 @@ def minutes_before(pos, feat, gw, mins_json):
 
 
 # ---------- expected points per player for one gameweek ----------
-def outfield_xp(pos, art, inputs, players, fx_by_club, xmins, app_curve, p60_curve, card90):
+def outfield_xp(pos, art, inputs, players, fx_by_club, xmins, mj, card90, m_full, mix=True):
+    """Gameweek xP per player. mix=True: minutes scenarios, P(60+) x his full game (m_full minutes, appearance 2, clean
+    sheet counts) + P(1-59) x a typical part game (appearance 1); mix=False: the earlier straight scaling by minutes / 90."""
     roles, styles, fm, mates = inputs
     fm_def = pm.fm_defaults(fm) if fm else {}
     out = {}
     for p in players:
         pid, cid = p["id"], p["squadId"]
         mins = xmins.get(pid, 0.0)
-        t = mins / 90
         tot = 0.0
         for f in fx_by_club.get(cid, []):
             if mins <= 0:
@@ -145,28 +146,36 @@ def outfield_xp(pos, art, inputs, players, fx_by_club, xmins, app_curve, p60_cur
             home = f["home"] == cid
             oid = f["away"] if home else f["home"]
             lo, lp = (f["lh"], f["la"]) if home else (f["la"], f["lh"])
-            mu = {}
+            rate90 = {}
             for stat, a in art.items():
                 vals = dict(role=roles.get(pid, {}).get(stat, 1.0), team=styles.get(cid, {}).get(stat, {}).get("team", a["prior"]),
                             opp=styles.get(oid, {}).get(stat, {}).get("opp", a["prior"]), mates=mates.get(pid, {}).get(stat, a["prior"]),
                             lam_own=lo, lam_opp=lp, home=int(home), **fm.get(pid, fm_def))
-                mu[stat] = (rate(a, vals) * a["scale"] + (fm.get(pid, fm_def).get("fm_pxg", 0) if a["pens"] else 0)) * t
-            app = curve(app_curve, mins, "pts")
-            if pos == "DEF":
-                pt = kp.fixture_points(lo, lp, home, 1.0, 10.0, dict(pen=0.0, cards=0.0))
-                x = app + 5 * pt["cs"] * curve(p60_curve, mins, "p") + pt["gcPts"] * t
-                x += sum(nb_pts(mu[s], art[s]["nb_r"], u) for s, u in UNITS.items())
-                x += 7 * mu["goals"] + 3 * mu["assists"]
+                rate90[stat] = rate(a, vals) * a["scale"] + (fm.get(pid, fm_def).get(a.get("pen_col", "fm_pxg"), 0) if a["pens"] else 0)
+            pt = kp.fixture_points(lo, lp, home, 1.0, 10.0, dict(pen=0.0, cards=0.0)) if pos == "DEF" else None
+
+            def at(m, app, cs_w):
+                t = m / 90
+                mu = {k: v * t for k, v in rate90.items()}
+                if pos == "DEF":
+                    x = app + 5 * pt["cs"] * cs_w + pt["gcPts"] * t + sum(nb_pts(mu[s_], art[s_]["nb_r"], u) for s_, u in UNITS.items())
+                    x += 7 * mu["goals"] + 3 * mu["assists"]
+                else:
+                    sc = SCORING[pos]
+                    x = app + sc["goal"] * mu["goals"] + 5 * p_at_least(mu["goals"], art["goals"]["nb_r"], 3) + sc["assist"] * mu["assists"]
+                    x += sc["sot"] * mu["sot"] + nb_pts(mu["kp"], art["kp"]["nb_r"], 2) + (sc["interception"] * mu["int"] if "int" in mu else 0)
+                return x - card90 * t
+            p60 = curve(mj["p60_curve"], mins, "p")
+            if mix:
+                part = max(0.0, curve(mj["app_curve"], mins, "pts") - 2 * p60)
+                tot += p60 * at(m_full.get(pid, mj["bucket_minutes"]["full"]), 2, 1.0) + part * at(mj["bucket_minutes"]["part"], 1, 0.0)
             else:
-                sc = SCORING[pos]
-                x = app + sc["goal"] * mu["goals"] + 5 * p_at_least(mu["goals"], art["goals"]["nb_r"], 3) + sc["assist"] * mu["assists"]
-                x += sc["sot"] * mu["sot"] + nb_pts(mu["kp"], art["kp"]["nb_r"], 2) + (sc["interception"] * mu["int"] if "int" in mu else 0)
-            tot += x - card90 * t
+                tot += at(mins, curve(mj["app_curve"], mins, "pts"), p60 if pos == "DEF" else 0.0)
         out[pid] = tot
     return out
 
 
-def keeper_xp(players, fx_by_club, xmins, saves_model, consts):
+def keeper_xp(players, fx_by_club, xmins, saves_model, consts, mj, mix=True):
     out = {}
     for p in players:
         tot = 0.0
@@ -176,7 +185,13 @@ def keeper_xp(players, fx_by_club, xmins, saves_model, consts):
             row = pd.DataFrame([dict(lam_own=lo, lam_opp=lp, home=int(home))])
             mu = float(kp.predict_saves(saves_model, row)[0])
             tot += kp.fixture_points(lo, lp, home, mu, saves_model["nb_r"], consts)["xp"]
-        out[p["id"]] = tot * xmins.get(p["id"], 0.0) / 90
+        m = xmins.get(p["id"], 0.0)
+        if mix:  # P(60+) x full-game xP + P(1-59) x one appearance point per game
+            p60 = curve(mj["p60_curve"], m, "p")
+            part = max(0.0, curve(mj["app_curve"], m, "pts") - 2 * p60)
+            out[p["id"]] = p60 * tot + part * len(fx_by_club.get(p["squadId"], []))
+        else:
+            out[p["id"]] = tot * m / 90
     return out
 
 
@@ -233,6 +248,7 @@ def main():
         m90 = r["minutes_played"].sum() / 90
         card90[pos] = float((r["yellow_cards"] + 3 * r["red_cards"] + 3 * r["own_goals"] + 3 * r["penalty_misses"]).sum() / m90)
     uses, form_uses = {}, {}
+    calib = []
     weeks = []
     for gw in done:
         fx, start = fixtures_for(rounds, squads, gw)
@@ -249,7 +265,7 @@ def main():
                         name=f"{g['first_name'].iloc[0]} {g['last_name'].iloc[0]}") for pid, g in cur.groupby("player_id")]
         players = [p for p in players if p["squadId"] in fx_by_club]
         real = cur.groupby("player_id").agg(points=("points", "sum"), mins=("minutes_played", "sum"))
-        xp = {}
+        xp, xp_lin = {}, {}
         for pos in POS:
             plist = [dict(p, position=pos) for p in players if p["pos"] == pos]
             xm = minutes_before(pos, mins_feat[pos], gw, mins_json[pos])
@@ -261,13 +277,22 @@ def main():
                     tot = sum(xm.get(i, 0) for i in ids)
                     for i in ids:
                         xm[i] = 90 * xm.get(i, 0) / tot if tot > 0 else 0.0
-                xp.update(keeper_xp(plist, fx_by_club, xm, saves_gw, consts))
+                xp.update(keeper_xp(plist, fx_by_club, xm, saves_gw, consts, mins_json[pos]))
+                xp_lin.update(keeper_xp(plist, fx_by_club, xm, saves_gw, consts, mins_json[pos], mix=False))
                 continue
             art = pm.refit(data[pos], pos, arts[pos], gw, built[pos])
             d_cut = data[pos][(data[pos]["season"] == "2526") | (data[pos]["gameweek"] < gw)]
-            inputs = pm.live_inputs(plist, art, pos, d=d_cut, as_of=start)
-            xp.update(outfield_xp(pos, art, inputs, plist, fx_by_club, xm, mins_json[pos]["app_curve"],
-                                  mins_json[pos].get("p60_curve"), card90[pos]))
+            inputs = pm.live_inputs(plist, art, pos, d=d_cut, as_of=start)[:4]
+            # his full-game minutes: average of his last 10 games of 60+ at this club BEFORE the gameweek (shrunk)
+            f60 = mins_feat[pos]
+            f60 = f60[((f60["season"] == "2526") | (f60["gameweek"] < gw)) & (f60["mins"] >= 60)].sort_values("date")
+            prior_full = mins_json[pos]["bucket_minutes"]["full"]
+            m_full = {}
+            for p_ in plist:
+                g = f60[(f60["player_id"] == p_["id"]) & (f60["squad_id"] == p_["squadId"])]["mins"].tail(10)
+                m_full[p_["id"]] = (g.sum() + 3 * prior_full) / (len(g) + 3)
+            xp.update(outfield_xp(pos, art, inputs, plist, fx_by_club, xm, mins_json[pos], card90[pos], m_full))
+            xp_lin.update(outfield_xp(pos, art, inputs, plist, fx_by_club, xm, mins_json[pos], card90[pos], m_full, mix=False))
         # form baseline: average points over the player's last 5 club games before this gameweek (incl. not playing)
         hist = rows_all[(rows_all["season"] == "2526") | (rows_all["gameweek"] < gw)].sort_values(["season", "gameweek"])
         form = {}
@@ -275,6 +300,8 @@ def main():
             h = hist[(hist["player_id"] == p["id"]) & (hist["squad_id"] == p["squadId"])].tail(5)
             form[p["id"]] = (h["points"].mean() if len(h) else 0.0) * len(fx_by_club.get(p["squadId"], []))
         realised = {p["id"]: float(real.at[p["id"], "points"]) if p["id"] in real.index else 0.0 for p in players}
+        for p in players:  # calibration record: every eligible player, both xP versions
+            calib.append(dict(gw=gw, pos=p["pos"], xp=xp[p["id"]], xp_lin=xp_lin[p["id"]], pts=realised[p["id"]]))
         played = {p["id"]: float(real.at[p["id"], "mins"]) if p["id"] in real.index else 0.0 for p in players}
 
         def score_team(ids, value):
@@ -319,6 +346,13 @@ def main():
                                                hindsight=sum(w["hindsight"]["total"] for w in weeks), xp=round(sum(w["model"]["xp"] for w in weeks), 1))),
                               separators=(",", ":"), allow_nan=False), encoding="utf-8")
     print("wrote", OUT)
+    c = pd.DataFrame(calib)
+    c = c[(c["xp"] > 0) | (c["xp_lin"] > 0)]
+    for name, col in (("mixture (live)", "xp"), ("straight scaling", "xp_lin")):
+        e = c["pts"] - c[col]
+        print(f"{name:18s}: player-gameweeks {len(c)}, MAE {e.abs().mean():.4f}, MSE {(e ** 2).mean():.4f}, mean xP {c[col].mean():.3f} vs actual {c['pts'].mean():.3f}")
+    print("by position, MSE mixture / straight:", {pos: (round(((g["pts"] - g["xp"]) ** 2).mean(), 4), round(((g["pts"] - g["xp_lin"]) ** 2).mean(), 4))
+                                                   for pos, g in c.groupby("pos")})
 
 
 if __name__ == "__main__":

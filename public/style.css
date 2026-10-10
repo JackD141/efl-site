@@ -932,3 +932,22 @@ input[type="range"]::-moz-range-thumb:hover {
 .pp-m-full { background: #1b5e20; color: #fff; }
 .pp-m-part { background: #a5d6a7; color: #1b3a1d; }
 .pp-m-zero { background: #e0e0e0; color: #757575; }
+
+/* Backtest page */
+.bt-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin: 14px 0 20px; }
+.bt-tile { background: #f5f5f5; border-radius: 10px; padding: 14px; }
+.bt-tile-main { background: #f05a28; color: #fff; }
+.bt-num { font-size: 2rem; font-weight: 800; line-height: 1.1; }
+.bt-lab { font-weight: 700; font-size: 0.85rem; margin-top: 2px; }
+.bt-sub { font-size: 0.75rem; opacity: 0.8; margin-top: 4px; }
+.bt-chart-wrap { position: relative; max-width: 800px; }
+.bt-chart { width: 100%; height: auto; display: block; }
+.bt-grid { stroke: #e6e6e6; stroke-width: 1; }
+.bt-axis { fill: #777; font-size: 11px; }
+.bt-label { fill: #1a1a1a; font-size: 12px; font-weight: 700; }
+.bt-cross { stroke: #bbb; stroke-width: 1; }
+.bt-tip { position: absolute; top: 8px; background: #fff; border: 1px solid #ddd; border-radius: 6px; padding: 6px 10px; font-size: 0.8rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12); pointer-events: none; min-width: 170px; }
+.bt-tip i, .bt-legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: middle; }
+.bt-legend { display: flex; gap: 18px; flex-wrap: wrap; font-size: 0.8rem; color: #555; margin: 6px 0 18px; }
+.bt-team { margin: 6px 0 10px; }

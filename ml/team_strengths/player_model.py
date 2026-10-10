@@ -316,15 +316,17 @@ def main(pos):
 
 
 # ---------- live inputs for the site (attackers.py / defenders.py) ----------
-def live_inputs(players, art, pos):
+def live_inputs(players, art, pos, d=None, as_of=None):
     """Current role / team-mates rate per stat (relative to his CURRENT club and league), club / opponent style per stat
-    (this season, carried-over prior), FotMob history rates as of today. Returns roles, styles, fm, mates."""
-    d = load(pos)
+    (this season, carried-over prior), FotMob history rates as of today. Returns roles, styles, fm, mates.
+    For a backtest pass d already cut to games before the gameweek and as_of = that gameweek's first match date."""
+    d = load(pos) if d is None else d
     lv = levels()["2627"]
     plist = [p for p in players if p["position"] == pos]
     cur_club = {p["id"]: p["squadId"] for p in plist}
     roles, styles, mates_out = {}, {}, {}
-    last_gw = int(d.loc[d["season"] == "2627", "gameweek"].max())
+    cur_rows = d.loc[d["season"] == "2627", "gameweek"]
+    last_gw = int(cur_rows.max()) if len(cur_rows) else 0
     for stat, a in art.items():
         spec = SPECS[pos][stat]
         tcol, prior, k, n = spec["target"], a["prior"], a["k_role"], a["window"]
@@ -362,13 +364,32 @@ def live_inputs(players, art, pos):
             p0 = carry.get(cid, prior)
             mates_out.setdefault(pid, {})[stat] = round(float((max(cx - ox, 0) + dm.K_TEAM * p0) / (max(cm - om, 0) / 90 + dm.K_TEAM)), 4)
     # FotMob history features, named as in the model (fm_* = last 20 appearances, fm40_* = last 40); fm_pxg = penalty xG
-    today = pd.Timestamp.now().normalize()
+    today = pd.Timestamp.now().normalize() if as_of is None else pd.Timestamp(as_of).normalize()
     hist = fmf.fotmob_history()
     pr = fmf.signal_rates(pd.DataFrame({"player_id": [p["id"] for p in plist], "date": today}), k=3.0, hist=hist)
     pr = fmf.signal_rates(pr, k=3.0, n=40, hist=hist, prefix="fm40_")
     used = sorted({f for a in art.values() for f in a["features"] if f.startswith("fm")} | {"fm_pxg"})
     fm = {int(r["player_id"]): {f: round(float(r[f]), 4) for f in used} for _, r in pr.iterrows()}
     return roles, styles, fm, mates_out
+
+
+def refit(d, pos, art, before_gw, built=None):
+    """The artifact's configuration (features, window, role shrinkage) refitted on 2025/26 + 2026/27 games before
+    `before_gw` only (for the backtest). built: optional cache {stat: build output} of the full feature table."""
+    out = {}
+    for stat, a in art.items():
+        spec = SPECS[pos][stat]
+        if built is not None and stat in built:
+            x, prior, carry = built[stat]
+        else:
+            x, prior, carry = build(d, spec, a["window"], a["k_role"], league_adjustments(pos)[stat])
+            if built is not None:
+                built[stat] = (x, prior, carry)
+        tr = x[(x["season"] == "2526") | (x["gameweek"] < before_gw)]
+        f = fit(tr, a["features"], spec)
+        out[stat] = dict(a, scale=f["scale"], intercept=float(f["model"].intercept_), coef=f["model"].coef_.tolist(),
+                         scaler_mean=f["scaler"][0].tolist(), scaler_sd=f["scaler"][1].tolist(), nb_r=f["r"])
+    return out
 
 
 def fm_defaults(fm):

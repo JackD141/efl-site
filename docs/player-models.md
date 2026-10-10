@@ -27,7 +27,7 @@ history per 90 over his last 20 or 40 appearances. Negative-binomial spread for 
 `ml/fotmob/set_pieces.py` reads penalties and direct free kicks from FotMob shot maps; corners come from the match stats.
 As of each match (last 40 appearances): share of his team's penalties (shrunk with 2 pseudo-penalties at the typical
 share), share of his team's corners, free-kick xG per 90. Goals add share x 0.094 penalties per team-match x 75%
-conversion per 90; key passes use corner share. Tags: Pens (2+ penalties and half or more of his team's), Corners (10+ and
+conversion per 90; key passes use corner share. Tags (with a reason shown on hover): Pens (took his club's most recent penalty, or 2+ and half or more of his team's; our history is EFL-only, so a recent arrival from the Premier League needs the first), Corners (10+ and
 a quarter or more), FKs (3+ free-kick shots).
 
 ## Minutes

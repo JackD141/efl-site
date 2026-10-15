@@ -1,0 +1,245 @@
+Burnley
+Wolves
+16 Oct
+20:00
+15/8
+12/5
+13/10
+Watford
+Charlton
+17 Oct
+12:30
+29/20
+23/10
+9/5
+Middlesbrough
+Cardiff
+17 Oct
+12:30
+8/15
+18/5
+4/1
+Millwall
+Lincoln
+17 Oct
+12:30
+8/13
+29/10
+4/1
+Norwich
+Portsmouth
+17 Oct
+15:00
+8/11
+29/10
+7/2
+Swansea
+West Ham
+17 Oct
+15:00
+21/10
+5/2
+6/5
+Wrexham
+Preston
+17 Oct
+15:00
+4/6
+29/10
+15/4
+Bristol City
+Sheff Utd
+17 Oct
+15:00
+21/20
+27/10
+12/5
+West Brom
+Blackburn
+17 Oct
+15:00
+10/11
+13/5
+3/1
+Derby
+Stoke
+17 Oct
+15:00
+9/5
+12/5
+7/5
+Southampton
+Bolton
+17 Oct
+15:00
+40/85
+15/4
+9/2
+Birmingham
+QPR
+17 Oct
+15:00
+19/20
+5/2
+14/5
+Peterborough
+Burton Albion
+17 Oct
+12:30
+4/5
+3/1
+29/10
+MK Dons
+Luton
+17 Oct
+12:30
+21/10
+14/5
+11/10
+Sheff Wed
+AFC Wimbledon
+17 Oct
+15:00
+13/20
+31/10
+15/4
+Leicester
+Doncaster
+17 Oct
+15:00
+4/5
+3/1
+14/5
+Bradford
+Stevenage
+17 Oct
+15:00
+10/11
+12/5
+31/10
+Stockport
+Bromley
+17 Oct
+15:00
+2/9
+11/2
+10/1
+Wycombe
+Notts Co
+17 Oct
+15:00
+1/1
+27/10
+13/5
+Plymouth
+Huddersfield
+17 Oct
+15:00
+13/8
+27/10
+29/20
+Wigan
+Reading
+17 Oct
+15:00
+12/5
+11/4
+1/1
+Leyton Orient
+Blackpool
+17 Oct
+15:00
+6/5
+27/10
+21/10
+Barnsley
+Cambridge Utd
+17 Oct
+15:00
+13/10
+11/4
+7/4
+Shrewsbury
+Bristol Rovers
+17 Oct
+12:30
+21/10
+12/5
+13/10
+Fleetwood Town
+Rotherham
+17 Oct
+12:30
+6/5
+5/2
+21/10
+Colchester
+Exeter
+17 Oct
+15:00
+23/20
+5/2
+23/10
+Swindon
+Walsall
+17 Oct
+15:00
+13/8
+27/10
+29/20
+Newport County
+York City
+17 Oct
+15:00
+27/10
+27/10
+19/20
+Oldham
+Cheltenham
+17 Oct
+15:00
+7/10
+29/10
+18/5
+Salford City
+Crawley Town
+17 Oct
+15:00
+4/11
+4/1
+6/1
+Port Vale
+Chesterfield
+17 Oct
+15:00
+6/4
+29/10
+6/4
+Tranmere
+Barnet
+17 Oct
+15:00
+12/5
+11/4
+1/1
+Grimsby
+Northampton
+17 Oct
+15:00
+8/11
+14/5
+18/5
+Accrington
+Gillingham
+17 Oct
+15:00
+29/20
+23/10
+9/5
+Crewe
+Rochdale
+17 Oct
+15:00
+20/23
+11/4
+29/10

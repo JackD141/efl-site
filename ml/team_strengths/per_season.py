@@ -44,15 +44,21 @@ def market_targets(row, prefix="AvgC"):
     """[pH, pD, pA, pOver2.5] de-vigged from average odds (closing columns by default; prefix="Avg" for upcoming fixtures)."""
     try:
         h = devig(row[f"{prefix}H"], row[f"{prefix}D"], row[f"{prefix}A"])
-        o = devig(row[f"{prefix}>2.5"], row[f"{prefix}<2.5"])
     except Exception:
         return None
-    t = np.array([*h, o[0]])
-    return None if np.isnan(t).any() else t
+    if np.isnan(h).any():
+        return None
+    try:
+        o = devig(row[f"{prefix}>2.5"], row[f"{prefix}<2.5"])
+    except Exception:
+        o = np.array([np.nan])
+    # no over/under price (e.g. pasted 1X2 odds): the 1X2 alone still fixes both expected goals (the draw price carries
+    # the total); checked on 450 games of 2025/26: within ~0.03 goals per team, ~0.01 club points per game
+    return np.array(h) if np.isnan(o).any() else np.array([*h, o[0]])
 
 
 def invert(target, rho):
-    f = lambda x: probs_from_lams(np.exp(x[0]), np.exp(x[1]), rho) - target
+    f = lambda x: probs_from_lams(np.exp(x[0]), np.exp(x[1]), rho)[:len(target)] - target
     r = least_squares(f, x0=np.log([1.4, 1.1]), xtol=1e-8, ftol=1e-8)
     return np.exp(r.x), float(np.sqrt((r.fun ** 2).mean()))
 

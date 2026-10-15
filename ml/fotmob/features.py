@@ -33,7 +33,7 @@ def fotmob_history():
     for k in SIGNALS:
         h[k] = pd.to_numeric(h.get(k), errors="coerce").fillna(0)  # FotMob leaves xG / shots out when there were none
     h["pxg"] = (h["xg"] - h["npxg"]).clip(lower=0)
-    h["date"] = pd.to_datetime(h["utc"], utc=True).dt.tz_localize(None).dt.normalize()
+    h["date"] = pd.to_datetime(h["utc"], utc=True, format="ISO8601").dt.tz_localize(None).dt.normalize()
     h["level"] = h["league"].map({"Championship": 1, "League One": 2, "League Two": 3}).fillna(2).astype(int)
     return h.sort_values(["player_id", "date"]).reset_index(drop=True)
 
@@ -108,7 +108,7 @@ def setpiece_history():
     h = h.merge(team, on=["match_id", "fm_team_id"])
     mp = pd.read_csv(FM / "player_map.csv")[["fm_player_id", "player_id"]]
     h = h.merge(mp, on="fm_player_id")
-    h["date"] = pd.to_datetime(h["utc"], utc=True).dt.tz_localize(None).dt.normalize()
+    h["date"] = pd.to_datetime(h["utc"], utc=True, format="ISO8601").dt.tz_localize(None).dt.normalize()
     return h.sort_values(["player_id", "date"]).reset_index(drop=True)
 
 

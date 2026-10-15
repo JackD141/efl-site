@@ -4,10 +4,13 @@
     python weekly_update.py 10                  # a given gameweek
     python weekly_update.py --override overrides/gw10_betfair.csv     # hand-pasted prices for this run
     python weekly_update.py --no-retrain --no-backtest                # quick re-run (e.g. after a late team-news edit)
+    python weekly_update.py --allow-missing-odds                      # go ahead although the odds are not up yet
 
 Before running: the fantasy stats for every finished game must be in data/2026_27 (Export Stats / the export API, then
 git pull). This script checks that and stops if a finished gameweek is missing or empty.
-1. odds + results (football-data.co.uk), EFL rounds / squads / players
+1. odds + results (football-data.co.uk), EFL rounds / squads / players. STOPS if fewer than 80% of the gameweek's first set
+   of games (a double gameweek has two) have odds yet: ask Jack whether to wait for football-data, paste Betfair prices
+   (--override) or go ahead on the team-strength model (--allow-missing-odds)
 2. FotMob: new matches -> link players -> set pieces
 3. retrain on everything to date: minutes models (all positions), stat models (MID / FWD / DEF). The model CHOICES are
    re-made on the 2025/26 validation folds exactly as before (deterministic); only the coefficients see the new games
@@ -47,7 +50,39 @@ def check_stats(rounds):
     return missing
 
 
-def main(gw=None, overrides=(), retrain=True, backtest=True):
+MIN_PRICED = 0.8  # share of the first set of fixtures that must have market odds before we run without asking
+
+
+def odds_coverage(rounds, squads, gw, override_files=()):
+    """Which of the gameweek's games have market odds (football-data fixtures, plus any override CSVs). The gameweek is
+    split into sets at gaps of 2+ days (a double gameweek: weekend + midweek). Returns (gw, [(set label, games, priced)])."""
+    import fetch_data
+    import overrides as ov
+    from predict_gw import market_lambdas
+    season = [r for r in rounds if r.get("gameMode", "season") == "season"]
+    if gw is None:
+        now = pd.Timestamp.now(tz="UTC")
+        gw = next(r["roundNumber"] for r in season if r["status"] != "completed" and any(pd.Timestamp(g["date"]) > now for g in r["games"]))
+    csv = fetch_data.CACHE / "fd_fixtures.csv"
+    if override_files:
+        csv, _ = ov.apply_overrides(csv, override_files, squads, fetch_data.CACHE / "fd_fixtures_overridden.csv")
+    priced = set(market_lambdas(csv, squads))
+    games = sorted(next(r for r in season if r["roundNumber"] == gw)["games"], key=lambda g: g["date"])
+    sets, cur = [], []
+    for g in games:
+        if cur and (pd.Timestamp(g["date"][:10]) - pd.Timestamp(cur[-1]["date"][:10])).days >= 2:
+            sets.append(cur); cur = []
+        cur.append(g)
+    if cur:
+        sets.append(cur)
+    out = []
+    for i, st in enumerate(sets):
+        label = f"set {i + 1} ({st[0]['date'][:10]} to {st[-1]['date'][:10]})"
+        out.append((label, len(st), sum((g["homeId"], g["awayId"]) in priced for g in st)))
+    return gw, out
+
+
+def main(gw=None, overrides=(), retrain=True, backtest=True, allow_missing_odds=False):
     import fetch_data
     t = step("1. odds, results, EFL rounds / squads / players")
     fetch_data.football_data()
@@ -58,6 +93,16 @@ def main(gw=None, overrides=(), retrain=True, backtest=True):
         raise SystemExit(f"Fantasy stats missing or empty for finished gameweek(s) {missing}: run the export (docs/weekly-runbook.md "
                          "step 1), git pull, then re-run.")
     print(f"  done in {time.time() - t:.0f}s; fantasy stats present for every finished gameweek")
+    squads = {s_["id"]: s_ for s_ in _}
+    gw_check, cover = odds_coverage(rounds, squads, gw, overrides)
+    print(f"  GW{gw_check} market odds: " + "; ".join(f"{lab}: {p} of {n} games" for lab, n, p in cover))
+    first_label, first_n, first_p = cover[0]
+    if first_p < MIN_PRICED * first_n and not allow_missing_odds:
+        raise SystemExit(
+            f"\nSTOP: only {first_p} of {first_n} games in GW{gw_check} {first_label} have market odds yet. Ask Jack (docs/weekly-runbook.md):\n"
+            "  - wait for football-data.co.uk to post them (usually by Friday for weekend games), then re-run;\n"
+            "  - or paste Betfair prices: overrides.py import ..., then re-run with --override overrides/<file>.csv;\n"
+            "  - or go ahead with the team-strength model for the unpriced games: re-run with --allow-missing-odds.")
 
     import fetch_fotmob
     import link_fotmob
@@ -103,5 +148,6 @@ if __name__ == "__main__":
     ap.add_argument("--override", nargs="+", default=[], metavar="CSV")
     ap.add_argument("--no-retrain", action="store_true")
     ap.add_argument("--no-backtest", action="store_true")
+    ap.add_argument("--allow-missing-odds", action="store_true", help="run even if most of the first set of games has no odds yet")
     a = ap.parse_args()
-    main(a.gw, a.override, retrain=not a.no_retrain, backtest=not a.no_backtest)
+    main(a.gw, a.override, retrain=not a.no_retrain, backtest=not a.no_backtest, allow_missing_odds=a.allow_missing_odds)

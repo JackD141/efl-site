@@ -25,6 +25,12 @@ cd ml/team_strengths
 `weekly_update.py` does, in order:
 1. downloads odds and results (football-data.co.uk) and EFL rounds / squads / players; **stops** if a finished gameweek's
    stats file is missing or empty (go back to step 1)
+   - **odds check: stop and ask Jack.** It prints how many games have market odds, per set of fixtures (a double gameweek
+     has two sets, e.g. Saturday and Tuesday). If fewer than 80% of the FIRST set are priced it stops. Tell Jack and ask:
+     wait for football-data.co.uk (fixture odds usually appear by Friday for weekend games), paste Betfair prices
+     (`--override`, see "Odds overrides" in ml/team_strengths/README.md), or go ahead on the team-strength model for the
+     unpriced games (`--allow-missing-odds`). The second set is normally priced after the weekend: re-run then
+     (`--no-retrain` is enough) so the midweek games use market odds before their deadline.
 2. FotMob: fetches new matches (`ml/fotmob/fetch_fotmob.py 2026/2027`), re-links players (`link_fotmob.py`), rebuilds
    set pieces (`set_pieces.py`). FotMob data lives only on this machine (`data/fotmob/`, gitignored)
 3. retrains on everything to date: `minutes_model.py` (MID, FWD, DEF, GK) and `player_model.py` (MID, FWD, DEF). The

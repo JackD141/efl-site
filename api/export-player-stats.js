@@ -97,9 +97,10 @@ async function getAllSquads() {
 function buildGamesByRound(rounds) {
   const gamesByRound = {};
   for (const round of rounds) {
-    if (round.status !== 'completed') continue;
     gamesByRound[round.roundNumber] = {};
     for (const game of round.games) {
+      // finished games only; the EFL can leave a round "playing" for days after its last game, so go by the game
+      if (round.status !== 'completed' && game.status !== 'completed') continue;
       // Store games as arrays to handle multiple games per squad per round
       const homeId = game.homeId;
       const awayId = game.awayId;
@@ -398,6 +399,7 @@ module.exports = async function handler(req, res) {
     // Generate CSV content for each gameweek
     const csvsByGameweek = {};
     for (const [gameweek, stats] of Object.entries(statsByGameweek)) {
+      if (!stats.length) continue;  // nothing finished yet: do not overwrite with an empty file
       csvsByGameweek[gameweek] = generateCSVContent(gameweek, stats);
     }
 

@@ -11,10 +11,15 @@ git pull). This script checks that and stops if a finished gameweek is missing o
 1. odds + results (football-data.co.uk), EFL rounds / squads / players. STOPS if fewer than 80% of the gameweek's first set
    of games (a double gameweek has two) have odds yet: ask Jack whether to wait for football-data, paste Betfair prices
    (--override) or go ahead on the team-strength model (--allow-missing-odds)
-2. FotMob: new matches -> link players -> set pieces
+2. FotMob: new matches -> link players -> set pieces; then DATA CHECKS (data_checks.py): EFL stats complete and
+   consistent (points recompute), every team name maps to one club in the right league, football-data and FotMob dates
+   and scores agree with the EFL, priced fixtures are real EFL fixtures (same home / away, same date), FotMob links
+   cover 95%+ with agreeing minutes and goals. Any FAIL stops the run
 3. retrain on everything to date: minutes models (all positions), stat models (MID / FWD / DEF). The model CHOICES are
    re-made on the 2025/26 validation folds exactly as before (deterministic); only the coefficients see the new games
-4. the gameweek's predictions: club_plan / keeper / defender / mid / fwd JSON for the site (run_gameweek.py)
+4. the gameweek's predictions: club_plan / keeper / defender / mid / fwd JSON for the site (run_gameweek.py), then
+   checks on them: same gameweek everywhere, each club's fixtures and kick-off times equal the EFL's, valid probabilities,
+   minutes in 0-90
 5. backtest over every finished gameweek (each refitted on games before it) -> backtest.json
 6. reference xP for checking the pages' maths (check_site_maths.py -> public/data/check_xp.json, not committed)
 """
@@ -113,6 +118,14 @@ def main(gw=None, overrides=(), retrain=True, backtest=True, allow_missing_odds=
     set_pieces.main()
     print(f"  done in {time.time() - t:.0f}s")
 
+    import data_checks
+    t = step("2b. data checks: stitching EFL / football-data / FotMob (stops on FAIL)")
+    import fetch_data as fd_
+    fixtures_csv = fd_.CACHE / ("fd_fixtures_overridden.csv" if overrides else "fd_fixtures.csv")
+    fails, warns = data_checks.run(inputs=True, outputs=False, gw=gw_check, fixtures_csv=fixtures_csv)
+    if fails:
+        raise SystemExit(f"STOP: {len(fails)} data check(s) failed (output/data_checks.txt). Fix the join / parse before publishing.")
+
     if retrain:
         import minutes_model
         import player_model
@@ -127,6 +140,10 @@ def main(gw=None, overrides=(), retrain=True, backtest=True, allow_missing_odds=
     t = step("4. predictions for the site")
     gw, fx, clubs = run_gameweek.main(gw, list(overrides))
     print(f"  GW{gw}: done in {time.time() - t:.0f}s")
+    t = step("4b. checks on the site data (stops on FAIL)")
+    fails, warns = data_checks.run(inputs=False, outputs=True, gw=gw)
+    if fails:
+        raise SystemExit(f"STOP: {len(fails)} check(s) on the site data failed (output/data_checks.txt). Do not push.")
 
     if backtest:
         import backtest as bt

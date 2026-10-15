@@ -33,10 +33,21 @@ cd ml/team_strengths
      (`--no-retrain` is enough) so the midweek games use market odds before their deadline.
 2. FotMob: fetches new matches (`ml/fotmob/fetch_fotmob.py 2026/2027`), re-links players (`link_fotmob.py`), rebuilds
    set pieces (`set_pieces.py`). FotMob data lives only on this machine (`data/fotmob/`, gitignored)
+   - **data checks** (`data_checks.py`, about 30 s; also runnable on its own). We stitch together four sources, so every
+     join is checked against another source: EFL stats cover exactly the finished games and their points recompute from
+     the stats; every football-data / FotMob team name maps to exactly one club in the right league; football-data and
+     FotMob dates AND scores agree with the EFL for every finished game (a swapped home / away or a wrong name match
+     shows up as a score mismatch); priced upcoming games are real EFL fixtures on the right date and the right way round;
+     odds-implied expected goals are sane; FotMob timestamps parse; 95%+ of appearances link to FotMob with agreeing
+     minutes and goals; model rows have real match dates. **FAIL stops the run**; WARN means look before publishing.
+     Results in `ml/team_strengths/output/data_checks.txt`. Each check was tested by corrupting a copy of the data
+     (swapped home / away, wrong date, absurd odds, unknown name, altered points): all were caught.
 3. retrains on everything to date: `minutes_model.py` (MID, FWD, DEF, GK) and `player_model.py` (MID, FWD, DEF). The
    feature choices are re-made on the 2025/26 validation folds exactly as before (same result); only the coefficients
    learn from the new games. Never change a choice because of this season's numbers (see docs/ml-methodology.md)
-4. builds the gameweek's predictions for the site (`run_gameweek.py`): club_plan / keeper / defender / mid / fwd JSON
+4. builds the gameweek's predictions for the site (`run_gameweek.py`): club_plan / keeper / defender / mid / fwd JSON, then
+   checks them (`data_checks.py` outputs): all plans for the same gameweek, every club's fixtures and kick-off times equal
+   the EFL's, probabilities valid, expected minutes 0-90; FAIL stops before anything is pushed
 5. re-runs the backtest over every finished gameweek (`backtest.py`, each gameweek refitted on games before it)
 6. writes the reference xP for checking the pages (`check_site_maths.py` -> `public/data/check_xp.json`)
 Flags: `--no-retrain` and `--no-backtest` for a quick re-run (e.g. after a team-news minutes edit).

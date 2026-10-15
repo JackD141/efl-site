@@ -92,6 +92,14 @@ Set-piece numbers: `ml/team_strengths/models/exp_setpieces_results.json` (`exp_s
 Full GBM numbers: `ml/team_strengths/models/exp_gbm_results.json`.
 
 ## 6. Checks before shipping
+- **Data integrity** (`ml/team_strengths/data_checks.py`, run by `weekly_update.py`; FAIL stops the run): we join EFL
+  fantasy stats, EFL fixtures, football-data.co.uk and FotMob, so every join is cross-checked against another source
+  (stats cover exactly the finished games and their points recompute; one club per team name, right league; dates and
+  scores agree across sources for every finished game; priced fixtures are real EFL fixtures, right way round, right
+  date; sane odds-implied expected goals; FotMob timestamps parse; FotMob links 95%+ with agreeing minutes / goals;
+  site fixtures and kick-offs equal the EFL's). Each check was tested by corrupting a copy of the data. Add a check
+  whenever a new source or join is added. Known past slips this would have caught: EFL round left "playing" (empty
+  export), stale football-data fixture list, FotMob timestamp format change (15 Oct 2026).
 - JS equals Python: `python ml/team_strengths/check_site_maths.py` writes the reference (public/data/check_xp.json,
   gitignored); compare on each Player Picks tab and the homepage (`playerWeek`) as described in its docstring. 10 Oct:
   max difference 1e-9 (MID / DEF), 2e-5 (FWD, Poisson goals), keepers 5e-4 on the homepage (JSON rounding).

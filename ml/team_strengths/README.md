@@ -9,6 +9,9 @@ it needs clean-sheet and goals-scored probabilities.
 
 ## Run it every gameweek
 
+**The full weekly refresh (stats export, FotMob, retraining, all site data, backtest) is `weekly_update.py`; see
+`docs/weekly-runbook.md`.** `run_gameweek.py` below is step 4 of it (predictions only).
+
 ```bash
 cd ml/team_strengths
 ../../venv/Scripts/python.exe run_gameweek.py        # next gameweek that has not completed

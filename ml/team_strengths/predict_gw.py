@@ -53,8 +53,11 @@ def fit_current(as_of, squads, fixtures_csv=None, half_life=HALF_LIFE):
         n_up = 0
         if fixtures_csv is not None:
             up = upcoming_lambdas(fixtures_csv, div)
+            if len(up):  # football-data's fixture list can lag: drop games already played (they are in the results)
+                up = up[pd.to_datetime(up["Date"]) >= as_of]
             n_up = len(up)
             d = pd.concat([d, up], ignore_index=True)
+        d["Date"] = pd.to_datetime(d["Date"])  # an empty upcoming list comes back untyped
         age = np.clip((as_of - d["Date"]).dt.days.to_numpy(), 0, None)
         w = 0.5 ** (age / half_life)
         fit = fit_strengths(d, d["lamH"].to_numpy(), d["lamA"].to_numpy(), ridge=RIDGE, weights=w)

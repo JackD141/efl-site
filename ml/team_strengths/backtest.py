@@ -230,7 +230,9 @@ def best_team(cands, value, cap_value=None):
 def main():
     rounds = json.load(open(HERE / "cache" / "rounds.json", encoding="utf-8"))
     squads = {s["id"]: s for s in json.load(open(HERE / "cache" / "squads.json", encoding="utf-8"))}
-    done = sorted(r["roundNumber"] for r in rounds if r.get("gameMode", "season") == "season" and r["status"] == "completed")
+    # finished gameweeks: every game completed (or postponed); the EFL can leave a round "playing" for days after it ends
+    done = sorted(r["roundNumber"] for r in rounds if r.get("gameMode", "season") == "season" and r["games"]
+                  and all(g.get("status") in ("completed", "postponed") for g in r["games"]) and any(g.get("status") == "completed" for g in r["games"]))
     # data loaded once; every step below only uses rows before the gameweek
     data = {pos: pm.load(pos) for pos in ("MID", "FWD", "DEF")}
     arts = {pos: json.loads(pm.model_path(pos).read_text(encoding="utf-8")) for pos in ("MID", "FWD", "DEF")}

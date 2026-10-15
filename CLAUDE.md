@@ -20,6 +20,7 @@ serverless functions, deployed from `main` at https://dexters-corner.vercel.app 
 - `docs/club-planner.md`: what the Club Planner is, every design decision and why, test results, gotchas, state of play.
 - `ml/team_strengths/README.md`: how to run the weekly pipeline and the model process/results.
 - `docs/defender-model.md`: the defender model (role x club style x opponent style), evidence and checks.
+- `docs/weekly-runbook.md`: **the weekly refresh, step by step** (export, update, check, push).
 - `docs/ml-methodology.md`: **read first for any model work**: protocol, leakage rules + audit, experiment log, next steps.
 - `docs/player-models.md`: **current** player models for all positions (FotMob xG/xA, minutes model, protocol, results). Supersedes the stat parts of attacker-model.md / defender-model.md.
 - `docs/attacker-model.md`: the midfielder / forward model (goals, assists, shots on target, key passes, interceptions).
@@ -30,10 +31,11 @@ serverless functions, deployed from `main` at https://dexters-corner.vercel.app 
 ## Commands
 
 ```bash
-# weekly refresh (Jack runs this himself, then commits + pushes the JSON; do not automate unless asked)
-# when he pastes Betfair prices: see ml/team_strengths/README.md "Odds overrides" (run_gameweek.py <gw> --override <csv>)
-cd ml/team_strengths && ../../venv/Scripts/python.exe run_gameweek.py        # next pick-able gameweek
-git add public/data/*_plan.json && git commit && git push                  # deploys the new data
+# weekly refresh: FULL STEPS IN docs/weekly-runbook.md (Jack initiates it; do not automate unless asked)
+# 1. export fantasy stats (Export Stats button or POST /api/export-player-stats), git pull
+# 2. everything else in order (data, FotMob, retrain, predictions, backtest, page check):
+cd ml/team_strengths && ../../venv/Scripts/python.exe weekly_update.py     # [--override overrides/<csv>] for Betfair prices
+# 3. check pages, 4. commit public/data/*.json + ml/team_strengths/models/*, push (deploys)
 ```
 Use the repo's venv: `./venv/Scripts/python.exe` (Windows). The shell is Git Bash on Windows (CRLF warnings are normal).
 There is **no Node** on this machine, so API functions cannot be run locally: test their logic in the browser pane with

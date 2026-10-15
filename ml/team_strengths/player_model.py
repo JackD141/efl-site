@@ -10,6 +10,7 @@ Per stat, a Poisson GLM with minutes exposure on standardised logs of candidate 
   opp       what same-position players do against this week's opponent
   lam_own / lam_opp / home    the match odds (expected goals each way) and home advantage
   fm_* / fm40_*  his FotMob per-90 history over the last 20 / 40 appearances (from 2024/25, any EFL club)
+  fm40h20_*      the same over the last 40 with recent games weighted more (half-life 20 appearances; exp_recency.py)
 Goals and assists are modelled through their expected versions: the GLM predicts match npxG (xA) per 90, then
 goals = c * npxG + his penalty-xG rate and assists = c * xA, c fitted on training data.
 Protocol: choose window / role shrinkage / feature set on two rolling validation folds inside 2025/26 (log-likelihood of
@@ -71,6 +72,14 @@ DEF_CANDS = {
     **{st: {"base": BASE, "mates": BM, f"mates + {st} hist": BM + [f"fm_{st}"], f"mates + {st} hist40": BM + [f"fm40_{st}"]}
        for st in ("clr", "blk", "tkl")},
 }
+# every candidate on the 40-game history also gets a recency-weighted version, LEAST preferred (chosen only if it beats the
+# equal-weight version by more than TOL on the validation folds; exp_recency.py found that for MID key passes, DEF clearances)
+RECENT = ("fm40_", "fm40h20_")
+for _c in (ATTACK_CANDS, DEF_CANDS):
+    for _st, _cs in _c.items():
+        for _name, _f in list(_cs.items()):
+            if any(x.startswith(RECENT[0]) for x in _f):
+                _cs[_name + " (recency-weighted)"] = [x.replace(*RECENT) for x in _f]
 CANDS = {"MID": ATTACK_CANDS, "FWD": {k: v for k, v in ATTACK_CANDS.items() if k != "int"}, "DEF": DEF_CANDS}
 WINDOWS = [8, 12, 46]
 K_ROLES = [3.0, 10.0, 30.0]
@@ -109,6 +118,7 @@ def load(pos):
     hist = fmf.fotmob_history()
     d = fmf.signal_rates(mm.attach_dates(d), k=3.0, hist=hist)
     d = fmf.signal_rates(d, k=3.0, n=40, hist=hist, prefix="fm40_")
+    d = fmf.signal_rates(d, k=3.0, n=40, hist=hist, prefix="fm40h20_", half_life=20)
     d = fmf.setpiece_features(d)  # penalty / corner shares, free kicks (exp_setpieces.py)
     fm = link_fotmob.fotmob_for_efl()[KEY + ["fm_minutes", "npxg", "xa"]].rename(columns={"npxg": "m_npxg", "xa": "m_xa"})
     d = d.merge(fm, on=KEY, how="left")
@@ -371,6 +381,7 @@ def live_inputs(players, art, pos, d=None, as_of=None):
     hist = fmf.fotmob_history()
     pr = fmf.signal_rates(pd.DataFrame({"player_id": [p["id"] for p in plist], "date": today}), k=3.0, hist=hist)
     pr = fmf.signal_rates(pr, k=3.0, n=40, hist=hist, prefix="fm40_")
+    pr = fmf.signal_rates(pr, k=3.0, n=40, hist=hist, prefix="fm40h20_", half_life=20)
     pr = fmf.setpiece_features(pr)
     used = sorted({f for a in art.values() for f in a["features"] if f.startswith("fm")} | {a.get("pen_col", "fm_pxg") for a in art.values()})
     fm = {int(r["player_id"]): {f: round(float(r[f]), 4) for f in used} for _, r in pr.iterrows()}

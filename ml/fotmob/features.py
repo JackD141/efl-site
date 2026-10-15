@@ -47,18 +47,29 @@ def league_priors(h):
     return {k: float(h[k].sum() / m90) for k in RATES}
 
 
-def signal_rates(rows, k=5.0, n=N_GAMES, hist=None, priors=None, prefix="fm_", step_mult=None):
+def recency_sum(h, col, n, half_life):
+    """Per player, sum of col over his last n rows (h sorted by player, date), the game a rows back weighted
+    0.5 ** (a / half_life)."""
+    ker, out, v = 0.5 ** (np.arange(n) / half_life), np.zeros(len(h)), h[col].to_numpy(float)
+    for _, idx in h.groupby("player_id").indices.items():
+        out[idx] = np.convolve(v[idx], ker)[:len(idx)]
+    return out
+
+
+def signal_rates(rows, k=5.0, n=N_GAMES, hist=None, priors=None, prefix="fm_", step_mult=None, half_life=None):
     """rows: DataFrame with player_id and date (Timestamp, day). Returns rows + <prefix><signal> per-90 columns + <prefix>n90.
     step_mult {signal: {1: up, -1: down}}: games played in a different league from the row's own league ('level' column
-    of rows: 1 Championship .. 3 League Two) count x up**steps (old game lower) or x down**steps (old game higher)."""
+    of rows: 1 Championship .. 3 League Two) count x up**steps (old game lower) or x down**steps (old game higher).
+    half_life: within the last n, the game a appearances back counts 0.5 ** (a / half_life) (exp_recency.py); None = equal."""
     h = fotmob_history() if hist is None else hist
     priors = priors or league_priors(h)
     g = h.groupby("player_id")
-    roll = pd.DataFrame({"player_id": h["player_id"], "date": h["date"],
-                         "m90": g["mins"].transform(lambda s: s.rolling(n, min_periods=1).sum()) / 90})
+    assert half_life is None or step_mult is None, "recency weights and league step multipliers are not combined"
+    total = (lambda c: g[c].transform(lambda s: s.rolling(n, min_periods=1).sum())) if half_life is None else (lambda c: recency_sum(h, c, n, half_life))
+    roll = pd.DataFrame({"player_id": h["player_id"], "date": h["date"], "m90": total("mins") / 90})
     for s in priors:
         if step_mult is None or s not in step_mult:
-            roll[s] = g[s].transform(lambda x: x.rolling(n, min_periods=1).sum())
+            roll[s] = total(s)
             continue
         for lvl in (1, 2, 3):  # a version of the rolling sum for each league the row's player is now in
             step = h["level"] - lvl

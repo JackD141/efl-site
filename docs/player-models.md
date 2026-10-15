@@ -15,7 +15,8 @@ xP in the browser from these (checked equal to Python for every player).
 ## Stat models (per position, per scoring stat)
 Poisson GLM, minutes as exposure, standardised logs of: role (his rate relative to same-position team-mates, last 20
 appearances), team-mates' rate excluding him, opponent style, odds (own / opponent expected goals), home, and FotMob
-history per 90 over his last 20 or 40 appearances. Negative-binomial spread for the points thresholds.
+history per 90 over his last 20 or 40 appearances (for MID key passes and DEF clearances the 40 are recency-weighted,
+half-life 20 appearances: chosen on validation, 15 Oct). Negative-binomial spread for the points thresholds.
 - Goals and assists are predicted through npxG and xA, then converted: goals = c x npxG + his penalty xG (c 1.00 MID,
   0.98 FWD, 0.85 DEF), assists = c x xA (1.13 MID, 1.55 FWD, 1.04 DEF; fantasy assists are more generous than Opta xA).
 - League changes: numbers from another league count x the measured step-up / step-down multiplier (FotMob movers,
@@ -40,7 +41,8 @@ Test RMSE (minutes) vs the old 90-or-0 rule: MID 25.6 vs 34.3, FWD 25.1 vs 35.9,
 Choices (features, window, role shrinkage) are made on two rolling validation folds inside 2025/26 (train to GW17 ->
 GW18-26, train to GW26 -> GW27-35), simplest candidate within 0.0005 log-likelihood of the best. 2026/27 is a one-off
 test against the incumbent; then refit on everything. Things tried and rejected for lack of validation gain:
-shots-on-target history (MID), heavier shrinkage of history, league-adjusting FotMob history, recency decay in role.
+shots-on-target history (MID), heavier shrinkage of history, league-adjusting FotMob history, recency decay in role, recency weights in the FotMob history for the other stats
+(`exp_recency.py`).
 
 ## Test results, 2026/27 (negative-binomial log-likelihood per appearance; closer to 0 is better)
 | Pos | Stat | New | Previous |

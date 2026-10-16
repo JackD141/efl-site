@@ -1017,3 +1017,4 @@ input[type="range"]::-moz-range-thumb:hover {
 .cp-sort:hover { text-decoration: underline; }
 .cp-sort-on::after { content: " \25BE"; }
 .cp-xp-starts { color: #2a6f3e; }
+.cp-hide-stats .st { display: none; }

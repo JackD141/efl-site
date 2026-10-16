@@ -4,7 +4,10 @@ const LEAGUES = ['All', 'Championship', 'League 1', 'League 2'];
 const MINS_KEY = 'efl_defender_mins_v1';
 const STATS = { clr: { name: 'Clearances', per: 4, steps: [4, 8, 12] }, blk: { name: 'Blocks', per: 2, steps: [2, 4] }, tkl: { name: 'Tackles', per: 2, steps: [2, 4] } };
 
-const state = { plan: null, clubs: {}, clubWeek: {}, shortByName: {}, gw: null, league: 'All', query: '', showAll: false, mins: {}, cache: {}, sortBy: 'xp' };
+// stat columns are hidden unless "Show stats" is ticked (remembered in this browser, shared by all Player Picks tabs)
+const STATS_KEY = 'efl_picks_show_stats';
+function loadShowStats() { try { return localStorage.getItem(STATS_KEY) === '1'; } catch (e) { return false; } }
+const state = { plan: null, clubs: {}, clubWeek: {}, shortByName: {}, gw: null, league: 'All', query: '', showAll: false, mins: {}, cache: {}, sortBy: 'xp', showStats: loadShowStats() };
 
 function esc(s) {
   return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -257,14 +260,14 @@ function render() {
       <td><span class="cp-rank ${i < 3 ? 'cp-rank-' + (i + 1) : 'cp-rank-n'}">${i + 1}</span></td>
       <td><strong>${esc(d.name)}</strong> ${tags(d)}<div class="cp-muted cp-small">${d.starts60} games of 60+ this season</div></td>
       <td class="pp-club">${shirtIcon(c, false)}${spList(d.tags)}<div>${esc(c.short)}<div class="cp-muted cp-small">${esc(c.league)}</div></div></td>
-      <td class="cp-center opt2">${recentHtml(d.recent)}</td>
-      <td class="cp-center"><input type="number" class="kp-mins ${edited(d) ? 'kp-mins-edited' : ''}" data-player="${d.id}" min="0" max="90" step="5" value="${minsOf(d)}" title="Expected minutes: 90 = plays the whole game; 45 = a 50% chance. Default ${d.xMins}." />${state.plan.p60Curve && minsOf(d) > 0 ? `<div class="cp-muted cp-small" title="Chance he plays 60+ minutes (the minutes model); expected minutes are an average that includes the chance he misses out">60+: ${pct(curveAt(state.plan.p60Curve, minsOf(d), 'p'))}</div><div class="cp-muted cp-small" title="His usual minutes when he starts (his last 10 games of 60+)">if starts: ${Math.round(fullMins(d))}</div>` : ''}</td>
-      <td>${wk.fx.length ? wk.fx.map((x, j) => `<span class="cp-fx" data-tip="fx" data-player="${d.id}" data-gw="${gw}" data-i="${j}"><span class="cp-dot ${x.f.src === 'market' ? 'cp-dot-market' : 'cp-dot-model'}"></span>${fxName(x.f.opp, esc(shortOf(x.f.opp)))} (${x.f.ha}) <span class="cp-fx-xp">${fmt(x.r.xp)}</span></span>`).join('') : '<span class="cp-muted">No fixture</span>'}</td>
-      <td class="cp-center opt">${wk.fx.length ? wk.fx.map(x => pct(x.r.cs)).join(' / ') : '–'}</td>
-      <td class="cp-center opt">${wk.fx.length ? sumStat('clr').toFixed(1) : '–'}</td>
-      <td class="cp-center opt">${wk.fx.length ? sumStat('tkl').toFixed(1) : '–'}</td>
       <td class="cp-xp" data-tip="total" data-player="${d.id}" data-gw="${gw}">${fmt(xp)}</td>
       <td class="cp-xp cp-xp-starts">${sx === null ? '–' : fmt(sx)}</td>
+      <td class="cp-center"><input type="number" class="kp-mins ${edited(d) ? 'kp-mins-edited' : ''}" data-player="${d.id}" min="0" max="90" step="5" value="${minsOf(d)}" title="Expected minutes: 90 = plays the whole game; 45 = a 50% chance. Default ${d.xMins}." />${state.plan.p60Curve && minsOf(d) > 0 ? `<div class="cp-muted cp-small" title="Chance he plays 60+ minutes (the minutes model); expected minutes are an average that includes the chance he misses out">60+: ${pct(curveAt(state.plan.p60Curve, minsOf(d), 'p'))}</div><div class="cp-muted cp-small" title="His usual minutes when he starts (his last 10 games of 60+)">if starts: ${Math.round(fullMins(d))}</div>` : ''}</td>
+      <td>${wk.fx.length ? wk.fx.map((x, j) => `<span class="cp-fx" data-tip="fx" data-player="${d.id}" data-gw="${gw}" data-i="${j}"><span class="cp-dot ${x.f.src === 'market' ? 'cp-dot-market' : 'cp-dot-model'}"></span>${fxName(x.f.opp, esc(shortOf(x.f.opp)))} (${x.f.ha}) <span class="cp-fx-xp">${fmt(x.r.xp)}</span></span>`).join('') : '<span class="cp-muted">No fixture</span>'}</td>
+      <td class="cp-center opt2">${recentHtml(d.recent)}</td>
+      <td class="cp-center opt st">${wk.fx.length ? wk.fx.map(x => pct(x.r.cs)).join(' / ') : '–'}</td>
+      <td class="cp-center opt st">${wk.fx.length ? sumStat('clr').toFixed(1) : '–'}</td>
+      <td class="cp-center opt st">${wk.fx.length ? sumStat('tkl').toFixed(1) : '–'}</td>
       <td class="cp-right cp-muted opt">${fmt(n5)}</td></tr>`;
   }).join('');
   const t = s => plan.model[s].test;
@@ -278,15 +281,14 @@ function render() {
       <div class="cp-chips">${chips}</div>
       <input id="kp-search" type="text" placeholder="Search defender or club..." value="${esc(state.query)}" autocomplete="off" />
       <label class="kp-toggle"><input type="checkbox" id="kp-all" ${state.showAll ? 'checked' : ''}/> Show non-starters and injured</label>
+      <label class="kp-toggle" title="Per-game stat columns (scoring chance, shots, passes, clean sheets...)"><input type="checkbox" id="kp-stats" ${state.showStats ? 'checked' : ''}/> Show stats</label>
       ${Object.keys(state.mins).length ? '<button class="cp-link-btn" id="kp-reset">Reset minutes</button>' : ''}
     </div>
     ${stale}
     <h2 class="cp-h2">Defenders for GW ${gw} <span class="cp-sub">${fmtDate(meta.start)}${meta.end !== meta.start ? ' – ' + fmtDate(meta.end) : ''} · ${meta.marketGames} of ${meta.games} games priced from odds · ${list.length} shown${list.length > shown.length ? ' (top 150 listed)' : ''}</span></h2>
-    <div class="cp-table-wrap"><table class="cp-table">
-      <thead><tr><th>#</th><th>Defender</th><th>Club</th><th class="cp-center opt2" title="Minutes in his last 5 games for this club, oldest first (dark = 60+, light = came on or off, grey = did not play)">Last 5 (mins)</th><th class="cp-center" title="Editable. 90 = plays the whole game; 45 = a 50% chance he plays. Saved in this browser.">Exp. mins</th>
-        <th>Fixtures (xP)</th><th class="cp-center opt">Clean sheet</th><th class="cp-center opt">Exp. clearances</th><th class="cp-center opt">Exp. tackles</th>
-        <th class="cp-right cp-sort ${state.sortBy === 'xp' ? 'cp-sort-on' : ''}" data-sort="xp" title="Expected points before team news: includes the chance he does not start. Click to sort.">xP</th>
-        <th class="cp-right cp-sort ${state.sortBy === 'starts' ? 'cp-sort-on' : ''}" data-sort="starts" title="Expected points if he starts his club's first game this gameweek (picks can be changed after team news): that game at his usual full-game minutes. In a double, the second game still uses his expected minutes, since whether he starts it is not known yet. Click to sort.">xP if starts</th><th class="cp-right opt" title="Expected points over this and the next 4 gameweeks">Next 5 GWs</th></tr></thead>
+    <div class="cp-table-wrap"><table class="cp-table ${state.showStats ? '' : 'cp-hide-stats'}">
+      <thead><tr><th>#</th><th>Defender</th><th>Club</th><th class="cp-right cp-sort ${state.sortBy === 'xp' ? 'cp-sort-on' : ''}" data-sort="xp" title="Expected points before team news: includes the chance he does not start. Click to sort.">xP</th><th class="cp-right cp-sort ${state.sortBy === 'starts' ? 'cp-sort-on' : ''}" data-sort="starts" title="Expected points if he starts his club's first game this gameweek (picks can be changed after team news): that game at his usual full-game minutes. In a double, the second game still uses his expected minutes, since whether he starts it is not known yet. Click to sort.">xP if starts</th><th class="cp-center" title="Editable. Expected minutes per game (an average that includes the chance he does not start). Saved in this browser.">Exp. mins</th>
+        <th>Fixtures (xP)</th><th class="cp-center opt2" title="Minutes in his last 5 games for this club, oldest first (dark = 60+, light = came on or off, grey = did not play)">Last 5 (mins)</th><th class="cp-center opt st" title="Clean-sheet chance, per game">CS</th><th class="cp-center opt st" title="Expected clearances this gameweek">Clr</th><th class="cp-center opt st" title="Expected tackles this gameweek">Tkl</th><th class="cp-right opt" title="Expected points over this and the next 4 gameweeks">Next 5 GWs</th></tr></thead>
       <tbody>${rows || '<tr><td colspan="12" class="cp-muted">No defenders match.</td></tr>'}</tbody></table></div>
     <div class="cp-caveat"><strong>How to read this</strong><ul>
       <li><strong>xP if starts</strong>: Fantasy EFL lets you change a player until his game kicks off, so after team news the question is
@@ -331,6 +333,11 @@ function bind() {
     if (v === d.xMins) delete state.mins[d.id]; else state.mins[d.id] = v;
     saveMins(); render();
   }));
+  document.getElementById('kp-stats').addEventListener('change', e => {
+    state.showStats = e.target.checked;
+    try { localStorage.setItem(STATS_KEY, state.showStats ? '1' : '0'); } catch (err) { /* ignore */ }
+    render();
+  });
   document.querySelectorAll('th[data-sort]').forEach(th => th.addEventListener('click', () => { state.sortBy = th.dataset.sort; render(); }));
   const reset = document.getElementById('kp-reset');
   if (reset) reset.addEventListener('click', () => { state.mins = {}; saveMins(); render(); });

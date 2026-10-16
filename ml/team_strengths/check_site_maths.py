@@ -4,7 +4,7 @@ python check_site_maths.py          writes public/data/check_xp.json (delete it 
 Then, in the browser on each Player Picks tab, compare with the page's own numbers, e.g. on picks.html?pos=MID:
   const ref = await (await fetch('data/check_xp.json')).json();
   Math.max(...state.plan.players.filter(d => ref.MID[d.id] !== undefined).map(d => Math.abs(weekXp(d, state.plan.firstGw, d.xMins).xp - ref.MID[d.id])))
-(DEF: weekXp(d, gw).xp90 with state.mins = {}; GK: kxp(k, gw)). Expect ~1e-6 (forwards' Poisson goals ~2e-5).
+(DEF: weekXp(d, gw).xp90 with state.mins = {}; GK: kxp(k, gw)). "xP if starts": startsXp(d, gw) vs ref.<POS>_starts. Expect ~1e-6 (forwards' Poisson goals ~2e-5).
 """
 import json
 import math
@@ -48,7 +48,7 @@ def scenarios(p, m):
     return p60, max(0.0, curve(p["appCurve"], m, "pts") - 2 * p60)
 
 
-def attackers(p):
+def attackers(p, starts=False):
     clubs = {c["id"]: c for c in p["clubs"]}
     sc = p["scoring"]
     out = {}
@@ -56,7 +56,7 @@ def attackers(p):
         if d["xMins"] <= 0:
             continue
         tot = 0.0
-        for f in clubs[d["club"]]["weeks"][0]["fx"]:
+        for j, f in enumerate(clubs[d["club"]]["weeks"][0]["fx"]):
             rate = {}
             for st, m in p["model"].items():
                 rate[st] = glm(m, vals_for(p, clubs, d, f, st), 1e-4) * m.get("scale", 1) + (d["fm"].get(m.get("penCol", "fm_pxg"), 0) if m.get("pens") and d.get("fm") else 0)
@@ -69,7 +69,9 @@ def attackers(p):
                 x += sc["sot"] * mu["sot"] + float((pmf(mu["kp"], p["model"]["kp"]["r"]) * (K // sc["keyPassPer"])).sum())
                 x += sc.get("interception", 0) * mu.get("int", 0)
                 return x + t * (sc["yellow"] * r["y90"] + sc["red"] * r["r90"] + sc["penMiss"] * r["pm90"] + sc["ownGoal"] * r["og90"])
-            if p.get("minsMix"):
+            if starts and j == 0:  # "xP if starts": he starts the first game of the gameweek
+                tot += at(d.get("mFull", p["minsMix"]["full"]), sc["appearance60"])
+            elif p.get("minsMix"):
                 p60, part = scenarios(p, d["xMins"])
                 tot += p60 * at(d.get("mFull", p["minsMix"]["full"]), sc["appearance60"]) + part * at(p["minsMix"]["part"], sc["appearance"])
             else:
@@ -78,7 +80,7 @@ def attackers(p):
     return out
 
 
-def defenders(p):
+def defenders(p, starts=False):
     clubs = {c["id"]: c for c in p["clubs"]}
     sc = p["scoring"]
     units = {"clr": 4, "blk": 2, "tkl": 2}
@@ -87,7 +89,7 @@ def defenders(p):
         if d["xMins"] <= 0:
             continue
         tot = 0.0
-        for f in clubs[d["club"]]["weeks"][0]["fx"]:
+        for j, f in enumerate(clubs[d["club"]]["weeks"][0]["fx"]):
             rate = {st: glm(p["model"][st], vals_for(p, clubs, d, f, st), p["model"][st].get("floor", 1e-3)) for st in list(units) + ["goals", "assists"]}
             mg = p["model"]["goals"]
 
@@ -99,7 +101,9 @@ def defenders(p):
                 x += sc["goal"] * (rate["goals"] * mg["scale"] + (d["fm"].get(mg.get("penCol", "fm_pxg"), 0) if mg["pens"] else 0)) * t
                 x += sc["assist"] * rate["assists"] * p["model"]["assists"]["scale"] * t
                 return x + t * (sc["yellow"] * d["rates"]["y90"] + sc["red"] * d["rates"]["r90"] + p["other"])
-            if p.get("minsMix"):
+            if starts and j == 0:
+                tot += at(d.get("mFull", p["minsMix"]["full"]), 2, 1.0)
+            elif p.get("minsMix"):
                 p60, part = scenarios(p, d["xMins"])
                 tot += p60 * at(d.get("mFull", p["minsMix"]["full"]), 2, 1.0) + part * at(p["minsMix"]["part"], 1, 0.0)
             else:
@@ -108,7 +112,7 @@ def defenders(p):
     return out
 
 
-def keepers(p):
+def keepers(p, starts=False):
     clubs = {c["id"]: c for c in p["clubs"]}
     out = {}
     for k in p["keepers"]:
@@ -116,6 +120,8 @@ def keepers(p):
         if p.get("minsMix"):
             p60, part = scenarios(p, k["xMins"])
             out[k["id"]] = p60 * w["xp"] + part * w["games"]
+            if starts and w["fx"]:
+                out[k["id"]] = w["fx"][0]["xp"] + sum(p60 * f["xp"] + part for f in w["fx"][1:])
         else:
             out[k["id"]] = k["xMins"] / 90 * w["xp"]
     return out
@@ -125,6 +131,9 @@ def main():
     load = lambda f: json.loads((DATA / f).read_text(encoding="utf-8"))
     ref = {"MID": attackers(load("mid_plan.json")), "FWD": attackers(load("fwd_plan.json")),
            "DEF": defenders(load("defender_plan.json")), "GK": keepers(load("keeper_plan.json"))}
+    # "xP if starts" column (starts his club's first game of the gameweek)
+    ref.update({"MID_starts": attackers(load("mid_plan.json"), True), "FWD_starts": attackers(load("fwd_plan.json"), True),
+                "DEF_starts": defenders(load("defender_plan.json"), True), "GK_starts": keepers(load("keeper_plan.json"), True)})
     (DATA / "check_xp.json").write_text(json.dumps({k: {str(i): v for i, v in d.items()} for k, d in ref.items()}), encoding="utf-8")
     print({k: len(v) for k, v in ref.items()}, "-> public/data/check_xp.json")
 

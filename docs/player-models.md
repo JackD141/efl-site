@@ -36,6 +36,11 @@ Ridge regression on: recent minutes / starts / appearances at his club (several 
 history, run of 0-minute games, games at the club, rest days, second game of a double. Expected appearance points and
 P(60+ minutes) are isotonic curves of expected minutes (fitted out of sample). Keepers are scaled so each club sums to 90.
 Test RMSE (minutes) vs the old 90-or-0 rule: MID 25.6 vs 34.3, FWD 25.1 vs 35.9, DEF 29.2 vs 35.7, GK 22.3 vs 24.0.
+Calibration check (16 Oct, out of sample): players on 10+ straight 90s average ~84 minutes next game (about 4% miss it
+entirely), model ~83; an older absence (low long-decay features) is over-penalised by ~2 minutes (e.g. Fitzwater).
+"xP if starts" on Player Picks (16 Oct): picks can change after team news, so it assumes he starts his club's first game
+of the gameweek (his usual full-game minutes, 60+ appearance, clean sheet); a double's second game keeps his expected
+minutes. Python reference in check_site_maths.py (<POS>_starts).
 
 ## Protocol (do not deviate)
 Choices (features, window, role shrinkage) are made on two rolling validation folds inside 2025/26 (train to GW17 ->

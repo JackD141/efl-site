@@ -1011,3 +1011,9 @@ input[type="range"]::-moz-range-thumb:hover {
   .cp-table td, .cp-table thead th { padding: 6px 3px; }
   .kp-mins { width: 46px; padding: 3px; }
 }
+
+/* sortable xP headings on Player Picks; "xP if starts" column */
+.cp-sort { cursor: pointer; user-select: none; white-space: nowrap; }
+.cp-sort:hover { text-decoration: underline; }
+.cp-sort-on::after { content: " \25BE"; }
+.cp-xp-starts { color: #2a6f3e; }

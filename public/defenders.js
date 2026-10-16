@@ -4,7 +4,7 @@ const LEAGUES = ['All', 'Championship', 'League 1', 'League 2'];
 const MINS_KEY = 'efl_defender_mins_v1';
 const STATS = { clr: { name: 'Clearances', per: 4, steps: [4, 8, 12] }, blk: { name: 'Blocks', per: 2, steps: [2, 4] }, tkl: { name: 'Tackles', per: 2, steps: [2, 4] } };
 
-const state = { plan: null, clubs: {}, clubWeek: {}, shortByName: {}, gw: null, league: 'All', query: '', showAll: false, mins: {}, cache: {} };
+const state = { plan: null, clubs: {}, clubWeek: {}, shortByName: {}, gw: null, league: 'All', query: '', showAll: false, mins: {}, cache: {}, sortBy: 'xp' };
 
 function esc(s) {
   return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -144,6 +144,17 @@ function weekXp(d, gw) {
 }
 // v2 fixtures already include expected minutes; the old model is "if he plays 90" x minutes / 90
 const dxp = (d, gw) => (state.plan.v2 ? 1 : minsOf(d) / 90) * weekXp(d, gw).xp90;
+// xP if he starts his club's first game of the gameweek (picks can change after team news): that game at his usual
+// full-game minutes with the 60+ appearance and the clean sheet; later games that gameweek (doubles) keep his expected
+// minutes. null if he is not expected to play
+const fullMins = d => (state.plan.minsMix ? d.mFull || state.plan.minsMix.full : 90);
+function startsXp(d, gw) {
+  const w = weekOf(d.club, gw), m = minsOf(d), v2 = state.plan.v2;
+  if (!w || !w.games || m <= 0) return null;
+  return w.fx.reduce((a, f, j) => a + (j === 0
+    ? (v2 ? defCompsAt(d, f, fullMins(d), 2, true).xp : fixtureXp(d, f).xp)
+    : (v2 ? fixtureXpV2(d, f, m).xp : (m / 90) * fixtureXp(d, f).xp)), 0);
+}
 
 /* ---------- tooltip ---------- */
 const tip = document.createElement('div');
@@ -233,26 +244,27 @@ function render() {
     const c = state.clubs[d.club];
     return c && (state.showAll || minsOf(d) >= (plan.v2 ? 30 : 1)) && (state.league === 'All' || c.league === state.league)
       && (!q || d.name.toLowerCase().includes(q) || c.name.toLowerCase().includes(q) || c.short.toLowerCase().includes(q));
-  }).map(d => ({ d, c: state.clubs[d.club], wk: weekXp(d, gw), xp: dxp(d, gw), n5: next5.reduce((a, g) => a + dxp(d, g), 0) }))
-    .sort((a, b) => b.xp - a.xp);
+  }).map(d => ({ d, c: state.clubs[d.club], wk: weekXp(d, gw), xp: dxp(d, gw), sx: startsXp(d, gw), n5: next5.reduce((a, g) => a + dxp(d, g), 0) }))
+    .sort((a, b) => (state.sortBy === 'starts' ? (b.sx ?? -1) - (a.sx ?? -1) : b.xp - a.xp));
   const shown = list.slice(0, 150);
   const options = plan.gameweeks.map(g => `<option value="${g.gw}" ${g.gw === gw ? 'selected' : ''}>GW ${g.gw} · ${fmtDate(g.start)}${g.end !== g.start ? '–' + fmtDate(g.end) : ''}</option>`).join('');
   const chips = LEAGUES.map(l => `<button class="cp-chip ${state.league === l ? 'active' : ''}" data-league="${l}">${l}</button>`).join('');
   const stale = plan.latestCompletedGw > plan.startersFromGw
     ? `<div class="cp-warn">⚠ Expected starters use lineups up to GW ${plan.startersFromGw}, but GW ${plan.latestCompletedGw} has finished. Refresh after exporting the latest stats.</div>` : '';
-  const rows = shown.map(({ d, c, wk, xp, n5 }, i) => {
+  const rows = shown.map(({ d, c, wk, xp, sx, n5 }, i) => {
     const sumStat = s => wk.fx.reduce((a, x) => a + x.r.stats[s].mu, 0);
     return `<tr class="${minsOf(d) <= 0 ? 'cp-dim' : ''}">
       <td><span class="cp-rank ${i < 3 ? 'cp-rank-' + (i + 1) : 'cp-rank-n'}">${i + 1}</span></td>
       <td><strong>${esc(d.name)}</strong> ${tags(d)}<div class="cp-muted cp-small">${d.starts60} games of 60+ this season</div></td>
       <td class="pp-club">${shirtIcon(c, false)}${spList(d.tags)}<div>${esc(c.short)}<div class="cp-muted cp-small">${esc(c.league)}</div></div></td>
       <td class="cp-center opt2">${recentHtml(d.recent)}</td>
-      <td class="cp-center"><input type="number" class="kp-mins ${edited(d) ? 'kp-mins-edited' : ''}" data-player="${d.id}" min="0" max="90" step="5" value="${minsOf(d)}" title="Expected minutes: 90 = plays the whole game; 45 = a 50% chance. Default ${d.xMins}." />${state.plan.p60Curve && minsOf(d) > 0 ? `<div class="cp-muted cp-small" title="Chance he plays 60+ minutes (the minutes model); expected minutes are an average that includes the chance he misses out">60+: ${pct(curveAt(state.plan.p60Curve, minsOf(d), 'p'))}</div>` : ''}</td>
+      <td class="cp-center"><input type="number" class="kp-mins ${edited(d) ? 'kp-mins-edited' : ''}" data-player="${d.id}" min="0" max="90" step="5" value="${minsOf(d)}" title="Expected minutes: 90 = plays the whole game; 45 = a 50% chance. Default ${d.xMins}." />${state.plan.p60Curve && minsOf(d) > 0 ? `<div class="cp-muted cp-small" title="Chance he plays 60+ minutes (the minutes model); expected minutes are an average that includes the chance he misses out">60+: ${pct(curveAt(state.plan.p60Curve, minsOf(d), 'p'))}</div><div class="cp-muted cp-small" title="His usual minutes when he starts (his last 10 games of 60+)">if starts: ${Math.round(fullMins(d))}</div>` : ''}</td>
       <td>${wk.fx.length ? wk.fx.map((x, j) => `<span class="cp-fx" data-tip="fx" data-player="${d.id}" data-gw="${gw}" data-i="${j}"><span class="cp-dot ${x.f.src === 'market' ? 'cp-dot-market' : 'cp-dot-model'}"></span>${fxName(x.f.opp, esc(shortOf(x.f.opp)))} (${x.f.ha}) <span class="cp-fx-xp">${fmt(x.r.xp)}</span></span>`).join('') : '<span class="cp-muted">No fixture</span>'}</td>
       <td class="cp-center opt">${wk.fx.length ? wk.fx.map(x => pct(x.r.cs)).join(' / ') : '–'}</td>
       <td class="cp-center opt">${wk.fx.length ? sumStat('clr').toFixed(1) : '–'}</td>
       <td class="cp-center opt">${wk.fx.length ? sumStat('tkl').toFixed(1) : '–'}</td>
       <td class="cp-xp" data-tip="total" data-player="${d.id}" data-gw="${gw}">${fmt(xp)}</td>
+      <td class="cp-xp cp-xp-starts">${sx === null ? '–' : fmt(sx)}</td>
       <td class="cp-right cp-muted opt">${fmt(n5)}</td></tr>`;
   }).join('');
   const t = s => plan.model[s].test;
@@ -272,10 +284,15 @@ function render() {
     <h2 class="cp-h2">Defenders for GW ${gw} <span class="cp-sub">${fmtDate(meta.start)}${meta.end !== meta.start ? ' – ' + fmtDate(meta.end) : ''} · ${meta.marketGames} of ${meta.games} games priced from odds · ${list.length} shown${list.length > shown.length ? ' (top 150 listed)' : ''}</span></h2>
     <div class="cp-table-wrap"><table class="cp-table">
       <thead><tr><th>#</th><th>Defender</th><th>Club</th><th class="cp-center opt2" title="Minutes in his last 5 games for this club, oldest first (dark = 60+, light = came on or off, grey = did not play)">Last 5 (mins)</th><th class="cp-center" title="Editable. 90 = plays the whole game; 45 = a 50% chance he plays. Saved in this browser.">Exp. mins</th>
-        <th>Fixtures (xP if he plays 90)</th><th class="cp-center opt">Clean sheet</th><th class="cp-center opt">Exp. clearances</th><th class="cp-center opt">Exp. tackles</th>
-        <th class="cp-right">xP</th><th class="cp-right opt" title="Expected points over this and the next 4 gameweeks">Next 5 GWs</th></tr></thead>
-      <tbody>${rows || '<tr><td colspan="11" class="cp-muted">No defenders match.</td></tr>'}</tbody></table></div>
+        <th>Fixtures (xP)</th><th class="cp-center opt">Clean sheet</th><th class="cp-center opt">Exp. clearances</th><th class="cp-center opt">Exp. tackles</th>
+        <th class="cp-right cp-sort ${state.sortBy === 'xp' ? 'cp-sort-on' : ''}" data-sort="xp" title="Expected points before team news: includes the chance he does not start. Click to sort.">xP</th>
+        <th class="cp-right cp-sort ${state.sortBy === 'starts' ? 'cp-sort-on' : ''}" data-sort="starts" title="Expected points if he starts his club's first game this gameweek (picks can be changed after team news): that game at his usual full-game minutes. In a double, the second game still uses his expected minutes, since whether he starts it is not known yet. Click to sort.">xP if starts</th><th class="cp-right opt" title="Expected points over this and the next 4 gameweeks">Next 5 GWs</th></tr></thead>
+      <tbody>${rows || '<tr><td colspan="12" class="cp-muted">No defenders match.</td></tr>'}</tbody></table></div>
     <div class="cp-caveat"><strong>How to read this</strong><ul>
+      <li><strong>xP if starts</strong>: Fantasy EFL lets you change a player until his game kicks off, so after team news the question is
+        what he scores <em>if he starts</em>. This column assumes he starts his club's first game of the gameweek and plays his usual full game (the minutes shown under the expected minutes), with the clean sheet counting.
+        In a double gameweek the second game still uses his expected minutes, because whether he starts that one is not known when you pick him.
+        Click either xP heading to sort by it.</li>
       ${plan.v2 ? `<li><strong>Expected minutes</strong> come from our minutes model (recent minutes, starts and appearances at his club, how long since
         he last played, rest days, doubles; 0 if injured or suspended). Appearance points and the chance of reaching 60 minutes (needed for the clean sheet)
         follow from it; everything else scales with minutes. Edit the box to override; edits are saved in this browser.</li>
@@ -314,6 +331,7 @@ function bind() {
     if (v === d.xMins) delete state.mins[d.id]; else state.mins[d.id] = v;
     saveMins(); render();
   }));
+  document.querySelectorAll('th[data-sort]').forEach(th => th.addEventListener('click', () => { state.sortBy = th.dataset.sort; render(); }));
   const reset = document.getElementById('kp-reset');
   if (reset) reset.addEventListener('click', () => { state.mins = {}; saveMins(); render(); });
   const s = document.getElementById('kp-search');

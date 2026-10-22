@@ -1,0 +1,252 @@
+Bolton
+Middlesbrough
+23 Oct
+20:00
+9/2
+18/5
+61/100
+Portsmouth
+Millwall
+24 Oct
+12:30
+29/20
+12/5
+2/1
+Sheffield United
+Derby
+24 Oct
+12:30
+17/20
+3/1
+10/3
+Charlton
+Norwich
+24 Oct
+12:30
+9/4
+5/2
+13/10
+Stoke
+Bristol City
+24 Oct
+15:00
+11/8
+49/20
+2/1
+QPR
+Swansea
+24 Oct
+15:00
+6/4
+5/2
+19/10
+Cardiff City
+Birmingham
+24 Oct
+15:00
+17/10
+3/1
+156/100
+Wolverhampton
+Watford
+24 Oct
+15:00
+4/11
+17/4
+15/2
+West Ham
+Southampton
+24 Oct
+15:00
+7/10
+10/3
+7/2
+Blackburn
+Wrexham
+24 Oct
+15:00
+7/4
+23/10
+7/4
+Preston
+West Brom
+24 Oct
+15:00
+14/5
+27/10
+1/1
+Lincoln
+Burnley
+24 Oct
+15:00
+2/1
+13/5
+7/5
+Huddersfield
+Wigan
+24 Oct
+12:30
+4/11
+23/5
+31/4
+Luton
+Leicester
+24 Oct
+12:30
+5/4
+3/1
+19/10
+AFC Wimbledon
+Wycombe
+24 Oct
+15:00
+16/5
+11/4
+10/11
+Blackpool
+Mansfield
+24 Oct
+15:00
+7/4
+27/10
+6/4
+Bromley
+Peterborough United
+24 Oct
+15:00
+21/10
+3/1
+6/5
+Burton
+Leyton Orient
+24 Oct
+15:00
+28/17
+5/2
+17/10
+Cambridge
+Plymouth Argyle
+24 Oct
+15:00
+6/4
+27/10
+7/4
+Doncaster
+Sheffield Wednesday
+24 Oct
+15:00
+15/8
+13/5
+6/4
+Notts County
+Stockport
+24 Oct
+15:00
+19/4
+16/5
+11/18
+Oxford
+Bradford City
+24 Oct
+15:00
+7/4
+12/5
+8/5
+Reading
+Barnsley
+24 Oct
+15:00
+8/13
+7/2
+4/1
+Stevenage
+MK Dons
+24 Oct
+15:00
+21/20
+12/5
+29/10
+Bristol Rovers
+Swindon
+24 Oct
+12:30
+3/5
+10/3
+9/2
+Cheltenham
+Newport County
+24 Oct
+12:30
+8/5
+5/2
+17/10
+Northampton
+Colchester
+24 Oct
+12:30
+21/20
+12/5
+14/5
+Barnet
+Oldham
+24 Oct
+15:00
+10/13
+31/10
+18/5
+Chesterfield
+Crewe
+24 Oct
+15:00
+4/6
+16/5
+9/2
+Crawley
+Tranmere
+24 Oct
+15:00
+13/8
+13/5
+8/5
+Exeter
+Fleetwood
+24 Oct
+15:00
+13/8
+12/5
+9/5
+Gillingham
+Grimsby
+24 Oct
+15:00
+9/4
+27/10
+6/5
+Rochdale
+Accrington
+24 Oct
+15:00
+17/11
+5/2
+7/4
+Rotherham
+Shrewsbury
+24 Oct
+15:00
+7/5
+12/5
+2/1
+York City
+Port Vale
+24 Oct
+15:00
+1/1
+13/5
+27/10
+Walsall
+Salford City
+26 Oct
+20:00
+23/10
+11/4
+11/10

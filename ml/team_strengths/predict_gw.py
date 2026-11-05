@@ -17,7 +17,8 @@ OUT.mkdir(exist_ok=True)
 # football-data team names that differ from EFL squad names
 ALIASES = {"Bristol Rvs": "Bristol Rovers", "Milton Keynes Dons": "MK Dons", "Sheffield Weds": "Sheffield Wednesday",
            "West Brom": "West Bromwich Albion", "West Ham": "West Ham United", "QPR": "Queens Park Rangers",
-           "Wolves": "Wolverhampton Wanderers", "Peterboro": "Peterborough United"}
+           "Wolves": "Wolverhampton Wanderers", "Peterboro": "Peterborough United",
+           "Sheffield Utd": "Sheffield United", "Oxford Utd": "Oxford United"}  # football-data fixtures file, Nov 2026
 
 
 def resolver(squads):

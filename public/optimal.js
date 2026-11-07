@@ -1,7 +1,8 @@
 // Optimal Picks (homepage): best 7 players + 2 clubs + captain for a gameweek, under the Fantasy EFL rules.
 // xP comes from the same data and maths as the Keeper / Defender / Midfielder / Forward / Club pages; start chances edited
 // on those pages (saved in this browser) are used here too. Games that have already kicked off are not excluded.
-// "Assume my picks start": pick on xP if he starts (after team news), among players at least STARTER_MIN likely to start.
+// "Assume my picks start" (the default: team news is out before each game locks): pick on xP if he starts, among players at
+// least STARTER_MIN likely to start (his start chance from Player Picks, where you can set it after team news).
 const statusEl = document.getElementById('status');
 const root = document.getElementById('op-root');
 
@@ -20,7 +21,7 @@ const STARTER_MIN = 0.5;
 
 const state = {
   plans: {}, clubs: {}, shortByName: {}, week: { GK: {}, DEF: {}, MID: {}, FWD: {}, CLUB: {} },
-  players: [], gw: null, abbrByName: {}, kitById: {}, asStarter: (() => { try { return localStorage.getItem(MODE_STORE) === 'starts'; } catch (e) { return false; } })(),
+  players: [], gw: null, abbrByName: {}, kitById: {}, asStarter: (() => { try { return localStorage.getItem(MODE_STORE) !== 'expected'; } catch (e) { return true; } })(),
   opts: { pinned: [], excluded: [], oneClub: false }, result: null,
 };
 
@@ -45,6 +46,9 @@ function setPins(gw, ids) {
 const oneClubOn = gw => state.opts.oneClubGws.includes(gw);
 
 
+// who can be picked (or suggested): with "Assume my picks start", only players reasonably likely to start
+const eligible = p => p.start >= (state.asStarter ? STARTER_MIN : 1e-9);
+
 /* ---------- clubs: the two best for this gameweek ---------- */
 const clubWeek = (id, gw) => state.week.CLUB[id] && state.week.CLUB[id][gw];
 function chooseClubs(gw) {
@@ -64,7 +68,7 @@ function optimise(gw) {
   const limit = oneClubOn(gw) ? 7 : MAX_PER_CLUB;
   const pool = [];
   for (const pos of POSITIONS) {
-    pool.push(...all.filter(p => p.pos === pos && !pinnedSet.has(p.id) && !excluded.has(p.id) && p.start > (state.asStarter ? STARTER_MIN - 1e-9 : 0) && p.xp > 0)
+    pool.push(...all.filter(p => p.pos === pos && !pinnedSet.has(p.id) && !excluded.has(p.id) && eligible(p) && p.xp > 0)
       .sort((a, b) => b.xp - a.xp).slice(0, POOL_PER_POS));
   }
   pool.sort((a, b) => b.xp - a.xp);
@@ -219,10 +223,10 @@ function render() {
   const inTeam = new Set(best ? best.team.map(p => p.id) : []);
   const excluded = new Set(state.opts.excluded);
   const bench = POSITIONS.map(pos => {
-    const alts = r.players.all.filter(p => p.pos === pos && !inTeam.has(p.id) && !excluded.has(p.id) && p.start > 0)
+    const alts = r.players.all.filter(p => p.pos === pos && !inTeam.has(p.id) && !excluded.has(p.id) && eligible(p))
       .sort((a, b) => b.xp - a.xp).slice(0, 5);
     return `<div class="op-alt"><h3>${POS_NAME[pos]}s</h3>${alts.map(p => `<div class="op-alt-row" data-tip="p" data-player="${p.id}">
-      <span>${esc(p.name)} <span class="cp-muted cp-small">${esc(p.clubShort)}</span></span><span class="op-alt-xp">${fmt(p.xp)}</span>
+      <span>${esc(p.name)} <span class="cp-muted cp-small">${esc(p.clubShort)} · ${Math.round(p.start * 100)}% to start</span></span><span class="op-alt-xp">${fmt(p.xp)}</span>
       <button class="op-act-inline" data-act="pin" data-id="${p.id}" title="Pin him into the team">⇧ pin</button></div>`).join('') || '<div class="cp-muted cp-small">None</div>'}</div>`;
   }).join('');
   const pinnedList = pinsFor(gw).map(id => r.players.byId[id]).filter(Boolean);
@@ -259,15 +263,19 @@ function render() {
       ${pinnedList.length ? `<div class="cp-small">Pinned: ${pinnedList.map(p => chip(p, 'unpin')).join(' ')}</div>` : ''}
       ${excludedList.length ? `<div class="cp-small">Excluded: ${excludedList.map(p => chip(p, 'unexclude')).join(' ')} <button class="cp-link-btn" id="op-reset">Clear all</button></div>` : ''}
     </div>
-    <h2 class="cp-h2">Next best options <span class="cp-sub">not in the team above</span></h2>
+    <h2 class="cp-h2">Next best options <span class="cp-sub">not in the team above${state.asStarter ? ` · at least ${Math.round(STARTER_MIN * 100)}% likely to start` : ''}</span></h2>
     <div class="op-alts">${bench}</div>
     <div class="cp-caveat"><strong>How this works</strong><ul>
       <li>Rules (Fantasy EFL help centre): 7 players in a 1-2-2-2, 1-2-3-1 or 1-3-2-1 formation, at most ${MAX_PER_CLUB} players from one club (unless the One Club chip is on),
         captain scores double, plus 2 clubs, each club usable ${MAX_USES} times a season. Doubles score twice; blanks score nothing.
         Games that have already kicked off still count, so this is the best team for the whole gameweek.</li>
       <li>The team is the exact best for total xP with the captain counted twice (every formation is checked). Captain = highest xP, vice = second highest.</li>
-      <li>Player xP and expected minutes come from the <a href="picks.html">Player Picks</a> page (keepers, defenders, midfielders and
-        forwards), including any minutes you have edited there (saved in this browser). Set a player to 0 minutes there, or click × here, to leave him out.</li>
+      <li><strong>Assume my picks start</strong> (on by default): Fantasy EFL lets you change a player until his game kicks off, so the team is
+        chosen on xP <em>if he starts</em> (his club's first game of the gameweek at 100%, a double's second game at his chance of starting it),
+        among players at least ${Math.round(STARTER_MIN * 100)}% likely to start. Once line-ups are out, set Start % on <a href="picks.html">Player Picks</a>
+        (100 = in the line-up, 0 = not) and this page follows. Untick it for expected points before team news.</li>
+      <li>Player xP and start chances come from the <a href="picks.html">Player Picks</a> page (keepers, defenders, midfielders and
+        forwards), including any start chances you have edited there (saved in this browser). Set a player to 0% there, or click × here, to leave him out.</li>
       <li>Max Captain chip: the captain becomes whoever actually scores most, which is worth more than picking the highest xP when several players have similar xP (e.g. a double gameweek). Not modelled here.</li>
       <li>Single gameweeks are mostly luck: a 1-point xP gap is small.</li>
     </ul></div>

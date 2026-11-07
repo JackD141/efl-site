@@ -89,7 +89,7 @@ def build_defender_plan(rounds, squads, players, fits, id2fd, book, book_src, ma
         roles, styles, fm, mates, sp_tags = pm.live_inputs(players, art2, "DEF")
         fm_default = pm.fm_defaults(fm)
         mins_art = json.loads((mm.MODELS / "minutes_model_def.json").read_text(encoding="utf-8"))
-        xmins = mm.predict_next("DEF", players, rounds)
+        starts = mm.predict_starts("DEF", players, rounds)  # start-chance model
         mix_fields, m_full = mm.mixture_inputs("DEF", players)
         art = dict(art, stats={st: dict(prior=c["prior"]) for st, c in art2.items()})
     starters, local_gw = _latest_starters(cur, rounds)
@@ -139,7 +139,9 @@ def build_defender_plan(rounds, squads, players, fits, id2fd, book, book_src, ma
         a = apps.loc[p["id"]] if p["id"] in apps.index else None
         defenders.append(dict(
             id=p["id"], name=p.get("displayName") or f"{p['firstName']} {p['lastName']}", club=p["squadId"],
-            xMins=(int(round(xmins.get(p["id"], 0))) if v2 else 90 if (avail and p["id"] in starters) else 0), status=p["status"],
+            **(mm.plan_fields(starts.get(p["id"]), m_full.get(p["id"], mix_fields["minsMix"]["full"]), mix_fields["startModel"]) if v2
+               else dict(xMins=90 if (avail and p["id"] in starters) else 0)),
+            status=p["status"],
             injury=inj.get("type") if inj else None,
             suspended=bool(p.get("suspensionDetails")), startedLast=p["id"] in starters,
             role={st: round(roles.get(p["id"], {}).get(st, 1.0), 4) for st in art["stats"]},
@@ -162,8 +164,7 @@ def build_defender_plan(rounds, squads, players, fits, id2fd, book, book_src, ma
         firstGw=gameweeks[0]["gw"] if gameweeks else None, gameweeks=gameweeks, clubs=list(clubs.values()), defenders=defenders,
         startersFromGw=local_gw, latestCompletedGw=max(completed) if completed else 0,
         model=model, lamAvg=round(lam_avg, 4), other=round(other, 4), v2=v2,
-        appCurve=mins_art["app_curve"] if v2 else None, p60Curve=mins_art["p60_curve"] if v2 else None,
-        minsMix=mins_art.get("bucket_minutes") if v2 else None,
+        startModel=mix_fields["startModel"] if v2 else None, minsMix=mins_art.get("bucket_minutes") if v2 else None,
         scoring=dict(appearance=2, cleanSheet=5, goal=7, assist=3, yellow=-1, red=-3))
 
 

@@ -79,9 +79,8 @@ def _starters(cur, rounds):
 def build_plan(position, rounds, squads, players, fits, id2fd, book, book_src, market_lam, league_names):
     # expected minutes: the minutes model where one exists for this position, else the old rule (90 if 60+ last game)
     mins_json = mm.MODELS / f"minutes_model_{position.lower()}.json"
-    xmins = mm.predict_next(position, players, rounds) if mins_json.exists() else None
-    app_curve = json.loads(mins_json.read_text(encoding="utf-8"))["app_curve"] if xmins is not None else None
-    mix_fields, m_full = mm.mixture_inputs(position, players) if xmins is not None else ({}, {})
+    starts = mm.predict_starts(position, players, rounds) if mins_json.exists() else None  # start-chance model
+    mix_fields, m_full = mm.mixture_inputs(position, players) if starts is not None else ({}, {})
     d = am.load(position)
     cur = d[d["season"] == "2627"]
     fm = {}
@@ -136,7 +135,9 @@ def build_plan(position, rounds, squads, players, fits, id2fd, book, book_src, m
         a = apps.loc[p["id"]] if p["id"] in apps.index else None
         plist.append(dict(
             id=p["id"], name=p.get("displayName") or f"{p['firstName']} {p['lastName']}", club=p["squadId"],
-            xMins=(int(round(xmins.get(p["id"], 0))) if xmins is not None else 90 if (avail and p["id"] in starters) else 0), status=p["status"], injury=inj.get("type") if inj else None,
+            **(mm.plan_fields(starts.get(p["id"]), m_full.get(p["id"], mix_fields["minsMix"]["full"]), mix_fields["startModel"]) if starts is not None
+               else dict(xMins=90 if (avail and p["id"] in starters) else 0)),
+            status=p["status"], injury=inj.get("type") if inj else None,
             suspended=bool(p.get("suspensionDetails")), startedLast=p["id"] in starters,
             role={st: roles.get(p["id"], {}).get(st, 1.0) for st in art},
             rates=rates.get(p["id"], rate_priors),
@@ -150,7 +151,7 @@ def build_plan(position, rounds, squads, players, fits, id2fd, book, book_src, m
     return dict(position=position, generatedAt=datetime.now(timezone.utc).isoformat(timespec="seconds"), season="2026/27",
                 firstGw=gameweeks[0]["gw"] if gameweeks else None, gameweeks=gameweeks, clubs=list(clubs.values()), players=plist,
                 startersFromGw=local_gw, latestCompletedGw=max(completed) if completed else 0,
-                model=model, appCurve=app_curve, p60Curve=mix_fields.get("p60Curve"), minsMix=mix_fields.get("minsMix"), scoring=dict(appearance60=2, appearance=1, hatTrick=5, yellow=-1, red=-3, penMiss=-3, ownGoal=-3,
+                model=model, startModel=mix_fields.get("startModel"), minsMix=mix_fields.get("minsMix"), scoring=dict(appearance60=2, appearance=1, hatTrick=5, yellow=-1, red=-3, penMiss=-3, ownGoal=-3,
                                           keyPassPer=2, **POINTS[position]))
 
 

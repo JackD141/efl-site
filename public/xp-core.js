@@ -1,11 +1,10 @@
 // Shared by the Optimal Picks homepage (optimal.js) and the Player Picks "All" tab (allpicks.js): loads the position and
 // club plans and computes each player's expected points with the same maths as the position pages (keepers.js /
-// defenders.js / attackers.js), including minutes edited on those pages (saved in this browser).
+// defenders.js / attackers.js), including start chances edited on those pages (saved in this browser; starts.js).
 // Functions use the page's global `state` (plans, clubs, week, players, shortByName, abbrByName, kitById).
 const POSITIONS = ['GK', 'DEF', 'MID', 'FWD'];
 const POS_NAME = { GK: 'Goalkeeper', DEF: 'Defender', MID: 'Midfielder', FWD: 'Forward' };
 const POS_PAGE = { GK: 'picks.html?pos=GK', DEF: 'picks.html?pos=DEF', MID: 'picks.html?pos=MID', FWD: 'picks.html?pos=FWD' };
-const MINS_KEYS = { GK: 'efl_keeper_mins_v1', DEF: 'efl_defender_mins_v1', MID: 'efl_mid_mins_v1', FWD: 'efl_fwd_mins_v1' };
 
 const shortOf = name => state.shortByName[name] || name;
 function abbr(name) {
@@ -59,22 +58,11 @@ function defenderFixtureXp(d, f) {
   total += sc.goal * d.rates.g90 * scale + sc.assist * d.rates.a90 * scale + sc.yellow * d.rates.y90 + sc.red * d.rates.r90 + p.other;
   return total; // if he plays 90; scaled by minutes / 90 like the Defender page
 }
-function curveAt(c, mins, key) {
-  if (mins <= 0) return 0;
-  const i = Math.min(c.mins.length - 2, Math.floor(mins / (c.mins[1] - c.mins[0])));
-  const t = (mins - c.mins[i]) / (c.mins[i + 1] - c.mins[i]);
-  return c[key][i] + t * (c[key][i + 1] - c[key][i]);
-}
-// v2 defenders (same as defenders.js fixtureXpV2): appearance from the minutes curve, clean sheet x P(60+ minutes), the
-// rest x minutes / 90, goals / assists from the npxG / xA models
-function defenderFixtureXpV2(d, f, mins) {
-  const p = state.plans.DEF;
-  if (mins <= 0) return 0;
-  if (p.minsMix) {
-    const sc = scenarios(p, mins);
-    return sc.p60 * defenderAt(d, f, d.mFull || p.minsMix.full, 2, 1) + sc.part * defenderAt(d, f, p.minsMix.part, 1, 0);
-  }
-  return defenderAt(d, f, mins, curveAt(p.appCurve, mins, 'pts'), curveAt(p.p60Curve, mins, 'p'));
+// v2 defenders (same as defenders.js fixtureXpV2): P(full game) x his usual full game (clean sheet counts) + P(part game)
+// x a typical part game, for a start chance ps (starts.js)
+function defenderFixtureXpV2(d, f, ps) {
+  const p = state.plans.DEF, sc = scenarioProbs(p, d, ps);
+  return sc.pFull * defenderAt(d, f, d.mFull || p.startModel.full, 2, 1) + sc.pPart * defenderAt(d, f, p.startModel.part, 1, 0);
 }
 // one scenario: plays `mins` with `app` appearance points; the clean sheet counts with weight csW
 function defenderAt(d, f, mins, app, csW) {
@@ -91,30 +79,10 @@ function defenderAt(d, f, mins, app, csW) {
   total += sc.goal * (val('goals') * mg.scale + (mg.pens ? fm[mg.penCol || 'fm_pxg'] || 0 : 0)) * t + sc.assist * val('assists') * p.model.assists.scale * t;
   return total + t * (sc.yellow * d.rates.y90 + sc.red * d.rates.r90 + p.other);
 }
-// expected appearance points for expected minutes: the minutes model's curve where the plan has one (a 45 can be a 50%
-// chance of starting), else the plain rule (2 for 60+, 1 below)
-function appPoints(plan, mins) {
-  const sc = plan.scoring, c = plan.appCurve;
-  if (!c) return mins >= 60 ? sc.appearance60 : mins > 0 ? sc.appearance : 0;
-  if (mins <= 0) return 0;
-  const i = Math.min(c.mins.length - 2, Math.floor(mins / (c.mins[1] - c.mins[0])));
-  const t = (mins - c.mins[i]) / (c.mins[i + 1] - c.mins[i]);
-  return c.pts[i] + t * (c.pts[i + 1] - c.pts[i]);
-}
-// minutes scenarios for an expected-minutes value (same as the position pages): P(60+), P(1-59)
-function scenarios(p, mins) {
-  const p60 = curveAt(p.p60Curve, mins, 'p');
-  return { p60, part: Math.max(0, curveAt(p.appCurve, mins, 'pts') - 2 * p60) };
-}
-function attackerFixtureXp(pos, d, f, mins) {
-  const p = state.plans[pos];
-  if (mins <= 0) return 0;
-  if (p.minsMix && p.p60Curve) {
-    const sc = scenarios(p, mins);
-    return sc.p60 * attackerAt(pos, d, f, d.mFull || p.minsMix.full, p.scoring.appearance60)
-      + sc.part * attackerAt(pos, d, f, p.minsMix.part, p.scoring.appearance);
-  }
-  return attackerAt(pos, d, f, mins, appPoints(p, mins));
+function attackerFixtureXp(pos, d, f, ps) {
+  const p = state.plans[pos], sc = scenarioProbs(p, d, ps);
+  return sc.pFull * attackerAt(pos, d, f, d.mFull || p.startModel.full, p.scoring.appearance60)
+    + sc.pPart * attackerAt(pos, d, f, p.startModel.part, p.scoring.appearance);
 }
 function attackerAt(pos, d, f, mins, app) {
   const p = state.plans[pos], sc = p.scoring, club = state.clubs[pos][d.club], opp = state.clubs[pos][f.oppId], t = mins / 90;
@@ -132,20 +100,20 @@ function attackerAt(pos, d, f, mins, app) {
     + sc.sot * mu.sot + nb(mu.kp, p.model.kp.r, sc.keyPassPer, [2]).pts + (p.model.int ? sc.interception * mu.int : 0)
     + t * (sc.yellow * r.y90 + sc.red * r.r90 + sc.penMiss * r.pm90 + sc.ownGoal * r.og90);
 }
-// [{f, xp}] for a player's fixtures in a gameweek, at his expected minutes
-function playerWeek(pl, gw) {
+// [{f, xp}] for a player's fixtures in a gameweek at his start chance (pl.start); asStarter: "if he starts" (his club's
+// first game of the gameweek at 100%, a double's second game at his chance of starting it given he started the first)
+function playerWeek(pl, gw, asStarter) {
   const wk = state.week[pl.pos][pl.club] && state.week[pl.pos][pl.club][gw];
-  if (!wk || !wk.games || pl.mins <= 0) return { wk, fx: (wk && wk.fx || []).map(f => ({ f, xp: 0 })) };
-  const s = pl.mins / 90;
-  let fx;
-  const gk = state.plans.GK;
-  if (pl.pos === 'GK') fx = wk.fx.map(f => {
-    if (!gk.minsMix || !gk.p60Curve) return { f, xp: s * f.xp };
-    const sc = scenarios(gk, pl.mins);
-    return { f, xp: sc.p60 * f.xp + sc.part * 1 };
+  if (!wk || !wk.games || (pl.start <= 0 && !asStarter)) return { wk, fx: (wk && wk.fx || []).map(f => ({ f, xp: 0 })) };
+  const fx = wk.fx.map((f, j) => {
+    const ps = startChanceAt(pl.raw, j, pl.start, asStarter), plan = state.plans[pl.pos];
+    if (pl.pos === 'GK') {
+      const sc = scenarioProbs(plan, pl.raw, ps);
+      return { f, xp: sc.pFull * f.xp + sc.pPart };
+    }
+    if (pl.pos === 'DEF') return { f, xp: defenderFixtureXpV2(pl.raw, f, ps) };
+    return { f, xp: attackerFixtureXp(pl.pos, pl.raw, f, ps) };
   });
-  else if (pl.pos === 'DEF') fx = wk.fx.map(f => ({ f, xp: state.plans.DEF.v2 ? defenderFixtureXpV2(pl.raw, f, pl.mins) : s * defenderFixtureXp(pl.raw, f) }));
-  else fx = wk.fx.map(f => ({ f, xp: attackerFixtureXp(pl.pos, pl.raw, f, pl.mins) }));
   return { wk, fx };
 }
 
@@ -172,12 +140,12 @@ async function loadXpData() {
   const clubShort = id => { const c = state.plans.CLUB.clubs.find(q => q.id === id); return c ? (c.short || c.name) : '?'; };
   for (const pos of POSITIONS) {
     const plan = state.plans[pos];
-    const minsEdits = readJson(MINS_KEYS[pos], {});
+    const edits = readStore(START_KEYS[pos]);
     for (const raw of (pos === 'GK' ? plan.keepers : pos === 'DEF' ? plan.defenders : plan.players)) {
       if (!state.week[pos][raw.club]) continue;
-      const edited = minsEdits[raw.id] !== undefined;
+      const edited = edits[raw.id] !== undefined;
       state.players.push({ id: raw.id, name: raw.name, pos, club: raw.club, clubShort: clubShort(raw.club), raw,
-        mins: edited ? minsEdits[raw.id] : raw.xMins, minsEdited: edited && minsEdits[raw.id] !== raw.xMins });
+        start: edited ? edits[raw.id] : raw.pStart || 0, startEdited: edited && Math.abs(edits[raw.id] - (raw.pStart || 0)) > 1e-9 });
     }
   }
 }

@@ -103,21 +103,25 @@ def keeper_constants(gk):
 
 
 def model_minutes(players, rounds):
-    """Minutes model (minutes_model.py, GK) for each keeper's next game, scaled within each club so the keepers' expected
-    minutes add up to 90 (only one keeper plays); injured / suspended keepers get 0. None if no GK minutes model."""
+    """Start-chance model (minutes_model.py, GK) for each keeper's next game(s). Only one keeper starts, so each club's
+    start chances are scaled to add up to 1 (per game); injured / suspended keepers get 0. None if no GK model."""
     import minutes_model as mm
     if not (mm.MODELS / "minutes_model_gk.joblib").exists():
         return None
-    pred = mm.predict_next("GK", players, rounds)
+    pred = mm.predict_starts("GK", players, rounds)
     by_club = {}
     for p in players:
         if p["position"] == "GK" and p["id"] in pred:
             by_club.setdefault(p["squadId"], []).append(p["id"])
     out = {}
     for ids in by_club.values():
-        tot = sum(pred[i] for i in ids)
+        for key in ("pStart", "pStart2c", "pStart2n"):
+            tot = sum(pred[i].get(key, 0.0) for i in ids)
+            for i in ids:
+                if key in pred[i]:
+                    out.setdefault(i, dict(pred[i]))[key] = pred[i][key] / tot if tot > 0 else 0.0
         for i in ids:
-            out[i] = 90.0 * pred[i] / tot if tot > 0 else 0.0
+            out.setdefault(i, dict(pred[i]))
     return out
 
 
@@ -156,13 +160,16 @@ def keeper_roster(players, squads, rounds, gk, consts):
             starter = max(avail, key=lambda p: (starts.get(p["id"], 0), mins.get(p["id"], 0)))["id"]
         for p in ks:
             ps = 1.0 if (available(p) and p["id"] == starter) else 0.0
-            if xm is not None:  # minutes model (start chance) where trained; the rule above stays as the fallback
-                ps = xm.get(p["id"], 0.0) / 90 if available(p) else 0.0
+            sp = None
+            if xm is not None:  # start-chance model where trained; the rule above stays as the fallback
+                sp = xm.get(p["id"]) if available(p) else None
+                ps = sp["pStart"] if sp else 0.0
             inj = p.get("injuryDetails") or {}
             ls = last_start.loc[p["id"]] if p["id"] in last_start.index else None
             out.append(dict(
                 id=p["id"], name=p.get("displayName") or f"{p['firstName']} {p['lastName']}", club=club, pStart=round(ps, 3),
-                xMins=int(round(90 * ps)), status=p["status"], injury=inj.get("type") if inj else None,
+                xMins=int(round(90 * ps)), **({k: round(v, 3) for k, v in sp.items() if k != "pStart"} if sp else {}),
+                status=p["status"], injury=inj.get("type") if inj else None,
                 injuryStatus=inj.get("status") if inj else None, suspended=bool(p.get("suspensionDetails")),
                 starts=int(starts.get(p["id"], 0)), mins=int(mins.get(p["id"], 0)),
                 lastStartGw=int(ls["gameweek"]) if ls is not None else None,
@@ -235,7 +242,8 @@ def _keeper_mix():
     if not f.exists():
         return {}
     js = json.loads(f.read_text(encoding="utf-8"))
-    return dict(appCurve=js["app_curve"], p60Curve=js["p60_curve"], minsMix=js["bucket_minutes"])
+    b = js["bucket_minutes"]
+    return dict(startModel=dict(q=js["q60"], full=b["full"], part=b["part"]), minsMix=b)
 
 
 def write_site_json(plan, path=SITE_JSON):

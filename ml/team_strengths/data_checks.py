@@ -260,9 +260,20 @@ def check_outputs(rounds, squads, gw):
     mins_bad = [(f, x["name"]) for f, p in plans.items() if f != "club_plan.json"
                 for x in (p.get("keepers") or p.get("defenders") or p.get("players") or []) if not 0 <= x["xMins"] <= 90]
     report("FAIL" if mins_bad else "PASS", "expected minutes are between 0 and 90", str(mins_bad[:3]))
+    probs_bad = [(f, x["name"]) for f, p in plans.items() if f != "club_plan.json"
+                 for x in (p.get("keepers") or p.get("defenders") or p.get("players") or [])
+                 for k in ("pStart", "pSubN", "pStart2c", "pStart2n") if k in x and not 0 <= x[k] <= 1]
+    report("FAIL" if probs_bad else "PASS", "start / bench chances are between 0 and 1", str(probs_bad[:3]))
+    # one keeper starts per club: each club's keepers' start chances add up to at most 1
+    gk_sum = {}
+    for x in plans["keeper_plan.json"]["keepers"]:
+        gk_sum[x["club"]] = gk_sum.get(x["club"], 0.0) + x.get("pStart", 0.0)
+    over = {c: round(v, 3) for c, v in gk_sum.items() if v > 1.005}  # each rounded to 3 decimals
+    report("FAIL" if over else "PASS", "each club's keepers' start chances add up to at most 1", str(list(over.items())[:3]))
     m = plans["mid_plan.json"]
-    starters = sum(x["xMins"] >= 60 for x in m["players"])
-    report("WARN" if not 100 <= starters <= 300 else "PASS", "plausible number of midfielders expected to play 60+", str(starters))
+    # clubs with a game in the next round x ~3-4 regular midfielders each
+    starters = sum(x.get("pStart", 0) >= 0.6 for x in m["players"])
+    report("WARN" if not 60 <= starters <= 300 else "PASS", "plausible number of midfielders likely to start (60%+)", str(starters))
 
 
 def run(inputs=True, outputs=True, gw=None, fixtures_csv=None):

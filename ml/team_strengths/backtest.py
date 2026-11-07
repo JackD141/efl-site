@@ -7,8 +7,9 @@ Per gameweek g (all inputs as of g's first kick-off):
   team-strength model fitted on matches before g (predict_gw.fit_current)
 - players: every registered player of that gameweek. Stat models (player_model.py, same features / window / shrinkage as
   live, coefficients refitted on 2025/26 + 2026/27 before g), inputs via the same live_inputs code cut to games before g;
-  expected minutes from the minutes model refitted before g (no injury news: harder than live). Keepers: odds-based clean
-  sheet / goals conceded / saves, minutes scaled to 90 per club
+  start chances from the start model (minutes_model.py) refitted before g (no injury news: harder than live; the second
+  game of a double uses the first game's start chance). Keepers: odds-based clean sheet / goals conceded / saves, start
+  chances scaled to add up to 1 per club
 - team: exact optimum (scipy milp) of sum xP + captain xP; formations 1-2-2-2 / 1-2-3-1 / 1-3-2-1, at most 2 per club
 - clubs: the two highest-xP clubs with picks left (each club 5 times a season)
 - score: real points; captain doubled (vice-captain if the captain did not play); club points from the real results
@@ -118,27 +119,30 @@ def club_realised(gf, ga, home):
 
 
 # ---------- minutes, refitted before the gameweek ----------
-def minutes_before(pos, feat, gw, mins_json):
-    name = mins_json["model"]
-    kind = name.split(" + ")[0]
-    feats = mins_json["features"]
+def starts_before(pos, feat, gw, mins_json):
+    """{player: (P(start), P(full game), P(part game))} for gameweek gw from the start model refitted on games before it.
+    feat: minutes_model.add_features(load_rows(pos)) (suspension games already left out)."""
     tr = feat[(feat["season"] == "2526") | ((feat["season"] == "2627") & (feat["gameweek"] < gw))]
-    m = mm.models()[kind]().fit(tr[feats], tr["mins"])
+    art = mm.fit_start(tr, mins_json["features"])
     rows = feat[(feat["season"] == "2627") & (feat["gameweek"] == gw)].sort_values("date")
     first = rows.drop_duplicates("player_id")  # first game of a double: features do not know the first game's outcome
-    return dict(zip(first["player_id"].astype(int), np.clip(m.predict(first[feats]), 0, 90)))
+    ps, pf, pp = mm.scenario_probs(art, first)
+    return {int(i): (float(a), float(b), float(c)) for i, a, b, c in zip(first["player_id"], ps, pf, pp)}, art["q"]
 
 
 # ---------- expected points per player for one gameweek ----------
-def outfield_xp(pos, art, inputs, players, fx_by_club, xmins, mj, card90, m_full, mix=True):
-    """Gameweek xP per player. mix=True: minutes scenarios, P(60+) x his full game (m_full minutes, appearance 2, clean
-    sheet counts) + P(1-59) x a typical part game (appearance 1); mix=False: the earlier straight scaling by minutes / 90."""
+def outfield_xp(pos, art, inputs, players, fx_by_club, sp, mj, card90, m_full, mix=True):
+    """Gameweek xP per player. sp: {player: (P(start), P(full game), P(part game))}. mix=True: P(full) x his full game
+    (m_full minutes, appearance 2, clean sheet counts) + P(part) x a typical part game (appearance 1); mix=False: straight
+    scaling by the implied expected minutes / 90 (for comparison)."""
     roles, styles, fm, mates = inputs
     fm_def = pm.fm_defaults(fm) if fm else {}
     out = {}
     for p in players:
         pid, cid = p["id"], p["squadId"]
-        mins = xmins.get(pid, 0.0)
+        _, pf, pp = sp.get(pid, (0.0, 0.0, 0.0))
+        mfull, mpart = m_full.get(pid, mj["bucket_minutes"]["full"]), mj["bucket_minutes"]["part"]
+        mins = pf * mfull + pp * mpart
         tot = 0.0
         for f in fx_by_club.get(cid, []):
             if mins <= 0:
@@ -165,17 +169,15 @@ def outfield_xp(pos, art, inputs, players, fx_by_club, xmins, mj, card90, m_full
                     x = app + sc["goal"] * mu["goals"] + 5 * p_at_least(mu["goals"], art["goals"]["nb_r"], 3) + sc["assist"] * mu["assists"]
                     x += sc["sot"] * mu["sot"] + nb_pts(mu["kp"], art["kp"]["nb_r"], 2) + (sc["interception"] * mu["int"] if "int" in mu else 0)
                 return x - card90 * t
-            p60 = curve(mj["p60_curve"], mins, "p")
             if mix:
-                part = max(0.0, curve(mj["app_curve"], mins, "pts") - 2 * p60)
-                tot += p60 * at(m_full.get(pid, mj["bucket_minutes"]["full"]), 2, 1.0) + part * at(mj["bucket_minutes"]["part"], 1, 0.0)
+                tot += pf * at(mfull, 2, 1.0) + pp * at(mpart, 1, 0.0)
             else:
-                tot += at(mins, curve(mj["app_curve"], mins, "pts"), p60 if pos == "DEF" else 0.0)
+                tot += at(mins, 2 * pf + pp, pf if pos == "DEF" else 0.0)
         out[pid] = tot
     return out
 
 
-def keeper_xp(players, fx_by_club, xmins, saves_model, consts, mj, mix=True):
+def keeper_xp(players, fx_by_club, sp, saves_model, consts, mj, mix=True):
     out = {}
     for p in players:
         tot = 0.0
@@ -185,13 +187,11 @@ def keeper_xp(players, fx_by_club, xmins, saves_model, consts, mj, mix=True):
             row = pd.DataFrame([dict(lam_own=lo, lam_opp=lp, home=int(home))])
             mu = float(kp.predict_saves(saves_model, row)[0])
             tot += kp.fixture_points(lo, lp, home, mu, saves_model["nb_r"], consts)["xp"]
-        m = xmins.get(p["id"], 0.0)
-        if mix:  # P(60+) x full-game xP + P(1-59) x one appearance point per game
-            p60 = curve(mj["p60_curve"], m, "p")
-            part = max(0.0, curve(mj["app_curve"], m, "pts") - 2 * p60)
-            out[p["id"]] = p60 * tot + part * len(fx_by_club.get(p["squadId"], []))
+        _, pf, pp = sp.get(p["id"], (0.0, 0.0, 0.0))
+        if mix:  # P(full game) x full-game xP + P(part game) x one appearance point per game
+            out[p["id"]] = pf * tot + pp * len(fx_by_club.get(p["squadId"], []))
         else:
-            out[p["id"]] = tot * m / 90
+            out[p["id"]] = tot * (pf * 90 + pp * mj["bucket_minutes"]["part"]) / 90
     return out
 
 
@@ -270,15 +270,19 @@ def main():
         xp, xp_lin = {}, {}
         for pos in POS:
             plist = [dict(p, position=pos) for p in players if p["pos"] == pos]
-            xm = minutes_before(pos, mins_feat[pos], gw, mins_json[pos])
-            if pos == "GK":  # one keeper plays: scale each club's keepers to 90
+            xm, q = starts_before(pos, mins_feat[pos], gw, mins_json[pos])
+            if pos == "GK":  # one keeper starts: scale each club's keepers' start chances to add up to 1
                 byc = {}
                 for p in plist:
                     byc.setdefault(p["squadId"], []).append(p["id"])
                 for ids in byc.values():
-                    tot = sum(xm.get(i, 0) for i in ids)
+                    tot = sum(xm.get(i, (0, 0, 0))[0] for i in ids)
                     for i in ids:
-                        xm[i] = 90 * xm.get(i, 0) / tot if tot > 0 else 0.0
+                        ps, pf, pp = xm.get(i, (0.0, 0.0, 0.0))
+                        ps2 = ps / tot if tot > 0 else 0.0
+                        qi = pf / ps if ps > 0 else q  # his P(60+ | started)
+                        pb = (pp - ps * (1 - qi)) / (1 - ps) if ps < 1 else 0.0  # P(sub | not started)
+                        xm[i] = (ps2, ps2 * qi, ps2 * (1 - qi) + (1 - ps2) * max(pb, 0.0))
                 xp.update(keeper_xp(plist, fx_by_club, xm, saves_gw, consts, mins_json[pos]))
                 xp_lin.update(keeper_xp(plist, fx_by_club, xm, saves_gw, consts, mins_json[pos], mix=False))
                 continue

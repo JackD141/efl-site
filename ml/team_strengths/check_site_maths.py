@@ -2,9 +2,10 @@
 python check_site_maths.py          writes public/data/check_xp.json (delete it afterwards; it is not committed)
 
 Then, in the browser on each Player Picks tab, compare with the page's own numbers, e.g. on picks.html?pos=MID:
-  const ref = await (await fetch('data/check_xp.json')).json();
-  Math.max(...state.plan.players.filter(d => ref.MID[d.id] !== undefined).map(d => Math.abs(weekXp(d, state.plan.firstGw, d.xMins).xp - ref.MID[d.id])))
-(DEF: weekXp(d, gw).xp90 with state.mins = {}; GK: kxp(k, gw)). "xP if starts": startsXp(d, gw) vs ref.<POS>_starts. Expect ~1e-6 (forwards' Poisson goals ~2e-5).
+  const ref = await (await fetch('data/check_xp.json', {cache: 'reload'})).json(); state.start = {}; state.cache = {};
+  Math.max(...state.plan.players.filter(d => ref.MID[d.id] !== undefined).map(d => Math.abs(weekXp(d, state.plan.firstGw, false).xp - ref.MID[d.id])))
+and startsXp(d, gw) vs ref.MID_starts. DEF: weekXp(d, gw, false).xp90; GK: kxp(k, gw) / startsXp(k, gw).
+Expect ~1e-9 (forwards' Poisson goals ~2e-5).
 """
 import json
 import math
@@ -43,9 +44,21 @@ def vals_for(p, clubs, d, f, st):
     return v
 
 
-def scenarios(p, m):
-    p60 = curve(p["p60Curve"], m, "p")
-    return p60, max(0.0, curve(p["appCurve"], m, "pts") - 2 * p60)
+def start_chance(d, j, starts=False):
+    """Chance he starts game j (0-based) of the first gameweek: game 1 his start chance (1 if starts); a double's second
+    game P(start 2 | started 1) x P(started 1) + P(start 2 | not started 1) x (1 - P(started 1))."""
+    s1 = 1.0 if starts else d.get("pStart", 0.0)
+    if j == 0:
+        return s1
+    c, n = d.get("pStart2c"), d.get("pStart2n")
+    return s1 if c is None else s1 * c + (1 - s1) * n
+
+
+def scenarios(p, d, j, starts=False):
+    """(P(he plays his usual full game), P(he plays part of a game)) for game j."""
+    q = d.get("pFull", p["startModel"]["q"])  # his chance of lasting 60+ once he starts
+    ps = start_chance(d, j, starts)
+    return ps * q, ps * (1 - q) + (1 - ps) * d.get("pSubN", 0.0)
 
 
 def attackers(p, starts=False):
@@ -53,7 +66,7 @@ def attackers(p, starts=False):
     sc = p["scoring"]
     out = {}
     for d in p["players"]:
-        if d["xMins"] <= 0:
+        if d.get("pStart", 0) <= 0 and d.get("pSubN", 0) <= 0:
             continue
         tot = 0.0
         for j, f in enumerate(clubs[d["club"]]["weeks"][0]["fx"]):
@@ -69,10 +82,8 @@ def attackers(p, starts=False):
                 x += sc["sot"] * mu["sot"] + float((pmf(mu["kp"], p["model"]["kp"]["r"]) * (K // sc["keyPassPer"])).sum())
                 x += sc.get("interception", 0) * mu.get("int", 0)
                 return x + t * (sc["yellow"] * r["y90"] + sc["red"] * r["r90"] + sc["penMiss"] * r["pm90"] + sc["ownGoal"] * r["og90"])
-            if starts and j == 0:  # "xP if starts": he starts the first game of the gameweek
-                tot += at(d.get("mFull", p["minsMix"]["full"]), sc["appearance60"])
-            elif p.get("minsMix"):
-                p60, part = scenarios(p, d["xMins"])
+            if p.get("startModel"):
+                p60, part = scenarios(p, d, j, starts)
                 tot += p60 * at(d.get("mFull", p["minsMix"]["full"]), sc["appearance60"]) + part * at(p["minsMix"]["part"], sc["appearance"])
             else:
                 tot += at(d["xMins"], curve(p["appCurve"], d["xMins"], "pts"))
@@ -86,7 +97,7 @@ def defenders(p, starts=False):
     units = {"clr": 4, "blk": 2, "tkl": 2}
     out = {}
     for d in p["defenders"]:
-        if d["xMins"] <= 0:
+        if d.get("pStart", 0) <= 0 and d.get("pSubN", 0) <= 0:
             continue
         tot = 0.0
         for j, f in enumerate(clubs[d["club"]]["weeks"][0]["fx"]):
@@ -101,10 +112,8 @@ def defenders(p, starts=False):
                 x += sc["goal"] * (rate["goals"] * mg["scale"] + (d["fm"].get(mg.get("penCol", "fm_pxg"), 0) if mg["pens"] else 0)) * t
                 x += sc["assist"] * rate["assists"] * p["model"]["assists"]["scale"] * t
                 return x + t * (sc["yellow"] * d["rates"]["y90"] + sc["red"] * d["rates"]["r90"] + p["other"])
-            if starts and j == 0:
-                tot += at(d.get("mFull", p["minsMix"]["full"]), 2, 1.0)
-            elif p.get("minsMix"):
-                p60, part = scenarios(p, d["xMins"])
+            if p.get("startModel"):
+                p60, part = scenarios(p, d, j, starts)
                 tot += p60 * at(d.get("mFull", p["minsMix"]["full"]), 2, 1.0) + part * at(p["minsMix"]["part"], 1, 0.0)
             else:
                 tot += at(d["xMins"], curve(p["appCurve"], d["xMins"], "pts"), curve(p["p60Curve"], d["xMins"], "p"))
@@ -117,11 +126,11 @@ def keepers(p, starts=False):
     out = {}
     for k in p["keepers"]:
         w = clubs[k["club"]]["weeks"][0]
-        if p.get("minsMix"):
-            p60, part = scenarios(p, k["xMins"])
-            out[k["id"]] = p60 * w["xp"] + part * w["games"]
-            if starts and w["fx"]:
-                out[k["id"]] = w["fx"][0]["xp"] + sum(p60 * f["xp"] + part for f in w["fx"][1:])
+        if p.get("startModel"):
+            out[k["id"]] = 0.0
+            for j, f in enumerate(w["fx"]):
+                p60, part = scenarios(p, k, j, starts)
+                out[k["id"]] += p60 * f["xp"] + part
         else:
             out[k["id"]] = k["xMins"] / 90 * w["xp"]
     return out

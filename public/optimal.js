@@ -1,6 +1,7 @@
 // Optimal Picks (homepage): best 7 players + 2 clubs + captain for a gameweek, under the Fantasy EFL rules.
-// xP comes from the same data and maths as the Keeper / Defender / Midfielder / Forward / Club pages; minutes edited on
-// those pages (saved in this browser) are used here too. Games that have already kicked off are not excluded.
+// xP comes from the same data and maths as the Keeper / Defender / Midfielder / Forward / Club pages; start chances edited
+// on those pages (saved in this browser) are used here too. Games that have already kicked off are not excluded.
+// "Assume my picks start": pick on xP if he starts (after team news), among players at least STARTER_MIN likely to start.
 const statusEl = document.getElementById('status');
 const root = document.getElementById('op-root');
 
@@ -14,10 +15,12 @@ const MAX_USES = 5;
 const PICKS_PER_WEEK = 2;
 const OWN_STORE = 'efl_optimal_v1';
 const POOL_PER_POS = 40;
+const MODE_STORE = 'efl_optimal_mode_v1';
+const STARTER_MIN = 0.5;
 
 const state = {
   plans: {}, clubs: {}, shortByName: {}, week: { GK: {}, DEF: {}, MID: {}, FWD: {}, CLUB: {} },
-  mins: {}, players: [], gw: null, abbrByName: {}, kitById: {},
+  players: [], gw: null, abbrByName: {}, kitById: {}, asStarter: (() => { try { return localStorage.getItem(MODE_STORE) === 'starts'; } catch (e) { return false; } })(),
   opts: { pinned: [], excluded: [], oneClub: false }, result: null,
 };
 
@@ -53,7 +56,7 @@ function chooseClubs(gw) {
 function optimise(gw) {
   const pinnedSet = new Set(pinsFor(gw)), excluded = new Set(state.opts.excluded);
   const all = state.players.map(pl => {
-    const w = playerWeek(pl, gw);
+    const w = playerWeek(pl, gw, state.asStarter);
     return { ...pl, fx: w.fx, xp: w.fx.reduce((a, x) => a + x.xp, 0) };
   });
   const byId = Object.fromEntries(all.map(p => [p.id, p]));
@@ -61,7 +64,7 @@ function optimise(gw) {
   const limit = oneClubOn(gw) ? 7 : MAX_PER_CLUB;
   const pool = [];
   for (const pos of POSITIONS) {
-    pool.push(...all.filter(p => p.pos === pos && !pinnedSet.has(p.id) && !excluded.has(p.id) && p.mins > 0 && p.xp > 0)
+    pool.push(...all.filter(p => p.pos === pos && !pinnedSet.has(p.id) && !excluded.has(p.id) && p.start > (state.asStarter ? STARTER_MIN - 1e-9 : 0) && p.xp > 0)
       .sort((a, b) => b.xp - a.xp).slice(0, POOL_PER_POS));
   }
   pool.sort((a, b) => b.xp - a.xp);
@@ -137,7 +140,7 @@ function showTip(el, x, y) {
     const p = r.players.byId[+el.dataset.player];
     if (!p) return;
     const cap = r.best && r.best.captain && r.best.captain.id === p.id;
-    html = `<div class="cp-tip-title">${esc(p.name)} <span>${POS_NAME[p.pos]} · ${esc(p.clubShort)} · expected minutes ${p.mins}${p.minsEdited ? ' (your edit)' : ''}${(p.raw.tags || []).length ? ` · set pieces: ${esc(spText(p.raw.tags))}` : ''}</span></div>
+    html = `<div class="cp-tip-title">${esc(p.name)} <span>${POS_NAME[p.pos]} · ${esc(p.clubShort)} · start chance ${Math.round(p.start * 100)}%${p.startEdited ? ' (your edit)' : ''}${state.asStarter ? ' · xP if he starts' : ''}${(p.raw.tags || []).length ? ` · set pieces: ${esc(spText(p.raw.tags))}` : ''}</span></div>
       <table class="cp-tip-table">${p.fx.map(x => `<tr><td>v ${esc(shortOf(x.f.opp))} (${x.f.ha})</td><td><span>${fmtDate(x.f.date, true)}${x.f.src === 'market' ? ' · odds' : ' · model'}</span></td><td class="cp-tip-num">${fmt2(x.xp)}</td></tr>`).join('') || '<tr><td colspan="3">No fixture</td></tr>'}
       <tr class="cp-tip-total"><td colspan="2">Gameweek xP${cap ? ' (× 2 as captain)' : ''}</td><td class="cp-tip-num">${fmt2(p.xp * (cap ? 2 : 1))}</td></tr></table>
       <div class="cp-tip-foot">Breakdown and minutes on <a href="${POS_PAGE[p.pos]}">Player Picks</a>. Click × on his shirt to exclude him.</div>`;
@@ -216,7 +219,7 @@ function render() {
   const inTeam = new Set(best ? best.team.map(p => p.id) : []);
   const excluded = new Set(state.opts.excluded);
   const bench = POSITIONS.map(pos => {
-    const alts = r.players.all.filter(p => p.pos === pos && !inTeam.has(p.id) && !excluded.has(p.id) && p.mins > 0)
+    const alts = r.players.all.filter(p => p.pos === pos && !inTeam.has(p.id) && !excluded.has(p.id) && p.start > 0)
       .sort((a, b) => b.xp - a.xp).slice(0, 5);
     return `<div class="op-alt"><h3>${POS_NAME[pos]}s</h3>${alts.map(p => `<div class="op-alt-row" data-tip="p" data-player="${p.id}">
       <span>${esc(p.name)} <span class="cp-muted cp-small">${esc(p.clubShort)}</span></span><span class="op-alt-xp">${fmt(p.xp)}</span>
@@ -232,6 +235,7 @@ function render() {
     <div class="cp-controls">
       <button id="op-prev" class="cp-nav-btn">&#8592;</button><select id="op-gw">${options}</select><button id="op-next" class="cp-nav-btn">&#8594;</button>
       <label class="kp-toggle" title="One Club chip: no limit on players from one club in this gameweek only (once a season)"><input type="checkbox" id="op-oneclub" ${oneClubOn(gw) ? 'checked' : ''}/> One Club chip (GW ${gw})</label>
+      <label class="kp-toggle" title="After team news: pick on expected points if each player starts his club's first game this gameweek, among players at least ${Math.round(STARTER_MIN * 100)}% likely to start (change start chances on Player Picks once line-ups are out). Off: expected points before team news, including the chance he does not start."><input type="checkbox" id="op-starters" ${state.asStarter ? 'checked' : ''}/> Assume my picks start</label>
     </div>
     <h2 class="cp-h2">Best team for GW ${gw} <span class="cp-sub">${fmtDate(meta.start)}${meta.end !== meta.start ? ' – ' + fmtDate(meta.end) : ''} · ${meta.games} games${meta.doubles ? ` · ${meta.doubles} clubs play twice` : ''}</span></h2>
     <div class="op-board">
@@ -282,6 +286,11 @@ function bind() {
   };
   document.getElementById('op-prev').addEventListener('click', () => step(-1));
   document.getElementById('op-next').addEventListener('click', () => step(1));
+  document.getElementById('op-starters').addEventListener('change', e => {
+    state.asStarter = e.target.checked;
+    try { localStorage.setItem(MODE_STORE, state.asStarter ? 'starts' : 'expected'); } catch (err) { /* ignore */ }
+    render();
+  });
   document.getElementById('op-oneclub').addEventListener('change', e => {
     state.opts.oneClubGws = state.opts.oneClubGws.filter(g => g !== state.gw).concat(e.target.checked ? [state.gw] : []);
     saveOwn(); render();

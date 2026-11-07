@@ -23,7 +23,8 @@ cd ml/team_strengths
 ../../venv/Scripts/python.exe weekly_update.py --override overrides/gw<N>_betfair.csv   # if Jack pasted Betfair prices
 ```
 `weekly_update.py` does, in order:
-1. downloads odds and results (football-data.co.uk) and EFL rounds / squads / players; **stops** if a finished gameweek's
+1. downloads odds and results (football-data.co.uk) and EFL rounds / squads / players (and saves EFL's injured /
+   suspended flags to data/2026_27/status/, commit them); **stops** if a finished gameweek's
    stats file is missing or empty (go back to step 1)
    - **odds check: stop and ask Jack.** It prints how many games have market odds, per set of fixtures (a double gameweek
      has two sets, e.g. Saturday and Tuesday). If fewer than 80% of the FIRST set are priced it stops. Tell Jack and ask:
@@ -62,7 +63,7 @@ Flags: `--no-retrain` and `--no-backtest` for a quick re-run (e.g. after a team-
 ## 4. Commit and push (deploys)
 ```bash
 rm public/data/check_xp.json
-git add public/data/*.json ml/team_strengths/models/*.json ml/team_strengths/models/*.joblib
+git add public/data/*.json ml/team_strengths/models/*.json ml/team_strengths/models/*.joblib data/2026_27/status/
 git commit -m "GW<N> predictions: retrained to GW<N-1>"
 git push origin main
 ```

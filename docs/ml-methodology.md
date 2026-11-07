@@ -89,6 +89,10 @@ Re-run this audit whenever a feature is added: write down, for the new feature, 
 | 10 Oct | Direct free-kick xG per 90 in goals; corners in assists | no gain / negative | rejected |
 | 10 Oct | Minutes scenarios (E[f(minutes)]) vs straight scaling by expected minutes / 90 | backtest GW1-8, 13,529 player-gameweeks: MSE 8.543 vs 8.563 (better for every position), mean xP 2.404 vs 2.415 actual (2.389 before) | adopted (principled + evidence) |
 | 15 Oct | Recency weights inside the history windows (`exp_recency.py`): a game a appearances back counts 0.5^(a/h), h = 40 / 20 / 10 / 5, separately for the role (last 20) and the FotMob rates (last 20 / 40), on each stat's live structure (25 combinations per stat) | > TOL with both folds positive only for MID key passes (+0.0009) and DEF clearances (+0.0008), both with FotMob h = 20 and a smooth surface around it; everything else within +-0.0004 (role decay again ~0, as on 9 Oct; MID interceptions +0.0002) | adopted as "fm40h20_*" candidates (each 40-game candidate gets a recency-weighted twin, least preferred) and re-selected by the normal protocol: chosen for MID kp (test -1.1873 vs -1.1875) and DEF clr (test -2.2170 vs -2.2197) only. Side effect: FWD goals moved from fm_npxg to fm40_npxg (it was 0.0005 = TOL behind; the new candidate nudged the best up). Backtest GW1-9, same code, old vs new models: player xP MSE 8.6702 -> 8.6687 (DEF 9.1132 -> 9.1089, MID 9.2169 -> 9.2165, FWD 9.2925 -> 9.2929); picked team 743 -> 729 (GW1 / 3 / 6 / 7 swaps between near-tied players: noise) |
+| 7 Nov | Compared with 72 Projections (GW13, Championship, per minute for regular starters) | they give ~86-89 minutes to regulars vs our ~80; per minute our shots / key passes / interceptions match theirs, our defenders' clearances are 0.8x theirs, xG / xA 0.7-0.8x. Checked against OUR out-of-sample record instead of their numbers: 2026/27 actual / predicted per stat (model fitted on 2025/26) is 0.93-1.07 for every stat (clearances 0.97; top-quintile clearance predictions 0.90, i.e. already slightly high) | stat models unchanged; their higher numbers track season averages without regression. The real difference is minutes |
+| 7 Nov | Start model (`exp_start.py`, then `minutes_model.py`): logistic P(start) + P(sub \| not started), suspension games inferred from cards and left out | P(60+) log-loss better than ridge + isotonic for every position on validation and test (table in docs/player-models.md); leaving bans out of the history helps every position | adopted |
+| 7 Nov | + current run of consecutive starts | val +0.0005 DEF (= TOL), worse for MID / FWD / GK | rejected (the decayed start features already carry it) |
+| 7 Nov | P(60+ \| started) per player instead of the position average | val P(60+) log-loss better for DEF / MID / FWD (e.g. FWD 0.3373 -> 0.3353), GK equal | adopted (a 90-minute regular is no longer docked for team-mates' substitutions) |
 Set-piece numbers: `ml/team_strengths/models/exp_setpieces_results.json` (`exp_setpieces.py`).
 Recency numbers: `ml/team_strengths/models/exp_recency_results.json` (`exp_recency.py`).
 Full GBM numbers: `ml/team_strengths/models/exp_gbm_results.json`.
@@ -111,6 +115,10 @@ Full GBM numbers: `ml/team_strengths/models/exp_gbm_results.json`.
   MAE, mixture vs straight scaling). Single gameweeks are noise; judge totals and the calibration lines.
 
 ## 7. Known issues and next steps (ranked)
+0. **Injury flags counted twice** (7 Nov): the start model learns from all absences, including injuries EFL had flagged
+   at pick time, and the site also sets flagged players to 0, so unflagged regulars' start chances are a little low.
+   `weekly_update.py` now saves EFL's flags every run (data/2026_27/status/); after ~8 weeks, refit with flagged games
+   left out (as suspensions are) and check on the backtest.
 1. DONE 10 Oct: set pieces (penalty share, corner share, free kicks) + "Pens" / "Corners" / "FKs" tags on the pages and
    the homepage. Possible next: team penalty rate scaled by the team's expected goals; corner share for assists of
    defenders (val +0.0004, below TOL: retest with more data).

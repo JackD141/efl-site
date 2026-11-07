@@ -31,16 +31,27 @@ share), share of his team's corners, free-kick xG per 90. Goals add share x 0.09
 conversion per 90; key passes use corner share. Tags (with a reason shown on hover): Pens (took his club's most recent penalty, or 2+ and half or more of his team's; our history is EFL-only, so a recent arrival from the Premier League needs the first), Corners (10+ and
 a quarter or more), FKs (3+ free-kick shots).
 
-## Minutes
-Ridge regression on: recent minutes / starts / appearances at his club (several decays), FotMob started / subbed-off
-history, run of 0-minute games, games at the club, rest days, second game of a double. Expected appearance points and
-P(60+ minutes) are isotonic curves of expected minutes (fitted out of sample). Keepers are scaled so each club sums to 90.
-Test RMSE (minutes) vs the old 90-or-0 rule: MID 25.6 vs 34.3, FWD 25.1 vs 35.9, DEF 29.2 vs 35.7, GK 22.3 vs 24.0.
-Calibration check (16 Oct, out of sample): players on 10+ straight 90s average ~84 minutes next game (about 4% miss it
-entirely), model ~83; an older absence (low long-decay features) is over-penalised by ~2 minutes (e.g. Fitzwater).
-"xP if starts" on Player Picks (16 Oct): picks can change after team news, so it assumes he starts his club's first game
-of the gameweek (his usual full-game minutes, 60+ appearance, clean sheet); a double's second game keeps his expected
-minutes. Python reference in check_site_maths.py (<POS>_starts).
+## Minutes: the start model (since 7 Nov 2026)
+What scoring depends on is not "expected minutes" but the chance of each minutes scenario, so three logistic models
+(minutes_model.py) on the same features (recent minutes / starts / appearances at his club on several decays, FotMob
+started / subbed-off history, run of 0-minute games, games at the club, rest days, second game of a double):
+P(start), P(60+ | started) (his own: a 90-minute regular is not docked for team-mates' substitutions) and P(comes on |
+not started). A game is then P(full game) = start x P(60+|start) (appearance 2, clean sheet, his usual full-game minutes
+mFull) + P(part game) = start x (1 - P(60+|start)) + (1 - start) x P(comes on) (appearance 1, ~24 minutes).
+- Suspensions are inferred from cards (0 minutes in the 1-3 games after a red, the game after a 5th / 10th / 15th
+  league yellow) and left out of training and of his history: a ban is known at pick time (EFL marks him suspended)
+  and is not being dropped.
+- Doubles: the second game's start chance is predicted as if he started the first (pStart2c) and as if not (pStart2n).
+- Keepers: a club's keepers' start chances are scaled to add up to 1 per game.
+- Validation 2025/26 GW24-35, P(60+) log-loss, old ridge + isotonic curve vs start model: GK 0.1535 / 0.1489, DEF 0.3436
+  / 0.3421, MID 0.3093 / 0.3064, FWD 0.3399 / 0.3353 (test 2026/27: MID 0.384 / 0.360, GK 0.211 / 0.194).
+- Regulars (5 straight 90s): start ~0.91-0.93, P(60+|start) ~0.97, ~87 minutes if he starts. Real data: regulars start
+  the next game 83-88% of the time (8% do not play at all: injury, ban, rotation, sale) - so ~80 expected minutes is
+  honest BEFORE team news. Known bias: EFL injury flags are not in the history, so known injuries are counted twice for
+  everyone else (the site also sets flagged players to 0); weekly snapshots of the flags start 7 Nov to measure it.
+- Pages: "Start %" (editable after team news) replaces expected minutes; "xP if starts" (default sort) puts his club's
+  first game of the gameweek at 100% and a double's second at pStart2c; the homepage has "Assume my picks start".
+  Python reference in check_site_maths.py.
 
 ## Protocol (do not deviate)
 Choices (features, window, role shrinkage) are made on two rolling validation folds inside 2025/26 (train to GW17 ->

@@ -24,6 +24,7 @@ git pull). This script checks that and stops if a finished gameweek is missing o
 6. reference xP for checking the pages' maths (check_site_maths.py -> public/data/check_xp.json, not committed)
 """
 import argparse
+import json
 import sys
 import time
 from pathlib import Path
@@ -87,12 +88,28 @@ def odds_coverage(rounds, squads, gw, override_files=()):
     return gw, out
 
 
+def save_status_snapshot(players):
+    """EFL's availability flags as of this run (data/2026_27/status/players_<date>.json, committed). The fantasy stats
+    only say who played, not who was known to be out at pick time: these snapshots let us measure, later, how often an
+    UNFLAGGED regular misses a game (the start model is trained on all absences, flagged ones included)."""
+    import pandas as pd
+    out = REPO / "data" / "2026_27" / "status" / f"players_{pd.Timestamp.now().strftime('%Y-%m-%d')}.json"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    keep = [dict(id=p["id"], club=p.get("squadId"), pos=p.get("position"), status=p.get("status"),
+                 injury=(p.get("injuryDetails") or {}).get("status"), injuryType=(p.get("injuryDetails") or {}).get("type"),
+                 suspended=bool(p.get("suspensionDetails"))) for p in players if p.get("status") != "eliminated"]
+    out.write_text(json.dumps(dict(savedAt=pd.Timestamp.now(tz="UTC").isoformat(timespec="seconds"), players=keep), separators=(",", ":")), encoding="utf-8")
+    return out
+
+
 def main(gw=None, overrides=(), retrain=True, backtest=True, allow_missing_odds=False):
     import fetch_data
     t = step("1. odds, results, EFL rounds / squads / players")
     fetch_data.football_data()
     rounds, _ = fetch_data.efl()
-    fetch_data.efl_players()
+    players = fetch_data.efl_players()
+    snap = save_status_snapshot(players)
+    print(f"  EFL injured / suspended flags saved to {snap.relative_to(REPO)}")
     missing = check_stats(rounds)
     if missing:
         raise SystemExit(f"Fantasy stats missing or empty for finished gameweek(s) {missing}: run the export (docs/weekly-runbook.md "

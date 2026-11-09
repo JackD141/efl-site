@@ -1,0 +1,734 @@
+player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_id,opponent_name,fixture_difficulty,is_home,minutes_played,goals_scored,hat_tricks,assists,penalty_misses,own_goals,yellow_cards,red_cards,saves,penalty_saves,clean_sheet,goals_conceded,clearances,blocks,tackles,interceptions,key_passes,shots_on_target,points
+19236,John,Ruddy,J. Ruddy,GK,39,13,109,Wrexham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+39325,Richard,O'Donnell,R. O'Donnell,GK,24,13,30,Bolton,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+42887,Frank,Fielding,F. Fielding,GK,110,13,47,Portsmouth,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+44699,Ashley,Barnes,A. Barnes,FWD,90,13,97,Cardiff,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+51922,Ben,Amos,B. Amos,GK,90,13,97,Cardiff,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+53314,Jon,McLaughlin,J. McLaughlin,GK,25,13,57,Watford,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+55451,Jamie,Jones,J. Jones,GK,20,13,107,Preston,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+55459,Aaron,Cresswell,A. Cresswell,DEF,110,13,47,Portsmouth,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+57531,Michail,Antonio,M. Antonio,FWD,57,13,25,Middlesbrough,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+57714,Craig,Forsyth,C. Forsyth,DEF,24,13,30,Bolton,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+58303,Paul,Farman,P. Farman,GK,80,13,41,Birmingham,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+58621,Kyle,Walker,K. Walker,DEF,90,13,97,Cardiff,medium,A,90,0,0,0,0,0,1,0,0,0,0,5,4,0,3,0,0,0,1
+61302,Ryan,Allsop,R. Allsop,GK,41,13,80,Swansea,hard,H,90,0,0,0,0,0,0,0,3,1,0,1,0,0,0,0,0,0,9
+61604,Matty,James,M. James,MID,109,13,39,Wolves,hard,H,13,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+61933,Shane,Duffy,S. Duffy,DEF,24,13,30,Bolton,easy,H,90,0,0,0,0,0,0,0,0,0,0,1,6,2,0,0,0,0,4
+66588,Luke,Ayling,L. Ayling,DEF,25,13,57,Watford,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+73455,Matty,Godden,M. Godden,FWD,33,13,49,Sheffield Utd,medium,H,15,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,7
+74944,Sam,Morsy,S. Morsy,MID,5,13,21,West Ham,medium,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,6
+76593,Marlon,Pack,M. Pack,MID,47,13,110,Stoke,hard,H,75,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,4
+77610,Danny,Batth,D. Batth,DEF,103,13,35,West Brom,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+77794,Kieran,Trippier,K. Trippier,DEF,39,13,109,Wrexham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+78607,Kenny,McLean,K. McLean,MID,45,13,113,Bristol C,easy,A,14,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+80146,Jordan,Ayew,J. Ayew,FWD,49,13,33,Charlton,easy,A,71,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,9
+80179,Adam,Forshaw,A. Forshaw,MID,5,13,21,West Ham,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+80282,Lee,Nicholls,L. Nicholls,GK,107,13,20,Southampton,hard,H,90,0,0,0,0,0,0,0,8,0,1,0,0,0,0,0,0,0,11
+82303,Ryan,Leonard,R. Leonard,MID,103,13,35,West Brom,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+83312,Ben,Gibson,B. Gibson,DEF,110,13,47,Portsmouth,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+83427,Jack,Robinson,J. Robinson,DEF,24,13,30,Bolton,easy,H,90,1,0,0,0,0,0,0,0,0,0,1,1,0,4,0,0,0,11
+84182,Alphonse,Areola,A. Areola,GK,21,13,5,Blackburn,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+85017,Tendayi,Darikwa,T. Darikwa,DEF,83,13,52,QPR,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+85897,Andrew,Hughes,A. Hughes,DEF,107,13,20,Southampton,hard,H,64,0,0,0,0,0,1,0,0,0,1,0,5,0,1,0,0,0,7
+87835,Matt,Doherty,M. Doherty,DEF,49,13,33,Charlton,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+88900,Jack,Stephens,J. Stephens,DEF,20,13,107,Preston,easy,A,90,0,0,0,0,0,0,0,0,0,0,1,12,2,2,0,0,0,7
+89085,Nathaniel,Chalobah,N. Chalobah,MID,33,13,49,Sheffield Utd,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+89184,Matt,Ingram,M. Ingram,GK,35,13,103,Millwall,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+90495,Sonny,Bradley,S. Bradley,DEF,83,13,52,QPR,hard,A,90,0,0,0,0,0,0,0,0,0,0,2,3,3,2,0,0,0,3
+92505,George,Long,G. Long,GK,20,13,107,Preston,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+95463,Danny,Ward,D. Ward,GK,109,13,39,Wolves,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+95744,Sam,Walker,S. Walker,GK,57,13,25,Middlesbrough,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+96305,Jay,Fulton,J. Fulton,MID,80,13,41,Birmingham,hard,A,81,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,3
+96778,Adam,Reach,A. Reach,MID,83,13,52,QPR,hard,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,0,6
+101178,James,Ward-Prowse,J. Ward-Prowse,MID,20,13,107,Preston,easy,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,3,0,5
+101184,Calum,Chambers,C. Chambers,DEF,97,13,90,Burnley,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+101668,Jamie,Vardy,J. Vardy,FWD,90,13,97,Cardiff,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+102057,Raúl,Jiménez,R. Jiménez,FWD,39,13,109,Wrexham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+102549,Adam,Davies,A. Davies,GK,49,13,33,Charlton,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+103914,Charlie,Taylor,C. Taylor,DEF,24,13,30,Bolton,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+105711,Jed,Wallace,J. Wallace,MID,113,13,45,Norwich,medium,H,45,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
+106606,Massimo,Luongo,M. Luongo,MID,103,13,35,West Brom,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+106617,Patrick,Bamford,P. Bamford,FWD,49,13,33,Charlton,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+108053,Conor,Townsend,C. Townsend,DEF,35,13,103,Millwall,medium,H,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+108801,Max,Crocombe,M. Crocombe,GK,103,13,35,West Brom,hard,A,90,0,0,0,0,0,0,0,3,0,0,3,0,0,0,0,0,0,3
+109224,Jack,Bonham,J. Bonham,GK,30,13,24,Derby,easy,A,90,0,0,0,0,0,0,0,2,0,0,3,0,0,0,0,0,0,1
+110504,Bertrand,Traoré,B. Traoré,FWD,39,13,109,Wrexham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+111478,Joël,Veltman,J. Veltman,DEF,21,13,5,Blackburn,medium,A,78,0,0,0,0,0,0,0,0,0,0,2,1,0,1,0,0,0,1
+113564,Sam,Byram,S. Byram,DEF,25,13,57,Watford,easy,A,76,0,0,0,0,0,1,0,0,0,1,0,6,0,2,0,0,0,8
+113571,Alex,Mowatt,A. Mowatt,MID,24,13,30,Bolton,easy,H,17,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+114245,Josh,Murphy,J. Murphy,MID,47,13,110,Stoke,hard,H,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+118892,Marvin,Ducksch,M. Ducksch,FWD,41,13,80,Swansea,hard,H,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+122411,Cameron,Burgess,C. Burgess,DEF,80,13,41,Birmingham,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+123210,Brad,Potts,B. Potts,MID,107,13,20,Southampton,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+124119,Conor,McGrandles,C. McGrandles,MID,83,13,52,QPR,hard,A,90,0,0,0,0,0,1,0,0,0,0,0,0,0,0,3,0,0,7
+124165,Patrick,Roberts,P. Roberts,MID,41,13,80,Swansea,hard,H,58,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,0,5
+126189,John,Swift,J. Swift,MID,47,13,110,Stoke,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+128340,Kieffer,Moore,K. Moore,FWD,109,13,39,Wolves,hard,H,77,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+133085,Lawrence,Vigouroux,L. Vigouroux,GK,80,13,41,Birmingham,hard,A,90,0,0,0,0,0,0,0,6,0,0,2,0,0,0,0,0,0,5
+134382,Lloyd,Jones,L. Jones,DEF,33,13,49,Sheffield Utd,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+145232,Daniel,Grimshaw,D. Grimshaw,GK,45,13,113,Bristol C,easy,A,90,0,0,0,0,0,0,0,3,0,1,0,0,0,0,0,0,0,9
+149065,José,Sá,J. Sá,GK,39,13,109,Wrexham,medium,A,90,0,0,0,0,0,0,0,2,0,0,1,0,0,0,0,0,0,2
+149388,Ben,Killip,B. Killip,GK,47,13,110,Stoke,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+149519,Maxwel,Cornet,M. Cornet,FWD,21,13,5,Blackburn,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+152898,Ben,Davies,B. Davies,DEF,30,13,24,Derby,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+152975,Lewis,Travis,L. Travis,MID,24,13,30,Bolton,easy,H,73,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+153134,Glen,Kamara,G. Kamara,MID,52,13,83,Lincoln,easy,H,90,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2,12
+153271,Josh,Windass,J. Windass,MID,109,13,39,Wolves,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+153371,Sam,Gallagher,S. Gallagher,FWD,110,13,47,Portsmouth,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+154040,George,Dobson,G. Dobson,MID,109,13,39,Wolves,hard,H,77,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,6
+154042,Marc,Bola,M. Bola,DEF,57,13,25,Middlesbrough,hard,H,17,0,0,0,0,0,0,0,0,0,0,0,0,1,2,0,0,0,2
+154047,Chris,Willock,C. Willock,MID,97,13,90,Burnley,easy,H,89,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,5,0,7
+154048,Stephy,Mavididi,S. Mavididi,FWD,57,13,25,Middlesbrough,hard,H,17,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+154128,Dominic,Hyam,D. Hyam,DEF,109,13,39,Wolves,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+154131,Jack,Stacey,J. Stacey,DEF,45,13,113,Bristol C,easy,A,90,0,0,0,0,0,0,0,0,0,1,0,2,0,5,0,0,0,9
+154506,Daniel,Bachmann,D. Bachmann,GK,57,13,25,Middlesbrough,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+154515,Greg,Docherty,G. Docherty,MID,107,13,20,Southampton,hard,H,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,3
+155405,Kalvin,Phillips,K. Phillips,MID,49,13,33,Charlton,easy,A,87,0,0,1,0,0,0,0,0,0,0,0,0,0,0,3,1,1,12
+155511,Adam,Armstrong,A. Armstrong,FWD,39,13,109,Wrexham,medium,A,85,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,9
+156658,Reece,Burke,R. Burke,DEF,33,13,49,Sheffield Utd,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+156685,Joe,Rothwell,J. Rothwell,MID,49,13,33,Charlton,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+156687,Ben,Pearson,B. Pearson,MID,110,13,47,Portsmouth,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+156700,Carlton,Morris,C. Morris,FWD,24,13,30,Bolton,easy,H,89,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,3,1,7
+158534,Kyle,Walker-Peters,K. Walker-Peters,DEF,21,13,5,Blackburn,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+160584,Joe,Ward,J. Ward,MID,24,13,30,Bolton,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+161006,Liam,Lindsay,L. Lindsay,DEF,107,13,20,Southampton,hard,H,90,0,0,0,0,0,1,0,0,0,1,0,11,3,0,0,0,0,9
+165183,Amari'i,Bell,A. Bell,DEF,33,13,49,Sheffield Utd,medium,H,90,0,0,0,0,0,0,0,0,0,0,1,2,0,3,0,0,0,3
+167724,Ryan,Hardie,R. Hardie,FWD,30,13,24,Derby,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+167887,Josh,Laurent,J. Laurent,MID,90,13,97,Cardiff,medium,A,90,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+167895,Jake,Cooper,J. Cooper,DEF,103,13,35,West Brom,hard,A,90,0,0,0,0,0,0,0,0,0,0,3,5,0,0,0,0,0,2
+168222,Callum,Elder,C. Elder,DEF,83,13,52,QPR,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+168760,Connor,Ogilvie,C. Ogilvie,DEF,47,13,110,Stoke,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+168977,Joel,Coleman,J. Coleman,GK,103,13,35,West Brom,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+169061,Dael,Fry,D. Fry,DEF,41,13,80,Swansea,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+169414,Ryan,Hedges,R. Hedges,MID,24,13,30,Bolton,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+169527,Joe,Williams,J. Williams,MID,113,13,45,Norwich,medium,H,66,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,4
+169734,Rob,Dickie,R. Dickie,DEF,113,13,45,Norwich,medium,H,90,0,0,0,0,0,0,0,0,0,0,5,4,0,0,0,0,0,1
+171160,Bradley,Collins,B. Collins,GK,113,13,45,Norwich,medium,H,90,0,0,0,0,0,0,0,2,0,0,5,0,0,0,0,0,0,0
+171324,Yuri,Ribeiro,Y. Ribeiro,DEF,5,13,21,West Ham,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+171975,Callum,Robinson,C. Robinson,FWD,97,13,90,Burnley,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+172453,Sam,Szmodics,S. Szmodics,MID,24,13,30,Bolton,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+172567,Josh,Cullen,J. Cullen,MID,90,13,97,Cardiff,medium,A,32,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+172632,Demarai,Gray,D. Gray,FWD,41,13,80,Swansea,hard,H,32,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,2
+172665,Andrija,Vukcevic,A. Vukcevic,DEF,107,13,20,Southampton,hard,H,88,0,0,0,0,0,0,0,0,0,1,0,6,0,1,0,0,0,8
+172936,Max,O'Leary,M. O'Leary,GK,35,13,103,Millwall,medium,H,90,0,0,0,0,0,0,0,2,0,1,0,0,0,0,0,0,0,7
+173803,Ben,Sheaf,B. Sheaf,MID,109,13,39,Wolves,hard,H,13,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+173818,Nathan,Broadhead,N. Broadhead,FWD,109,13,39,Wolves,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+173832,Callum,Burton,C. Burton,GK,109,13,39,Wolves,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+173954,Jairo,Riedewald,J. Riedewald,MID,49,13,33,Charlton,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+174310,Elijah,Adebayo,E. Adebayo,FWD,113,13,45,Norwich,medium,H,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+174592,Marcus,Edwards,M. Edwards,FWD,90,13,97,Cardiff,medium,A,58,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,7
+174647,Conor,Shaughnessy,C. Shaughnessy,DEF,47,13,110,Stoke,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+176298,Jordan,Thompson,J. Thompson,MID,107,13,20,Southampton,hard,H,90,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,11
+176706,Alfie,Jones,A. Jones,DEF,25,13,57,Watford,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+178016,Colby,Bishop,C. Bishop,FWD,47,13,110,Stoke,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+178173,Matt,Clarke,M. Clarke,DEF,24,13,30,Bolton,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+178186,Jarrod,Bowen,J. Bowen,FWD,21,13,5,Blackburn,medium,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,4
+178966,Casper,De Norre,C. De Norre,MID,103,13,35,West Brom,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+179458,Jacob,Bruun Larsen,J. Bruun Larsen,FWD,90,13,97,Cardiff,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+180294,Karlan,Grant,K. Grant,FWD,33,13,49,Sheffield Utd,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+180732,Jake,Clarke-Salter,J. Clarke-Salter,DEF,52,13,83,Lincoln,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+180801,Aynsley,Pears,A. Pears,GK,5,13,21,West Ham,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+183424,Oliver,Rathbone,O. Rathbone,MID,109,13,39,Wolves,hard,H,64,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,4
+184272,Callum,O'Hare,C. O'Hare,MID,109,13,39,Wolves,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+184386,James,Bree,J. Bree,DEF,20,13,107,Preston,easy,A,74,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,2
+184400,Josh,Sheehan,J. Sheehan,MID,30,13,24,Derby,easy,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,4
+184478,Corey,Blackett-Taylor,C. Blackett-Taylor,FWD,24,13,30,Bolton,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+185126,Cyle,Larin,C. Larin,FWD,20,13,107,Preston,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+185224,Ebou,Adams,E. Adams,MID,47,13,110,Stoke,hard,H,90,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,2,0,4
+185506,Scott,Wright,S. Wright,FWD,41,13,80,Swansea,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+186800,Perry,Ng,P. Ng,DEF,97,13,90,Burnley,easy,H,90,0,0,0,0,0,0,0,0,0,0,4,0,0,1,0,0,0,0
+192290,Connor,Roberts,C. Roberts,DEF,90,13,97,Cardiff,medium,A,26,0,0,0,0,0,0,0,0,0,0,4,2,0,0,0,0,0,-1
+193111,Todd,Cantwell,T. Cantwell,MID,5,13,21,West Ham,medium,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,1,9
+193448,Benjamin,Whiteman,B. Whiteman,MID,109,13,39,Wolves,hard,H,77,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,4
+193576,Zak,Vyner,Z. Vyner,DEF,109,13,39,Wolves,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+193787,Svante,Ingelsson,S. Ingelsson,MID,110,13,47,Portsmouth,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+194213,Lyndon,Dykes,L. Dykes,FWD,103,13,35,West Brom,hard,A,36,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+195473,Rhian,Brewster,R. Brewster,FWD,24,13,30,Bolton,easy,H,90,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,7
+195479,Lars-Jørgen,Salvesen,L. Salvesen,FWD,24,13,30,Bolton,easy,H,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+195482,Krystian,Bielik,K. Bielik,DEF,97,13,90,Burnley,easy,H,71,0,0,0,0,0,1,0,0,0,0,4,4,1,0,0,0,0,0
+195864,Sam,Field,S. Field,MID,45,13,113,Bristol C,easy,A,76,0,0,2,0,0,0,0,0,0,0,0,0,0,0,2,1,0,12
+197197,Regan,Poole,R. Poole,DEF,47,13,110,Stoke,hard,H,90,0,0,0,0,0,1,0,0,0,0,2,6,0,1,0,0,0,1
+197464,Nathaniel,Phillips,N. Phillips,DEF,35,13,103,Millwall,medium,H,90,0,0,0,0,0,0,0,0,0,1,0,4,0,0,0,0,0,8
+197469,Hamza,Choudhury,H. Choudhury,MID,49,13,33,Charlton,easy,A,45,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+198508,Josh,Vickers,J. Vickers,GK,24,13,30,Bolton,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+198965,Andy,Fisher,A. Fisher,GK,80,13,41,Birmingham,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+198971,Ryan,Nyambe,R. Nyambe,DEF,24,13,30,Bolton,easy,H,90,1,0,0,0,0,0,0,0,0,0,1,2,1,3,0,0,0,10
+198974,Scott,Wharton,S. Wharton,DEF,5,13,21,West Ham,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+199053,Sam,Smith,S. Smith,FWD,109,13,39,Wolves,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+199056,Gabriel,Osho,G. Osho,DEF,97,13,90,Burnley,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+199584,Japhet,Tanganga,J. Tanganga,DEF,49,13,33,Charlton,easy,A,90,0,0,0,0,0,0,0,0,0,0,2,6,1,3,0,0,0,3
+200656,David,Turnbull,D. Turnbull,MID,97,13,90,Burnley,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+200884,Tyrese,Campbell,T. Campbell,FWD,49,13,33,Charlton,easy,A,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+204216,Keshi,Anderson,K. Anderson,MID,47,13,110,Stoke,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+204694,Róbert,Bozeník,R. Bozeník,FWD,110,13,47,Portsmouth,medium,A,57,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+204814,Ben,Brereton,B. Brereton,FWD,49,13,33,Charlton,easy,A,87,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
+204863,Ryan,Manning,R. Manning,DEF,20,13,107,Preston,easy,A,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+205118,Bright,Osayi-Samuel,B. Osayi-Samuel,DEF,41,13,80,Swansea,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+205649,Harry,Pickering,H. Pickering,DEF,5,13,21,West Ham,medium,H,90,0,0,0,0,0,0,0,0,0,0,1,4,0,6,0,0,0,6
+205776,Joe,Rankin-Costello,J. Rankin-Costello,MID,33,13,49,Sheffield Utd,medium,H,64,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+207270,Daniel,Iversen,D. Iversen,GK,107,13,20,Southampton,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+208912,Joe,Worrall,J. Worrall,DEF,109,13,39,Wolves,hard,H,90,0,0,0,0,0,0,0,0,0,0,1,7,2,0,0,0,0,4
+209006,Dan,McNamara,D. McNamara,DEF,33,13,49,Sheffield Utd,medium,H,90,0,0,1,0,0,1,0,0,0,0,1,5,0,2,0,0,0,6
+209042,Oliver,Skipp,O. Skipp,MID,33,13,49,Sheffield Utd,medium,H,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+209413,Jordi,Osei-Tutu,J. Osei-Tutu,DEF,103,13,35,West Brom,hard,A,80,0,0,0,0,0,0,0,0,0,0,2,1,0,0,0,0,0,1
+210440,Mark,Sykes,M. Sykes,MID,103,13,35,West Brom,hard,A,45,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+212596,Nicolas,Schmid,N. Schmid,GK,47,13,110,Stoke,hard,H,90,0,0,0,0,0,0,0,1,0,0,2,0,0,0,0,0,0,1
+213999,Edson,Álvarez,E. Álvarez,MID,21,13,5,Blackburn,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+214048,Maximilian,Kilman,M. Kilman,DEF,21,13,5,Blackburn,medium,A,90,0,0,0,0,0,1,0,0,0,0,2,2,1,1,0,0,0,0
+214227,Lewis,Thomas,L. Thomas,GK,113,13,45,Norwich,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+214964,George,Edmundson,G. Edmundson,DEF,25,13,57,Watford,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+215066,Alex,Cochrane,A. Cochrane,DEF,41,13,80,Swansea,hard,H,90,0,0,0,0,0,0,0,0,0,0,1,0,1,2,0,0,0,3
+215069,Harvey,Knibbs,H. Knibbs,MID,33,13,49,Sheffield Utd,medium,H,26,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
+215439,Tomás,Soucek,T. Soucek,MID,21,13,5,Blackburn,medium,A,12,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2
+218023,Jimmy,Dunne,J. Dunne,DEF,52,13,83,Lincoln,easy,H,90,0,0,0,0,0,0,0,0,0,0,1,12,1,0,0,0,0,5
+218242,Ousmane,Diakité,O. Diakité,MID,35,13,103,Millwall,medium,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,0,6
+220333,Odin,Bailey,O. Bailey,MID,47,13,110,Stoke,hard,H,81,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,5
+220394,Tommy,Doyle,T. Doyle,MID,39,13,109,Wrexham,medium,A,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,3
+220399,Mikey,Johnston,M. Johnston,FWD,35,13,103,Millwall,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+220585,Flynn,Downes,F. Downes,MID,20,13,107,Preston,easy,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
+220598,Michael,Obafemi,M. Obafemi,FWD,90,13,97,Cardiff,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+220682,Arthur,Okonkwo,A. Okonkwo,GK,33,13,49,Sheffield Utd,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+220695,Paris,Maghoma,P. Maghoma,MID,45,13,113,Bristol C,easy,A,66,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,9
+220699,Mark,McGuinness,M. McGuinness,DEF,49,13,33,Charlton,easy,A,39,0,0,0,0,0,0,0,0,0,0,1,4,0,0,0,0,0,2
+220738,Jayson,Molumby,J. Molumby,MID,35,13,103,Millwall,medium,H,89,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,2,2,14
+220803,Paul,Smyth,P. Smyth,FWD,52,13,83,Lincoln,easy,H,77,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,2,1,3
+221267,Josh,Tymon,J. Tymon,DEF,80,13,41,Birmingham,hard,A,90,0,0,1,0,0,0,0,0,0,0,2,4,0,1,0,0,0,5
+221417,Callum,Brittain,C. Brittain,DEF,25,13,57,Watford,easy,A,90,0,0,0,0,0,1,0,0,0,1,0,1,1,1,0,0,0,6
+221429,George,Tanner,G. Tanner,DEF,113,13,45,Norwich,medium,H,90,0,0,0,0,0,0,0,0,0,0,5,3,0,0,0,0,0,0
+221610,Jamie,Shackleton,J. Shackleton,DEF,49,13,33,Charlton,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+222017,Conor,Coventry,C. Coventry,MID,33,13,49,Sheffield Utd,medium,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,4
+222018,Ben,Johnson,B. Johnson,DEF,110,13,47,Portsmouth,medium,A,90,0,0,0,0,0,0,0,0,0,0,1,2,0,1,0,0,0,2
+222340,Viktor,Johansson,V. Johansson,GK,110,13,47,Portsmouth,medium,A,90,0,0,0,0,0,0,0,2,0,0,1,0,0,0,0,0,0,2
+222625,George,Hirst,G. Hirst,FWD,110,13,47,Portsmouth,medium,A,33,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+222627,João,Virgínia,J. Virgínia,GK,39,13,109,Wrexham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+222663,Callum,Lang,C. Lang,FWD,107,13,20,Southampton,hard,H,70,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
+222677,Tahith,Chong,T. Chong,MID,49,13,33,Charlton,easy,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,9
+223434,Igor,Julio,I. Julio,DEF,90,13,97,Cardiff,medium,A,90,0,0,0,0,0,0,0,0,0,0,5,4,2,0,0,0,0,2
+223821,Ben,Cabango,B. Cabango,DEF,80,13,41,Birmingham,hard,A,90,0,0,0,0,0,0,0,0,0,0,2,11,1,0,0,0,0,3
+223911,Chris,Mepham,C. Mepham,DEF,35,13,103,Millwall,medium,H,90,0,0,0,0,0,0,0,0,0,1,0,7,1,3,0,0,0,9
+224935,Riley,McGree,R. McGree,MID,25,13,57,Watford,easy,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
+225000,Dion,Sanderson,D. Sanderson,DEF,24,13,30,Bolton,easy,H,90,0,0,0,0,0,0,0,0,0,0,1,8,0,0,0,0,0,4
+225321,Aaron,Ramsdale,A. Ramsdale,GK,20,13,107,Preston,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+226181,Max,Bird,M. Bird,MID,41,13,80,Swansea,hard,H,70,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,2,7
+226450,Will,Mannion,W. Mannion,GK,33,13,49,Sheffield Utd,medium,H,90,0,0,0,0,0,0,0,6,0,0,1,0,0,0,0,0,0,6
+226473,Scott,Twine,S. Twine,MID,113,13,45,Norwich,medium,H,74,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,4
+226878,Callum,Styles,C. Styles,MID,35,13,103,Millwall,medium,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,3,0,5
+226956,Mads,Roerslev,M. Roerslev,DEF,20,13,107,Preston,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+229164,Chiedozie,Ogbene,C. Ogbene,FWD,83,13,52,QPR,hard,A,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+229594,Phil,Neumann,P. Neumann,DEF,41,13,80,Swansea,hard,H,90,0,0,1,0,0,0,0,0,0,0,1,8,1,2,0,0,0,8
+229960,Christoph,Klarer,C. Klarer,DEF,41,13,80,Swansea,hard,H,90,0,0,0,0,1,0,0,0,0,0,1,7,0,0,0,0,0,0
+230348,Ross,Stewart,R. Stewart,FWD,80,13,41,Birmingham,hard,A,59,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,-2
+231057,Jean-Ricner,Bellegarde,J. Bellegarde,MID,39,13,109,Wrexham,medium,A,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+231539,Ali,McCann,A. McCann,MID,107,13,20,Southampton,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+231906,Jordan,Storey,J. Storey,DEF,107,13,20,Southampton,hard,H,2,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,1
+232228,Harry,Clarke,H. Clarke,DEF,107,13,20,Southampton,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+232245,Zak,Swanson,Z. Swanson,DEF,47,13,110,Stoke,hard,H,15,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1
+232391,Jeremy,Ngakia,J. Ngakia,DEF,57,13,25,Middlesbrough,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+232398,Nathan,Trott,N. Trott,GK,97,13,90,Burnley,easy,H,90,0,0,0,0,0,0,0,5,0,0,4,0,0,0,0,0,0,2
+232416,Finn,Azaz,F. Azaz,MID,20,13,107,Preston,easy,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,1,5
+232571,Anthony,Patterson,A. Patterson,GK,109,13,39,Wolves,hard,H,90,0,0,0,0,0,0,0,4,0,0,1,0,0,0,0,0,0,4
+232620,Lewis,Brunt,L. Brunt,DEF,30,13,24,Derby,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+232667,Akin,Famewo,A. Famewo,DEF,30,13,24,Derby,easy,A,82,0,0,0,0,0,0,0,0,0,0,2,4,0,1,0,0,0,2
+232741,Hayden,Carter,H. Carter,DEF,5,13,21,West Ham,medium,H,90,0,0,0,0,0,0,0,0,0,0,1,9,2,0,0,0,0,5
+232774,Ryan,Longman,R. Longman,MID,109,13,39,Wolves,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+232792,Tariq,Lamptey,T. Lamptey,DEF,52,13,83,Lincoln,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+232797,Kayne,Ramsay,K. Ramsay,DEF,33,13,49,Sheffield Utd,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+232801,Lee,Buchanan,L. Buchanan,DEF,41,13,80,Swansea,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+232905,Liam,Millar,L. Millar,FWD,41,13,80,Swansea,hard,H,58,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,3
+232929,Ethan,Laird,E. Laird,DEF,41,13,80,Swansea,hard,H,80,0,0,0,0,0,1,0,0,0,0,1,3,0,0,0,0,0,1
+232938,Sol,Brynn,S. Brynn,GK,25,13,57,Watford,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+232964,Lewis,Gibson,L. Gibson,DEF,107,13,20,Southampton,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+232985,Sonny,Carey,S. Carey,MID,33,13,49,Sheffield Utd,medium,H,26,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,3
+233461,Liam,Morrison,L. Morrison,DEF,52,13,83,Lincoln,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+233821,Anel,Ahmedhodzic,A. Ahmedhodzic,DEF,90,13,97,Cardiff,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+233963,Konstantinos,Mavropanos,K. Mavropanos,DEF,21,13,5,Blackburn,medium,A,90,0,0,0,0,0,0,0,0,0,0,2,1,0,4,0,0,0,3
+234557,Reeco,Hackett,R. Hackett,MID,83,13,52,QPR,hard,A,73,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,3
+235179,Ben,House,B. House,FWD,83,13,52,QPR,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+235381,Sam,Dalby,S. Dalby,FWD,30,13,24,Derby,easy,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,3
+235449,George,Wickens,G. Wickens,GK,83,13,52,QPR,hard,A,90,0,0,0,0,0,0,0,2,0,0,2,0,0,0,0,0,0,1
+235534,Cameron,Pring,C. Pring,DEF,113,13,45,Norwich,medium,H,45,0,0,0,0,0,0,0,0,0,0,1,1,0,3,0,0,0,2
+235627,Myron,Boadu,M. Boadu,FWD,57,13,25,Middlesbrough,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+235674,Manor,Solomon,M. Solomon,MID,21,13,5,Blackburn,medium,A,31,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+235755,Vladan,Kovacevic,V. Kovacevic,GK,45,13,113,Bristol C,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+235826,Joël,Piroe,J. Piroe,FWD,21,13,5,Blackburn,medium,A,90,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,9
+235879,Federico,Ravaglia,F. Ravaglia,GK,57,13,25,Middlesbrough,hard,H,90,0,0,0,0,0,0,0,4,0,1,0,0,0,0,0,0,0,9
+241231,Jordan,Beyer,J. Beyer,DEF,90,13,97,Cardiff,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+241279,Harry,Darling,H. Darling,DEF,45,13,113,Bristol C,easy,A,90,1,0,0,0,0,0,0,0,0,1,0,7,2,2,0,0,0,17
+241289,Ben,Wilmot,B. Wilmot,DEF,110,13,47,Portsmouth,medium,A,90,1,0,0,0,0,0,0,0,0,0,1,9,0,1,0,0,0,11
+242260,Gaizka,Larrazabal,G. Larrazabal,DEF,30,13,24,Derby,easy,A,90,0,0,1,0,0,1,0,0,0,0,3,0,1,3,0,0,0,4
+242507,Joel,Bagan,J. Bagan,DEF,97,13,90,Burnley,easy,H,90,0,0,0,0,0,1,0,0,0,0,4,0,0,2,0,0,0,0
+243345,Lewis,O'Brien,L. O'Brien,MID,109,13,39,Wolves,hard,H,90,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,10
+243432,Paik,Seung-Ho,P. Seung-Ho,MID,41,13,80,Swansea,hard,H,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+243760,Nathan,Broome,N. Broome,GK,30,13,24,Derby,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+244262,Alfie,Doughty,A. Doughty,MID,103,13,35,West Brom,hard,A,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,3
+244530,Stephen,Welsh,S. Welsh,DEF,80,13,41,Birmingham,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+244642,Ghislain,Konan,G. Konan,DEF,39,13,109,Wrexham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+244845,Nathan,Wood,N. Wood,DEF,20,13,107,Preston,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+244854,Karamoko,Dembélé,K. Dembélé,MID,52,13,83,Lincoln,easy,H,21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,0,5
+245693,Eoin,Toal,E. Toal,DEF,30,13,24,Derby,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+245748,Felix,Myhre,F. Myhre,MID,35,13,103,Millwall,medium,H,26,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,11
+245923,Luke,Cundle,L. Cundle,MID,103,13,35,West Brom,hard,A,71,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
+246299,Tom,Bayliss,T. Bayliss,MID,83,13,52,QPR,hard,A,17,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
+247620,Oladapo,Afolayan,O. Afolayan,FWD,5,13,21,West Ham,medium,H,90,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,8
+247670,Valentín,Castellanos,V. Castellanos,FWD,21,13,5,Blackburn,medium,A,25,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,4
+248937,Sam,Greenwood,S. Greenwood,FWD,113,13,45,Norwich,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+249956,Krépin,Diatta,K. Diatta,MID,57,13,25,Middlesbrough,hard,H,14,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+421201,Tyrese,Shade,T. Shade,FWD,47,13,110,Stoke,hard,H,90,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,8
+421350,Theo,Bair,T. Bair,FWD,30,13,24,Derby,easy,A,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+422303,John,McAtee,J. McAtee,FWD,30,13,24,Derby,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+426490,Sebastian,Berhalter,S. Berhalter,MID,25,13,57,Watford,easy,A,66,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,2,0,4
+426797,George,Campbell,G. Campbell,DEF,35,13,103,Millwall,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+427542,Aidan,Morris,A. Morris,MID,25,13,57,Watford,easy,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,0,9
+428774,Boy,Kemper,B. Kemper,DEF,52,13,83,Lincoln,easy,H,69,0,0,1,0,0,0,0,0,0,0,1,2,0,0,0,0,0,5
+429571,Daniel,Peretz,D. Peretz,GK,20,13,107,Preston,easy,A,90,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,2
+430123,Ethan,Erhahon,E. Erhahon,MID,30,13,24,Derby,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+430285,Balázs,Tóth,B. Tóth,GK,5,13,21,West Ham,medium,H,90,0,0,0,0,0,0,0,4,0,0,1,0,0,0,0,0,0,4
+431016,Jason,Knight,J. Knight,MID,113,13,45,Norwich,medium,H,60,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+431248,Ladislav,Krejcí,L. Krejcí,DEF,39,13,109,Wrexham,medium,A,90,0,0,0,0,0,0,0,0,0,0,1,3,0,0,0,0,0,2
+431426,Grégoire,Coudert,G. Coudert,GK,90,13,97,Cardiff,medium,A,90,0,0,0,0,0,0,0,4,0,0,5,0,0,0,0,0,0,2
+432668,Ilias,Chair,I. Chair,MID,52,13,83,Lincoln,easy,H,31,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,2,0,5
+432735,Adam,Idah,A. Idah,FWD,80,13,41,Birmingham,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+432819,Ethan,Galbraith,E. Galbraith,MID,110,13,47,Portsmouth,medium,A,90,0,0,1,0,0,1,0,0,0,0,0,0,0,0,1,0,1,7
+433028,Jayden,Nelson,J. Nelson,FWD,30,13,24,Derby,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+433138,Marc,Leonard,M. Leonard,MID,41,13,80,Swansea,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+433312,Marshall,Munetsi,M. Munetsi,MID,39,13,109,Wrexham,medium,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,3
+433462,Pol,Valentín,P. Valentín,DEF,107,13,20,Southampton,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+433732,Rob,Atkinson,R. Atkinson,DEF,113,13,45,Norwich,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+433779,Martín,Payero,M. Payero,MID,57,13,25,Middlesbrough,hard,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,0,8
+433952,Largie,Ramazani,L. Ramazani,FWD,90,13,97,Cardiff,medium,A,90,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,5,3,11
+433971,Koki,Saito,K. Saito,FWD,52,13,83,Lincoln,easy,H,13,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+433987,Michael,Cooper,M. Cooper,GK,49,13,33,Charlton,easy,A,90,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,1
+433991,Josh,Edwards,J. Edwards,DEF,33,13,49,Sheffield Utd,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+434036,Andri,Gudjohnsen,A. Gudjohnsen,FWD,5,13,21,West Ham,medium,H,71,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,8
+434043,Alex,Robertson,A. Robertson,MID,97,13,90,Burnley,easy,H,90,1,0,0,0,1,0,0,0,0,0,0,0,0,0,2,2,2,12
+434128,Joshua,Key,J. Key,DEF,80,13,41,Birmingham,hard,A,45,0,0,0,0,0,0,0,0,0,0,1,4,1,0,0,0,0,2
+434132,Tom,Hamer,T. Hamer,DEF,83,13,52,QPR,hard,A,17,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1
+434139,Harrison,Burrows,H. Burrows,DEF,49,13,33,Charlton,easy,A,90,0,0,0,0,0,0,0,0,0,0,2,3,0,3,0,0,0,2
+435788,Jack,McGlynn,J. McGlynn,MID,110,13,47,Portsmouth,medium,A,90,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,9
+436203,Alex,Bangura,A. Bangura,DEF,25,13,57,Watford,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+436761,Liam,Kitching,L. Kitching,DEF,49,13,33,Charlton,easy,A,90,0,0,0,0,0,0,0,0,0,0,2,6,0,0,0,0,0,2
+436806,Stephen,Eustaquio,S. Eustaquio,MID,80,13,41,Birmingham,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+437748,Mike,Trésor,M. Trésor,FWD,90,13,97,Cardiff,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+437985,Tomi,Horvat,T. Horvat,MID,113,13,45,Norwich,medium,H,30,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+438001,Zan,Vipotnik,Z. Vipotnik,FWD,80,13,41,Birmingham,hard,A,31,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+438040,Elijah,Just,E. Just,FWD,80,13,41,Birmingham,hard,A,31,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
+438130,Liberato,Cacace,L. Cacace,DEF,109,13,39,Wolves,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+439130,Josh,Griffiths,J. Griffiths,GK,110,13,47,Portsmouth,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+439135,Eiran,Cashin,E. Cashin,DEF,24,13,30,Bolton,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+439242,Taylor,Gardner-Hickman,T. Gardner-Hickman,MID,41,13,80,Swansea,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+439481,Jayden,Fevrier,J. Fevrier,FWD,5,13,21,West Ham,medium,H,70,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,3,0,6
+440323,Armando,Broja,A. Broja,FWD,90,13,97,Cardiff,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+440430,Lewis,Miller,L. Miller,DEF,5,13,21,West Ham,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+441192,Jeremy,Sarmiento,J. Sarmiento,MID,25,13,57,Watford,easy,A,86,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,7
+441332,Delano,Burgzorg,D. Burgzorg,FWD,107,13,20,Southampton,hard,H,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+442246,Adam,Randell,A. Randell,MID,113,13,45,Norwich,medium,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,2,0,11
+442335,Edo,Kayembe,E. Kayembe,MID,57,13,25,Middlesbrough,hard,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,4
+443211,Rhys,Norrington-Davies,R. Norrington-Davies,DEF,49,13,33,Charlton,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+443294,Sean,McLoughlin,S. McLoughlin,DEF,5,13,21,West Ham,medium,H,90,0,0,0,0,0,0,0,0,0,0,1,6,0,0,0,0,0,3
+444184,Calum,Ward,C. Ward,GK,52,13,83,Lincoln,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+445548,Odeluga,Offiah,O. Offiah,DEF,107,13,20,Southampton,hard,H,90,0,0,0,0,0,0,0,0,0,1,0,3,0,4,0,0,0,9
+445563,Jake,Garrett,J. Garrett,MID,5,13,21,West Ham,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+446980,Isaac,Olaofe,I. Olaofe,FWD,83,13,52,QPR,hard,A,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+447325,Harry,Tyrer,H. Tyrer,GK,97,13,90,Burnley,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+447715,Aaron,Ramsey,A. Ramsey,MID,90,13,97,Cardiff,medium,A,32,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,3,7
+447810,Mathias,Jørgensen,M. Jørgensen,FWD,5,13,21,West Ham,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+447849,Neto,Borges,N. Borges,DEF,25,13,57,Watford,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+447932,Jordan,Zemura,J. Zemura,DEF,57,13,25,Middlesbrough,hard,H,73,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,7
+448482,Rob,Street,R. Street,FWD,83,13,52,QPR,hard,A,31,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+449213,Nicolas,Madsen,N. Madsen,MID,52,13,83,Lincoln,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+449366,Aune,Heggebø,A. Heggebø,FWD,35,13,103,Millwall,medium,H,65,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+449974,Lukas,Jensen,L. Jensen,GK,103,13,35,West Brom,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+450072,Shurandy,Sambo,S. Sambo,DEF,90,13,97,Cardiff,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+450539,Myles,Peart-Harris,M. Peart-Harris,MID,25,13,57,Watford,easy,A,24,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+450543,Xavier,Simons,X. Simons,MID,30,13,24,Derby,easy,A,71,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,0,6
+450547,Daniel,Oyegoke,D. Oyegoke,DEF,83,13,52,QPR,hard,A,83,0,0,0,0,0,0,0,0,0,0,2,3,0,0,0,0,0,1
+451738,Derry John,Murkin,D. Murkin,DEF,24,13,30,Bolton,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+452914,Omar Haktab,Traoré,O. Traoré,DEF,57,13,25,Middlesbrough,hard,H,76,0,0,0,0,0,1,0,0,0,1,0,1,0,0,0,0,0,6
+454030,Keven,Schlotterbeck,K. Schlotterbeck,DEF,20,13,107,Preston,easy,A,11,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+454472,Ruben,Rodrigues,R. Rodrigues,FWD,30,13,24,Derby,easy,A,89,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,1,10
+456304,David,Strelec,D. Strelec,FWD,25,13,57,Watford,easy,A,66,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
+456333,Daniel,Bielica,D. Bielica,GK,47,13,110,Stoke,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+456350,Gavin,Bazunu,G. Bazunu,GK,30,13,24,Derby,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+456354,Augustus,Kargbo,A. Kargbo,FWD,5,13,21,West Ham,medium,H,20,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+461023,Ryan,Alebiosu,R. Alebiosu,DEF,5,13,21,West Ham,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+461128,Rubin,Colwill,R. Colwill,MID,97,13,90,Burnley,easy,H,90,0,0,2,0,0,1,0,0,0,0,0,0,0,0,1,5,1,12
+461132,Isaak,Davies,I. Davies,FWD,97,13,90,Burnley,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+461188,Bashir,Humphreys,B. Humphreys,DEF,90,13,97,Cardiff,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+461195,Dennis,Cirkin,D. Cirkin,DEF,52,13,83,Lincoln,easy,H,21,0,0,0,0,0,1,0,0,0,0,0,2,0,0,0,0,0,0
+461416,Thomas,Cannon,T. Cannon,FWD,49,13,33,Charlton,easy,A,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+461421,Lewis,Dobbin,L. Dobbin,FWD,20,13,107,Preston,easy,A,80,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
+461566,Will,Fish,W. Fish,DEF,97,13,90,Burnley,easy,H,90,0,0,0,0,0,0,0,0,0,0,4,3,0,2,0,0,0,1
+462033,Jamie,Pardington,J. Pardington,GK,83,13,52,QPR,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+462366,Lorent,Tolaj,L. Tolaj,FWD,113,13,45,Norwich,medium,H,60,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
+462381,Filip,Marschall,F. Marschall,GK,103,13,35,West Brom,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+462384,Jamal,Baptiste,J. Baptiste,DEF,49,13,33,Charlton,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+462438,Micah,Hamilton,M. Hamilton,FWD,25,13,57,Watford,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+462492,Joe,Gauci,J. Gauci,GK,83,13,52,QPR,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+463211,Felix,Goddard,F. Goddard,GK,5,13,21,West Ham,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+464599,Hector,Kyprianou,H. Kyprianou,MID,57,13,25,Middlesbrough,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+465276,Sam,McCallum,S. McCallum,DEF,49,13,33,Charlton,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+465527,Hannibal,Mejbri,H. Mejbri,MID,90,13,97,Cardiff,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+466148,Edoardo,Bove,E. Bove,MID,57,13,25,Middlesbrough,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+466936,Luca,Stephenson,L. Stephenson,MID,30,13,24,Derby,easy,A,71,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,1,4
+466937,Harvey,Blair,H. Blair,FWD,47,13,110,Stoke,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+467125,Tom,Fellows,T. Fellows,MID,20,13,107,Preston,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+467189,Mads,Hermansen,M. Hermansen,GK,21,13,5,Blackburn,medium,A,90,0,0,0,0,0,0,0,1,0,0,2,0,0,0,0,0,0,1
+467311,Mattie,Pollock,M. Pollock,DEF,57,13,25,Middlesbrough,hard,H,90,0,0,0,0,0,0,0,0,0,1,0,6,3,1,0,0,0,9
+467312,Rumarn,Burrell,R. Burrell,FWD,52,13,83,Lincoln,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+469247,Samuel,Iling-Junior,S. Iling-Junior,FWD,30,13,24,Derby,easy,A,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+469255,Lamine,Cissé,L. Cissé,FWD,110,13,47,Portsmouth,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+469265,Brayann,Pereira,B. Pereira,DEF,35,13,103,Millwall,medium,H,89,0,0,0,0,0,1,0,0,0,1,0,1,1,4,0,0,0,8
+469566,Kuryu,Matsuki,K. Matsuki,MID,20,13,107,Preston,easy,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+469702,David,Harrington,D. Harrington,GK,30,13,24,Derby,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+470255,Caleb,Taylor,C. Taylor,DEF,103,13,35,West Brom,hard,A,90,0,0,0,0,0,0,0,0,0,0,3,3,1,0,0,0,0,1
+470510,Charlie,Kelman,C. Kelman,FWD,33,13,49,Sheffield Utd,medium,H,75,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+471188,Yuki,Ohashi,Y. Ohashi,FWD,5,13,21,West Ham,medium,H,19,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,2,0,5
+471848,Femi,Seriki,F. Seriki,DEF,49,13,33,Charlton,easy,A,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+472312,Tommy,Conway,T. Conway,FWD,25,13,57,Watford,easy,A,14,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+472767,Callum,Doyle,C. Doyle,DEF,109,13,39,Wolves,hard,H,90,0,0,0,0,0,0,0,0,0,0,1,2,1,2,0,0,0,3
+474578,Luis,Vázquez,L. Vázquez,FWD,41,13,80,Swansea,hard,H,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+474776,Josh,Coburn,J. Coburn,FWD,103,13,35,West Brom,hard,A,54,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+476369,Issa,Kaboré,I. Kaboré,DEF,109,13,39,Wolves,hard,H,81,0,0,1,0,0,0,0,0,0,0,1,2,0,0,0,0,0,5
+476502,Boubacar,Traoré,B. Traoré,MID,39,13,109,Wrexham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+477131,Márk,Kosznovszky,M. Kosznovszky,MID,47,13,110,Stoke,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+477162,Tomoki,Iwata,T. Iwata,MID,41,13,80,Swansea,hard,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,4
+477331,Sam,Tickle,S. Tickle,GK,113,13,45,Norwich,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+477333,Kyle,Joseph,K. Joseph,FWD,25,13,57,Watford,easy,A,24,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2
+477368,Léo,Leroy,L. Leroy,MID,107,13,20,Southampton,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+477655,José,Córdoba,J. Córdoba,DEF,45,13,113,Bristol C,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+477668,Oscar,Fraulo,O. Fraulo,MID,24,13,30,Bolton,easy,H,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+477733,Radek,Vítek,R. Vítek,GK,25,13,57,Watford,easy,A,90,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,7
+478219,Tiernan,Brooks,T. Brooks,GK,33,13,49,Sheffield Utd,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+478969,Hjalmar,Ekdal,H. Ekdal,DEF,90,13,97,Cardiff,medium,A,90,0,0,0,0,0,0,0,0,0,0,5,0,2,1,0,0,0,1
+479245,Rokas,Pukstas,R. Pukstas,MID,25,13,57,Watford,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+479393,Jacob,Widell Zetterström,J. Widell Zetterström,GK,24,13,30,Bolton,easy,H,90,0,0,0,0,0,0,0,5,0,0,1,0,0,0,0,0,0,4
+479641,Sebastian,Revan,S. Revan,MID,109,13,39,Wolves,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+480364,Anthony,Musaba,A. Musaba,FWD,45,13,113,Bristol C,easy,A,75,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,3,0,6
+480818,Billy,Koumetio,B. Koumetio,DEF,33,13,49,Sheffield Utd,medium,H,90,0,0,0,0,0,0,0,0,0,0,1,12,1,0,0,0,0,5
+482070,Brian,De Keersmaecker,B. De Keersmaecker,MID,113,13,45,Norwich,medium,H,24,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,3
+483081,Rodrigo,Gomes,R. Gomes,DEF,39,13,109,Wrexham,medium,A,64,0,0,0,0,0,0,0,0,0,0,1,1,0,2,0,0,0,3
+483391,Luke,McNally,L. McNally,DEF,113,13,45,Norwich,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+483499,Thierry,Gale,T. Gale,FWD,30,13,24,Derby,easy,A,70,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,3
+484391,Noah,Eile,N. Eile,DEF,113,13,45,Norwich,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+484731,Carlos,Vicente,C. Vicente,FWD,41,13,80,Swansea,hard,H,32,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
+485005,Ivan,Mesík,I. Mesík,DEF,33,13,49,Sheffield Utd,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+485038,Reo,Hatate,R. Hatate,MID,90,13,97,Cardiff,medium,A,58,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,3
+485047,,Morato,Morato,DEF,21,13,5,Blackburn,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+486864,Pelle,Mattsson,P. Mattsson,MID,45,13,113,Bristol C,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+487288,Maksym,Talovierov,M. Talovierov,DEF,110,13,47,Portsmouth,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+487652,Mirko,Topic,M. Topic,MID,45,13,113,Bristol C,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+487830,James,Beadle,J. Beadle,GK,41,13,80,Swansea,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+487834,James,Clarridge,J. Clarridge,DEF,57,13,25,Middlesbrough,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+487835,Ben,Chrisene,B. Chrisene,DEF,45,13,113,Bristol C,easy,A,60,0,0,0,0,0,0,0,0,0,1,0,2,0,1,0,0,0,7
+487837,Divin,Mubama,D. Mubama,FWD,20,13,107,Preston,easy,A,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2
+488274,Filip,Bilbija,F. Bilbija,MID,24,13,30,Bolton,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+488464,Caleb,Wiley,C. Wiley,DEF,107,13,20,Southampton,hard,H,26,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1
+489517,Ollie,Tanner,O. Tanner,FWD,97,13,90,Burnley,easy,H,63,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,10
+489674,Connor,Barron,C. Barron,MID,25,13,57,Watford,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+489706,Justin,Devenny,J. Devenny,MID,110,13,47,Portsmouth,medium,A,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+490146,Jay,Stansfield,J. Stansfield,FWD,41,13,80,Swansea,hard,H,90,2,0,0,0,0,1,0,0,0,0,0,0,0,0,0,2,3,15
+490161,Abu,Kamara,A. Kamara,FWD,47,13,110,Stoke,hard,H,81,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+490503,Samuel,Edozie,S. Edozie,MID,20,13,107,Preston,easy,A,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
+490721,Hugo,Bueno,H. Bueno,DEF,39,13,109,Wrexham,medium,A,15,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,2
+490722,Kwame,Poku,K. Poku,MID,52,13,83,Lincoln,easy,H,69,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,3
+490881,Toby,Collyer,T. Collyer,MID,35,13,103,Millwall,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+491551,Thierry,Small,T. Small,DEF,107,13,20,Southampton,hard,H,90,0,0,0,0,0,1,0,0,0,1,0,2,0,2,0,0,0,7
+491557,Jenson,Metcalfe,J. Metcalfe,MID,103,13,35,West Brom,hard,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,8
+491559,Isaac,Price,I. Price,MID,35,13,103,Millwall,medium,H,90,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,5,1,14
+491785,Harvey,Vale,H. Vale,MID,52,13,83,Lincoln,easy,H,59,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
+491970,Bobby,Clark,B. Clark,MID,24,13,30,Bolton,easy,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+492153,Dom,Jefferies,D. Jefferies,MID,83,13,52,QPR,hard,A,83,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,9
+492281,Max,Cleworth,M. Cleworth,DEF,109,13,39,Wolves,hard,H,90,0,0,0,0,0,0,0,0,0,0,1,8,0,5,0,0,0,6
+492475,Eom,Ji-Sung,E. Ji-Sung,FWD,80,13,41,Birmingham,hard,A,45,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
+492654,Mathias,Kvistgaarden,M. Kvistgaarden,FWD,45,13,113,Bristol C,easy,A,90,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,9
+492831,Zeki,Amdouni,Z. Amdouni,FWD,90,13,97,Cardiff,medium,A,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
+492895,Tomás,Rigo,T. Rigo,MID,110,13,47,Portsmouth,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+492917,Ugo,Raghouber,U. Raghouber,MID,90,13,97,Cardiff,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+493167,Arne,Engels,A. Engels,MID,21,13,5,Blackburn,medium,A,90,0,0,0,0,0,1,0,0,0,0,0,0,0,0,2,1,1,6
+493357,Soumaïla,Coulibaly,S. Coulibaly,DEF,57,13,25,Middlesbrough,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+493735,Barnaby,Williams,B. Williams,MID,20,13,107,Preston,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+493736,Jimmy-Jay,Morgan,J. Morgan,FWD,35,13,103,Millwall,medium,H,64,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
+493900,Darlin,Yongwa,D. Yongwa,DEF,45,13,113,Bristol C,easy,A,30,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,1
+493934,Kwadwo,Baah,K. Baah,FWD,57,13,25,Middlesbrough,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+494307,Max,Alleyne,M. Alleyne,DEF,90,13,97,Cardiff,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+494543,Dom,Ballard,D. Ballard,FWD,113,13,45,Norwich,medium,H,30,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,3
+495161,Marko,Stamenic,M. Stamenic,MID,80,13,41,Birmingham,hard,A,26,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,-2
+496179,Alfie,Devine,A. Devine,MID,107,13,20,Southampton,hard,H,70,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,5
+496209,Kristi,Montgomery,K. Montgomery,MID,5,13,21,West Ham,medium,H,83,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,3
+496222,Zak,Sturge,Z. Sturge,DEF,103,13,35,West Brom,hard,A,90,0,0,0,0,0,1,0,0,0,0,3,2,0,1,0,0,0,0
+496932,Cameron,Bragg,C. Bragg,MID,20,13,107,Preston,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+497605,Liam,Gibbs,L. Gibbs,MID,107,13,20,Southampton,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+497606,Tawanda,Chirewa,T. Chirewa,FWD,39,13,109,Wrexham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+497776,Adrian,Segecic,A. Segecic,MID,47,13,110,Stoke,hard,H,65,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
+497804,Gonçalo,Franco,G. Franco,MID,80,13,41,Birmingham,hard,A,86,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,4
+497838,Mohamed,Touré,M. Touré,FWD,45,13,113,Bristol C,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+498104,Ryley,Towler,R. Towler,DEF,83,13,52,QPR,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+499717,Jayden,Meghoma,J. Meghoma,DEF,47,13,110,Stoke,hard,H,75,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,2
+500016,,Welington,Welington,DEF,20,13,107,Preston,easy,A,75,0,0,0,0,0,0,0,0,0,0,1,5,0,2,0,0,0,4
+500926,Ronnie,Edwards,R. Edwards,DEF,52,13,83,Lincoln,easy,H,90,0,0,0,0,0,0,0,0,0,0,1,9,2,0,0,0,0,5
+501451,George,Thomason,G. Thomason,MID,109,13,39,Wolves,hard,H,26,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+501837,Yerson,Mosquera,Y. Mosquera,DEF,39,13,109,Wrexham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+502457,Eric-Junior,Bocat,E. Bocat,DEF,110,13,47,Portsmouth,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+502988,Danny,Imray,D. Imray,DEF,109,13,39,Wolves,hard,H,9,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
+503033,Joshua,Honohan,J. Honohan,DEF,83,13,52,QPR,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+503140,Sam,Bell,S. Bell,FWD,113,13,45,Norwich,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+504198,Anis,Ben Slimane,A. Ben Slimane,MID,45,13,113,Bristol C,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+504602,Ryoya,Morishita,R. Morishita,MID,5,13,21,West Ham,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+505200,Gibson,Yah,G. Yah,MID,113,13,45,Norwich,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+508958,Atsuki,Ito,A. Ito,MID,30,13,24,Derby,easy,A,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+509291,,André,André,MID,39,13,109,Wrexham,medium,A,90,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,1,0,3
+510328,Stanley,Mills,S. Mills,MID,107,13,20,Southampton,hard,H,64,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,1
+510362,Toti,Gomes,T. Gomes,DEF,39,13,109,Wrexham,medium,A,75,0,0,0,0,0,1,0,0,0,0,1,3,0,3,0,0,0,2
+511066,Max,Johnston,M. Johnston,DEF,24,13,30,Bolton,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+511528,Million,Manhoef,M. Manhoef,FWD,110,13,47,Portsmouth,medium,A,86,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
+511591,Rafiki,Saïd,R. Saïd,FWD,39,13,109,Wrexham,medium,A,26,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
+513532,Mathis,Servais,M. Servais,MID,103,13,35,West Brom,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+513834,Andrew,Moran,A. Moran,MID,107,13,20,Southampton,hard,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,3
+514621,Rocco,Shein,R. Shein,MID,47,13,110,Stoke,hard,H,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,3
+516250,Jacob,Wright,J. Wright,MID,45,13,113,Bristol C,easy,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,3,1,6
+516928,Collins,Sichenje,C. Sichenje,DEF,33,13,49,Sheffield Utd,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+517161,Max,Conway,M. Conway,DEF,30,13,24,Derby,easy,A,90,0,0,0,0,0,0,0,0,0,0,3,3,0,3,0,0,0,2
+517178,Elkan,Baggott,E. Baggott,DEF,103,13,35,West Brom,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+517432,Matthew,Turner,M. Turner,GK,97,13,90,Burnley,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+517475,Terry,Devlin,T. Devlin,MID,47,13,110,Stoke,hard,H,90,0,0,0,0,0,1,0,0,0,0,0,0,0,0,3,0,0,7
+517995,Leo,Castledine,L. Castledine,MID,25,13,57,Watford,easy,A,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+518030,Max,Weiss,M. Weiss,GK,90,13,97,Cardiff,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+518442,Lewis,Orford,L. Orford,MID,21,13,5,Blackburn,medium,A,12,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
+518895,Filip,Lissah,F. Lissah,DEF,80,13,41,Birmingham,hard,A,90,0,0,0,0,0,0,0,0,0,0,2,1,0,3,0,0,0,2
+519324,Amario,Cozier-Duberry,A. Cozier-Duberry,MID,25,13,57,Watford,easy,A,45,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+519328,Calum,Scanlon,C. Scanlon,DEF,97,13,90,Burnley,easy,H,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+519330,Ben,Cisse,B. Cisse,GK,35,13,103,Millwall,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+519634,Jenson,Seelt,J. Seelt,DEF,80,13,41,Birmingham,hard,A,90,0,0,0,0,0,0,0,0,0,0,2,5,0,4,0,0,0,4
+519725,Camiel,Neghli,C. Neghli,FWD,103,13,35,West Brom,hard,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
+519895,Oliver,Sonne,O. Sonne,DEF,90,13,97,Cardiff,medium,A,26,0,0,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,-1
+520081,Rob,Apter,R. Apter,MID,33,13,49,Sheffield Utd,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+520855,Alfie,Lloyd,A. Lloyd,FWD,52,13,83,Lincoln,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+522058,Junior,Tchamadeu,J. Tchamadeu,DEF,110,13,47,Portsmouth,medium,A,57,0,0,0,0,0,1,0,0,0,0,1,1,0,2,0,0,0,1
+522260,Tammer,Bany,T. Bany,FWD,35,13,103,Millwall,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+523116,Millenic,Alli,M. Alli,FWD,33,13,49,Sheffield Utd,medium,H,90,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,2,1,12
+523643,Adilson,Malanda,A. Malanda,DEF,25,13,57,Watford,easy,A,90,0,0,0,0,0,0,0,0,0,1,0,4,1,0,0,0,0,8
+523705,Jackson,Tchatchoua,J. Tchatchoua,DEF,39,13,109,Wrexham,medium,A,90,0,0,0,0,0,0,0,0,0,0,1,3,0,3,0,0,0,3
+523851,Jack,Moylan,J. Moylan,MID,97,13,90,Burnley,easy,H,89,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,10
+524171,Freddie,Draper,F. Draper,FWD,83,13,52,QPR,hard,A,90,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,6
+524194,Bosun,Lawal,B. Lawal,DEF,110,13,47,Portsmouth,medium,A,90,0,0,0,0,0,0,0,0,0,0,1,6,1,1,0,0,0,3
+530330,Pierce,Charles,P. Charles,GK,52,13,83,Lincoln,easy,H,90,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,2
+530335,,Pablo,Pablo,FWD,21,13,5,Blackburn,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+531015,Kévin,Keben,K. Keben,DEF,57,13,25,Middlesbrough,hard,H,90,0,0,0,0,0,0,0,0,0,1,0,7,0,1,0,0,0,8
+531170,Nasser,Djiga,N. Djiga,DEF,39,13,109,Wrexham,medium,A,90,0,0,1,0,0,0,0,0,0,0,1,3,0,0,0,0,0,5
+531989,David,Ozoh,D. Ozoh,MID,24,13,30,Bolton,easy,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,6
+532097,Ivan,Varfolomeev,I. Varfolomeev,MID,83,13,52,QPR,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+532372,Oliver,Arblaster,O. Arblaster,MID,49,13,33,Charlton,easy,A,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+533003,Taïryk,Arconte,T. Arconte,FWD,103,13,35,West Brom,hard,A,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
+533515,Jhon,Solís,J. Solís,MID,41,13,80,Swansea,hard,H,70,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,3
+533595,Jusef,Erabi,J. Erabi,FWD,107,13,20,Southampton,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+534389,Miles,Leaburn,M. Leaburn,FWD,33,13,49,Sheffield Utd,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+534390,Deji,Elerewe,D. Elerewe,DEF,83,13,52,QPR,hard,A,90,0,0,0,0,0,0,0,0,0,0,2,10,1,3,0,0,0,4
+534391,Tyreece,Campbell,T. Campbell,FWD,33,13,49,Sheffield Utd,medium,H,87,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
+534467,Jordan,James,J. James,MID,39,13,109,Wrexham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+535706,Andréas,Hountondji,A. Hountondji,FWD,90,13,97,Cardiff,medium,A,80,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,8
+535966,George,Evans,G. Evans,GK,103,13,35,West Brom,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+536109,Ollie,Scarles,O. Scarles,DEF,21,13,5,Blackburn,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+536556,James,Edmondson,J. Edmondson,MID,5,13,21,West Ham,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+536575,Johnny,Kenny,J. Kenny,FWD,107,13,20,Southampton,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+537171,Zak,Lovelace,Z. Lovelace,FWD,103,13,35,West Brom,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+537475,Jonathan,Varane,J. Varane,MID,52,13,83,Lincoln,easy,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,3
+538173,Matty,Litherland,M. Litherland,DEF,5,13,21,West Ham,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+538210,Andre,Brooks,A. Brooks,MID,45,13,113,Bristol C,easy,A,66,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,9
+538631,Bradley,Mayo,B. Mayo,GK,41,13,80,Swansea,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+538638,Tyler,Bindon,T. Bindon,DEF,33,13,49,Sheffield Utd,medium,H,90,0,0,0,0,0,1,0,0,0,0,1,18,0,1,0,0,0,5
+539617,,Ronald,Ronald,FWD,80,13,41,Birmingham,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+539673,,Marezi,Marezi,FWD,47,13,110,Stoke,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+539718,Harry,Whitwell,H. Whitwell,MID,35,13,103,Millwall,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+539721,Ruairi,McConville,R. McConville,DEF,45,13,113,Bristol C,easy,A,90,0,0,0,0,0,0,0,0,0,1,0,5,1,2,0,0,0,9
+541544,Luca,Bombino,L. Bombino,DEF,110,13,47,Portsmouth,medium,A,33,0,0,1,0,0,0,0,0,0,0,0,2,0,0,0,0,0,4
+543221,Yousef,Salech,Y. Salech,FWD,97,13,90,Burnley,easy,H,27,2,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,2,15
+544415,Kristoffer,Lund,K. Lund,DEF,41,13,80,Swansea,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+545690,Dion,De Neve,D. De Neve,DEF,5,13,21,West Ham,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+545743,Iyad,Mohamed,I. Mohamed,MID,47,13,110,Stoke,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+546089,Rocco,Vata,R. Vata,FWD,57,13,25,Middlesbrough,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+546324,Amadou,Mbengue,A. Mbengue,DEF,52,13,83,Lincoln,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+546579,Jovon,Makama,J. Makama,FWD,45,13,113,Bristol C,easy,A,24,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,8
+546743,Derek,Mazou-Sacko,D. Mazou-Sacko,MID,103,13,35,West Brom,hard,A,45,0,0,0,0,0,1,0,0,0,0,0,0,0,0,2,0,1,5
+547085,Luke,Graham,L. Graham,DEF,110,13,47,Portsmouth,medium,A,90,0,0,0,0,0,0,0,0,0,0,1,13,0,3,0,0,0,6
+547688,Kyrell,Lisbie,K. Lisbie,FWD,103,13,35,West Brom,hard,A,71,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+548308,Ashley,Phillips,A. Phillips,DEF,25,13,57,Watford,easy,A,90,0,0,0,0,0,0,0,0,0,1,0,4,0,1,0,0,0,8
+549067,Zach,Abbott,Z. Abbott,DEF,20,13,107,Preston,easy,A,79,0,0,0,0,0,0,0,0,0,0,1,4,1,0,0,0,0,3
+549151,Justin,Obikwu,J. Obikwu,FWD,52,13,83,Lincoln,easy,H,13,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+549329,Lucas,Pires,L. Pires,DEF,90,13,97,Cardiff,medium,A,64,0,0,1,0,0,0,0,0,0,0,1,4,1,2,0,0,0,7
+549841,Chris,Forino,C. Forino,DEF,30,13,24,Derby,easy,A,90,0,0,0,0,0,0,0,0,0,0,3,4,0,2,0,0,0,3
+550137,Princewill,Ehibhatiomhan,P. Ehibhatiomhan,FWD,20,13,107,Preston,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+550151,Cian,Ashford,C. Ashford,FWD,97,13,90,Burnley,easy,H,90,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,3,0,6
+550178,David,Watson,D. Watson,MID,30,13,24,Derby,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+551061,Melker,Widell,M. Widell,MID,80,13,41,Birmingham,hard,A,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,3
+551206,Jaydon,Banel,J. Banel,FWD,90,13,97,Cardiff,medium,A,64,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,5
+551394,Andrei,Coubis,A. Coubis,DEF,83,13,52,QPR,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+552425,Sydie,Peck,S. Peck,MID,49,13,33,Charlton,easy,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,5
+552427,Will,Lankshear,W. Lankshear,FWD,25,13,57,Watford,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+553742,Finlay,Herrick,F. Herrick,GK,21,13,5,Blackburn,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+553986,Henrik,Meister,H. Meister,FWD,24,13,30,Bolton,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+554650,Iker,Bravo,I. Bravo,FWD,57,13,25,Middlesbrough,hard,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,3
+555853,Ato,Ampah,A. Ampah,FWD,110,13,47,Portsmouth,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+559672,Caleb,Ansen,C. Ansen,GK,45,13,113,Bristol C,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+560165,August,Priske,A. Priske,FWD,41,13,80,Swansea,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+560709,Daniel,Kelly,D. Kelly,MID,103,13,35,West Brom,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+560847,Nolan,Galves,N. Galves,DEF,35,13,103,Millwall,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+561059,Law,McCabe,L. McCabe,MID,25,13,57,Watford,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+563826,Bailey,Cadamarteri,B. Cadamarteri,FWD,109,13,39,Wolves,hard,H,13,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+564506,Travis,Akomeah,T. Akomeah,DEF,57,13,25,Middlesbrough,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+564920,Jacques,Ekomié,J. Ekomié,DEF,109,13,39,Wolves,hard,H,90,0,0,0,0,0,1,0,0,0,0,1,7,0,4,0,0,0,4
+564940,Soungoutou,Magassa,S. Magassa,MID,21,13,5,Blackburn,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+565813,Caspar,Jander,C. Jander,MID,20,13,107,Preston,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+567066,Yu,Hirakawa,Y. Hirakawa,FWD,113,13,45,Norwich,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+567214,Ante,Crnac,A. Crnac,FWD,45,13,113,Bristol C,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+570723,Bae,Jun-Ho,B. Jun-Ho,MID,110,13,47,Portsmouth,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+572364,Kealey,Adamson,K. Adamson,DEF,52,13,83,Lincoln,easy,H,90,0,0,0,0,0,0,0,0,0,0,1,1,1,2,0,0,0,3
+572702,Keiber,Lamadrid,K. Lamadrid,MID,21,13,5,Blackburn,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+573808,Jack,Grieves,J. Grieves,FWD,57,13,25,Middlesbrough,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+574368,Thomas,Waddingham,T. Waddingham,FWD,47,13,110,Stoke,hard,H,25,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+574398,Franco,Umeh-Chibueze,F. Umeh-Chibueze,FWD,47,13,110,Stoke,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+574473,Ali,Ahmed,A. Ahmed,DEF,45,13,113,Bristol C,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+575011,Max,Arfsten,M. Arfsten,FWD,25,13,57,Watford,easy,A,45,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,2
+575034,Ethan,Wheatley,E. Wheatley,FWD,83,13,52,QPR,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+576627,Zach,Baumann,Z. Baumann,MID,45,13,113,Bristol C,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+577966,Joel,Colwill,J. Colwill,MID,97,13,90,Burnley,easy,H,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+578428,Kyliane,Dong,K. Dong,FWD,30,13,24,Derby,easy,A,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+578543,Josh,Dede,J. Dede,DEF,25,13,57,Watford,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+578614,Enock,Agyei,E. Agyei,FWD,90,13,97,Cardiff,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+580123,Edvin,Austbø,E. Austbø,FWD,21,13,5,Blackburn,medium,A,59,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,2
+581077,Mihailo,Ivanovic,M. Ivanovic,FWD,103,13,35,West Brom,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+582288,Mohammed,Fuseini,M. Fuseini,FWD,24,13,30,Bolton,easy,H,89,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,2,1,7
+584398,Sondre,Langås,S. Langås,DEF,24,13,30,Bolton,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+584651,Léo,Scienza,L. Scienza,MID,20,13,107,Preston,easy,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,4,7
+585472,Ryan,Oné,R. Oné,FWD,49,13,33,Charlton,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+585646,Luca,Kjerrumgaard,L. Kjerrumgaard,FWD,57,13,25,Middlesbrough,hard,H,17,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+586123,Oscar,Schwartau,O. Schwartau,FWD,45,13,113,Bristol C,easy,A,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+586601,Mikkel,Ladefoged,M. Ladefoged,FWD,83,13,52,QPR,hard,A,59,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,2
+586987,Aaron,James,A. James,DEF,109,13,39,Wolves,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+587645,Romeo,Akachukwu,R. Akachukwu,MID,20,13,107,Preston,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+588237,Kellen,Fisher,K. Fisher,DEF,45,13,113,Bristol C,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+590014,Rio,Cardines,R. Cardines,DEF,113,13,45,Norwich,medium,H,90,0,0,0,0,0,0,0,0,0,0,5,0,1,2,0,0,0,1
+590017,Elliot,Myles,E. Myles,MID,45,13,113,Bristol C,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+590039,Divine,Mukasa,D. Mukasa,MID,21,13,5,Blackburn,medium,A,78,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,3
+591121,Moussa,Yeo,M. Yeo,MID,80,13,41,Birmingham,hard,A,59,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+591237,Gabriel,Forsyth,G. Forsyth,MID,45,13,113,Bristol C,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+591548,Kai,Enslin,K. Enslin,MID,33,13,49,Sheffield Utd,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+591900,Lucien,Mahovo,L. Mahovo,DEF,45,13,113,Bristol C,easy,A,24,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+592661,Tristan,Crama,T. Crama,DEF,103,13,35,West Brom,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+592730,Tom,Atcheson,T. Atcheson,DEF,5,13,21,West Ham,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+592748,Micah,Mbick,M. Mbick,FWD,33,13,49,Sheffield Utd,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+592955,Lisav,Eissat,L. Eissat,DEF,113,13,45,Norwich,medium,H,90,0,0,0,0,0,0,0,0,0,0,5,3,0,4,0,0,0,2
+593001,Enso,González,E. González,FWD,39,13,109,Wrexham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+594297,Isak,Alemayehu,I. Alemayehu,MID,52,13,83,Lincoln,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+594303,Timothy,Ouma,T. Ouma,MID,33,13,49,Sheffield Utd,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+596054,Tom,Edozie,T. Edozie,FWD,39,13,109,Wrexham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+597978,Max,Lott,M. Lott,FWD,30,13,24,Derby,easy,A,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+599303,Sean,Neave,S. Neave,FWD,39,13,109,Wrexham,medium,A,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+601956,Saheed,Olagunju,S. Olagunju,DEF,39,13,109,Wrexham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+602903,Ezra,Mayers,E. Mayers,DEF,21,13,5,Blackburn,medium,A,90,0,0,0,0,0,0,0,0,0,0,2,3,0,7,0,0,0,4
+603890,Elijah,Morrison,E. Morrison,MID,113,13,45,Norwich,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+603985,Isaac,Gordon,I. Gordon,DEF,24,13,30,Bolton,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+604664,Tom,Iorpenda,T. Iorpenda,MID,80,13,41,Birmingham,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+604727,Joshua,Mullins,J. Mullins,DEF,57,13,25,Middlesbrough,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+605319,Luke,Rawlings,L. Rawlings,MID,39,13,109,Wrexham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+605323,Isaac,Dunn,I. Dunn,MID,5,13,21,West Ham,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+605324,Michael,Decandia,M. Decandia,DEF,5,13,21,West Ham,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+605328,Frank,Vare,F. Vare,MID,5,13,21,West Ham,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+605756,Evan,Watts,E. Watts,GK,80,13,41,Birmingham,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+606689,Romelle,Donovan,R. Donovan,MID,49,13,33,Charlton,easy,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,3
+606784,Albert,Eames,A. Eames,DEF,57,13,25,Middlesbrough,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+606921,Romain,Esse,R. Esse,MID,103,13,35,West Brom,hard,A,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+607130,Papa,Diallo,P. Diallo,FWD,45,13,113,Bristol C,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+611142,Freddie,Anderson,F. Anderson,DEF,110,13,47,Portsmouth,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+612345,Patrick,Agyemang,P. Agyemang,FWD,24,13,30,Bolton,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+612592,Eoin,Kenny,E. Kenny,MID,47,13,110,Stoke,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+616286,Ryan,Kavuma-McQueen,R. Kavuma-McQueen,FWD,47,13,110,Stoke,hard,H,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+616957,Joshua,Ajala,J. Ajala,FWD,21,13,5,Blackburn,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+617977,Mason,Melia,M. Melia,FWD,83,13,52,QPR,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+618863,Mamadou,Doumbia,M. Doumbia,FWD,57,13,25,Middlesbrough,hard,H,73,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,3
+618941,Harvey,Higgins,H. Higgins,FWD,5,13,21,West Ham,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+620040,Alfie,Maughan,A. Maughan,DEF,35,13,103,Millwall,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+620408,Joachim,Kayi-Sanda,J. Kayi-Sanda,DEF,20,13,107,Preston,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+620414,Yanis,Issoufou,Y. Issoufou,FWD,103,13,35,West Brom,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+620419,Troy,Perrett,T. Perrett,MID,97,13,90,Burnley,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+620427,Dylan,Lawlor,D. Lawlor,DEF,97,13,90,Burnley,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+620468,Tiago,Parente,T. Parente,DEF,80,13,41,Birmingham,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+620621,Lluc,Castell,L. Castell,FWD,90,13,97,Cardiff,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+622090,Raphael,London,R. London,DEF,57,13,25,Middlesbrough,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+622536,Benjamin,Arthur,B. Arthur,DEF,47,13,110,Stoke,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+626249,Rabby,Nzingoula,R. Nzingoula,MID,35,13,103,Millwall,medium,H,75,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+626746,Djibril,Soumaré,D. Soumaré,MID,110,13,47,Portsmouth,medium,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,4
+627888,Josh,Gracey,J. Gracey,GK,39,13,109,Wrexham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+628204,Yunus,Konak,Y. Konak,MID,83,13,52,QPR,hard,A,73,0,0,0,0,0,1,0,0,0,0,0,0,0,0,2,1,0,5
+629427,Rayan,Kolli,R. Kolli,FWD,52,13,83,Lincoln,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+629738,Adama,Boiro,A. Boiro,DEF,21,13,5,Blackburn,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+630538,Charlie,Holt,C. Holt,MID,97,13,90,Burnley,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+630672,Rio,Parmar,R. Parmar,FWD,35,13,103,Millwall,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+630699,Mohamadou,Kanté,M. Kanté,MID,21,13,5,Blackburn,medium,A,65,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+631099,Vatan,Özcan,V. Özcan,DEF,45,13,113,Bristol C,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+631104,Bradley,Tagoe,B. Tagoe,FWD,33,13,49,Sheffield Utd,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+631516,Errol,Mundle-Smith,E. Mundle-Smith,FWD,45,13,113,Bristol C,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+631533,Tyler,Martin,T. Martin,FWD,110,13,47,Portsmouth,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+631880,Madiodio,Dia,M. Dia,DEF,47,13,110,Stoke,hard,H,90,0,0,0,0,0,0,0,0,0,0,2,3,0,2,0,0,0,2
+632448,Othmane,Maamma,O. Maamma,FWD,57,13,25,Middlesbrough,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+633828,Laurence,Giani,L. Giani,DEF,110,13,47,Portsmouth,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+641089,Junior,Nkeng,J. Nkeng,FWD,33,13,49,Sheffield Utd,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+642316,Charlie,Parks,C. Parks,DEF,83,13,52,QPR,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+643135,Fer,López,F. López,FWD,39,13,109,Wrexham,medium,A,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,4
+643473,Airidas,Golambeckis,A. Golambeckis,DEF,21,13,5,Blackburn,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+645282,Richard,Kone,R. Kone,FWD,52,13,83,Lincoln,easy,H,77,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,8
+645589,Amin,Nabizada,A. Nabizada,FWD,57,13,25,Middlesbrough,hard,H,73,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
+645755,Kareem,Tunde,K. Tunde,FWD,35,13,103,Millwall,medium,H,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2
+646029,Rio,Canoville,R. Canoville,DEF,24,13,30,Bolton,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+647671,Mateus,Mané,M. Mané,FWD,39,13,109,Wrexham,medium,A,75,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,3
+649208,Jeremy,Monga,J. Monga,MID,80,13,41,Birmingham,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+649241,George,Beaumont,G. Beaumont,MID,103,13,35,West Brom,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+649248,Jack,Howland,J. Howland,MID,103,13,35,West Brom,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+649250,Sacha,Vieira,S. Vieira,MID,103,13,35,West Brom,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+653773,Bruno,Alves,B. Alves,DEF,45,13,113,Bristol C,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+655588,Harvey,Pates,H. Pates,DEF,5,13,21,West Ham,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+656699,Moussa,Baradji,M. Baradji,MID,5,13,21,West Ham,medium,H,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+657106,Dakarai,Mafico,D. Mafico,MID,97,13,90,Burnley,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+658020,Ronan,Kpakio,R. Kpakio,DEF,97,13,90,Burnley,easy,H,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+661792,Rhys,Knight,R. Knight,MID,113,13,45,Norwich,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+662202,Matthew,Crowther,M. Crowther,MID,35,13,103,Millwall,medium,H,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+662337,Raymond,Offor,R. Offor,DEF,24,13,30,Bolton,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+662700,Nikoloz,Chikovani,N. Chikovani,FWD,57,13,25,Middlesbrough,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+664089,Gady,Beyuku,G. Beyuku,DEF,5,13,21,West Ham,medium,H,90,0,0,0,0,0,1,0,0,0,0,1,5,1,2,0,0,0,3
+664417,Leo,Pecover,L. Pecover,MID,113,13,45,Norwich,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+665255,Cruz,Ibeh,C. Ibeh,FWD,25,13,57,Watford,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+666125,Archie,Kirby,A. Kirby,MID,103,13,35,West Brom,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+666631,Luke,Brooke-Smith,L. Brooke-Smith,FWD,47,13,110,Stoke,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+668991,Joseph,Opoku,J. Opoku,FWD,80,13,41,Birmingham,hard,A,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2
+669044,Ed,Nolan,E. Nolan,DEF,107,13,20,Southampton,hard,H,26,0,0,0,0,0,1,0,0,0,0,0,2,0,0,0,0,0,0
+669055,Theo,Carroll,T. Carroll,MID,107,13,20,Southampton,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+669480,Thomas,Woodward,T. Woodward,MID,80,13,41,Birmingham,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+670109,Alan,Mwamba,A. Mwamba,DEF,33,13,49,Sheffield Utd,medium,H,64,0,0,0,0,0,1,0,0,0,0,1,1,1,2,0,0,0,2
+678686,Dastan,Satpaev,D. Satpaev,FWD,90,13,97,Cardiff,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+679838,Louie,Derrick,L. Derrick,MID,113,13,45,Norwich,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+679856,Tristan,Parkes,T. Parkes,DEF,103,13,35,West Brom,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+682231,Michael,Ani,M. Ani,DEF,47,13,110,Stoke,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+682331,Barney,Stewart,B. Stewart,FWD,35,13,103,Millwall,medium,H,25,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+685628,Jerome,Abbey,J. Abbey,MID,39,13,109,Wrexham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+685714,Branimir,Mlacic,B. Mlacic,DEF,57,13,25,Middlesbrough,hard,H,90,0,0,0,0,0,0,0,0,0,1,0,3,0,1,0,0,0,7
+693036,Harry,Lister,H. Lister,MID,5,13,21,West Ham,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+695063,Marley,Thelwell,M. Thelwell,DEF,113,13,45,Norwich,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+695064,Tomos,Gibbs,T. Gibbs,DEF,113,13,45,Norwich,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+695403,Carter,Heywood,C. Heywood,DEF,80,13,41,Birmingham,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+695409,Rob,Tankiewicz,R. Tankiewicz,MID,97,13,90,Burnley,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+695410,Leon,Scarlett,L. Scarlett,FWD,52,13,83,Lincoln,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+702478,Joshua,Hebert,J. Hebert,FWD,33,13,49,Sheffield Utd,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+704161,Nathaniel,Chioma,N. Chioma,FWD,47,13,110,Stoke,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+704232,George,Brierley,G. Brierley,MID,90,13,97,Cardiff,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+704962,Ellis,Clark,E. Clark,MID,90,13,97,Cardiff,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+705817,George,Gryba,G. Gryba,FWD,107,13,20,Southampton,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+706125,Daniel,Ezendu,D. Ezendu,MID,113,13,45,Norwich,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+716876,Charlie,Smith,C. Smith,MID,24,13,30,Bolton,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+718701,Tommy,Betts,T. Betts,GK,49,13,33,Charlton,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+718971,Noah Dafydd,Anyadike,N. Anyadike,DEF,97,13,90,Burnley,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+720235,Isaac,Irwin,I. Irwin,MID,107,13,20,Southampton,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+720246,Tobias,Ritchie,T. Ritchie,MID,30,13,24,Derby,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+727787,Chinedu,Agu,C. Agu,DEF,47,13,110,Stoke,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+732418,Samuel,Chesworth,S. Chesworth,FWD,109,13,39,Wolves,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+733517,Tomiwa,Akinyimika,T. Akinyimika,DEF,57,13,25,Middlesbrough,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+735802,Paul,Moreno,P. Moreno,MID,97,13,90,Burnley,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+753349,Regan,Monty,R. Monty,MID,103,13,35,West Brom,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0

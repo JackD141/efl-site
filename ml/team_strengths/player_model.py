@@ -1,6 +1,9 @@
 """Outfield stat models (midfielders, forwards, defenders), FotMob-based. Replaces attack_model.py (MID / FWD) and the
 clearance / block / tackle and goal / assist parts of defence_model.py once trained.
-python player_model.py [MID|FWD|DEF ...]     trains, validates, tests, writes models/<pos>_model.json
+python player_model.py [MID|FWD|DEF ...]            refits the coefficients of the CHOSEN models on everything (weekly)
+python player_model.py --select [MID|FWD|DEF ...]   re-makes the choices on the validation folds (a deliberate step: log
+                                                    the outcome in docs/ml-methodology.md), then refits
+Both write models/<pos>_model.json.
 
 Per stat, a Poisson GLM with minutes exposure on standardised logs of candidate features:
   role      his rate relative to same-position team-mates in the same games, last ROLE_GAMES appearances, shrunk to 1;
@@ -13,8 +16,11 @@ Per stat, a Poisson GLM with minutes exposure on standardised logs of candidate 
   fm40h20_*      the same over the last 40 with recent games weighted more (half-life 20 appearances; exp_recency.py)
 Goals and assists are modelled through their expected versions: the GLM predicts match npxG (xA) per 90, then
 goals = c * npxG + his penalty-xG rate and assists = c * xA, c fitted on training data.
-Protocol: choose window / role shrinkage / feature set on two rolling validation folds inside 2025/26 (log-likelihood of
-the ACTUAL count, simplest candidate within TOL of the best), test once on 2026/27 against the incumbent, refit on all.
+Protocol (docs/ml-methodology.md section 3): choose feature set / window / role shrinkage on two rolling validation
+folds inside 2025/26 by the log-likelihood of the ACTUAL count, with the one-standard-error rule: the simplest
+configuration whose validation score is within max(TOL, one standard error) of the best one, the standard error being
+that of the paired difference, with whole gameweeks as the independent units. The choices are then FROZEN in the model
+file; the weekly run only refits coefficients. 2026/27 is a monitor (looked at every week), never used to choose.
 """
 import json
 import sys
@@ -23,6 +29,7 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+from scipy.special import gammaln
 from sklearn.linear_model import PoissonRegressor
 
 import attack_model as am
@@ -83,6 +90,7 @@ for _c in (ATTACK_CANDS, DEF_CANDS):
 CANDS = {"MID": ATTACK_CANDS, "FWD": {k: v for k, v in ATTACK_CANDS.items() if k != "int"}, "DEF": DEF_CANDS}
 WINDOWS = [8, 12, 46]
 K_ROLES = [3.0, 10.0, 30.0]
+DEFAULT_SETTING = (12, 10.0)  # the plain (window, role shrinkage): kept unless another setting is better beyond the noise
 FOLDS = [(17, 26), (26, 35)]  # rolling-origin validation inside 2025/26: (train up to GW a, validate a+1..b)
 ROLE_GAMES, MIN_ROW, TOL = 20, 10, 5e-4
 N0_ROLE, N0_TEAM = 30.0, 14.0  # shrink measured multipliers towards 1: weight n / (n + n0)
@@ -181,30 +189,33 @@ def style_tables(d, col, n, prior, adj):
 def mates_table(d, col, n, prior, carry):
     """Per (season, player, club, gameweek): his club's same-position rate per 90 over the previous n gameweeks of this
     season EXCLUDING his own minutes and output, shrunk with K_TEAM pseudo-90s to the club's prior."""
-    out, gws = [], np.arange(1, 47)
-    club = d.groupby(["season", "squad_id", "gameweek"]).agg(x=(col, "sum"), m=("minutes_played", "sum"))
-    own = d.groupby(["season", "player_id", "squad_id", "gameweek"]).agg(x=(col, "sum"), m=("minutes_played", "sum"))
-
-    def roll(series):
-        return pd.Series(0.0, index=gws).add(series, fill_value=0).shift(1).rolling(n, min_periods=1).sum().fillna(0)
-    club_roll = {}
-    for (season, cid), g in club.groupby(level=[0, 1]):
-        g = g.droplevel([0, 1])
-        club_roll[(season, cid)] = (roll(g["x"]), roll(g["m"]))
-    for (season, pid, cid), g in own.groupby(level=[0, 1, 2]):
-        g = g.droplevel([0, 1, 2])
-        cx, cm = club_roll[(season, cid)]
-        ox, om = roll(g["x"]), roll(g["m"])
-        p0 = carry.get(int(cid), prior) if season == "2627" else prior
-        val = ((cx - ox).clip(lower=0) + dm.K_TEAM * p0) / ((cm - om).clip(lower=0) / 90 + dm.K_TEAM)
-        out.append(pd.DataFrame({"season": season, "player_id": pid, "squad_id": cid, "gameweek": gws, "mates": val.to_numpy()}))
-    return pd.concat(out, ignore_index=True)
+    def prev_window(keys):
+        """(groups, X, M): for each group and gameweek 1..46, the sum of the stat / the minutes over the previous n
+        gameweeks (not the current one). Dense arrays + cumulative sums instead of a Python loop per player."""
+        t = d.groupby(keys + ["gameweek"]).agg(x=(col, "sum"), m=("minutes_played", "sum")).reset_index()
+        codes, groups = pd.factorize(pd.MultiIndex.from_frame(t[keys]))
+        gw = t["gameweek"].to_numpy().astype(int)
+        out = []
+        for v in ("x", "m"):
+            a = np.zeros((len(groups), 47))
+            np.add.at(a, (codes, gw), t[v].to_numpy(float))
+            c = np.cumsum(a, axis=1)  # c[:, g] = gameweeks 1..g (column 0 is empty)
+            out.append(np.column_stack([c[:, g - 1] - c[:, max(g - 1 - n, 0)] for g in range(1, 47)]))
+        return groups, out[0], out[1]
+    clubs, cx, cm = prev_window(["season", "squad_id"])
+    own, ox, om = prev_window(["season", "player_id", "squad_id"])
+    club_row = {k: i for i, k in enumerate(clubs)}
+    ci = np.array([club_row[(s, c)] for s, _, c in own])
+    p0 = np.array([carry.get(int(c), prior) if s == "2627" else prior for s, _, c in own])[:, None]
+    val = (np.clip(cx[ci] - ox, 0, None) + dm.K_TEAM * p0) / (np.clip(cm[ci] - om, 0, None) / 90 + dm.K_TEAM)
+    rep = lambda j: np.repeat(np.array([k[j] for k in own]), 46)
+    return pd.DataFrame({"season": rep(0), "player_id": rep(1), "squad_id": rep(2), "gameweek": np.tile(np.arange(1, 47), len(own)), "mates": val.ravel()})
 
 
 def build(d, spec, n, k, adj):
     tcol = spec["target"]
     rows = d if tcol == spec["column"] else d[d["linked"]]
-    tr = rows[(rows["season"] == "2526") & (rows["gameweek"] <= 23)]
+    tr = rows[(rows["season"] == "2526") & (rows["gameweek"] <= FOLDS[0][0])]  # the first fold's training games: no validation game in the league rate
     prior = float(tr[tcol].sum() / (tr["minutes_played"].sum() / 90))
     team, opp, carry = style_tables(rows, tcol, n, prior, adj)
     x = role_table(rows, tcol, prior, k, adj["role"])
@@ -237,95 +248,115 @@ def score(y, mu, r):
     return dict(loglik=nb_loglik(y, mu, r), mse=float(((y - mu) ** 2).mean()), mae=float(np.abs(y - mu).mean()))
 
 
-def incumbent_test(d, pos, stat, spec, te, prev):
-    """The model live before this run, scored on the same 2026/27 rows."""
-    keys = ["player_id", "season", "gameweek", "opponent_id"]
-    if prev.get(stat):  # an earlier run of this script
-        return None  # compared inside main (same infrastructure)
-    if pos in ("MID", "FWD"):  # attack_model.py v1
-        old = json.loads(am.MODEL_PATH.read_text(encoding="utf-8"))["positions"][pos].get(stat)
-        if not old:
-            return None
-        xall = am.build(d, spec["column"], old["window"], old["prior"], old["k_role"], old.get("club_w", 1.0))
-        fo = am.fit(xall[(xall["season"] == "2526") & (xall["minutes_played"] >= MIN_ROW)], old["features"])
-        xo = xall[xall["minutes_played"] >= MIN_ROW].merge(te[keys], on=keys)
-        return score(xo["y"].to_numpy(), am.predict(fo, xo), fo["r"])
-    if stat in ("goals", "assists"):  # defence_model / defenders.py: his rate over 40 appearances x team expected goals
-        col = spec["column"]
-        x = d.sort_values(["player_id", "season", "gameweek"]).copy()
-        tr = x[x["season"] == "2526"]
-        prior = tr[col].sum() / (tr["minutes_played"].sum() / 90)
-        g = x.groupby("player_id")
-        num = g[col].transform(lambda s: s.shift(1).rolling(dm.RATE_GAMES, min_periods=1).sum()).fillna(0)
-        m90 = g["minutes_played"].transform(lambda s: s.shift(1).rolling(dm.RATE_GAMES, min_periods=1).sum()).fillna(0) / 90
-        x["mu"] = (num + dm.K_RATE * prior) / (m90 + dm.K_RATE) * x["lam_own"] / tr["lam_own"].mean() * x["minutes_played"] / 90
-        x = x[x["minutes_played"] >= MIN_ROW]
-        r = nb_r(x.loc[x["season"] == "2526", col].to_numpy(), x.loc[x["season"] == "2526", "mu"].to_numpy())
-        xo = x.merge(te[keys], on=keys)
-        return score(xo[col].to_numpy(), xo["mu"].to_numpy(), r)
-    return None  # DEF clearances / blocks / tackles: the "base" candidate has defence_model.py's structure
+def row_loglik(y, mu, r):
+    """Negative-binomial log-likelihood of each row."""
+    mu = np.clip(np.asarray(mu, float), 1e-6, None)
+    p = r / (r + mu)
+    return gammaln(y + r) - gammaln(r) - gammaln(y + 1) + r * np.log(p) + y * np.log1p(-p)
 
 
-def main(pos):
+def validate(x, feats, spec):
+    """Validation log-likelihood of one configuration over the rolling folds: (mean, {gameweek: sum over its rows},
+    {gameweek: rows}, mean per fold, MSE). Gameweeks are the units for the standard errors (rows of a gameweek share
+    fixtures, odds and team-mates)."""
+    s25 = x[x["season"] == "2526"]
+    sums, counts, fold_ll, mse = {}, {}, [], []
+    for a, b in FOLDS:
+        tr, va = s25[s25["gameweek"] <= a], s25[(s25["gameweek"] > a) & (s25["gameweek"] <= b)]
+        f = fit(tr, feats, spec)
+        mu = predict(f, va, spec)
+        ll = row_loglik(va["cnt"].to_numpy(), mu, f["r"])
+        fold_ll.append(float(ll.mean()))
+        mse.append(float(((va["cnt"].to_numpy() - mu) ** 2).mean()))
+        for g, v in pd.Series(ll).groupby(va["gameweek"].to_numpy()):
+            sums[int(g)], counts[int(g)] = float(v.sum()), int(len(v))
+    n = sum(counts.values())
+    return sum(sums.values()) / n, sums, counts, fold_ll, float(np.mean(mse))
+
+
+def paired_se(sa, sb, counts):
+    """Standard error of the difference in mean validation log-likelihood between two configurations scored on the same
+    rows, treating gameweeks as independent clusters (ratio-estimator linearisation)."""
+    gws = sorted(counts)
+    d = np.array([sa[g] - sb[g] for g in gws])
+    n = np.array([counts[g] for g in gws], float)
+    m = d.sum() / n.sum()
+    return float(np.sqrt(len(gws) / (len(gws) - 1) * ((d - m * n) ** 2).sum()) / n.sum())
+
+
+def select(d, pos, stat, verbose=True):
+    """Choose (candidate, window, role shrinkage) for one stat by the one-standard-error rule. Order of preference:
+    candidates as listed in CANDS (simplest / incumbent structure first); within a candidate the DEFAULT_SETTING, then
+    its best setting. The first configuration in that order within max(TOL, paired standard error) of the best wins."""
+    spec, adj, cands = SPECS[pos][stat], league_adjustments(pos)[stat], CANDS[pos][stat]
+    res = {}
+    for k in K_ROLES:
+        for n in WINDOWS:
+            x, _, _ = build(d, spec, n, k, adj)
+            for name, feats in cands.items():
+                res[(name, n, k)] = validate(x, feats, spec)
+    best = max(res, key=lambda c: res[c][0])
+    counts = res[best][2]
+    gap = {c: (res[best][0] - v[0], paired_se(res[best][1], v[1], counts)) for c, v in res.items()}
+    ok = lambda c: gap[c][0] <= max(TOL, gap[c][1])
+    chosen = None
+    for name in cands:
+        default = (name, *DEFAULT_SETTING)
+        top = max((c for c in res if c[0] == name), key=lambda c: res[c][0])
+        chosen = default if ok(default) else top if ok(top) else None
+        if chosen:
+            break
+    table = [dict(model=c[0], window=c[1], k=c[2], loglik=round(v[0], 5), behind_best=round(gap[c][0], 5), se=round(gap[c][1], 5),
+                  mse=round(v[4], 5), fold_ll=[round(f, 4) for f in v[3]]) for c, v in res.items()]
+    if verbose:
+        print(f"\n=== {pos} {stat} (target {spec['target']}): validation over {len(FOLDS)} folds, {sum(counts.values())} rows in {len(counts)} gameweeks ===")
+        print(f"best: {best[0]} (window {best[1]}, k {best[2]:g}) {res[best][0]:.5f}")
+        for name in cands:
+            for c in ((name, *DEFAULT_SETTING), max((c for c in res if c[0] == name), key=lambda c: res[c][0])):
+                print(f"   {name:60s} window {c[1]:2d} k {c[2]:<4g} behind best {gap[c][0]:.5f} (se {gap[c][1]:.5f}) {'within the noise' if ok(c) else ''}")
+        print(f"chosen: {chosen[0]}, window {chosen[1]}, role shrinkage {chosen[2]:g}")
+    return dict(model=chosen[0], window=int(chosen[1]), k_role=float(chosen[2]), rule=f"one-standard-error rule, floor {TOL}",
+                best=dict(model=best[0], window=int(best[1]), k=float(best[2]), loglik=round(res[best][0], 5)),
+                behind_best=round(gap[chosen][0], 5), se=round(gap[chosen][1], 5)), table
+
+
+def main(pos, reselect=False):
+    """Refit the position's stat models on everything. The choice of features / window / shrinkage is read from the
+    existing model file (frozen) unless reselect=True or the stat has no choice yet."""
     d = load(pos)
     path = model_path(pos)
     prev = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
     out = {}
     for stat, spec in SPECS[pos].items():
         adj = league_adjustments(pos)[stat]
-        cands, rows, built = CANDS[pos][stat], [], {}
-        for k in K_ROLES:
-            for n in WINDOWS:
-                x, prior, carry = build(d, spec, n, k, adj)
-                built[(n, k)] = (x, prior, carry)
-                s25 = x[x["season"] == "2526"]
-                for name, feats in cands.items():
-                    ll, mse = [], []
-                    for a, b in FOLDS:
-                        tr, va = s25[s25["gameweek"] <= a], s25[(s25["gameweek"] > a) & (s25["gameweek"] <= b)]
-                        f = fit(tr, feats, spec)
-                        sc = score(va["cnt"].to_numpy(), predict(f, va, spec), f["r"])
-                        ll.append(sc["loglik"]); mse.append(sc["mse"])
-                    rows.append(dict(model=name, window=n, k=k, loglik=float(np.mean(ll)), mse=float(np.mean(mse)), fold_ll=[round(v, 4) for v in ll]))
-        res = pd.DataFrame(rows)
-        res["pref"] = res["model"].map(list(cands).index)
-        best = res[res["loglik"] >= res["loglik"].max() - TOL].sort_values(["pref", "loglik"], ascending=[True, False]).iloc[0]
-        print(f"\n=== {pos} {stat} (target {spec['target']}): mean validation over {len(FOLDS)} folds, best per candidate ===")
-        print(res.sort_values("loglik", ascending=False).groupby("model").head(1)[["model", "window", "k", "loglik", "mse", "fold_ll"]].round(4).to_string(index=False))
-        feats, n_best, k_best = cands[best["model"]], int(best["window"]), float(best["k"])
-        print(f"chosen: {best['model']}, window {n_best}, role shrinkage {k_best:g}")
-        x, prior, carry = built[(n_best, k_best)]
-        tv, te = x[x["season"] == "2526"], x[x["season"] == "2627"]
-        f = fit(tv, feats, spec)
-        test = score(te["cnt"].to_numpy(), predict(f, te, spec), f["r"])
-        # incumbent on the same test rows: previous run of this script, else the older model, else the base candidate
-        inc_name, test_inc = None, None
-        if prev.get(stat):
-            p = prev[stat]
-            xi = built.get((p["window"], p["k_role"])) or build(d, spec, p["window"], p["k_role"], adj)
-            fi = fit(xi[0][xi[0]["season"] == "2526"], p["features"], spec)
-            tei = xi[0][xi[0]["season"] == "2627"]
-            inc_name, test_inc = "previous run", score(tei["cnt"].to_numpy(), predict(fi, tei, spec), fi["r"])
+        cands, old = CANDS[pos][stat], prev.get(stat)
+        if reselect or not old or "selection" not in old or old["model"] not in cands:
+            choice, table = select(d, pos, stat)
+            if old and (old["model"], old["window"], old["k_role"]) != (choice["model"], choice["window"], choice["k_role"]):
+                print(f"CHANGED from {old['model']}, window {old['window']}, role shrinkage {old['k_role']:g}: log it in docs/ml-methodology.md")
+            choice["selected_on"] = pd.Timestamp.now().strftime("%Y-%m-%d")
         else:
-            test_inc = incumbent_test(d, pos, stat, spec, te, prev)
-            inc_name = "old model" if test_inc else None
-            if test_inc is None:
-                bx = built[(n_best, k_best)][0]
-                fb = fit(bx[bx["season"] == "2526"], list(cands.values())[0], spec)
-                teb = bx[bx["season"] == "2627"]
-                inc_name, test_inc = "base structure", score(teb["cnt"].to_numpy(), predict(fb, teb, spec), fb["r"])
-        print(f"TEST 2026/27 (once; n={len(te)}): chosen loglik {test['loglik']:.4f} mse {test['mse']:.4f} | {inc_name} loglik "
-              f"{test_inc['loglik']:.4f} mse {test_inc['mse']:.4f} | conversion {f['scale']:.3f}")
+            choice, table = old["selection"], old["validation"]
+        name, n_best, k_best = choice["model"], choice["window"], choice["k_role"]
+        feats = cands[name]
+        x, prior, carry = build(d, spec, n_best, k_best, adj)
+        tv, te = x[x["season"] == "2526"], x[x["season"] == "2627"]
+        # monitor: the chosen configuration and the plainest candidate, both fitted on 2025/26 only, on 2026/27 to date
+        f, fb = fit(tv, feats, spec), fit(tv, list(cands.values())[0], spec)
+        mon, mon_base = score(te["cnt"].to_numpy(), predict(f, te, spec), f["r"]), score(te["cnt"].to_numpy(), predict(fb, te, spec), fb["r"])
+        ratio = float(te["cnt"].sum() / predict(f, te, spec).sum())
+        print(f"{pos} {stat}: {name} (window {n_best}, k {k_best:g}) | 2026/27 monitor, fitted on 2025/26 (n={len(te)}): log-lik {mon['loglik']:.4f} "
+              f"(plainest candidate {mon_base['loglik']:.4f}), actual / predicted {ratio:.3f}")
         fin = fit(x, feats, spec)
         out[stat] = dict(column=spec["column"], target=spec["target"], pens=spec["pens"], pen_col=spec.get("pen_col", "fm_pxg"),
-                         model=best["model"], features=feats, window=n_best,
+                         model=name, features=feats, window=n_best,
                          k_role=k_best, prior=prior, scale=fin["scale"], intercept=float(fin["model"].intercept_), coef=fin["model"].coef_.tolist(),
                          scaler_mean=fin["scaler"][0].tolist(), scaler_sd=fin["scaler"][1].tolist(), nb_r=fin["r"],
-                         league=adj, carry={str(c): v for c, v in carry.items()}, validation=res.drop(columns=["pref"]).to_dict("records"),
-                         test=dict(v2=test, v1=test_inc, v1_name=inc_name, n=int(len(te))))
-        print("final coefficients", {kk: round(v, 3) for kk, v in zip(feats, fin["model"].coef_)})
+                         league=adj, carry={str(c): v for c, v in carry.items()}, selection=choice, validation=table,
+                         monitor=dict(chosen=mon, plainest=mon_base, ratio=ratio, n=int(len(te))))
+        print("   coefficients", {kk: round(v, 3) for kk, v in zip(feats, fin["model"].coef_)}, f"conversion {fin['scale']:.3f}")
     path.write_text(json.dumps(out, indent=1), encoding="utf-8")
-    print("\nsaved", path)
+    print("saved", path)
 
 
 # ---------- live inputs for the site (attackers.py / defenders.py) ----------
@@ -344,11 +375,11 @@ def live_inputs(players, art, pos, d=None, as_of=None):
         spec = SPECS[pos][stat]
         tcol, prior, k, n = spec["target"], a["prior"], a["k_role"], a["window"]
         rows = d if tcol == spec["column"] else d[d["linked"]]
-        tg = rows.groupby(["season", "squad_id", "gameweek"]).agg(tx=(tcol, "sum"), tm=("minutes_played", "sum")).reset_index()
-        x = rows.merge(tg, on=["season", "squad_id", "gameweek"])
+        tg = rows.groupby(am.MATCH).agg(tx=(tcol, "sum"), tm=("minutes_played", "sum")).reset_index()
+        x = rows.merge(tg, on=am.MATCH)
         others = (x["tx"] - x[tcol]) / ((x["tm"] - x["minutes_played"]).clip(lower=1) / 90)
         x["exp"] = others.where(x["tm"] > x["minutes_played"], prior) * x["minutes_played"] / 90
-        last = x.sort_values(["player_id", "season", "gameweek"]).groupby("player_id").tail(ROLE_GAMES).copy()
+        last = x.sort_values(["player_id", "season", "date", "gameweek"] if "date" in x else ["player_id", "season", "gameweek"]).groupby("player_id").tail(ROLE_GAMES).copy()
         now_lvl = last["player_id"].map(lambda pid: lv.get(cur_club.get(pid), None))
         step = (last["level"] - now_lvl.fillna(last["level"])).astype(int)
         m = a["league"]["role"]
@@ -411,14 +442,21 @@ def refit(d, pos, art, before_gw, built=None):
     return out
 
 
+_FM_DEFAULTS = {}
+
+
 def fm_defaults(fm):
-    """FotMob feature values for a player with no history: what the shrinkage tends to (league rates / typical shares)."""
-    pri = fmf.league_priors(fmf.fotmob_history())
-    sp = fmf.setpiece_features(pd.DataFrame({"player_id": [-1], "date": [pd.Timestamp.now().normalize()]})).iloc[0]
-    keys = next(iter(fm.values())).keys() if fm else []
-    return {f: round(float(sp[f]) if f in sp.index else pri[f.split("_", 1)[1]], 4) for f in keys}
+    """FotMob feature values for a player with no history: what the shrinkage tends to (league rates / typical shares).
+    Constants of completed seasons, so worked out once per set of features."""
+    keys = tuple(next(iter(fm.values())).keys()) if fm else ()
+    if keys not in _FM_DEFAULTS:
+        pri = fmf.league_priors(fmf.fotmob_history())
+        sp = fmf.setpiece_features(pd.DataFrame({"player_id": [-1], "date": [pd.Timestamp.now().normalize()]})).iloc[0]
+        _FM_DEFAULTS[keys] = {f: round(float(sp[f]) if f in sp.index else pri[f.split("_", 1)[1]], 4) for f in keys}
+    return dict(_FM_DEFAULTS[keys])
 
 
 if __name__ == "__main__":
-    for position in (sys.argv[1:] or ["MID", "FWD", "DEF"]):
-        main(position.upper())
+    args = [a for a in sys.argv[1:] if not a.startswith("--")]
+    for position in (args or ["MID", "FWD", "DEF"]):
+        main(position.upper(), reselect="--select" in sys.argv)

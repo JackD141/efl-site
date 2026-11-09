@@ -43,6 +43,41 @@ function teamHtml(w) {
     <tbody>${rows}${clubs}</tbody></table>`;
 }
 
+// The scorecard: how good the expected points are over every player-gameweek (backtest.py scorecard()).
+const STAT_NAMES = { goals: 'Goals', assists: 'Assists', sot: 'Shots on target', kp: 'Key passes', int: 'Interceptions', clr: 'Clearances', blk: 'Blocks', tkl: 'Tackles' };
+function scorecardHtml(c) {
+  if (!c) return '';
+  const o = c.overall.all, late = c.overall.after_dev, pts = c.points;
+  const pct = v => `${Math.round(v * 100)}%`;
+  const tbl = (head, rows) => `<div class="cp-table-wrap"><table class="cp-table"><thead><tr>${head.map((h, i) => `<th${i ? ' class="cp-right"' : ''}>${h}</th>`).join('')}</tr></thead>
+      <tbody>${rows.map(r => `<tr>${r.map((v, i) => `<td${i ? ' class="cp-right"' : ''}>${v}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+  const tops = ['GK', 'DEF', 'MID', 'FWD'].filter(k => c.top10[k]).map(k => c.top10[k]);
+  const top = { xp: tops.reduce((a, r) => a + r.xp * r.n, 0), pts: tops.reduce((a, r) => a + r.pts * r.n, 0) };
+  const ratio = v => v == null ? '–' : `<span${Math.abs(v - 1) > 0.1 ? ' style="font-weight:700"' : ''}>${v.toFixed(2)}</span>`;
+  return `
+    <h2 class="cp-h2">Model scorecard <span class="cp-sub">every player, every gameweek, not only the seven picked</span></h2>
+    <p class="cp-intro">Across ${o.n.toLocaleString('en-GB')} player-gameweeks the expected points averaged <strong>${o.mean_xp.toFixed(2)}</strong> against
+      <strong>${o.mean_pts.toFixed(2)}</strong> scored, and their squared error was <strong>${pct(o.skill_vs_form)} lower</strong> than the form baseline's
+      (each player's average over his last five games).${late ? ` In the gameweeks after GW${c.devUntil}, which nobody had seen while the models were designed: ${late.mean_xp.toFixed(2)} expected,
+      ${late.mean_pts.toFixed(2)} scored, error ${pct(late.skill_vs_form)} lower than form.` : ''}
+      The picked team is ${pts.modelMinusForm >= 0 ? 'ahead of' : 'behind'} the form picker by ${Math.abs(pts.modelMinusForm)} points, but the plausible range is wide:
+      ${pts.lo > 0 ? '+' : ''}${Math.round(pts.lo)} to ${pts.hi > 0 ? '+' : ''}${Math.round(pts.hi)} (9 in 10 resamples of the gameweeks), ahead in ${pts.weeksAhead} of ${pts.weeks} gameweeks.</p>
+    <div class="bt-cards">
+      <div><h3 class="cp-h3">Do high expected points mean high points?</h3>
+        ${tbl(['xP band', 'Players', 'Expected', 'Scored'], c.calibration.map(r => [r.band, r.n.toLocaleString('en-GB'), r.xp.toFixed(2), r.pts.toFixed(2)]))}</div>
+      <div><h3 class="cp-h3">The ten highest per position each gameweek</h3>
+        ${tbl(['Position', 'Expected', 'Scored', "Form's ten"], ['GK', 'DEF', 'MID', 'FWD'].filter(k => c.top10[k]).map(k => [k, c.top10[k].xp.toFixed(2), c.top10[k].pts.toFixed(2), c.top10[k].form_pts.toFixed(2)]))}
+        <p class="cp-muted cp-small">These are the players who get picked. Together they scored ${pct(top.pts / top.xp)} of what was expected
+          (the highest numbers are partly luck in our favour, so a little under 100% is normal).</p></div>
+      <div><h3 class="cp-h3">Start chances against what happened</h3>
+        ${tbl(['Start chance', 'Players', 'Predicted', 'Started'], c.starts.map(r => [r.band, r.n.toLocaleString('en-GB'), pct(r.p), pct(r.started)]))}</div>
+      <div><h3 class="cp-h3">Each stat: actual ÷ expected</h3>
+        ${tbl(['Stat', 'DEF', 'MID', 'FWD'], Object.keys(STAT_NAMES).filter(st => c.stats.some(r => r.stat === st)).map(st =>
+          [STAT_NAMES[st], ...['DEF', 'MID', 'FWD'].map(pos => { const r = c.stats.find(x => x.stat === st && x.pos === pos); return r ? ratio(r.ratio) : ''; })]))}
+        <p class="cp-muted cp-small">1.00 = the totals matched; bold = more than 10% out. Counts over all registered players, before team news.</p></div>
+    </div>`;
+}
+
 function render() {
   const d = state.data, t = d.totals, weeks = d.weeks;
   const n = weeks.length;
@@ -69,12 +104,14 @@ function render() {
     <div class="cp-table-wrap"><table class="cp-table">
       <thead><tr><th>Gameweek</th><th class="cp-right">Model's team</th><th class="cp-right">Model expected</th><th class="cp-right">Form picker</th><th class="cp-right">Hindsight best</th></tr></thead>
       <tbody>${rows}</tbody></table></div>
+    ${scorecardHtml(d.scorecard)}
     <div class="cp-caveat"><strong>How to read this</strong><ul>
       <li>Everything the model used was available before each gameweek: closing odds (the market's pre-match view; the few games without odds in our
         data use the team-strength model fitted on earlier games), player data up to the previous gameweek, and FotMob history before the first kick-off.</li>
-      <li>Harder than live: no injury or team news, so expected minutes come only from the minutes model.</li>
-      <li>Small leaks: the keeper saves model and the league step-up multipliers were fitted with some of this season's data; the choice of model features was made on last season only.</li>
-      <li>Eight gameweeks is a small sample: single weeks are mostly luck, so judge the totals, not one week.</li>
+      <li>Harder than live: no injury or team news, so start chances come only from the start model.</li>
+      <li>The choice of model features was made on last season only, but the first eight gameweeks were looked at while the models were designed;
+        later gameweeks are the clean record. A code check (run every week) confirms no prediction input changes when later results change.</li>
+      <li>${n} gameweeks is a small sample: single weeks are mostly luck, so judge the totals and the scorecard, not one week.</li>
     </ul></div>
     <p class="cp-foot">Run ${esc(new Date(d.generatedAt).toLocaleString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }))} with <code>backtest.py</code>.</p>`;
   bind(weeks);

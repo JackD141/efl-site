@@ -10,6 +10,9 @@ isotonic curve for every position, on validation and test). Games he most likely
 from red cards and yellow-card milestones, see suspended()) are left out of training and of his history: at pick time a
 ban is known (EFL marks him suspended) and it is not the same as being dropped.
 Doubles: the chance he starts the second game is predicted twice, as if he started the first and as if he did not.
+A club starts exactly ten outfield players (since 9 Nov 2026, exp_clubstart.py): each club's available defenders,
+midfielders and forwards have their start logits shifted by the same amount so the chances add up to ten. So when
+team-mates are flagged out by the EFL the others' chances rise, and a crowded squad's chances fall.
 
 One row per player per club fixture while he is registered at the club (the fantasy data lists every squad player,
 including 0-minute ones). Target: minutes played (0-90). Features use only his EARLIER games at the same club (spells
@@ -20,6 +23,7 @@ Expected appearance points as a function of expected minutes are fitted on valid
 any xMins - predicted or typed in - into appearance points.
 """
 import json
+import re
 import sys
 import warnings
 from pathlib import Path
@@ -29,6 +33,8 @@ import numpy as np
 import pandas as pd
 from sklearn.ensemble import HistGradientBoostingRegressor
 from sklearn.isotonic import IsotonicRegression
+from scipy.optimize import brentq
+from scipy.special import expit, logit
 from sklearn.linear_model import Ridge
 
 from per_season import load_div
@@ -210,18 +216,96 @@ def start_probs(art, hist, upcoming):
     return out
 
 
-def predict_starts(position, players, rounds):
-    """{player id: dict(pStart, pSubN, pFull[, pStart2c, pStart2n])} for each player's club's next round (pFull: P(60+ |
-    started)). Injured / suspended (EFL status) -> start / bench chances 0."""
+OUTFIELD, OUTFIELD_STARTERS = ("DEF", "MID", "FWD"), 10
+_PCT = re.compile(r"\((\d+)%\)")
+_STARTS_CACHE = {}
+
+
+def availability(p):
+    """Chance he is available at all, from the EFL's flags: 1 if playing; 0 if suspended, or injured with "Out (0%)" or
+    no detail; the EFL's own percentage when it gives one ("1 | Questionable (50%)" -> 0.5)."""
+    if p.get("suspensionDetails") or p["status"] == "suspended":
+        return 0.0
+    inj = p.get("injuryDetails")
+    if inj:
+        m = _PCT.search(inj.get("status") or "")
+        return int(m.group(1)) / 100 if m else 0.0
+    return 1.0 if p["status"] == "playing" else 0.0
+
+
+def _shift(f, total):
+    """delta with f(delta) = total for an increasing f; +-30 (everybody / nobody) if the total cannot be reached."""
+    g = lambda d: float(f(d)) - total
+    return brentq(g, -30, 30) if g(30) > 0 > g(-30) else (30.0 if g(30) <= 0 else -30.0)
+
+
+def shift_to(p, total, a=None):
+    """Start chances p (one club, one game) shifted by a common amount on the logit scale so that a x p adds up to
+    total (a: availability, default 1)."""
+    a = np.ones(len(p)) if a is None else np.asarray(a, float)
+    z = logit(np.clip(np.asarray(p, float), 1e-6, 1 - 1e-6))
+    return a * expit(z + _shift(lambda d: (a * expit(z + d)).sum(), total))
+
+
+def normalise_club(pred, avail, total=OUTFIELD_STARTERS):
+    """One club's outfield players: {id: dict(pStart, pSubN, pFull[, pStart2c, pStart2n])} -> the same with the start
+    chances adding up to `total` (ten outfield starters). avail {id: availability}: 0 -> out (start / bench chances 0),
+    0.5 -> start / bench chances halved. The second game of a double: both conditional chances are shifted so the
+    unconditional chances (as the pages compute them: s1 x c + (1 - s1) x n) add up to `total` as well."""
+    out = {i: dict(v) for i, v in pred.items()}
+    ids = [i for i in pred if avail.get(i, 1.0) > 0]
+    for i in pred:
+        if i not in ids:
+            out[i] = {k: (v if k == "pFull" else 0.0) for k, v in pred[i].items()}
+    if not ids:
+        return out
+    a = np.array([avail.get(i, 1.0) for i in ids])
+    lg = lambda key: logit(np.clip(np.array([pred[i][key] for i in ids], float), 1e-6, 1 - 1e-6))
+    s1 = shift_to([pred[i]["pStart"] for i in ids], total, a)
+    for i, v, ai in zip(ids, s1, a):
+        out[i]["pStart"], out[i]["pSubN"] = float(v), float(ai * pred[i]["pSubN"])
+    if all("pStart2c" in pred[i] for i in ids):
+        zc, zn = lg("pStart2c"), lg("pStart2n")
+        d2 = _shift(lambda d: (s1 * expit(zc + d) + (1 - s1) * expit(zn + d)).sum(), total)
+        for i, c, n in zip(ids, expit(zc + d2), expit(zn + d2)):
+            out[i]["pStart2c"], out[i]["pStart2n"] = float(c), float(n)
+    return out
+
+
+def _model_starts(position, players, rounds):
+    """The start model's own chances (no flags, no club total) for the position's players with a game to come."""
     art = joblib.load(MODELS / f"minutes_model_{position.lower()}.joblib")
     nxt = _next_fixtures(rounds)
     ups = [dict(player_id=p["id"], squad_id=p["squadId"], position=position, fixtures=nxt[p["squadId"]])
            for p in players if p["position"] == position and p["status"] != "eliminated" and p["squadId"] in nxt]
-    out = start_probs(art, load_rows(position), ups)
-    for p in players:
-        if p["id"] in out and (p["status"] != "playing" or p.get("injuryDetails") or p.get("suspensionDetails")):
-            out[p["id"]] = {k: (v if k == "pFull" else 0.0) for k, v in out[p["id"]].items()}
-    return {k: {kk: round(vv, 4) for kk, vv in v.items()} for k, v in out.items()}
+    return start_probs(art, load_rows(position), ups)
+
+
+def predict_starts(position, players, rounds):
+    """{player id: dict(pStart, pSubN, pFull[, pStart2c, pStart2n])} for each player's club's next round (pFull: P(60+ |
+    started)). EFL flags: injured / suspended -> 0, "questionable (50%)" -> halved (availability()). Outfield positions:
+    each club's chances add up to ten starters (normalise_club; all three positions are predicted together and cached
+    for the run). Keepers: flags only here; keepers.model_minutes scales each club's keepers to one starter."""
+    avail = {p["id"]: availability(p) for p in players}
+    rnd = lambda out: {k: {kk: round(vv, 4) for kk, vv in v.items()} for k, v in out.items()}
+    if position not in OUTFIELD:
+        out = _model_starts(position, players, rounds)
+        return rnd({i: {k: (v if k == "pFull" else v * avail.get(i, 1.0)) for k, v in pr.items()} for i, pr in out.items()})
+    key = (tuple(sorted((p["id"], p["squadId"], avail[p["id"]]) for p in players if p["status"] != "eliminated")),
+           tuple(sorted((c, tuple(map(str, f))) for c, f in _next_fixtures(rounds).items())))
+    if key not in _STARTS_CACHE:
+        _STARTS_CACHE.clear()
+        raw = {pos: _model_starts(pos, players, rounds) for pos in OUTFIELD}
+        club = {p["id"]: p["squadId"] for p in players}
+        by_club = {}
+        for pos in OUTFIELD:
+            for i, pr in raw[pos].items():
+                by_club.setdefault(club[i], {})[i] = pr
+        done = {}
+        for preds in by_club.values():
+            done.update(normalise_club(preds, avail))
+        _STARTS_CACHE[key] = {pos: rnd({i: done[i] for i in raw[pos]}) for pos in OUTFIELD}
+    return _STARTS_CACHE[key][position]
 
 
 def expected_minutes(pr, q, full, part):

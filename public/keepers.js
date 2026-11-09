@@ -164,7 +164,7 @@ function render() {
         question is what he scores <em>if he starts</em>: his club's first game of the gameweek at 100%, a double's second game at his chance of
         starting it given he started the first. <strong>xP</strong> is the same before team news, with his start chance. Click either heading to sort.</li>
       <li><strong>Start %</strong> is the chance he starts his club's next game (the start model: recent starts, minutes and appearances at his club;
-        a club's keepers add up to at most 100%; 0 if EFL lists him injured or suspended). Historically the last game's starter keeps his place
+        a club's keepers add up to at most 100%; 0 if EFL lists him injured or suspended, halved if "questionable"). Historically the last game's starter keeps his place
         ${pct(plan.constants.pKeep)} of the time. Change it after team news; edits are saved in this browser.</li>
       <li>Saves and goals conceded score in steps, so xP uses the full chances: saves points = 2 × [P(3+ saves) + P(6+) + P(9+) …], not expected saves ÷ 3 × 2.</li>
       <li>Single games are mostly luck: a clean sheet is a weighted coin flip. xP is right on average and ranks fixtures; it does not predict one match.</li>

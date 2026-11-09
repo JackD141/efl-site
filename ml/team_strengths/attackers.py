@@ -137,7 +137,7 @@ def build_plan(position, rounds, squads, players, fits, id2fd, book, book_src, m
             id=p["id"], name=p.get("displayName") or f"{p['firstName']} {p['lastName']}", club=p["squadId"],
             **(mm.plan_fields(starts.get(p["id"]), m_full.get(p["id"], mix_fields["minsMix"]["full"]), mix_fields["startModel"]) if starts is not None
                else dict(xMins=90 if (avail and p["id"] in starters) else 0)),
-            status=p["status"], injury=inj.get("type") if inj else None,
+            status=p["status"], injury=inj.get("type") if inj else None, injuryStatus=inj.get("status") if inj else None,
             suspended=bool(p.get("suspensionDetails")), startedLast=p["id"] in starters,
             role={st: roles.get(p["id"], {}).get(st, 1.0) for st in art},
             rates=rates.get(p["id"], rate_priors),
@@ -146,7 +146,7 @@ def build_plan(position, rounds, squads, players, fits, id2fd, book, book_src, m
             mins=int(a["mins"]) if a is not None else 0, totalPoints=p.get("totalPoints", 0), recent=recent.get(p["id"], []),
             **({"mFull": m_full.get(p["id"], mix_fields["minsMix"]["full"])} if mix_fields else {})))
     model = {st: dict(features=c["features"], intercept=c["intercept"], coef=c["coef"], mean=c["scaler_mean"], sd=c["scaler_sd"],
-                      r=c["nb_r"], prior=c["prior"], window=c["window"], test=c["test"], target=c.get("target", c["column"]),
+                      r=c["nb_r"], prior=c["prior"], window=c["window"], test=dict(v2=c["monitor"]["chosen"], v1=c["monitor"]["plainest"], v1_name="plainest version", n=c["monitor"]["n"]), target=c.get("target", c["column"]),
                       scale=c.get("scale", 1.0), pens=bool(c.get("pens", False)), penCol=c.get("pen_col", "fm_pxg")) for st, c in art.items()}
     return dict(position=position, generatedAt=datetime.now(timezone.utc).isoformat(timespec="seconds"), season="2026/27",
                 firstGw=gameweeks[0]["gw"] if gameweeks else None, gameweeks=gameweeks, clubs=list(clubs.values()), players=plist,

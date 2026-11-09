@@ -177,7 +177,7 @@ document.addEventListener('scroll', () => { tip.style.display = 'none'; }, true)
 /* ---------- page ---------- */
 function tags(d) {
   const t = [];
-  if (d.injury || d.status === 'injured') t.push(`<span class="cp-tag kp-tag-out">${esc(d.injury || 'injured')}</span>`);
+  if (d.injury || d.status === 'injured') t.push(`<span class="cp-tag kp-tag-out" title="${esc(d.injuryStatus || '')}">${esc(d.injury || 'injured')}${/\((\d+)%\)/.test(d.injuryStatus || '') && !/\(0%\)/.test(d.injuryStatus) ? ' ?' : ''}</span>`);
   if (d.suspended) t.push('<span class="cp-tag kp-tag-out">suspended</span>');
   if (d.startedLast) t.push('<span class="cp-tag cp-tag-picked" title="Played 60+ minutes in his club\'s latest game">started last</span>');
   if (kickedOff(weekOf(d.club, state.gw))) t.push('<span class="cp-tag" title="His club\'s game this gameweek has kicked off, so he is locked">locked</span>');
@@ -245,7 +245,7 @@ function render() {
       <tbody>${rows || `<tr><td colspan="${hasInt ? 13 : 12}" class="cp-muted">No ${LABEL.many.toLowerCase()} match.</td></tr>`}</tbody></table></div>
     <div class="cp-caveat"><strong>How to read this</strong><ul>
       <li><strong>Start %</strong> is the chance he starts his club's next game, from a model of his recent starts, minutes and appearances at his
-        club, how long since he last played, whether he is new to the club, rest days and doubles (0 if EFL lists him injured or suspended; games
+        club, how long since he last played, whether he is new to the club, rest days and doubles. A club starts ten outfield players, so each club's chances add up to ten: they rise when team-mates are out (0 if EFL lists him injured or suspended, halved if "questionable"; games
         he missed through a ban do not count as being dropped). Below it: his minutes if he starts and, in a double, his chance of starting the
         second game. Change it after team news (100 = in the line-up); edits are saved in this browser.</li>
       <li><strong>xP if starts</strong> (the default sort): Fantasy EFL lets you change a player until his game kicks off, so after team news the
@@ -262,7 +262,7 @@ function render() {
         <li><strong>Moving clubs or leagues</strong>: numbers from another league are adjusted by how much players' output changes on stepping up or down
         (measured on FotMob data, e.g. xG from League One counts about 0.8× in the Championship), and a club's style carries over
         from last season, adjusted for promotion or relegation.</li>
-        <li>Tested on this season's games without having seen them (mean squared error, new model vs previous): goals ${t('goals').v2.mse.toFixed(4)} vs ${t('goals').v1.mse.toFixed(4)};
+        <li>Checked on this season's games with the model fitted on last season only (mean squared error, the model vs its plainest version without FotMob history): goals ${t('goals').v2.mse.toFixed(4)} vs ${t('goals').v1.mse.toFixed(4)};
         assists ${t('assists').v2.mse.toFixed(4)} vs ${t('assists').v1.mse.toFixed(4)}; shots on target ${t('sot').v2.mse.toFixed(3)} vs ${t('sot').v1.mse.toFixed(3)};
         key passes ${t('kp').v2.mse.toFixed(3)} vs ${t('kp').v1.mse.toFixed(3)}${state.plan.model.int ? `; interceptions ${t('int').v2.mse.toFixed(3)} vs ${t('int').v1.mse.toFixed(3)}` : ''}. Single games are still mostly luck.</li>`
         : `<li>Tested on this season's games without having seen them (mean squared error, lower is better): goals ${err('goals')}; shots on target ${err('sot')};

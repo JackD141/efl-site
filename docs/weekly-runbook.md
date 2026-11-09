@@ -43,15 +43,21 @@ cd ml/team_strengths
      minutes and goals; model rows have real match dates. **FAIL stops the run**; WARN means look before publishing.
      Results in `ml/team_strengths/output/data_checks.txt`. Each check was tested by corrupting a copy of the data
      (swapped home / away, wrong date, absurd odds, unknown name, altered points): all were caught.
-3. retrains on everything to date: `minutes_model.py` (MID, FWD, DEF, GK) and `player_model.py` (MID, FWD, DEF). The
-   feature choices are re-made on the 2025/26 validation folds exactly as before (same result); only the coefficients
-   learn from the new games. Never change a choice because of this season's numbers (see docs/ml-methodology.md)
+3. leakage test (`leakage_check.py`, ~2 minutes: no model input may change when later results change; FAIL stops),
+   then retrains on everything to date: `minutes_model.py` (MID, FWD, DEF, GK) and `player_model.py` (MID, FWD, DEF).
+   The model choices are frozen in the model files; only the coefficients learn from the new games. Re-making the
+   choices is a separate, deliberate step (`python player_model.py --select`, then log it). Never change a choice
+   because of this season's numbers (see docs/ml-methodology.md section 3)
 4. builds the gameweek's predictions for the site (`run_gameweek.py`): club_plan / keeper / defender / mid / fwd JSON, then
    checks them (`data_checks.py` outputs): all plans for the same gameweek, every club's fixtures and kick-off times equal
-   the EFL's, probabilities valid, expected minutes 0-90; FAIL stops before anything is pushed
-5. re-runs the backtest over every finished gameweek (`backtest.py`, each gameweek refitted on games before it)
-6. writes the reference xP for checking the pages (`check_site_maths.py` -> `public/data/check_xp.json`)
-Flags: `--no-retrain` and `--no-backtest` for a quick re-run (e.g. after a team-news minutes edit).
+   the EFL's, probabilities valid, expected minutes 0-90, each club's outfield start chances add up to ten; FAIL stops
+   before anything is pushed
+5. re-runs the backtest over every finished gameweek (`backtest.py`, each gameweek refitted on games before it) and
+   prints its scorecard (calibration of xP, of start chances and of every stat; read it for drift)
+6. writes the reference xP for checking the pages (`check_site_maths.py` -> `public/data/check_xp.json`), logs what is
+   being published (`data/2026_27/predictions/gw<N>.json`, only before the gameweek's first kick-off) and prints the
+   live record (`live_record.py`: logged gameweeks scored against what happened)
+Flags: `--no-retrain` and `--no-backtest` for a quick re-run (e.g. after a team-news edit); `--no-leakage-check`.
 
 ## 3. Check
 - Serve locally: `venv/Scripts/python.exe -m http.server 8765 --directory public`, open the homepage and each Player Picks tab:
@@ -63,7 +69,7 @@ Flags: `--no-retrain` and `--no-backtest` for a quick re-run (e.g. after a team-
 ## 4. Commit and push (deploys)
 ```bash
 rm public/data/check_xp.json
-git add public/data/*.json ml/team_strengths/models/*.json ml/team_strengths/models/*.joblib data/2026_27/status/
+git add public/data/*.json ml/team_strengths/models/*.json ml/team_strengths/models/*.joblib data/2026_27/status/ data/2026_27/predictions/
 git commit -m "GW<N> predictions: retrained to GW<N-1>"
 git push origin main
 ```

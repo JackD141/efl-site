@@ -270,6 +270,15 @@ def check_outputs(rounds, squads, gw):
         gk_sum[x["club"]] = gk_sum.get(x["club"], 0.0) + x.get("pStart", 0.0)
     over = {c: round(v, 3) for c, v in gk_sum.items() if v > 1.005}  # each rounded to 3 decimals
     report("FAIL" if over else "PASS", "each club's keepers' start chances add up to at most 1", str(list(over.items())[:3]))
+    # ten outfield players start: each club's defenders', midfielders' and forwards' start chances add up to 10 (rounded to 3 decimals each)
+    out_sum, n_out = {}, {}
+    for f, key in (("defender_plan.json", "defenders"), ("mid_plan.json", "players"), ("fwd_plan.json", "players")):
+        for x in plans[f][key]:
+            out_sum[x["club"]] = out_sum.get(x["club"], 0.0) + x.get("pStart", 0.0)
+            n_out[x["club"]] = n_out.get(x["club"], 0) + (x.get("pStart", 0.0) > 0)
+    playing = {c for c, v in out_sum.items() if v > 0}
+    off = {c: round(out_sum[c], 2) for c in playing if abs(out_sum[c] - 10) > 0.05 and n_out[c] > 10}
+    report("FAIL" if off else "PASS", "each club's outfield start chances add up to ten starters", str(list(off.items())[:3]) or f"{len(playing)} clubs")
     m = plans["mid_plan.json"]
     # clubs with a game in the next round x ~3-4 regular midfielders each
     starters = sum(x.get("pStart", 0) >= 0.6 for x in m["players"])

@@ -150,8 +150,9 @@ def keeper_roster(players, squads, rounds, gk, consts):
     out = []
     xm = model_minutes(players, rounds)
     for club, ks in by_club.items():
-        def available(p):
-            return p["status"] == "playing" and not p.get("injuryDetails") and not p.get("suspensionDetails")
+        def available(p):  # not ruled out by the EFL's flags ("questionable (50%)" counts as available, at half the chance)
+            import minutes_model as mm
+            return mm.availability(p) > 0
         avail = [p for p in ks if available(p)]
         starter = None
         if club in last.index and any(p["id"] == last.at[club, "player_id"] for p in avail):

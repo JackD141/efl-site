@@ -6,13 +6,12 @@ Read this before changing any model. Companion docs: `docs/player-models.md` (wh
 ## 1. The prediction problem
 Expected Fantasy EFL points per player per gameweek = sum over his fixtures of the expected points of each scoring
 component. Components are modelled separately (never points directly):
-- minutes: `minutes_model.py` (one model per position) -> expected minutes, expected appearance points and P(60+) curves,
-  average minutes of a full (60+) and a part (1-59) game, and each player's own full-game minutes
-- **minutes scenarios** (since 10 Oct): a fixture's xP = P(60+) x xP if he plays his usual full game (his own average
-  minutes in his last 10 games of 60+, shrunk; appearance 2; clean sheet counts) + P(1-59) x xP of a typical part game
-  (appearance 1). P(1-59) = expected appearance points - 2 P(60+). Thresholds (clearances per 4, key passes per 2,
-  saves per 3, goals conceded per 2) are therefore evaluated on minutes he would actually play, not on the average
-  (E[f(minutes)] instead of f(E[minutes])). Pages show "60+: x%" under the expected minutes.
+- start chances: `minutes_model.py` (one model per position): P(start), P(60+ | started), P(comes on | not started);
+  each club's outfield start chances add up to ten starters (EFL flags: out -> 0, "questionable (50%)" -> halved)
+- **minutes scenarios** (since 10 Oct): a fixture's xP = P(full game) x xP if he plays his usual full game (his own
+  average minutes in his last 10 games of 60+, shrunk; appearance 2; clean sheet counts) + P(part game) x xP of a
+  typical part game (appearance 1). Thresholds (clearances per 4, key passes per 2, saves per 3, goals conceded per 2)
+  are therefore evaluated on minutes he would actually play, not on the average (E[f(minutes)], not f(E[minutes])).
 - per-90 rates of each scoring stat: `player_model.py` (MID, FWD, DEF), Poisson GLM with minutes as exposure
 - goals / assists through their expected versions (npxG / xA from FotMob), converted with a fitted factor
 - clean sheets / goals conceded / keeper saves: from the match odds (`keepers.py`, `saves_model.py`)
@@ -37,17 +36,42 @@ Weekly: `python fetch_fotmob.py 2026/2027 && python link_fotmob.py && python set
 ## 3. Protocol (do not deviate)
 - **Selection** (features, windows, role shrinkage, model class): two rolling-origin validation folds inside 2025/26:
   train to GW17 -> validate GW18-26; train to GW26 -> validate GW27-35. Metric: negative-binomial log-likelihood of the
-  ACTUAL count (also MSE). Rule: the simplest / most-preferred candidate within TOL = 0.0005 of the best.
-- **Test**: 2026/27 to date, once, against the incumbent. NOTE: 2026/27 GW1-8 has now been looked at many times while
-  developing (9-10 Oct 2026). It is no longer a pristine holdout: never select on it. The honest out-of-sample record
-  from now on is the **backtest on gameweeks after GW8** (re-run `backtest.py` after each gameweek and compare).
+  ACTUAL count.
+- **Rule: one standard error (since 9 Nov 2026; before that a fixed tolerance of 0.0005).** Candidates are listed
+  simplest first, and for each candidate the plain setting (window 12, role shrinkage 10) comes before its best
+  setting. The first configuration within max(0.0005, one standard error) of the best one wins. The standard error is
+  that of the PAIRED difference to the best (same rows), with the 18 validation gameweeks as the independent units
+  (`player_model.paired_se`). Why: 0.0005 turned out to be about half a standard error for most stats, so near-ties
+  were decided by noise, and the nine window / shrinkage settings differ by less than a standard error for 10 of 13
+  stats (`exp_selection.py`, section 5).
+- **Choices are frozen** in `models/<pos>_model.json` (`selection`). The weekly run refits coefficients only.
+  Re-selecting is a deliberate step, `python player_model.py --select`: it prints every change; log it in section 5.
+- **Adopting a new idea** (feature, data source, model class) needs all of: a football reason written down before the
+  numbers are looked at; a short list of candidates fixed beforehand; a validation gain of more than one standard error
+  (paired, gameweek clusters), positive in both folds; a pass of the leakage test (section 4). Log every experiment in
+  section 5, failures included: the number of things tried is part of the evidence, because the best of twenty noisy
+  tries always looks good.
+- **2026/27 is a monitor, not a test set.** It has been looked at many times (GW1-8 while developing, 9-10 Oct, and
+  every week since). `player_model.py` prints, per stat, the log-likelihood and actual / predicted on 2026/27 for the
+  chosen model fitted on 2025/26 only. Never choose on it. The honest out-of-sample records are (a) the backtest
+  scorecard for gameweeks after GW8 and (b) the live record (section 6), which no later change can rewrite.
 - **Refit** on everything for production after the choice is made.
 - Shrinkage everywhere small samples meet: role (pseudo-games), club styles (K_TEAM pseudo-90s), FotMob history
   (3 pseudo-90s plus the GLM coefficient), league multipliers (n / (n + n0)).
 - Random seeds fixed (`random_state=0`) so reruns reproduce.
 
 ## 4. Leakage rules and audit (10 Oct 2026)
-Every feature for a row must use only information from before that match. Checked:
+Every feature for a row must use only information from before that match.
+**Automatic test (9 Nov 2026): `leakage_check.py`**, run by `weekly_update.py` before every retrain (FAIL stops). It
+alters every outcome on or after a cut-off date (counts, xG / xA, minutes, starts; fantasy data and FotMob history),
+rebuilds the features with the live code and requires every row on or before the cut-off to be unchanged: 44 checks
+over the stat features of all 14 models, the FotMob rates, the set-piece shares and the start-model features. On its
+first run it found a real leak: team-mates' counts in the role feature were pooled per GAMEWEEK, so in a double (42% of
+rows) the first game's "expected" count contained the second game's outcomes, including the target of the row being
+predicted. Fixed (team-mates per match); `python leakage_check.py --old-role` shows the test failing on the old code.
+Also 9 Nov: the league rate each stat is shrunk towards now comes from GW1-17 (the first fold's training games), not
+GW1-23, which included validation games of the first fold.
+Checked by hand (10 Oct):
 - role / own rates: rolling windows over earlier appearances (`shift(1)`), ordered by **date** (fixed 10 Oct: was
   gameweek order, which could put the second game of a double first)
 - club style, opponent style, team-mates rate: rolling over earlier gameweeks of the same season (`shift(1)` by gameweek,
@@ -95,6 +119,11 @@ Re-run this audit whenever a feature is added: write down, for the new feature, 
 | 7 Nov | P(60+ \| started) per player instead of the position average | val P(60+) log-loss better for DEF / MID / FWD (e.g. FWD 0.3373 -> 0.3353), GK equal | adopted (a 90-minute regular is no longer docked for team-mates' substitutions) |
 | 7 Nov | MID interceptions + the match odds (does a dominant side intercept less?) | val -0.0003 (both folds worse); odds coefficients ~0 | rejected |
 | 7 Nov | MID interceptions + playing style from FotMob team passing (`exp_intstyle.py`): opponent's misplaced short passes per game, own team's pass share (previous 12 matches, shrunk) | val +0.00007 / +0.00009 / both +0.00017 (fold 1 ~0); test +0.0006 (info). Diagnostics: within a match the mechanism is real (team interceptions vs opponent misplaced short passes r 0.26, vs own pass share r -0.29) and team style is very persistent (odd vs even games r 0.84 / 0.89), but the outcome-based features already carry it (team-mates' interception rate, interceptions conceded by the opponent; a team's own interceptions persist r 0.63) | rejected (below TOL); interceptions are mostly the player (FotMob history is the largest coefficient) |
+| 9 Nov | How noisy is the selection? (`exp_selection.py`: per-row validation log-likelihood of every configuration, gameweeks resampled 400 times, old rule re-applied) | the big structural choices are solid (FotMob history: gains 2-10 standard errors, chosen in 70-98% of resamples) but the near-ties are not: paired standard errors are 0.0005-0.0015, i.e. the 0.0005 tolerance is about half of one; MID key passes' full structure chosen in 59% of resamples, FWD goals 20- vs 40-game history 42 / 56%, MID shots recency twin 31%; the nine window / shrinkage settings span less than one standard error for 10 of 13 stats | one-standard-error rule, plain setting preferred, choices frozen (section 3) |
+| 9 Nov | Re-selection under the new rule (with the role fix) | 9 of 14 stats change, 8 of them only to the plain setting (window 12, shrinkage 10); MID key passes drops corner share (0.0008 behind the best, standard error 0.0008) and keeps the recency-weighted history. Monitor 2026/27, old -> new choices: 12 stats within +-0.0005, MID key passes -1.1824 -> -1.1845, MID interceptions -1.0080 -> -1.0076. Backtest GW1-12 with the same code, old vs new choices: player xP MSE 8.9715 -> 8.9704 (gain +0.001, 90% interval over gameweeks -0.0004 to +0.0025) | adopted: accuracy unchanged within noise, fewer arbitrary settings, no weekly re-selection |
+| 9 Nov | Club total (`exp_clubstart.py`): a club starts ten outfield players, so each club's start logits are shifted by one common amount until the chances add up to ten | raw sums: mean 10.30 (sd 0.44) on validation, 10.35 (sd 0.68) on 2026/27, and where the sum is above 10.5 players start 2.5-3.7 points less often than predicted. P(start) log-loss, validation 0.3160 -> 0.3143, 2026/27 0.3656 -> 0.3621 (every position better); calibration by band now within 1 point almost everywhere (e.g. 40-60% band: 46.7% -> 49.6% started vs 49.9% predicted). Live it also moves start chances up when team-mates are flagged out | adopted (`minutes_model.normalise_club`). Backtest GW1-12 (each gameweek refitted): player xP MSE 8.988 -> 8.970, gain +0.017 with a 90% interval over gameweeks of +0.006 to +0.030; start chances out of sample within 1 point of what happened in every band up to 92% (92%+: 94.3% predicted, 92.3% started; the backtest has no injury news) |
+| 9 Nov | First read of the backtest scorecard (GW1-12, 22,631 player-gameweeks; also faster code: backtest 4 minutes) | xP MSE 8.97 vs form 11.78 (24% lower; 22% in GW9-12); mean xP 2.45 vs 2.50 scored; calibrated in every xP band (largest gap: 5-6 band, 5.42 vs 5.12); ten highest per position: DEF 8.00 expected / 7.96 scored, MID 9.14 / 8.77, FWD 7.74 / 7.67, GK 6.33 / 6.38, and the form picker's ten score less in every position (6.77 / 8.56 / 7.02 / 5.55); stats actual / expected 0.97-1.08, forwards' four stats all 1.06-1.08, which sits in rotation players (20-60% start chance: xP 2.74 vs 3.08 scored; 85%+: 5.51 vs 5.61); picked team 1089 vs expected 1107 vs form picker 1056: +33, 90% interval -60 to +119 | no change. The picked-team total cannot tell methods apart at this sample size; the scorecard can |
+| 9 Nov | EFL flag "1 \| Questionable (50%)" (18 of 284 flagged players): was treated as out | no history of flags to test on (snapshots start 7 Nov) | start / bench chances halved (the EFL's own figure) instead of 0: an assumption, check against the snapshots when there are ~8 weeks |
 Set-piece numbers: `ml/team_strengths/models/exp_setpieces_results.json` (`exp_setpieces.py`).
 Recency numbers: `ml/team_strengths/models/exp_recency_results.json` (`exp_recency.py`).
 Full GBM numbers: `ml/team_strengths/models/exp_gbm_results.json`.
@@ -108,6 +137,16 @@ Full GBM numbers: `ml/team_strengths/models/exp_gbm_results.json`.
   site fixtures and kick-offs equal the EFL's). Each check was tested by corrupting a copy of the data. Add a check
   whenever a new source or join is added. Known past slips this would have caught: EFL round left "playing" (empty
   export), stale football-data fixture list, FotMob timestamp format change (15 Oct 2026).
+- **Leakage test** (`leakage_check.py`, ~2 minutes, in `weekly_update.py` before retraining): section 4.
+- **Backtest scorecard** (`backtest.py`, printed and on the Backtest page): over every registered player and gameweek,
+  each refitted on games before it: xP error against the form baseline and against the previous method (`ALT`), with a
+  gameweek-resampled interval; calibration by xP band; the ten highest xP per position (how much the top picks
+  disappoint); start chances against what happened; actual / expected count of every stat; and an interval for "model
+  minus form picker" points. Totals of the picked team alone are too noisy to judge a change (the interval is wide).
+- **Live record** (`live_record.py`): every weekly run logs what is being published for the gameweek
+  (data/2026_27/predictions/gw<N>.json: xP, xP if he starts, start chance, club xP), only before its first kick-off, and
+  scores the logged gameweeks once their stats are in. Unlike the backtest it uses the odds and injury flags we really
+  had, and it cannot be rewritten by a later model change. Starts with GW14 (9 Nov 2026).
 - JS equals Python: `python ml/team_strengths/check_site_maths.py` writes the reference (public/data/check_xp.json,
   gitignored); compare on each Player Picks tab and the homepage (`playerWeek`) as described in its docstring. 10 Oct:
   max difference 1e-9 (MID / DEF), 2e-5 (FWD, Poisson goals), keepers 5e-4 on the homepage (JSON rounding).
@@ -118,18 +157,22 @@ Full GBM numbers: `ml/team_strengths/models/exp_gbm_results.json`.
 
 ## 7. Known issues and next steps (ranked)
 0. **Injury flags counted twice** (7 Nov): the start model learns from all absences, including injuries EFL had flagged
-   at pick time, and the site also sets flagged players to 0, so unflagged regulars' start chances are a little low.
-   `weekly_update.py` now saves EFL's flags every run (data/2026_27/status/); after ~8 weeks, refit with flagged games
-   left out (as suspensions are) and check on the backtest.
+   at pick time, and the site also sets flagged players to 0. Partly dealt with on 9 Nov: a club's chances now add up
+   to ten, so the others rise when team-mates are flagged. Still to do when ~8 weeks of flag snapshots exist
+   (data/2026_27/status/, saved every run): refit with flagged games left out (as suspensions are), check the
+   "questionable (50%)" assumption, and compare on the backtest.
 1. DONE 10 Oct: set pieces (penalty share, corner share, free kicks) + "Pens" / "Corners" / "FKs" tags on the pages and
    the homepage. Possible next: team penalty rate scaled by the team's expected goals; corner share for assists of
    defenders (val +0.0004, below TOL: retest with more data).
-2. **Minutes-dependence of per-90 rates**: actual / predicted by REALISED minutes is ~1.2-1.4 for 10-30 minute cameos,
-   ~0.7-0.9 for 30-75, ~1.0 for 75+ (partly selection: players are subbed when it is not going well). Test the
-   decision-relevant version: calibration by EXPECTED minutes (minutes model out of sample) end-to-end; if rotation
-   players are off, fit a correction curve on validation.
-3. **End-to-end optimism** (~9% in the backtest): mostly selection ("winner's curse"); could shrink xP towards the
-   positional mean before optimising (test on the backtest, not on 2026/27 GW1-8).
+2. **Part games are one scenario** (measured 9 Nov): starters who come off before 60 play 44-48 minutes (5.5% of
+   defenders' starts, 8% of midfielders', 11% of forwards') and substitutes about 20, but both are valued as one
+   "part game" of ~24 minutes at the full-game rate; substitutes' per-90 rates are also higher than starters' (actual /
+   predicted ~1.2-1.4 for 10-30 minute cameos). Effect: xP if he starts is under by less than 0.1 points; rotation
+   players (20-60% start chance) are under-predicted by 5-10% (forwards 11%). Fix: three scenarios (started and off
+   early / came on) with their own minutes and a rate factor fitted on validation. It changes the page maths in four
+   files, and picks assume a start, so the value is low: do it only with an automatic page-maths check in place.
+3. **End-to-end optimism**: 9% on 10 Oct, 1.7% now (picked team 1089 vs 1107 expected, GW1-12), and the ten highest
+   xP per position score within 1% of expected (midfielders 4% under). Watch it on the scorecard; no shrinkage needed.
 4. Over-performers: test on 2025/26 whether players beating the model over a run keep beating it (decides how much
    recent form should count beyond the current shrinkage).
 5. Injury / team news in minutes (live only; the backtest cannot use it).

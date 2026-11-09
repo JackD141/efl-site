@@ -1,0 +1,792 @@
+{
+ "MID goals": {
+  "live": {
+   "model": "mates + npxG hist40",
+   "window": 8,
+   "k": 3.0
+  },
+  "gain_vs_reference": 0.0024206288844722534,
+  "se": 0.0007288918287064954,
+  "name_freq": {
+   "mates + npxG hist40": 0.908,
+   "mates + npxG hist": 0.07,
+   "base": 0.015,
+   "mates": 0.008
+  },
+  "cfg_freq": {
+   "8/3": 0.711,
+   "8/10": 0.174,
+   "46/3": 0.052,
+   "12/10": 0.03,
+   "12/3": 0.025,
+   "46/10": 0.008
+  },
+  "candidates": {
+   "base": {
+    "window": 46,
+    "k": 3.0,
+    "gain": 0.0004041840293463883,
+    "se": 0.0003417445450210784
+   },
+   "mates": {
+    "window": 12,
+    "k": 3.0,
+    "gain": 0.000582273633446373,
+    "se": 0.00019159333681215365
+   },
+   "mates + npxG hist": {
+    "window": 8,
+    "k": 3.0,
+    "gain": 0.0013099273147142987,
+    "se": 0.0005105582356382055
+   },
+   "mates + npxG hist40": {
+    "window": 8,
+    "k": 3.0,
+    "gain": 0.0024206288844722534,
+    "se": 0.0007288918287064954
+   },
+   "mates + npxG hist40 (recency-weighted)": {
+    "window": 8,
+    "k": 3.0,
+    "gain": 0.0022965894302355294,
+    "se": 0.000655374271037815
+   }
+  },
+  "setting_span": 0.00030438671277577267,
+  "rows": 7275,
+  "gameweeks": 18
+ },
+ "MID assists": {
+  "live": {
+   "model": "base + xA hist",
+   "window": 8,
+   "k": 3.0
+  },
+  "gain_vs_reference": 0.0003504846012181706,
+  "se": 0.00016638918516976016,
+  "name_freq": {
+   "base + xA hist": 0.875,
+   "mates + xA hist40": 0.082,
+   "mates + xA hist": 0.042
+  },
+  "cfg_freq": {
+   "46/3": 0.334,
+   "8/3": 0.32,
+   "8/30": 0.117,
+   "8/10": 0.1,
+   "46/30": 0.069,
+   "46/10": 0.06
+  },
+  "candidates": {
+   "base + xA hist": {
+    "window": 8,
+    "k": 3.0,
+    "gain": 0.0003504846012181706,
+    "se": 0.00016638918516976016
+   },
+   "mates + xA hist": {
+    "window": 8,
+    "k": 3.0,
+    "gain": 0.0003864089106146995,
+    "se": 0.00018505016472471528
+   },
+   "mates + xA hist40": {
+    "window": 46,
+    "k": 3.0,
+    "gain": 0.0004713258039290569,
+    "se": 0.00032141128818544617
+   },
+   "mates + xA hist40 (recency-weighted)": {
+    "window": 8,
+    "k": 3.0,
+    "gain": 0.0005890552039037877,
+    "se": 0.00028534828329438425
+   }
+  },
+  "setting_span": 0.00039576012963982166,
+  "rows": 7275,
+  "gameweeks": 18
+ },
+ "MID sot": {
+  "live": {
+   "model": "mates + shots/npxG hist40",
+   "window": 46,
+   "k": 3.0
+  },
+  "gain_vs_reference": 0.0023479516458807526,
+  "se": 0.0007423208855423037,
+  "name_freq": {
+   "mates + shots/npxG hist40": 0.688,
+   "mates + shots/npxG hist40 (recency-weighted)": 0.312
+  },
+  "cfg_freq": {
+   "46/3": 0.778,
+   "46/10": 0.102,
+   "12/3": 0.055,
+   "8/3": 0.029,
+   "46/30": 0.025,
+   "8/10": 0.007,
+   "12/10": 0.004
+  },
+  "candidates": {
+   "base + shots/npxG hist": {
+    "window": 46,
+    "k": 3.0,
+    "gain": 0.00023465096077113223,
+    "se": 0.00017756670230149513
+   },
+   "mates + shots/npxG hist": {
+    "window": 46,
+    "k": 3.0,
+    "gain": 0.0002230529247013724,
+    "se": 0.00019142835926611967
+   },
+   "mates + shots/npxG hist40": {
+    "window": 46,
+    "k": 3.0,
+    "gain": 0.0023479516458807526,
+    "se": 0.0007423208855423037
+   },
+   "mates + shots/npxG hist40 (recency-weighted)": {
+    "window": 46,
+    "k": 3.0,
+    "gain": 0.0027286583304042544,
+    "se": 0.0006129142961515665
+   }
+  },
+  "setting_span": 0.0005205042894456113,
+  "rows": 7371,
+  "gameweeks": 18
+ },
+ "MID kp": {
+  "live": {
+   "model": "mates + chances/xA hist40 + corner share (recency-weighted)",
+   "window": 46,
+   "k": 30.0
+  },
+  "gain_vs_reference": 0.0038825214398265917,
+  "se": 0.001092527747898611,
+  "name_freq": {
+   "mates + chances/xA hist40 + corner share (recency-weighted)": 0.588,
+   "mates + chances/xA hist40 (recency-weighted)": 0.285,
+   "mates + chances/xA hist40 + corner share": 0.09,
+   "mates + chances/xA hist40": 0.038
+  },
+  "cfg_freq": {
+   "46/30": 0.413,
+   "46/3": 0.243,
+   "12/30": 0.111,
+   "46/10": 0.102,
+   "8/30": 0.098,
+   "8/3": 0.026,
+   "12/3": 0.009
+  },
+  "candidates": {
+   "base + chances/xA hist": {
+    "window": 46,
+    "k": 3.0,
+    "gain": 0.00041746056761993167,
+    "se": 0.000456826357280572
+   },
+   "mates + chances/xA hist": {
+    "window": 46,
+    "k": 3.0,
+    "gain": 0.0004496575338941433,
+    "se": 0.00047669831610538444
+   },
+   "mates + chances/xA hist40": {
+    "window": 46,
+    "k": 10.0,
+    "gain": 0.002195652993206565,
+    "se": 0.0008409862329101108
+   },
+   "mates + chances/xA hist40 + corner share": {
+    "window": 46,
+    "k": 3.0,
+    "gain": 0.0030532190309706664,
+    "se": 0.0011804842050814146
+   },
+   "mates + chances/xA hist40 (recency-weighted)": {
+    "window": 46,
+    "k": 30.0,
+    "gain": 0.0030847894367864725,
+    "se": 0.000648216245216286
+   },
+   "mates + chances/xA hist40 + corner share (recency-weighted)": {
+    "window": 46,
+    "k": 30.0,
+    "gain": 0.0038825214398265917,
+    "se": 0.001092527747898611
+   }
+  },
+  "setting_span": 0.0004669696312367133,
+  "rows": 7371,
+  "gameweeks": 18
+ },
+ "MID int": {
+  "live": {
+   "model": "mates + int hist40",
+   "window": 12,
+   "k": 30.0
+  },
+  "gain_vs_reference": 0.005560261003404343,
+  "se": 0.0013859980890183594,
+  "name_freq": {
+   "mates + int hist40": 0.898,
+   "mates + int hist40 (recency-weighted)": 0.102
+  },
+  "cfg_freq": {
+   "12/30": 0.501,
+   "12/10": 0.253,
+   "12/3": 0.072,
+   "8/30": 0.067,
+   "46/30": 0.061,
+   "8/10": 0.019,
+   "8/3": 0.014,
+   "46/10": 0.008,
+   "46/3": 0.003
+  },
+  "candidates": {
+   "base": {
+    "window": 12,
+    "k": 10.0,
+    "gain": 0.0,
+    "se": 0.0
+   },
+   "mates": {
+    "window": 12,
+    "k": 10.0,
+    "gain": -0.00027022108986451965,
+    "se": 0.0002458941481305934
+   },
+   "mates + int hist": {
+    "window": 12,
+    "k": 10.0,
+    "gain": 0.002594897657181461,
+    "se": 0.0015561560484255985
+   },
+   "mates + int hist40": {
+    "window": 12,
+    "k": 30.0,
+    "gain": 0.005560261003404343,
+    "se": 0.0013859980890183594
+   },
+   "mates + int hist40 (recency-weighted)": {
+    "window": 12,
+    "k": 30.0,
+    "gain": 0.005432519016816295,
+    "se": 0.0014835240781424723
+   }
+  },
+  "setting_span": 0.000705603549036038,
+  "rows": 7371,
+  "gameweeks": 18
+ },
+ "FWD goals": {
+  "live": {
+   "model": "mates + npxG hist40",
+   "window": 12,
+   "k": 30.0
+  },
+  "gain_vs_reference": 0.002022511638876401,
+  "se": 0.0008182743457396061,
+  "name_freq": {
+   "mates + npxG hist40": 0.558,
+   "mates + npxG hist": 0.42,
+   "base": 0.022
+  },
+  "cfg_freq": {
+   "12/30": 0.377,
+   "12/3": 0.202,
+   "8/30": 0.139,
+   "12/10": 0.067,
+   "46/30": 0.067,
+   "8/10": 0.063,
+   "8/3": 0.058,
+   "46/3": 0.022,
+   "46/10": 0.004
+  },
+  "candidates": {
+   "base": {
+    "window": 12,
+    "k": 10.0,
+    "gain": 0.0,
+    "se": 0.0
+   },
+   "mates": {
+    "window": 12,
+    "k": 10.0,
+    "gain": -0.00041263338695646246,
+    "se": 0.00021516179147379797
+   },
+   "mates + npxG hist": {
+    "window": 12,
+    "k": 30.0,
+    "gain": 0.0015192945427526805,
+    "se": 0.0006535918027428882
+   },
+   "mates + npxG hist40": {
+    "window": 12,
+    "k": 30.0,
+    "gain": 0.002022511638876401,
+    "se": 0.0008182743457396061
+   },
+   "mates + npxG hist40 (recency-weighted)": {
+    "window": 12,
+    "k": 30.0,
+    "gain": 0.0020455932346273298,
+    "se": 0.0008115130437199921
+   }
+  },
+  "setting_span": 0.0006822931946921518,
+  "rows": 5657,
+  "gameweeks": 18
+ },
+ "FWD assists": {
+  "live": {
+   "model": "base + xA hist",
+   "window": 8,
+   "k": 3.0
+  },
+  "gain_vs_reference": 9.80394930896189e-05,
+  "se": 0.00011158839109752068,
+  "name_freq": {
+   "base + xA hist": 0.915,
+   "mates + xA hist40": 0.08,
+   "mates + xA hist": 0.005
+  },
+  "cfg_freq": {
+   "8/3": 0.462,
+   "46/3": 0.421,
+   "46/10": 0.052,
+   "8/30": 0.033,
+   "8/10": 0.016,
+   "46/30": 0.011,
+   "12/3": 0.003,
+   "12/30": 0.003
+  },
+  "candidates": {
+   "base + xA hist": {
+    "window": 8,
+    "k": 3.0,
+    "gain": 9.80394930896189e-05,
+    "se": 0.00011158839109752068
+   },
+   "mates + xA hist": {
+    "window": 46,
+    "k": 3.0,
+    "gain": 9.603334407770614e-05,
+    "se": 7.483304270899634e-05
+   },
+   "mates + xA hist40": {
+    "window": 46,
+    "k": 3.0,
+    "gain": -0.00019352108050929573,
+    "se": 0.00045645624439993074
+   },
+   "mates + xA hist40 (recency-weighted)": {
+    "window": 46,
+    "k": 3.0,
+    "gain": 4.096379293566654e-05,
+    "se": 0.0003802680622907049
+   }
+  },
+  "setting_span": 0.0001474885269495685,
+  "rows": 5657,
+  "gameweeks": 18
+ },
+ "FWD sot": {
+  "live": {
+   "model": "mates + shots/npxG hist40",
+   "window": 46,
+   "k": 30.0
+  },
+  "gain_vs_reference": 0.0012816674653123306,
+  "se": 0.0007572210867412719,
+  "name_freq": {
+   "mates + shots/npxG hist40": 0.812,
+   "base + shots/npxG hist": 0.165,
+   "mates + shots/npxG hist40 (recency-weighted)": 0.022
+  },
+  "cfg_freq": {
+   "46/30": 0.631,
+   "12/30": 0.132,
+   "46/10": 0.089,
+   "8/30": 0.089,
+   "12/10": 0.022,
+   "8/10": 0.018,
+   "12/3": 0.012,
+   "46/3": 0.003,
+   "8/3": 0.003
+  },
+  "candidates": {
+   "base + shots/npxG hist": {
+    "window": 46,
+    "k": 30.0,
+    "gain": 0.00042468325621902725,
+    "se": 0.00045936212552132033
+   },
+   "mates + shots/npxG hist": {
+    "window": 46,
+    "k": 30.0,
+    "gain": -2.9839195106351468e-05,
+    "se": 0.00048009680066532376
+   },
+   "mates + shots/npxG hist40": {
+    "window": 46,
+    "k": 30.0,
+    "gain": 0.0012816674653123306,
+    "se": 0.0007572210867412719
+   },
+   "mates + shots/npxG hist40 (recency-weighted)": {
+    "window": 46,
+    "k": 30.0,
+    "gain": 0.001363623946552428,
+    "se": 0.0005894512818416139
+   }
+  },
+  "setting_span": 0.0008840164331636036,
+  "rows": 5751,
+  "gameweeks": 18
+ },
+ "FWD kp": {
+  "live": {
+   "model": "mates + chances/xA hist40 + corner share",
+   "window": 46,
+   "k": 10.0
+  },
+  "gain_vs_reference": 0.003576243983143046,
+  "se": 0.0013026065570509765,
+  "name_freq": {
+   "mates + chances/xA hist40 + corner share": 0.88,
+   "mates + chances/xA hist40": 0.118,
+   "base + chances/xA hist": 0.002
+  },
+  "cfg_freq": {
+   "46/30": 0.341,
+   "46/10": 0.284,
+   "46/3": 0.267,
+   "8/3": 0.048,
+   "8/30": 0.04,
+   "12/30": 0.009,
+   "12/3": 0.006,
+   "8/10": 0.006
+  },
+  "candidates": {
+   "base + chances/xA hist": {
+    "window": 46,
+    "k": 30.0,
+    "gain": 0.0005288938665413134,
+    "se": 0.0003623217886511465
+   },
+   "mates + chances/xA hist": {
+    "window": 46,
+    "k": 30.0,
+    "gain": 0.0004604388616682442,
+    "se": 0.0003929020393340925
+   },
+   "mates + chances/xA hist40": {
+    "window": 46,
+    "k": 30.0,
+    "gain": 0.002158104059769572,
+    "se": 0.0007148440584710433
+   },
+   "mates + chances/xA hist40 + corner share": {
+    "window": 46,
+    "k": 10.0,
+    "gain": 0.003576243983143046,
+    "se": 0.0013026065570509765
+   },
+   "mates + chances/xA hist40 (recency-weighted)": {
+    "window": 46,
+    "k": 30.0,
+    "gain": 0.0018614830946375172,
+    "se": 0.0006433096726334003
+   },
+   "mates + chances/xA hist40 + corner share (recency-weighted)": {
+    "window": 46,
+    "k": 10.0,
+    "gain": 0.003333226547180823,
+    "se": 0.0012313246593542865
+   }
+  },
+  "setting_span": 0.0008101559282078785,
+  "rows": 5751,
+  "gameweeks": 18
+ },
+ "DEF goals": {
+  "live": {
+   "model": "base",
+   "window": 12,
+   "k": 3.0
+  },
+  "gain_vs_reference": 1.480383202570601e-05,
+  "se": 0.00011646031765341077,
+  "name_freq": {
+   "base": 0.74,
+   "mates + npxG hist": 0.152,
+   "mates + npxG hist40": 0.108
+  },
+  "cfg_freq": {
+   "12/3": 0.331,
+   "8/3": 0.179,
+   "46/3": 0.118,
+   "46/10": 0.095,
+   "8/30": 0.078,
+   "46/30": 0.078,
+   "8/10": 0.068,
+   "12/10": 0.041,
+   "12/30": 0.014
+  },
+  "candidates": {
+   "base": {
+    "window": 12,
+    "k": 3.0,
+    "gain": 1.480383202570601e-05,
+    "se": 0.00011646031765341077
+   },
+   "mates + npxG hist": {
+    "window": 46,
+    "k": 30.0,
+    "gain": 7.263733551460261e-05,
+    "se": 0.0003410139884428033
+   },
+   "mates + npxG hist40": {
+    "window": 46,
+    "k": 30.0,
+    "gain": 0.00024503746406812077,
+    "se": 0.0004998516385088654
+   },
+   "mates + npxG hist40 (recency-weighted)": {
+    "window": 46,
+    "k": 30.0,
+    "gain": 0.00027442110122286034,
+    "se": 0.00043534712116563486
+   }
+  },
+  "setting_span": 0.00014504016277178122,
+  "rows": 7293,
+  "gameweeks": 18
+ },
+ "DEF assists": {
+  "live": {
+   "model": "mates + xA hist40",
+   "window": 46,
+   "k": 10.0
+  },
+  "gain_vs_reference": 0.0016343085914813371,
+  "se": 0.000676660950917934,
+  "name_freq": {
+   "mates + xA hist40": 0.735,
+   "mates + xA hist": 0.175,
+   "base": 0.09
+  },
+  "cfg_freq": {
+   "46/30": 0.486,
+   "46/3": 0.252,
+   "46/10": 0.224,
+   "12/30": 0.014,
+   "8/3": 0.01,
+   "8/10": 0.007,
+   "12/3": 0.003,
+   "8/30": 0.003
+  },
+  "candidates": {
+   "base": {
+    "window": 46,
+    "k": 10.0,
+    "gain": 0.0003416238801570992,
+    "se": 0.00020595608123273227
+   },
+   "mates + xA hist": {
+    "window": 46,
+    "k": 10.0,
+    "gain": 0.0010092088270574062,
+    "se": 0.0006050801275860663
+   },
+   "mates + xA hist40": {
+    "window": 46,
+    "k": 10.0,
+    "gain": 0.0016343085914813371,
+    "se": 0.000676660950917934
+   },
+   "mates + xA hist40 (recency-weighted)": {
+    "window": 46,
+    "k": 10.0,
+    "gain": 0.0017277600583950337,
+    "se": 0.0006507450124833244
+   }
+  },
+  "setting_span": 0.00038101390458053497,
+  "rows": 7293,
+  "gameweeks": 18
+ },
+ "DEF clr": {
+  "live": {
+   "model": "mates + clr hist40 (recency-weighted)",
+   "window": 46,
+   "k": 3.0
+  },
+  "gain_vs_reference": 0.0280307751155644,
+  "se": 0.0045752033640898155,
+  "name_freq": {
+   "mates + clr hist40 (recency-weighted)": 0.965,
+   "mates + clr hist40": 0.035
+  },
+  "cfg_freq": {
+   "46/3": 0.777,
+   "8/3": 0.199,
+   "12/3": 0.023
+  },
+  "candidates": {
+   "base": {
+    "window": 46,
+    "k": 3.0,
+    "gain": 0.014405102222851518,
+    "se": 0.0030607879508222123
+   },
+   "mates": {
+    "window": 46,
+    "k": 3.0,
+    "gain": 0.012336411095194677,
+    "se": 0.0034396784666283825
+   },
+   "mates + clr hist": {
+    "window": 46,
+    "k": 3.0,
+    "gain": 0.02528800542046783,
+    "se": 0.004504353398764624
+   },
+   "mates + clr hist40": {
+    "window": 46,
+    "k": 3.0,
+    "gain": 0.026675567051947624,
+    "se": 0.004569781492790503
+   },
+   "mates + clr hist40 (recency-weighted)": {
+    "window": 46,
+    "k": 3.0,
+    "gain": 0.0280307751155644,
+    "se": 0.0045752033640898155
+   }
+  },
+  "setting_span": 0.006554892559463177,
+  "rows": 7417,
+  "gameweeks": 18
+ },
+ "DEF blk": {
+  "live": {
+   "model": "mates + blk hist40",
+   "window": 46,
+   "k": 10.0
+  },
+  "gain_vs_reference": 0.007720752474677961,
+  "se": 0.0016773764359518163,
+  "name_freq": {
+   "mates + blk hist40": 0.955,
+   "mates + blk hist40 (recency-weighted)": 0.03,
+   "mates + blk hist": 0.015
+  },
+  "cfg_freq": {
+   "46/10": 0.421,
+   "46/30": 0.322,
+   "8/10": 0.115,
+   "12/10": 0.037,
+   "46/3": 0.029,
+   "12/30": 0.029,
+   "8/3": 0.024,
+   "8/30": 0.013,
+   "12/3": 0.01
+  },
+  "candidates": {
+   "base": {
+    "window": 46,
+    "k": 10.0,
+    "gain": 0.0007681922172635414,
+    "se": 0.0003827654411390912
+   },
+   "mates": {
+    "window": 46,
+    "k": 10.0,
+    "gain": 0.0005255184690143855,
+    "se": 0.00048167601978553264
+   },
+   "mates + blk hist": {
+    "window": 46,
+    "k": 10.0,
+    "gain": 0.0057271126293859664,
+    "se": 0.0012278865534414698
+   },
+   "mates + blk hist40": {
+    "window": 46,
+    "k": 10.0,
+    "gain": 0.007720752474677961,
+    "se": 0.0016773764359518163
+   },
+   "mates + blk hist40 (recency-weighted)": {
+    "window": 46,
+    "k": 30.0,
+    "gain": 0.00764059950587781,
+    "se": 0.001480935269186162
+   }
+  },
+  "setting_span": 0.0005160818106200171,
+  "rows": 7417,
+  "gameweeks": 18
+ },
+ "DEF tkl": {
+  "live": {
+   "model": "mates + tkl hist40",
+   "window": 46,
+   "k": 30.0
+  },
+  "gain_vs_reference": 0.015132593576766551,
+  "se": 0.0014338047409632893,
+  "name_freq": {
+   "mates + tkl hist40": 0.985,
+   "mates + tkl hist40 (recency-weighted)": 0.015
+  },
+  "cfg_freq": {
+   "46/30": 0.84,
+   "46/10": 0.074,
+   "46/3": 0.063,
+   "8/30": 0.023
+  },
+  "candidates": {
+   "base": {
+    "window": 46,
+    "k": 3.0,
+    "gain": 0.002600448584942683,
+    "se": 0.000682513008116285
+   },
+   "mates": {
+    "window": 46,
+    "k": 3.0,
+    "gain": 0.0015921703920016572,
+    "se": 0.0006938565861633411
+   },
+   "mates + tkl hist": {
+    "window": 46,
+    "k": 30.0,
+    "gain": 0.011161482203255302,
+    "se": 0.0013414392636798653
+   },
+   "mates + tkl hist40": {
+    "window": 46,
+    "k": 30.0,
+    "gain": 0.015132593576766551,
+    "se": 0.0014338047409632893
+   },
+   "mates + tkl hist40 (recency-weighted)": {
+    "window": 46,
+    "k": 30.0,
+    "gain": 0.014983207865042925,
+    "se": 0.0013712924709355966
+   }
+  },
+  "setting_span": 0.001440430144158844,
+  "rows": 7417,
+  "gameweeks": 18
+ }
+}

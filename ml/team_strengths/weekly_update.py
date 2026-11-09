@@ -4,6 +4,7 @@
     python weekly_update.py 10                  # a given gameweek
     python weekly_update.py --override overrides/gw10_betfair.csv     # hand-pasted prices for this run
     python weekly_update.py --no-retrain --no-backtest                # quick re-run (e.g. after a late team-news edit)
+    python weekly_update.py --no-leakage-check                        # skip the 4-minute leakage test (nothing in the code changed)
     python weekly_update.py --allow-missing-odds                      # go ahead although the odds are not up yet
 
 Before running: the fantasy stats for every finished game must be in data/2026_27 (Export Stats / the export API, then
@@ -15,13 +16,17 @@ git pull). This script checks that and stops if a finished gameweek is missing o
    consistent (points recompute), every team name maps to one club in the right league, football-data and FotMob dates
    and scores agree with the EFL, priced fixtures are real EFL fixtures (same home / away, same date), FotMob links
    cover 95%+ with agreeing minutes and goals. Any FAIL stops the run
-3. retrain on everything to date: minutes models (all positions), stat models (MID / FWD / DEF). The model CHOICES are
-   re-made on the 2025/26 validation folds exactly as before (deterministic); only the coefficients see the new games
+3. leakage test (leakage_check.py: no feature may change when later results change; FAIL stops), then retrain on
+   everything to date: minutes models (all positions), stat models (MID / FWD / DEF). The model CHOICES are frozen in
+   models/<pos>_model.json (made on the 2025/26 validation folds, `player_model.py --select`); only the coefficients
+   see the new games
 4. the gameweek's predictions: club_plan / keeper / defender / mid / fwd JSON for the site (run_gameweek.py), then
    checks on them: same gameweek everywhere, each club's fixtures and kick-off times equal the EFL's, valid probabilities,
    minutes in 0-90
 5. backtest over every finished gameweek (each refitted on games before it) -> backtest.json
-6. reference xP for checking the pages' maths (check_site_maths.py -> public/data/check_xp.json, not committed)
+6. reference xP for checking the pages' maths (check_site_maths.py -> public/data/check_xp.json, not committed), and
+   the prediction log: what is being published for this gameweek -> data/2026_27/predictions/gw<N>.json (committed;
+   live_record.py scores the logged gameweeks against what happened: the record no later model change can rewrite)
 """
 import argparse
 import json
@@ -102,7 +107,7 @@ def save_status_snapshot(players):
     return out
 
 
-def main(gw=None, overrides=(), retrain=True, backtest=True, allow_missing_odds=False):
+def main(gw=None, overrides=(), retrain=True, backtest=True, allow_missing_odds=False, leakage=True):
     import fetch_data
     t = step("1. odds, results, EFL rounds / squads / players")
     fetch_data.football_data()
@@ -146,7 +151,13 @@ def main(gw=None, overrides=(), retrain=True, backtest=True, allow_missing_odds=
     if retrain:
         import minutes_model
         import player_model
-        t = step("3. retrain minutes models and stat models on everything to date")
+        if leakage:
+            import leakage_check
+            t = step("3a. leakage test: features must not change when later results change (stops on FAIL)")
+            if leakage_check.run():
+                raise SystemExit("STOP: a feature uses results from its own game or later (see the FAIL lines above). Fix before retraining.")
+            print(f"  done in {time.time() - t:.0f}s")
+        t = step("3. retrain start models and stat models on everything to date (model choices frozen)")
         for pos in ("MID", "FWD", "DEF", "GK"):
             minutes_model.main(pos)
         for pos in ("MID", "FWD", "DEF"):
@@ -169,8 +180,12 @@ def main(gw=None, overrides=(), retrain=True, backtest=True, allow_missing_odds=
         print(f"  done in {time.time() - t:.0f}s")
 
     import check_site_maths
-    step("6. reference xP for checking the pages")
+    step("6. reference xP for checking the pages; prediction log; live record")
     check_site_maths.main()
+    import live_record
+    saved = live_record.save(gw)
+    print(f"  prediction log: {saved.relative_to(REPO) if saved else f'GW{gw} has kicked off, the pre-deadline log is kept as it is'}")
+    live_record.record()
     print("\nNext (docs/weekly-runbook.md): check the pages locally (python -m http.server 8765 --directory public), then commit\n"
           "public/data/*.json, ml/team_strengths/models/*, and push to deploy. Delete public/data/check_xp.json afterwards.")
     return gw
@@ -183,5 +198,6 @@ if __name__ == "__main__":
     ap.add_argument("--no-retrain", action="store_true")
     ap.add_argument("--no-backtest", action="store_true")
     ap.add_argument("--allow-missing-odds", action="store_true", help="run even if most of the first set of games has no odds yet")
+    ap.add_argument("--no-leakage-check", action="store_true", help="skip the leakage test before retraining")
     a = ap.parse_args()
-    main(a.gw, a.override, retrain=not a.no_retrain, backtest=not a.no_backtest, allow_missing_odds=a.allow_missing_odds)
+    main(a.gw, a.override, retrain=not a.no_retrain, backtest=not a.no_backtest, allow_missing_odds=a.allow_missing_odds, leakage=not a.no_leakage_check)

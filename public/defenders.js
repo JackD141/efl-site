@@ -206,7 +206,7 @@ document.addEventListener('scroll', () => { tip.style.display = 'none'; }, true)
 /* ---------- page ---------- */
 function tags(d) {
   const t = [];
-  if (d.injury || d.status === 'injured') t.push(`<span class="cp-tag kp-tag-out">${esc(d.injury || 'injured')}</span>`);
+  if (d.injury || d.status === 'injured') t.push(`<span class="cp-tag kp-tag-out" title="${esc(d.injuryStatus || '')}">${esc(d.injury || 'injured')}${/\((\d+)%\)/.test(d.injuryStatus || '') && !/\(0%\)/.test(d.injuryStatus) ? ' ?' : ''}</span>`);
   if (d.suspended) t.push('<span class="cp-tag kp-tag-out">suspended</span>');
   if (d.startedLast) t.push('<span class="cp-tag cp-tag-picked" title="Played 60+ minutes in his club\'s latest game">started last</span>');
   if (kickedOff(weekOf(d.club, state.gw))) t.push('<span class="cp-tag" title="His club\'s game this gameweek has kicked off, so he is locked">locked</span>');
@@ -272,14 +272,14 @@ function render() {
         a double's second game at his chance of starting it given he started the first. <strong>xP</strong> is the same before team news, with his
         start chance. Click either heading to sort.</li>
       ${plan.v2 ? `<li><strong>Start %</strong> is the chance he starts his club's next game, from a model of his recent starts, minutes and appearances
-        at his club, how long since he last played, rest days and doubles (0 if EFL lists him injured or suspended; games he missed through a ban do not
+        at his club, how long since he last played, rest days and doubles. A club starts ten outfield players, so each club's chances add up to ten: they rise when team-mates are out (0 if EFL lists him injured or suspended, halved if "questionable"; games he missed through a ban do not
         count as being dropped). Below it: his minutes if he starts and, in a double, his chance of starting the second game. Change it after team news
         (100 = in the line-up); edits are saved in this browser.</li>
       <li><strong>Clearances, tackles, blocks</strong> = his share relative to defensive team-mates × his team-mates' current rate × how much this week's
         opponent makes defenders work × the odds, plus his FotMob history over his last 40 games (any EFL club). Numbers from another league are adjusted by
         the measured step-up / step-down change. Points use the full chance of reaching each step (clearance points = P(4+) + P(8+) + …).</li>
       <li><strong>Goals and assists</strong> come from predicted xG and xA (FotMob), converted to goals and assists, rather than his raw goal record.</li>
-      <li>Tested on this season's games without having seen them (log-likelihood, closer to 0 is better; new model vs previous): clearances
+      <li>Checked on this season's games with the model fitted on last season only (log-likelihood, closer to 0 is better; the model vs its plainest version): clearances
         ${t('clr').v2.loglik.toFixed(3)} vs ${t('clr').v1.loglik.toFixed(3)}, blocks ${t('blk').v2.loglik.toFixed(3)} vs ${t('blk').v1.loglik.toFixed(3)},
         tackles ${t('tkl').v2.loglik.toFixed(3)} vs ${t('tkl').v1.loglik.toFixed(3)}, goals ${t('goals').v2.loglik.toFixed(3)} vs ${t('goals').v1.loglik.toFixed(3)},
         assists ${t('assists').v2.loglik.toFixed(3)} vs ${t('assists').v1.loglik.toFixed(3)}. Single games are still mostly luck.</li>`

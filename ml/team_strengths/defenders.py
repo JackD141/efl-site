@@ -142,7 +142,7 @@ def build_defender_plan(rounds, squads, players, fits, id2fd, book, book_src, ma
             **(mm.plan_fields(starts.get(p["id"]), m_full.get(p["id"], mix_fields["minsMix"]["full"]), mix_fields["startModel"]) if v2
                else dict(xMins=90 if (avail and p["id"] in starters) else 0)),
             status=p["status"],
-            injury=inj.get("type") if inj else None,
+            injury=inj.get("type") if inj else None, injuryStatus=inj.get("status") if inj else None,
             suspended=bool(p.get("suspensionDetails")), startedLast=p["id"] in starters,
             role={st: round(roles.get(p["id"], {}).get(st, 1.0), 4) for st in art["stats"]},
             rates={k: round(float(v), 5) for k, v in rr.items()},
@@ -152,7 +152,7 @@ def build_defender_plan(rounds, squads, players, fits, id2fd, book, book_src, ma
             **({"mFull": m_full.get(p["id"], mix_fields["minsMix"]["full"])} if v2 else {})))
     if v2:
         model = {st: dict(features=c["features"], intercept=c["intercept"], coef=c["coef"], mean=c["scaler_mean"], sd=c["scaler_sd"], prior=c["prior"],
-                          r=c["nb_r"], unit=UNITS.get(st), window=c["window"], test=c["test"], target=c["target"], scale=c["scale"],
+                          r=c["nb_r"], unit=UNITS.get(st), window=c["window"], test=dict(v2=c["monitor"]["chosen"], v1=c["monitor"]["plainest"], v1_name="plainest version", n=c["monitor"]["n"]), target=c["target"], scale=c["scale"],
                           pens=bool(c["pens"]), penCol=c.get("pen_col", "fm_pxg"), floor=1e-4) for st, c in art2.items()}
     else:
         model = {st: dict(features=c["features"], intercept=c["intercept"], coef=c["coef"], mean=c["scaler_mean"], sd=c["scaler_sd"], prior=c["prior"],

@@ -1018,3 +1018,10 @@ input[type="range"]::-moz-range-thumb:hover {
 .cp-sort-on::after { content: " \25BE"; }
 .cp-xp-starts { color: #2a6f3e; }
 .cp-hide-stats .st { display: none; }
+
+/* Backtest page: model scorecard (four small tables) */
+.bt-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 8px 22px; margin: 8px 0 20px; }
+.bt-cards .cp-table thead th { white-space: normal; padding: 7px 8px; }
+.bt-cards .cp-table td { padding: 6px 8px; }
+.bt-cards > div { min-width: 0; }
+.cp-h3 { font-size: 1rem; margin: 14px 0 6px; }

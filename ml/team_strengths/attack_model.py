@@ -47,6 +47,7 @@ TOL = 5e-4
 # 757 appearances; exp_role_recency.py + notes in docs/attacker-model.md): creative stats depend on the new team's system,
 # goals / shots / interceptions travel with the player. Recency decay did not help (flat last ROLE_GAMES kept).
 CLUB_W = {"kp": 0.25, "assists": 0.25}
+MATCH = ["season", "squad_id", "gameweek", "opponent_id"]  # one club's one match (a club meets an opponent once per gameweek)
 FEATURE_SETS = {
     "G1 role": ["role"],
     "G2 role + team style": ["role", "team"],
@@ -71,21 +72,25 @@ def load(position):
 def role_table(d, col, prior, k, club_w=1.0):
     """As defence_model.role_table, but team-mates = same position, shrinkage k is a parameter, and games at a previous
     club can be down-weighted (club_w) relative to the club of the row being predicted."""
-    tg = d.groupby(["season", "squad_id", "gameweek"]).agg(tx=(col, "sum"), tm=("minutes_played", "sum")).reset_index()
-    x = d.merge(tg, on=["season", "squad_id", "gameweek"])
+    # team-mates in the same MATCH (9 Nov 2026: was per gameweek, which pooled both games of a double - 42% of rows - so
+    # the first game's "expected" count contained the second game's outcomes, including the row being predicted)
+    tg = d.groupby(MATCH).agg(tx=(col, "sum"), tm=("minutes_played", "sum")).reset_index()
+    x = d.merge(tg, on=MATCH)
     mates_rate = (x["tx"] - x[col]) / ((x["tm"] - x["minutes_played"]).clip(lower=1) / 90)
     x["exp"] = mates_rate.where(x["tm"] > x["minutes_played"], prior) * x["minutes_played"] / 90
     order = ["player_id", "season", "date", "gameweek"] if "date" in x else ["player_id", "season", "gameweek"]  # date: doubles
     x = x.sort_values(order).reset_index(drop=True)
-    g = x.groupby("player_id")
-    num = g[col].transform(lambda s: s.shift(1).rolling(ROLE_GAMES, min_periods=1).sum()).fillna(0)
-    den = g["exp"].transform(lambda s: s.shift(1).rolling(ROLE_GAMES, min_periods=1).sum()).fillna(0)
-    m90 = g["minutes_played"].transform(lambda s: s.shift(1).rolling(ROLE_GAMES, min_periods=1).sum()).fillna(0) / 90
+    g = x.groupby("player_id", sort=False)
+    # his previous ROLE_GAMES appearances (not this one): shift within the player, then one vectorised rolling pass
+    prev = g[[col, "exp", "minutes_played"]].shift(1)
+    roll = prev.groupby(x["player_id"], sort=False).rolling(ROLE_GAMES, min_periods=1)
+    sums = roll.sum().reset_index(level=0, drop=True).reindex(x.index).fillna(0)
+    num, den, m90 = sums[col], sums["exp"], sums["minutes_played"] / 90
     x["role"] = (num + k * prior) / (den + k * prior)
     if club_w != 1.0:
         x["role"] = club_weighted_role(x, col, prior, k, club_w)
     x["own_rate"] = (num + k * prior) / (m90 + k)
-    x["last10_avg"] = g[col].transform(lambda s: s.shift(1).rolling(10, min_periods=1).mean())
+    x["last10_avg"] = prev[col].groupby(x["player_id"], sort=False).rolling(10, min_periods=1).mean().reset_index(level=0, drop=True).reindex(x.index)
     return x
 
 

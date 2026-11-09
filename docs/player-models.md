@@ -43,6 +43,12 @@ mFull) + P(part game) = start x (1 - P(60+|start)) + (1 - start) x P(comes on) (
   and is not being dropped.
 - Doubles: the second game's start chance is predicted as if he started the first (pStart2c) and as if not (pStart2n).
 - Keepers: a club's keepers' start chances are scaled to add up to 1 per game.
+- Outfield (9 Nov): a club starts ten outfield players, so each club's available defenders, midfielders and forwards
+  have their start logits shifted by one common amount until the chances add up to ten (`normalise_club`;
+  `exp_clubstart.py`: P(start) log-loss 0.3160 -> 0.3143 on validation, 0.3656 -> 0.3621 on 2026/27). When team-mates
+  are flagged out the others' chances rise; a crowded squad's fall. The second game of a double is totalled the same way.
+- EFL flags (`availability`): suspended, or injured with "Out (0%)" or no detail -> 0; "Questionable (50%)" -> start
+  and bench chances halved (the EFL's own figure; an assumption until the flag snapshots can test it).
 - Validation 2025/26 GW24-35, P(60+) log-loss, old ridge + isotonic curve vs start model: GK 0.1535 / 0.1489, DEF 0.3436
   / 0.3421, MID 0.3093 / 0.3064, FWD 0.3399 / 0.3353 (test 2026/27: MID 0.384 / 0.360, GK 0.211 / 0.194).
 - Regulars (5 straight 90s): start ~0.91-0.93, P(60+|start) ~0.97, ~87 minutes if he starts. Real data: regulars start
@@ -53,14 +59,17 @@ mFull) + P(part game) = start x (1 - P(60+|start)) + (1 - start) x P(comes on) (
   first game of the gameweek at 100% and a double's second at pStart2c; the homepage has "Assume my picks start".
   Python reference in check_site_maths.py.
 
-## Protocol (do not deviate)
+## Protocol (do not deviate; full version in docs/ml-methodology.md section 3)
 Choices (features, window, role shrinkage) are made on two rolling validation folds inside 2025/26 (train to GW17 ->
-GW18-26, train to GW26 -> GW27-35), simplest candidate within 0.0005 log-likelihood of the best. 2026/27 is a one-off
-test against the incumbent; then refit on everything. Things tried and rejected for lack of validation gain:
-shots-on-target history (MID), heavier shrinkage of history, league-adjusting FotMob history, recency decay in role, recency weights in the FotMob history for the other stats
-(`exp_recency.py`).
+GW18-26, train to GW26 -> GW27-35) with the one-standard-error rule: the simplest candidate, at the plain setting if
+possible, within max(0.0005, one standard error) of the best (paired differences, gameweeks as units). The choices are
+frozen in the model files (`python player_model.py --select` re-makes them; the weekly run only refits coefficients).
+2026/27 is a monitor, never used to choose. Things tried and rejected: shots-on-target history (MID), heavier shrinkage
+of history, league-adjusting FotMob history, recency decay in role, recency weights in the FotMob history for the other
+stats (`exp_recency.py`), playing-style and odds features for interceptions; corner share for MID key passes was
+dropped on 9 Nov (inside one standard error).
 
-## Test results, 2026/27 (negative-binomial log-likelihood per appearance; closer to 0 is better)
+## 2026/27 monitor as of 10 Oct (negative-binomial log-likelihood per appearance; closer to 0 is better; current numbers are printed by every retrain)
 | Pos | Stat | New | Previous |
 |---|---|---|---|
 | MID | goals / assists / SOT / key passes / interceptions | -0.290 / -0.305 / -0.635 / -1.194 / -0.999 | -0.296 / -0.312 / -0.645 / -1.198 / -1.008 |

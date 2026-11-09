@@ -5,6 +5,7 @@ appearances strictly BEFORE that date (any club, any of the three leagues, 2024/
 rate with K pseudo-90s:  npxg (non-penalty xG), pxg (penalty xG: identifies penalty takers), xa, shots, chances.
 Rows: FotMob player_matches.csv for every season pulled, linked to EFL ids with player_map.csv (link_fotmob.py).
 """
+import functools
 from pathlib import Path
 
 import numpy as np
@@ -19,7 +20,26 @@ SIGNALS = {"npxg": "xG Non-penalty", "xg": "Expected goals (xG)", "xa": "Expecte
 RATES = ("npxg", "pxg", "xa", "shots", "chances", "sot", "int", "xgot", "clr", "blk", "tkl")
 
 
+def _files_signature():
+    """Changes whenever a FotMob file is rewritten (fetch / link / set pieces), so cached tables are rebuilt."""
+    files = sorted(FM.glob("*/player_matches.csv")) + [FM / "player_map.csv", FM / "set_pieces.csv"]
+    return tuple((str(f), f.stat().st_mtime_ns, f.stat().st_size) for f in files if f.exists())
+
+
+def group_rolling_sum(h, cols, n):
+    """Per player (h sorted by player then date, default index): each column summed over his last n rows, current one
+    included. One vectorised pass (the per-player Python loop it replaces was most of the run time)."""
+    r = h.groupby("player_id", sort=False)[list(cols)].rolling(n, min_periods=1).sum()
+    return r.reset_index(level=0, drop=True).reindex(h.index)
+
+
 def fotmob_history():
+    """Every linked FotMob appearance (cached for the process; a copy, so callers may alter it)."""
+    return _fotmob_history(_files_signature()).copy()
+
+
+@functools.lru_cache(maxsize=1)
+def _fotmob_history(_signature):
     mp = pd.read_csv(FM / "player_map.csv")[["fm_player_id", "player_id"]]
     frames = []
     for f in sorted(FM.glob("*/player_matches.csv")):
@@ -63,9 +83,12 @@ def signal_rates(rows, k=5.0, n=N_GAMES, hist=None, priors=None, prefix="fm_", s
     half_life: within the last n, the game a appearances back counts 0.5 ** (a / half_life) (exp_recency.py); None = equal."""
     h = fotmob_history() if hist is None else hist
     priors = priors or league_priors(h)
-    g = h.groupby("player_id")
     assert half_life is None or step_mult is None, "recency weights and league step multipliers are not combined"
-    total = (lambda c: g[c].transform(lambda s: s.rolling(n, min_periods=1).sum())) if half_life is None else (lambda c: recency_sum(h, c, n, half_life))
+    if half_life is None:
+        sums = group_rolling_sum(h, ["mins"] + list(priors), n)
+        total = lambda c: sums[c]
+    else:
+        total = lambda c: recency_sum(h, c, n, half_life)
     roll = pd.DataFrame({"player_id": h["player_id"], "date": h["date"], "m90": total("mins") / 90})
     for s in priors:
         if step_mult is None or s not in step_mult:
@@ -102,7 +125,12 @@ SP_PSEUDO = {"pen": 2.0, "corner": 10.0}  # pseudo-events at the typical share (
 
 def setpiece_history():
     """Per player per FotMob appearance: penalties / corners / direct free kicks he took, and his team's penalties and
-    corners in that match."""
+    corners in that match (cached for the process; a copy)."""
+    return _setpiece_history(_files_signature()).copy()
+
+
+@functools.lru_cache(maxsize=1)
+def _setpiece_history(_signature):
     frames = []
     for f in sorted(FM.glob("*/player_matches.csv")):
         pm = pd.read_csv(f, low_memory=False)
@@ -139,10 +167,8 @@ def setpiece_features(rows, hist=None, const=None, n=SP_N):
     game: share x league penalties per team-match x conversion), fm_cornershare, fm_corners (per 90), fm_fkxg (per 90)."""
     h = setpiece_history() if hist is None else hist
     c = const or setpiece_constants(h)
-    g = h.groupby("player_id")
-    roll = pd.DataFrame({"player_id": h["player_id"], "date": h["date"]})
-    for col in ("mins", "pens", "team_pens", "corners", "team_corners", "fk_xg", "fk_shots"):
-        roll["s_" + col] = g[col].transform(lambda s: s.rolling(n, min_periods=1).sum())
+    cols = ["mins", "pens", "team_pens", "corners", "team_corners", "fk_xg", "fk_shots"]
+    roll = pd.concat([h[["player_id", "date"]], group_rolling_sum(h, cols, n).add_prefix("s_")], axis=1)
     roll = roll.drop_duplicates(["player_id", "date"], keep="last").sort_values("date")
     r = rows.copy()
     r["_ord"] = np.arange(len(r))

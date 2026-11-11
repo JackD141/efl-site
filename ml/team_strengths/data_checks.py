@@ -254,6 +254,11 @@ def check_outputs(rounds, squads, gw):
                 ko_bad.append(f"{c['short']} v {f['opp']}: {f['ko']} vs EFL {hits[0]}")
     report("FAIL" if bad else "PASS", f"each club's GW{gw} fixtures on the site match the EFL (opponent, home / away)", "; ".join(bad[:3]) or f"{len(want)} clubs")
     report("FAIL" if ko_bad else "PASS", "kick-off times on the site match the EFL", "; ".join(ko_bad[:3]))
+    # a postponed game must not be projected: its clubs have no such fixture in the gameweek on the site
+    off = {(g["homeId"], g["awayId"]) for g in rnd.get("postponedGames", [])} | {(g["homeId"], g["awayId"]) for g in rnd["games"] if g.get("status") == "postponed"}
+    shown = [f"{c['short']} v {f['opp']}" for c in plans["club_plan.json"]["clubs"] for w in c["weeks"] if w["gw"] == gw for f in w["fx"]
+             if any(c["id"] in pair and squads[pair[1] if pair[0] == c["id"] else pair[0]]["name"] == f["opp"] for pair in off)]
+    report("FAIL" if shown else "PASS", "no postponed game is projected", "; ".join(shown[:4]) or f"{len(off)} postponed in GW{gw}")
     probs = [abs(f["win"] + f["draw"] + (1 - f["win"] - f["draw"]) - 1) for c in plans["club_plan.json"]["clubs"] for w in c["weeks"] for f in w["fx"]]
     sane = [f for c in plans["club_plan.json"]["clubs"] for w in c["weeks"] for f in w["fx"] if not (0 <= f["win"] <= 1 and 0 <= f["draw"] <= 1 and f["win"] + f["draw"] <= 1.0001)]
     report("FAIL" if sane else "PASS", "club win / draw probabilities are valid", f"{len(sane)} invalid" if sane else f"{len(probs)} fixtures")

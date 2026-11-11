@@ -123,6 +123,10 @@ def main(gw=None, overrides=(), retrain=True, backtest=True, allow_missing_odds=
     squads = {s_["id"]: s_ for s_ in _}
     gw_check, cover = odds_coverage(rounds, squads, gw, overrides)
     print(f"  GW{gw_check} market odds: " + "; ".join(f"{lab}: {p} of {n} games" for lab, n, p in cover))
+    off = [g for r in rounds if r["roundNumber"] == gw_check and r.get("gameMode", "season") == "season" for g in r.get("postponedGames", [])]
+    if off:  # left out of every prediction (fetch_data.drop_postponed); say so, pasted odds may still include them
+        print(f"  GW{gw_check}: {len(off)} game(s) POSTPONED and left out: "
+              + ", ".join(f"{squads[g['homeId']]['shortName']} v {squads[g['awayId']]['shortName']}" for g in off))
     first_label, first_n, first_p = cover[0]
     if first_p < MIN_PRICED * first_n and not allow_missing_odds:
         raise SystemExit(

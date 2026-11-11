@@ -34,11 +34,26 @@ def football_data(refresh_current=True):
     (CACHE / "fd_fixtures.csv").write_bytes(_get("https://www.football-data.co.uk/fixtures.csv", UA).content)
 
 
+def drop_postponed(rounds):
+    """Postponed games are not played in their gameweek (the EFL leaves them listed with status "postponed" until they
+    are rearranged into a later round), so they are moved out of each round's "games" into "postponedGames". Everything
+    downstream reads "games": no predictions, start chances or club points for a game that is off (until 11 Nov 2026
+    they were projected like any other: found when 72 Projections' list had no Luton players in GW14)."""
+    for r in rounds:
+        off = [g for g in r.get("games", []) if g.get("status") == "postponed"]
+        if off:
+            r["games"] = [g for g in r["games"] if g.get("status") != "postponed"]
+            r["postponedGames"] = r.get("postponedGames", []) + off
+    return rounds
+
+
 def efl():
     CACHE.mkdir(exist_ok=True)
     out = {}
     for name in ("rounds", "squads"):
         data = _get(f"https://fantasy.efl.com/json/fantasy/{name}.json", EFL_HEADERS).json()
+        if name == "rounds":
+            data = drop_postponed(data)
         (CACHE / f"{name}.json").write_text(json.dumps(data), encoding="utf-8")
         out[name] = data
     return out["rounds"], out["squads"]

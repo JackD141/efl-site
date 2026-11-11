@@ -14,6 +14,9 @@ Per stat, a Poisson GLM with minutes exposure on standardised logs of candidate 
   lam_own / lam_opp / home    the match odds (expected goals each way) and home advantage
   fm_* / fm40_*  his FotMob per-90 history over the last 20 / 40 appearances (from 2024/25, any EFL club)
   fm40h20_*      the same over the last 40 with recent games weighted more (half-life 20 appearances; exp_recency.py)
+  fm_job_*       what the JOB he has been starting in typically produces per 90: FotMob lineup slots of his last 5 starts
+                 (centre-back / full-back / deep, central, attacking or wide midfield / forward), league rate of that
+                 job (exp_position.py, 11 Nov 2026: the fantasy position is fixed for a season, his job is not)
 Goals and assists are modelled through their expected versions: the GLM predicts match npxG (xA) per 90, then
 goals = c * npxG + his penalty-xG rate and assists = c * xA, c fitted on training data.
 Protocol (docs/ml-methodology.md section 3): choose feature set / window / role shrinkage on two rolling validation
@@ -87,6 +90,13 @@ for _c in (ATTACK_CANDS, DEF_CANDS):
         for _name, _f in list(_cs.items()):
             if any(x.startswith(RECENT[0]) for x in _f):
                 _cs[_name + " (recency-weighted)"] = [x.replace(*RECENT) for x in _f]
+# ... and every candidate gets a twin with the job feature (least preferred of all: chosen only if clearly better)
+JOB_SIGNAL = dict(goals="npxg", assists="xa", sot="sot", kp="chances", int="int", clr="clr", blk="blk", tkl="tkl")
+for _c in (ATTACK_CANDS, DEF_CANDS):
+    for _st, _cs in _c.items():
+        for _name, _f in list(_cs.items()):
+            _cs[_name + " + job"] = _f + [f"fm_job_{JOB_SIGNAL[_st]}"]
+JOB_DEFAULT = {}  # {position: {feature: value for a player with no start on record}}, filled by load()
 CANDS = {"MID": ATTACK_CANDS, "FWD": {k: v for k, v in ATTACK_CANDS.items() if k != "int"}, "DEF": DEF_CANDS}
 WINDOWS = [8, 12, 46]
 K_ROLES = [3.0, 10.0, 30.0]
@@ -128,6 +138,13 @@ def load(pos):
     d = fmf.signal_rates(d, k=3.0, n=40, hist=hist, prefix="fm40_")
     d = fmf.signal_rates(d, k=3.0, n=40, hist=hist, prefix="fm40h20_", half_life=20)
     d = fmf.setpiece_features(d)  # penalty / corner shares, free kicks (exp_setpieces.py)
+    pf = fmf.position_features(d[["player_id", "date"]])  # the job he has been starting in (exp_position.py)
+    early = ((d["season"] == "2526") & (d["gameweek"] <= FOLDS[0][0])).to_numpy()
+    JOB_DEFAULT[pos] = {}
+    for stat in SPECS[pos]:
+        col, v = f"fm_job_{JOB_SIGNAL[stat]}", pf[f"job_{JOB_SIGNAL[stat]}"]
+        JOB_DEFAULT[pos][col] = float(v[early].median())  # no start on record: the position's typical job
+        d[col] = v.fillna(JOB_DEFAULT[pos][col]).to_numpy()
     fm = link_fotmob.fotmob_for_efl()[KEY + ["fm_minutes", "npxg", "xa"]].rename(columns={"npxg": "m_npxg", "xa": "m_xa"})
     d = d.merge(fm, on=KEY, how="left")
     d["linked"] = d["fm_minutes"].notna()
@@ -352,7 +369,7 @@ def main(pos, reselect=False):
                          model=name, features=feats, window=n_best,
                          k_role=k_best, prior=prior, scale=fin["scale"], intercept=float(fin["model"].intercept_), coef=fin["model"].coef_.tolist(),
                          scaler_mean=fin["scaler"][0].tolist(), scaler_sd=fin["scaler"][1].tolist(), nb_r=fin["r"],
-                         league=adj, carry={str(c): v for c, v in carry.items()}, selection=choice, validation=table,
+                         league=adj, carry={str(c): v for c, v in carry.items()}, job_default=JOB_DEFAULT[pos], selection=choice, validation=table,
                          monitor=dict(chosen=mon, plainest=mon_base, ratio=ratio, n=int(len(te))))
         print("   coefficients", {kk: round(v, 3) for kk, v in zip(feats, fin["model"].coef_)}, f"conversion {fin['scale']:.3f}")
     path.write_text(json.dumps(out, indent=1), encoding="utf-8")
@@ -414,6 +431,10 @@ def live_inputs(players, art, pos, d=None, as_of=None):
     pr = fmf.signal_rates(pr, k=3.0, n=40, hist=hist, prefix="fm40_")
     pr = fmf.signal_rates(pr, k=3.0, n=40, hist=hist, prefix="fm40h20_", half_life=20)
     pr = fmf.setpiece_features(pr)
+    pj = fmf.position_features(pr[["player_id", "date"]])
+    for a in art.values():  # the job feature, with the position's default for players with no start on record
+        for col, v in a.get("job_default", {}).items():
+            pr[col] = pj["job_" + col[len("fm_job_"):]].fillna(v).to_numpy()
     used = sorted({f for a in art.values() for f in a["features"] if f.startswith("fm")} | {a.get("pen_col", "fm_pxg") for a in art.values()})
     fm = {int(r["player_id"]): {f: round(float(r[f]), 4) for f in used} for _, r in pr.iterrows()}
     sph = fmf.setpiece_history()
@@ -452,7 +473,8 @@ def fm_defaults(fm):
     if keys not in _FM_DEFAULTS:
         pri = fmf.league_priors(fmf.fotmob_history())
         sp = fmf.setpiece_features(pd.DataFrame({"player_id": [-1], "date": [pd.Timestamp.now().normalize()]})).iloc[0]
-        _FM_DEFAULTS[keys] = {f: round(float(sp[f]) if f in sp.index else pri[f.split("_", 1)[1]], 4) for f in keys}
+        avg = lambda f: float(np.mean([v[f] for v in fm.values()]))  # job features: the players' average
+        _FM_DEFAULTS[keys] = {f: round(avg(f) if f.startswith("fm_job_") else float(sp[f]) if f in sp.index else pri[f.split("_", 1)[1]], 4) for f in keys}
     return dict(_FM_DEFAULTS[keys])
 
 

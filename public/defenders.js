@@ -206,6 +206,7 @@ document.addEventListener('scroll', () => { tip.style.display = 'none'; }, true)
 /* ---------- page ---------- */
 function tags(d) {
   const t = [];
+  if (d.job) t.push(`<span class="cp-tag kp-tag-job" title="${esc(d.job.why)}">${esc(d.job.t)}</span>`);
   if (d.injury || d.status === 'injured') t.push(`<span class="cp-tag kp-tag-out" title="${esc(d.injuryStatus || '')}">${esc(d.injury || 'injured')}${/\((\d+)%\)/.test(d.injuryStatus || '') && !/\(0%\)/.test(d.injuryStatus) ? ' ?' : ''}</span>`);
   if (d.suspended) t.push('<span class="cp-tag kp-tag-out">suspended</span>');
   if (d.startedLast) t.push('<span class="cp-tag cp-tag-picked" title="Played 60+ minutes in his club\'s latest game">started last</span>');
@@ -279,6 +280,7 @@ function render() {
         opponent makes defenders work × the odds, plus his FotMob history over his last 40 games (any EFL club). Numbers from another league are adjusted by
         the measured step-up / step-down change. Points use the full chance of reaching each step (clearance points = P(4+) + P(8+) + …).</li>
       <li><strong>Goals and assists</strong> come from predicted xG and xA (FotMob), converted to goals and assists, rather than his raw goal record.</li>
+      <li><strong>His job</strong> (the grey tag by his name: CB, FB, WB…): where he has started his last few games, from FotMob line-ups. A centre-back clears and blocks far more than a full-back or wing-back, so clearances, blocks and tackles also use what that job typically produces.</li>
       <li>Checked on this season's games with the model fitted on last season only (log-likelihood, closer to 0 is better; the model vs its plainest version): clearances
         ${t('clr').v2.loglik.toFixed(3)} vs ${t('clr').v1.loglik.toFixed(3)}, blocks ${t('blk').v2.loglik.toFixed(3)} vs ${t('blk').v1.loglik.toFixed(3)},
         tackles ${t('tkl').v2.loglik.toFixed(3)} vs ${t('tkl').v1.loglik.toFixed(3)}, goals ${t('goals').v2.loglik.toFixed(3)} vs ${t('goals').v1.loglik.toFixed(3)},

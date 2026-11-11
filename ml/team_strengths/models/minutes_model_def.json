@@ -23,6 +23,7 @@
   "suboff_ewm3",
   "suboff_ewm8"
  ],
+ "full_extra": [],
  "q60": 0.9455,
  "bucket_minutes": {
   "full": 87.5,

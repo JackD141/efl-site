@@ -131,7 +131,7 @@ def starts_before(pos, feat, gw, mins_json):
     """{player: (P(start), P(full game), P(part game))} for gameweek gw from the start model refitted on games before it.
     feat: minutes_model.add_features(load_rows(pos)) (suspension games already left out)."""
     tr = feat[(feat["season"] == "2526") | ((feat["season"] == "2627") & (feat["gameweek"] < gw))]
-    art = mm.fit_start(tr, mins_json["features"])
+    art = mm.fit_start(tr, mins_json["features"], mins_json.get("full_extra", ()))
     rows = feat[(feat["season"] == "2627") & (feat["gameweek"] == gw)].sort_values("date")
     first = rows.drop_duplicates("player_id")  # first game of a double: features do not know the first game's outcome
     ps, pf, pp = mm.scenario_probs(art, first)

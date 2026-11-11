@@ -88,6 +88,7 @@ def build_plan(position, rounds, squads, players, fits, id2fd, book, book_src, m
         # v2: xG / xA targets, FotMob history, league step multipliers, carried-over club style (player_model.py)
         art = json.loads(pm.model_path(position).read_text(encoding="utf-8"))
         roles, styles, fm, mates, sp_tags = pm.live_inputs(players, art, position)
+        jobs = pm.fmf.recent_jobs([p["id"] for p in players if p["position"] == position])
     else:
         art = json.loads(am.MODEL_PATH.read_text(encoding="utf-8"))["positions"][position]
         roles = _roles(d, art, {p["id"]: p["squadId"] for p in players})
@@ -141,7 +142,8 @@ def build_plan(position, rounds, squads, players, fits, id2fd, book, book_src, m
             suspended=bool(p.get("suspensionDetails")), startedLast=p["id"] in starters,
             role={st: roles.get(p["id"], {}).get(st, 1.0) for st in art},
             rates=rates.get(p["id"], rate_priors),
-            **({"fm": fm.get(p["id"], fm_default), "mates": mates.get(p["id"], {}), "tags": sp_tags.get(p["id"], [])} if fm else {}),
+            **({"fm": fm.get(p["id"], fm_default), "mates": mates.get(p["id"], {}), "tags": sp_tags.get(p["id"], []),
+                "job": jobs.get(p["id"])} if fm else {}),
             apps=int(a["apps"]) if a is not None else 0, starts60=int(a["full"]) if a is not None else 0,
             mins=int(a["mins"]) if a is not None else 0, totalPoints=p.get("totalPoints", 0), recent=recent.get(p["id"], []),
             **({"mFull": m_full.get(p["id"], mix_fields["minsMix"]["full"])} if mix_fields else {})))

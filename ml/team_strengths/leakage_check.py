@@ -8,7 +8,7 @@ data: it catches a rolling window that includes the current game, a join on the 
 (It found one on 9 Nov 2026: team-mates' counts were pooled per gameweek, so in a double the first game's "expected"
 count contained the second game's outcomes.)
 Covers: role / club style / opponent style / team-mates rate of every stat model (its own window and shrinkage), the
-FotMob history rates (20 / 40 games, recency-weighted) and set-piece shares, and the start model's features.
+FotMob history rates (20 / 40 games, recency-weighted), set-piece shares and job features, and the start model's features.
 Not covered (fitted constants, documented in docs/ml-methodology.md section 4): league-average shrinkage targets and
 league step multipliers, which use completed seasons only.
 """
@@ -96,11 +96,18 @@ def check_fotmob():
             s2.loc[late, c] = s2.loc[late, c] * 2 + 1
         a, b = fmf.setpiece_features(rows, hist=sph, const=const), fmf.setpiece_features(rows, hist=s2, const=const)
         compare(a, b, [c for c in a.columns if c.startswith("fm_")], pd.Series(True, index=a.index), f"set-piece shares, cut-off {D.date()}")
+        ph = fmf.position_history()
+        rates = fmf.job_rates(ph)
+        p2 = ph.copy()
+        late = p2["date"] >= D  # every later starter becomes a centre-forward
+        p2.loc[late & p2["job"].notna(), "job"] = "fwd"
+        a, b = fmf.position_features(rows, hist=ph.copy(), rates=rates), fmf.position_features(rows, hist=p2, rates=rates)
+        compare(a.fillna(-1), b.fillna(-1), [c for c in a.columns if c.startswith("job")], pd.Series(True, index=a.index), f"job features (lineup slots), cut-off {D.date()}")
 
 
 def check_minutes(pos):
     d = mm.load_rows(pos, drop_suspended=False)
-    feats = mm.FEATURES + mm.FM_FEATURES
+    feats = mm.FEATURES + mm.FM_FEATURES + ["q_hist"]
     f1 = mm.add_features(d)
     for D in cutoffs(d):
         d2 = d.copy()

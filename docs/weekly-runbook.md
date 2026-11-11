@@ -33,7 +33,7 @@ cd ml/team_strengths
      unpriced games (`--allow-missing-odds`). The second set is normally priced after the weekend: re-run then
      (`--no-retrain` is enough) so the midweek games use market odds before their deadline.
 2. FotMob: fetches new matches (`ml/fotmob/fetch_fotmob.py 2026/2027`), re-links players (`link_fotmob.py`), rebuilds
-   set pieces (`set_pieces.py`). FotMob data lives only on this machine (`data/fotmob/`, gitignored)
+   set pieces (`set_pieces.py`) and lineup slots (`positions.py`). FotMob data lives only on this machine (`data/fotmob/`, gitignored)
    - **data checks** (`data_checks.py`, about 30 s; also runnable on its own). We stitch together four sources, so every
      join is checked against another source: EFL stats cover exactly the finished games and their points recompute from
      the stats; every football-data / FotMob team name maps to exactly one club in the right league; football-data and

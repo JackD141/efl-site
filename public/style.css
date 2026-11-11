@@ -1025,3 +1025,5 @@ input[type="range"]::-moz-range-thumb:hover {
 .bt-cards .cp-table td { padding: 6px 8px; }
 .bt-cards > div { min-width: 0; }
 .cp-h3 { font-size: 1rem; margin: 14px 0 6px; }
+
+.kp-tag-job { background: #eef1f5; color: #44546a; cursor: help; }

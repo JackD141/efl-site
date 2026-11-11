@@ -177,6 +177,7 @@ document.addEventListener('scroll', () => { tip.style.display = 'none'; }, true)
 /* ---------- page ---------- */
 function tags(d) {
   const t = [];
+  if (d.job) t.push(`<span class="cp-tag kp-tag-job" title="${esc(d.job.why)}">${esc(d.job.t)}</span>`);
   if (d.injury || d.status === 'injured') t.push(`<span class="cp-tag kp-tag-out" title="${esc(d.injuryStatus || '')}">${esc(d.injury || 'injured')}${/\((\d+)%\)/.test(d.injuryStatus || '') && !/\(0%\)/.test(d.injuryStatus) ? ' ?' : ''}</span>`);
   if (d.suspended) t.push('<span class="cp-tag kp-tag-out">suspended</span>');
   if (d.startedLast) t.push('<span class="cp-tag cp-tag-picked" title="Played 60+ minutes in his club\'s latest game">started last</span>');
@@ -259,6 +260,7 @@ function render() {
         per 90 (from FotMob data: his chances relative to team-mates, his club's and the opponent's style, the odds), which are much less noisy than goals and
         assists, then converts them (goals ≈ ${state.plan.model.goals.scale.toFixed(2)} × npxG + his penalty xG; assists ≈ ${state.plan.model.assists.scale.toFixed(2)} × xA).
         Shots and key passes also use his FotMob shots, chances created, xG and xA history.</li>
+        <li><strong>His job</strong> (the grey tag by his name: ST, AM, W, CM, DM…): where he has started his last few games, from FotMob line-ups. The fantasy position is fixed for the season but his job is not, so the model also uses what that job typically produces.</li>
         <li><strong>Moving clubs or leagues</strong>: numbers from another league are adjusted by how much players' output changes on stepping up or down
         (measured on FotMob data, e.g. xG from League One counts about 0.8× in the Championship), and a club's style carries over
         from last season, adjusted for promotion or relegation.</li>

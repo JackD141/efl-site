@@ -137,11 +137,13 @@ def main(gw=None, overrides=(), retrain=True, backtest=True, allow_missing_odds=
 
     import fetch_fotmob
     import link_fotmob
+    import positions
     import set_pieces
     t = step("2. FotMob: new matches, player links, set pieces")
     fetch_fotmob.run(["2026/2027"])
     link_fotmob.build_map()
     set_pieces.main()
+    positions.main()  # lineup slots of every starter (the job feature)
     print(f"  done in {time.time() - t:.0f}s")
 
     import data_checks

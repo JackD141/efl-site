@@ -16,7 +16,11 @@ xP in the browser from these (checked equal to Python for every player).
 Poisson GLM, minutes as exposure, standardised logs of: role (his rate relative to same-position team-mates, last 20
 appearances), team-mates' rate excluding him, opponent style, odds (own / opponent expected goals), home, and FotMob
 history per 90 over his last 20 or 40 appearances (for MID key passes and DEF clearances the 40 are recency-weighted,
-half-life 20 appearances: chosen on validation, 15 Oct). Negative-binomial spread for the points thresholds.
+half-life 20 appearances: chosen on validation, 15 Oct), and for seven stats the JOB he has been starting in (11 Nov:
+FotMob lineup slots of his last 5 starts -> centre-back / full-back / wing-back / deep, central, wide or attacking
+midfield / winger / striker; the feature is the league rate of that job. MID assists, shots on target, key passes; FWD
+shots on target; DEF clearances, blocks, tackles. The fantasy position is fixed for a season, the job is not; shown
+as a grey tag on Player Picks). Negative-binomial spread for the points thresholds.
 - Goals and assists are predicted through npxG and xA, then converted: goals = c x npxG + his penalty xG (c 1.00 MID,
   0.98 FWD, 0.85 DEF), assists = c x xA (1.13 MID, 1.55 FWD, 1.04 DEF; fantasy assists are more generous than Opta xA).
 - League changes: numbers from another league count x the measured step-up / step-down multiplier (FotMob movers,
@@ -43,6 +47,8 @@ mFull) + P(part game) = start x (1 - P(60+|start)) + (1 - start) x P(comes on) (
   and is not being dropped.
 - Doubles: the second game's start chance is predicted as if he started the first (pStart2c) and as if not (pStart2n).
 - Keepers: a club's keepers' start chances are scaled to add up to 1 per game.
+- P(60+ | started) for midfielders and forwards also uses his own record: the share of his last 10 starts at the club
+  that reached 60 minutes (11 Nov, `exp_p60.py`).
 - Outfield (9 Nov): a club starts ten outfield players, so each club's available defenders, midfielders and forwards
   have their start logits shifted by one common amount until the chances add up to ten (`normalise_club`;
   `exp_clubstart.py`: P(start) log-loss 0.3160 -> 0.3143 on validation, 0.3656 -> 0.3621 on 2026/27). When team-mates

@@ -50,6 +50,11 @@ FEATURES = (["last_min", "zero_run", "log_n_club", "rest_days", "second_in_gw", 
             + [f"{k}_ewm{h}" for k in ("min", "full", "app") for h in HALF_LIVES])
 # from FotMob line-ups (link_fotmob.py): started vs came off the bench, and subbed off early
 FM_FEATURES = [f"{k}_ewm{h}" for k in ("start", "suboff") for h in HALF_LIVES]
+# extra features of the P(60+ | started) model only (exp_p60.py, 11 Nov 2026): his own record of lasting 60 minutes in
+# his last 10 starts at the club. Midfielders and forwards (the ones managers take off): validation log-loss 0.2972 ->
+# 0.2966 and 0.3645 -> 0.3634; nothing for defenders and keepers.
+FULL_EXTRA = {"MID": ["q_hist"], "FWD": ["q_hist"]}
+Q_STARTS, Q_PSEUDO = 10, 3.0
 
 
 def suspended(d):
@@ -146,6 +151,17 @@ def add_features(d):
         for h in HALF_LIVES:
             e = g[col].transform(lambda s: s.shift(1).ewm(halflife=h, min_periods=1).mean())
             d[f"{k}_ewm{h}"] = e.fillna(prior[k]) / (90 if k == "min" else 1)
+    # his own record of reaching 60 minutes when he starts: share of his last Q_STARTS starts at the club BEFORE this game
+    # (whether or not he starts this one: the first version differed for starters, which leakage_check.py caught),
+    # shrunk with Q_PSEUDO starts at a fixed 0.9 (about nine starts in ten reach 60; nothing estimated, nothing can leak)
+    st = d[d["start"] == 1]
+    roll = st.groupby(["player_id", "squad_id"], sort=False)["full"].rolling(Q_STARTS, min_periods=1)
+    flat = lambda r: r.reset_index(level=[0, 1], drop=True).reindex(st.index)
+    d["_q"] = np.nan
+    d.loc[st.index, "_q"] = (flat(roll.sum()) + Q_PSEUDO * 0.9) / (flat(roll.count()) + Q_PSEUDO)  # after each start, that start included
+    d["_q"] = d.groupby(["player_id", "squad_id"], sort=False)["_q"].ffill()
+    d["q_hist"] = d.groupby(["player_id", "squad_id"], sort=False)["_q"].shift(1).fillna(0.9)  # as of before this game
+    d = d.drop(columns="_q")
     # run of consecutive 0-minute games just before this one
     def zero_run(s):
         out, run = [], 0
@@ -198,7 +214,7 @@ def start_probs(art, hist, upcoming):
         x = d[d["_tag"].notna()]
         ps = art["start"][1].predict_proba(art["start"][0].transform(x[feats]))[:, 1]
         pb = art["sub"][1].predict_proba(art["sub"][0].transform(x[feats]))[:, 1]
-        pq = art["full"][1].predict_proba(art["full"][0].transform(x[feats]))[:, 1]
+        pq = art["full"][1].predict_proba(art["full"][0].transform(x[art.get("full_features", feats)]))[:, 1]
         return {t: (float(a), float(b), float(c)) for t, a, b, c in zip(x["_tag"], ps, pb, pq)}
     p1 = predict([synth(u, u["fixtures"][0], False, f"{u['player_id']}|1") for u in upcoming])
     out = {u["player_id"]: dict(pStart=p1[f"{u['player_id']}|1"][0], pSubN=p1[f"{u['player_id']}|1"][1], pFull=p1[f"{u['player_id']}|1"][2])
@@ -389,12 +405,14 @@ def _ll(y, p):
     return float(-(y * np.log(p) + (1 - y) * np.log(1 - p)).mean())
 
 
-def fit_start(tr, feats):
+def fit_start(tr, feats, full_extra=()):
     """Start model fitted on rows tr: dict(start=(scaler, logit) P(start), full=(scaler, logit) P(60+ | started) on
-    starters, sub=(scaler, logit) P(appearance | not started) on non-starters, q = average P(60+ | started), features)."""
+    starters (features + full_extra), sub=(scaler, logit) P(appearance | not started) on non-starters, q = average
+    P(60+ | started), features, full_features)."""
     ns, st = tr[tr["start"] == 0], tr[tr["start"] == 1]
+    ff = list(feats) + list(full_extra)
     return dict(start=_logit(tr[feats], tr["start"]), sub=_logit(ns[feats], (ns["mins"] > 0).astype(int)),
-                full=_logit(st[feats], (st["mins"] >= 60).astype(int)), features=feats, q=float((st["mins"] >= 60).mean()))
+                full=_logit(st[ff], (st["mins"] >= 60).astype(int)), features=feats, full_features=ff, q=float((st["mins"] >= 60).mean()))
 
 
 def scenario_probs(art, x):
@@ -402,7 +420,7 @@ def scenario_probs(art, x):
     X = x[art["features"]]
     ps = art["start"][1].predict_proba(art["start"][0].transform(X))[:, 1]
     pb = art["sub"][1].predict_proba(art["sub"][0].transform(X))[:, 1]
-    q = art["full"][1].predict_proba(art["full"][0].transform(X))[:, 1] if "full" in art else art["q"]
+    q = art["full"][1].predict_proba(art["full"][0].transform(x[art.get("full_features", art["features"])]))[:, 1] if "full" in art else art["q"]
     return ps, ps * q, ps * (1 - q) + (1 - ps) * pb
 
 
@@ -417,7 +435,7 @@ def main(position="MID"):
     # the earlier model (ridge expected minutes -> isotonic P(60+)), for the record
     rid = Ridge(alpha=1.0).fit(tr[feats], tr["mins"])
     iso = IsotonicRegression(y_min=0, y_max=1, out_of_bounds="clip").fit(np.clip(rid.predict(tr[feats]), 0, 90), p60(tr))
-    art = fit_start(tr, feats)
+    art = fit_start(tr, feats, FULL_EXTRA.get(position, ()))
     bucket = dict(full=round(float(tr.loc[tr["mins"] >= 60, "mins"].mean()), 1),
                   part=round(float(tr.loc[(tr["mins"] > 0) & (tr["mins"] < 60), "mins"].mean()), 1))
     res = {}
@@ -428,11 +446,11 @@ def main(position="MID"):
                         mins_rmse=float(np.sqrt(((s_["mins"] - xm) ** 2).mean())), mean_start_pred=float(ps.mean()), mean_start=float(s_["start"].mean()))
         print(f"  {lab}: P(start) log-loss {res[lab]['start_ll']:.4f}; P(60+) log-loss {res[lab]['p60_ll']:.4f} (ridge+isotonic "
               f"{res[lab]['p60_ll_ridge']:.4f}); minutes RMSE {res[lab]['mins_rmse']:.2f}; mean P(start) {ps.mean():.3f} vs {s_['start'].mean():.3f}")
-    final = fit_start(d, feats)
+    final = fit_start(d, feats, FULL_EXTRA.get(position, ()))
     MODELS.mkdir(exist_ok=True)
     joblib.dump(final, MODELS / f"minutes_model_{position.lower()}.joblib")
     (MODELS / f"minutes_model_{position.lower()}.json").write_text(json.dumps(dict(
-        model="logistic P(start) + P(sub | not started)", features=feats, q60=round(final["q"], 4), bucket_minutes=bucket, results=res,
+        model="logistic P(start) + P(sub | not started)", features=feats, full_extra=FULL_EXTRA.get(position, []), q60=round(final["q"], 4), bucket_minutes=bucket, results=res,
         suspensions_left_out=True), indent=1), encoding="utf-8")
     print(f"  q (starts reaching 60) {final['q']:.3f}; minutes in a 60+ / 1-59 game {bucket}")
     return final

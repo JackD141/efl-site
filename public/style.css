@@ -1043,3 +1043,7 @@ input[type="range"]::-moz-range-thumb:hover {
 .rv-detail .bt-team thead th { background: #888; }
 .rv-detail .cp-tag { margin-left: 8px; }
 .rv-miss { color: #b26a00; cursor: help; margin-left: 2px; }
+.rv-overall { display: grid; grid-template-columns: minmax(260px, 1fr) minmax(320px, 1.4fr); gap: 24px; align-items: start; }
+.rv-bars { height: 136px; margin-bottom: 4px; }
+.rv-overall .cp-table { margin-top: 10px; }
+@media (max-width: 760px) { .rv-overall { grid-template-columns: 1fr; } }

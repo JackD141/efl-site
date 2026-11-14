@@ -66,6 +66,37 @@ function managerDetail(m) {
     <tbody>${rows}</tbody></table></div>`;
 }
 
+// The overall leaderboard (the EFL shows its top 400), scored the same way: where the account's team stands.
+function overallHtml(o) {
+  if (!o) return '';
+  const y = o.you, max = Math.max(...o.hist.map(h => h.n));
+  const bars = o.hist.map(h => {
+    const mine = y && y.ev >= h.lo && y.ev < h.lo + 20;
+    return `<div class="cp-bar-col" title="${h.lo} to ${h.lo + 20} expected points: ${h.n} managers${mine ? ' (you are here)' : ''}">
+      <div class="cp-bar${mine ? ' cp-bar-top' : ''}" style="height:${Math.max(1, Math.round(h.n / max * 118))}px"></div><div class="cp-bar-label">${h.lo}</div></div>`;
+  }).join('');
+  const part = (label, p) => `<tr><td>${label}</td><td class="cp-right">${f0(p.value)}</td><td class="cp-right cp-muted">${f0(p.median)}</td><td class="cp-right"><strong>${ordinal(p.rank)}</strong></td></tr>`;
+  const rows = o.top.map(x => `<tr class="${y && x.rank === y.rank ? 'cp-current' : ''}"><td class="cp-center"><span class="cp-rank${x.evRank <= 3 ? ' cp-rank-' + x.evRank : ''}">${x.evRank}</span></td>
+      <td>Overall rank ${x.rank}${y && x.rank === y.rank ? '<span class="cp-tag cp-tag-plan">You</span>' : ''}</td><td class="cp-right">${f0(x.act)}</td><td class="cp-xp">${f0(x.ev)}</td>
+      <td class="cp-right ${luckCls(x.act - x.ev)}"><strong>${signed(x.act - x.ev)}</strong></td><td class="cp-right">${f0(x.evP)}</td><td class="cp-right">${f0(x.evC)}</td><td class="cp-right">${f0(x.evS)}</td></tr>`).join('');
+  return `
+    <h2 class="cp-h2">Against the overall top ${o.n} <span class="cp-sub">every manager on the EFL's overall leaderboard, same scoring, no names kept</span></h2>
+    ${y ? `<p class="cp-intro">Your picks are <strong>${ordinal(y.evRank)} of ${o.n}</strong> on expected points: ${f0(y.ev)}, against a median of ${f0(o.median)} and a best of ${f0(o.best)}.
+      On real points you are ${ordinal(y.rank)}. Your luck is ${signed(y.act - y.ev)}; the ${o.n} average ${signed(o.meanLuck)}, because the top of a leaderboard is partly the managers luck has favoured.</p>` : ''}
+    <div class="rv-overall">
+      <div><h3 class="cp-h3">Expected points of the ${o.n}</h3><div class="cp-bars rv-bars">${bars}</div>
+        <p class="cp-muted cp-small">Managers per 20 expected points${y ? '; your bar is orange' : ''}.</p>
+        ${y ? `<table class="cp-table cp-table-tight"><thead><tr><th>Your expected points</th><th class="cp-right">You</th><th class="cp-right">Median</th><th class="cp-right">Place</th></tr></thead>
+          <tbody>${part('Players', y.players)}${part('Captain', y.captain)}${part('Clubs', y.clubs)}</tbody></table>` : ''}</div>
+      <div><h3 class="cp-h3">The ten best on expected points</h3><div class="cp-table-wrap"><table class="cp-table cp-table-tight">
+        <thead><tr><th class="cp-center">#</th><th>Manager</th><th class="cp-right">Actual</th><th class="cp-right">Expected</th><th class="cp-right">Luck</th>
+          <th class="cp-right">Players</th><th class="cp-right">Captain</th><th class="cp-right">Clubs</th></tr></thead><tbody>${rows}</tbody></table></div></div>
+    </div>
+    <p class="cp-note">Leaderboard fetched ${esc(new Date(o.fetchedAt).toLocaleString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }))}
+      (refresh with <code>league_rivals.py --fetch-overall</code>). Rebuilt real totals equal the EFL's for ${o.matched} of ${o.n}; the rest are a few points out
+      because of a pick whose games are not in our stats.</p>`;
+}
+
 function render() {
   const d = state.data, lg = d.leagues[state.league];
   const get = SORTS[state.sort].get;
@@ -104,6 +135,7 @@ function render() {
         <th class="cp-right" title="Rank in the league on real points">League rank</th>${th('act')}${th('ev')}${th('luck')}
         ${th('evP', ' <span class="rv-th-sub">exp</span>')}${th('evC', ' <span class="rv-th-sub">exp</span>')}${th('evS', ' <span class="rv-th-sub">exp</span>')}</tr></thead>
       <tbody>${rows}</tbody></table></div>
+    ${overallHtml(d.overall)}
     <div class="cp-caveat"><strong>How to read this</strong><ul>
       <li><strong>Expected</strong> is the model's expected points for the picks made, as it stood before each gameweek (models refitted on earlier games only,
         closing odds for the fixtures). Players are scored on the minutes they really played: a pick who did not play is 0, so choosing players who start

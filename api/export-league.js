@@ -7,7 +7,7 @@ const API = 'https://fantasy.efl.com/api/en';
 const MODE = 'season';
 const REPO = 'JackD141/efl-site';
 const TOP_N = 20;
-const OVERALL_STEP = 40, OVERALL_MAX = 1000; // the overall leaderboard is read in slices (60 s limit per call)
+const OVERALL_STEP = 40, OVERALL_MAX = 400; // the EFL's overall leaderboard stops at 400; // the overall leaderboard is read in slices (60 s limit per call)
 const LEAGUES = [40, 7]; // Lincoln City, Derby County (fantasy.efl.com/league/<id>/ladder); also in league_rivals.py
 
 const BASE_HEADERS = {

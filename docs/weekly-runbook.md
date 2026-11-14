@@ -21,6 +21,8 @@ curl -s -X POST "https://dexters-corner.vercel.app/api/export-league?league=40" 
 ```bash
 curl -s -X POST "https://dexters-corner.vercel.app/api/export-league?league=7" --max-time 90
 ```
+The page's "overall top 400" section is refreshed separately and only when wanted (about a minute, 5,200 requests to
+the EFL): `python league_rivals.py --fetch-overall` in `ml/team_strengths`, then commit `data/2026_27/leagues/overall_top.json`.
 Check the newest file is not empty (`wc -l data/2026_27/player_stats_gw*.csv`). Since 15 Oct the export includes finished
 games even when the EFL still marks the round "playing" (it did for GW9 for days), and never writes an empty file.
 

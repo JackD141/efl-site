@@ -27,7 +27,7 @@ SOURCE = "Betfair Exchange"
 COLUMNS = ["home", "away", "h_back", "h_lay", "d_back", "d_lay", "a_back", "a_lay"]
 # Betfair short names that need help (others match by unique prefix, e.g. "Charlton" -> "Charlton Athletic")
 BETFAIR_ALIASES = {**ALIASES, "Sheff Utd": "Sheffield United", "Sheff Wed": "Sheffield Wednesday", "Notts Co": "Notts County",
-                   "Bristol C": "Bristol City", "Bristol R": "Bristol Rovers", "Cambridge Utd": "Cambridge United"}
+                   "Bristol C": "Bristol City", "Bristol R": "Bristol Rovers", "Cambridge Utd": "Cambridge United", "Salford City Fc": "Salford City"}
 
 
 def resolve_strict(name, squads):

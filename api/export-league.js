@@ -130,7 +130,8 @@ module.exports = async function handler(req, res) {
       }
       const teams = {};
       let failed = 0;
-      const jobs = rows.flatMap(r => done.map(id => [r.userId, id]));
+      // the live gameweek too: the EFL can leave a round "playing" for days after its last game, and its points are in the totals
+      const jobs = rows.flatMap(r => [...done, ...live].map(id => [r.userId, id]));
       await inBatches(jobs, 20, async ([userId, roundId]) => {
         try {
           const t = (await api(`${MODE}/other-user-team/${userId}/${roundId}`, session)).team;

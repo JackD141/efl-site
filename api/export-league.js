@@ -7,6 +7,7 @@ const API = 'https://fantasy.efl.com/api/en';
 const MODE = 'season';
 const REPO = 'JackD141/efl-site';
 const TOP_N = 20;
+const LEAGUES = [40, 7]; // Lincoln City, Derby County (fantasy.efl.com/league/<id>/ladder); also in league_rivals.py
 
 const BASE_HEADERS = {
   'Accept': 'application/json',
@@ -101,35 +102,17 @@ async function openSession(email, password) {
 
 module.exports = async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store');
+  if (req.method !== 'POST') return res.status(405).json({ error: 'Use POST.' });
   const email = process.env.EFL_EMAIL, password = process.env.EFL_PASSWORD, githubToken = process.env.GITHUB_TOKEN;
   if (!email || !password || !githubToken) return res.status(500).json({ error: 'Server credentials are not set.' });
   const q = req.query || {};
 
   try {
     const { session, tried } = await openSession(email, password);
-    if (!session) return res.status(502).json({ error: 'Could not log in to Fantasy EFL.', tried });
+    if (!session) return res.status(502).json({ error: 'Could not log in to Fantasy EFL.', tried: tried.map(t => ({ token: t.token, status: t.status })) });
 
-    // one-off look at what the EFL returns (shapes only matter; used while building the page)
-    if (q.probe) {
-      const out = { tried };
-      const attempt = async (key, path) => { try { out[key] = await api(path, session); } catch (e) { out[key] = { error: e.message }; } };
-      await attempt('leagues', `${MODE}/leagues`);
-      const ids = String(q.probe).split(',').map(Number).filter(Number.isInteger).slice(0, 12);
-      for (const id of ids) {
-        await attempt(`league_${id}`, `${MODE}/league/${id}`);
-        try {
-          const lad = (await api(`${MODE}/ranking/overall_ladder?leagueId=${id}`, session)).ladder;
-          out[`ladder_${id}`] = { ...lad, rankings: (lad.rankings || []).slice(0, 2), count: (lad.rankings || []).length };
-          const top = (lad.rankings || [])[0];
-          if (top && q.team) out[`team_${id}`] = await api(`${MODE}/other-user-team/${top.userId}/${Number(q.team)}`, session).catch(e => ({ error: e.message }));
-        } catch (e) { out[`ladder_${id}`] = { error: e.message }; }
-      }
-      return res.status(200).json(out);
-    }
-
-    if (req.method !== 'POST') return res.status(405).json({ error: 'Use POST.' });
     const leagueId = Number(q.league);
-    if (!Number.isInteger(leagueId) || leagueId < 1) return res.status(400).json({ error: 'league is required.' });
+    if (!LEAGUES.includes(leagueId)) return res.status(400).json({ error: `league must be one of ${LEAGUES.join(', ')}.` });
 
     const rounds = await fetch('https://fantasy.efl.com/json/fantasy/rounds.json', { headers: BASE_HEADERS }).then(r => r.json());
     const done = rounds.filter(r => r.status === 'completed').map(r => r.id);

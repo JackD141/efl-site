@@ -1,0 +1,238 @@
+Norwich
+Cardiff City
+21 Nov
+12:30
+8/11
+17/5
+3/1
+Southampton
+Derby
+21 Nov
+12:30
+2/5
+4/1
+13/2
+Millwall
+QPR
+21 Nov
+12:30
+146/100
+5/2
+9/5
+Lincoln
+Wrexham
+21 Nov
+15:00
+15/8
+23/10
+6/4
+Sheffield Utd
+Watford
+21 Nov
+15:00
+8/13
+3/1
+9/2
+Swansea
+West Brom
+21 Nov
+15:00
+154/100
+12/5
+9/5
+West Ham
+Preston
+21 Nov
+15:00
+2/9
+13/2
+11/1
+Stoke
+Birmingham
+21 Nov
+15:00
+19/10
+12/5
+29/20
+Middlesbrough
+Bristol City
+21 Nov
+15:00
+2/5
+4/1
+13/2
+Bolton
+Portsmouth
+21 Nov
+15:00
+19/10
+12/5
+6/4
+Barnsley
+Sheffield Wednesday
+20 Nov
+20:00
+2/1
+14/5
+13/10
+Blackpool
+Wigan
+21 Nov
+12:30
+15/13
+27/10
+5/2
+Reading
+Bromley
+21 Nov
+12:30
+4/11
+9/2
+81/10
+Bradford City
+Doncaster
+21 Nov
+15:00
+7/10
+16/5
+4/1
+Burton
+Luton
+21 Nov
+15:00
+15/4
+31/10
+4/6
+Cambridge
+Stockport
+21 Nov
+15:00
+29/10
+3/1
+10/11
+Huddersfield
+Leicester
+21 Nov
+15:00
+39/40
+11/4
+27/11
+Leyton Orient
+AFC Wimbledon
+21 Nov
+15:00
+13/16
+16/5
+3/1
+Mansfield
+MK Dons
+21 Nov
+15:00
+6/4
+11/4
+32/19
+Notts County
+Stevenage
+21 Nov
+15:00
+6/4
+9/4
+23/12
+Oxford
+Wycombe
+21 Nov
+15:00
+7/5
+5/2
+19/10
+Plymouth Argyle
+Peterborough United
+21 Nov
+15:00
+3/4
+31/10
+31/10
+Gillingham
+Crewe
+21 Nov
+12:30
+9/5
+12/5
+6/4
+Newport County
+Swindon
+21 Nov
+12:30
+21/20
+13/5
+14/5
+Accrington
+Salford City Fc
+21 Nov
+15:00
+3/1
+45/17
+1/1
+Barnet
+Port Vale
+21 Nov
+15:00
+21/20
+13/5
+5/2
+Cheltenham
+Bristol Rovers
+21 Nov
+15:00
+13/5
+27/10
+42/41
+Chesterfield
+Shrewsbury
+21 Nov
+15:00
+3/5
+31/10
+9/2
+Crawley
+Fleetwood
+21 Nov
+15:00
+12/5
+27/10
+1/1
+Grimsby
+Rotherham
+21 Nov
+15:00
+6/11
+18/5
+9/2
+Northampton
+Rochdale
+21 Nov
+15:00
+5/6
+14/5
+7/2
+Oldham
+Exeter
+21 Nov
+15:00
+28/29
+3/1
+13/5
+Tranmere
+Colchester
+21 Nov
+15:00
+13/11
+5/2
+9/4
+York City
+Walsall
+21 Nov
+15:00
+11/13
+3/1
+14/5

@@ -7,6 +7,7 @@ const API = 'https://fantasy.efl.com/api/en';
 const MODE = 'season';
 const REPO = 'JackD141/efl-site';
 const TOP_N = 20;
+const OVERALL_STEP = 40, OVERALL_MAX = 1000; // the overall leaderboard is read in slices (60 s limit per call)
 const LEAGUES = [40, 7]; // Lincoln City, Derby County (fantasy.efl.com/league/<id>/ladder); also in league_rivals.py
 
 const BASE_HEADERS = {
@@ -111,12 +112,44 @@ module.exports = async function handler(req, res) {
     const { session, tried } = await openSession(email, password);
     if (!session) return res.status(502).json({ error: 'Could not log in to Fantasy EFL.', tried: tried.map(t => ({ token: t.token, status: t.status })) });
 
-    const leagueId = Number(q.league);
-    if (!LEAGUES.includes(leagueId)) return res.status(400).json({ error: `league must be one of ${LEAGUES.join(', ')}.` });
-
     const rounds = await fetch('https://fantasy.efl.com/json/fantasy/rounds.json', { headers: BASE_HEADERS }).then(r => r.json());
     const done = rounds.filter(r => r.status === 'completed').map(r => r.id);
     const live = rounds.filter(r => r.status === 'playing').map(r => r.id);
+
+    // ?overall=<from>: a slice of the overall leaderboard (OVERALL_STEP managers from position <from>) with their teams
+    // for the finished gameweeks, returned (not committed) and without names; league_rivals.py reads the saved slices
+    if (q.overall !== undefined) {
+      const from = Number(q.overall);
+      if (!Number.isInteger(from) || from < 0 || from >= OVERALL_MAX || from % OVERALL_STEP) {
+        return res.status(400).json({ error: `overall must be a multiple of ${OVERALL_STEP} below ${OVERALL_MAX}.` });
+      }
+      const rows = [];
+      for (let page = from / 20 + 1; page <= (from + OVERALL_STEP) / 20; page++) {
+        const lb = (await api(`${MODE}/rankings/overall_leaderboard?page=${page}`, session)).leaderboard;
+        rows.push(...(lb.rankings || []));
+      }
+      const teams = {};
+      let failed = 0;
+      const jobs = rows.flatMap(r => done.map(id => [r.userId, id]));
+      await inBatches(jobs, 20, async ([userId, roundId]) => {
+        try {
+          const t = (await api(`${MODE}/other-user-team/${userId}/${roundId}`, session)).team;
+          if (!t) return;
+          const pl = (t.lineup && t.lineup.players) || {};
+          (teams[userId] || (teams[userId] = {}))[roundId] = {
+            p: ['GK', 'DEF', 'MID', 'FWD'].flatMap(k => pl[k] || []), s: (t.lineup && t.lineup.squads) || [],
+            c: t.captainId, v: t.viceCaptainId, mc: !!t.maxCaptainEnabled, oc: !!t.oneClubEnabled,
+          };
+        } catch (e) { failed++; }
+      });
+      return res.status(200).json({
+        from, fetchedAt: new Date().toISOString(), completedRounds: done, liveRounds: live, failed,
+        rankings: rows.map(r => ({ userId: r.userId, rank: r.rank, overallPoints: r.overallPoints, roundPoints: r.roundPoints })), teams,
+      });
+    }
+
+    const leagueId = Number(q.league);
+    if (!LEAGUES.includes(leagueId)) return res.status(400).json({ error: `league must be one of ${LEAGUES.join(', ')}.` });
 
     const league = await api(`${MODE}/league/${leagueId}`, session).catch(() => null);
     const rankings = [];

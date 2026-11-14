@@ -172,11 +172,14 @@ def club_total(sp, club_of, total=mm.OUTFIELD_STARTERS):
 
 
 # ---------- expected points per player for one gameweek ----------
-def outfield_xp(pos, art, inputs, players, fx_by_club, sp, mj, card90, m_full, mix=True, counts=None):
+def outfield_xp(pos, art, inputs, players, fx_by_club, sp, mj, card90, m_full, mix=True, counts=None, played=None, given=None):
     """Gameweek xP per player. sp: {player: (P(start), P(full game), P(part game))}. mix=True: P(full) x his full game
     (m_full minutes, appearance 2, clean sheet counts) + P(part) x a typical part game (appearance 1); mix=False: straight
     scaling by the implied expected minutes / 90 (for comparison). card90: (per player, default) from card_costs().
-    counts: a dict to fill with each player's expected count of every stat over the gameweek, for the scorecard."""
+    counts: a dict to fill with each player's expected count of every stat over the gameweek, for the scorecard.
+    played {(player, opponent, home): minutes he really played} and given (a dict to fill): his expected points GIVEN
+    those minutes (60+ = two appearance points and the clean sheet counts, under 60 = one, none = 0), for the League
+    Rivals page: the pick is judged, not whether he happened to start."""
     roles, styles, fm, mates = inputs
     fm_def = pm.fm_defaults(fm) if fm else {}
     out = {}
@@ -187,10 +190,11 @@ def outfield_xp(pos, art, inputs, players, fx_by_club, sp, mj, card90, m_full, m
         mins = pf * mfull + pp * mpart
         tot = 0.0
         for f in fx_by_club.get(cid, []):
-            if mins <= 0:
-                break
             home = f["home"] == cid
             oid = f["away"] if home else f["home"]
+            real = played.get((pid, oid, home), 0.0) if played is not None else 0.0
+            if mins <= 0 and real <= 0:
+                continue
             lo, lp = (f["lh"], f["la"]) if home else (f["la"], f["lh"])
             rate90 = {}
             for stat, a in art.items():
@@ -198,7 +202,7 @@ def outfield_xp(pos, art, inputs, players, fx_by_club, sp, mj, card90, m_full, m
                             opp=styles.get(oid, {}).get(stat, {}).get("opp", a["prior"]), mates=mates.get(pid, {}).get(stat, a["prior"]),
                             lam_own=lo, lam_opp=lp, home=int(home), **fm.get(pid, fm_def))
                 rate90[stat] = rate(a, vals) * a["scale"] + (fm.get(pid, fm_def).get(a.get("pen_col", "fm_pxg"), 0) if a["pens"] else 0)
-            if counts is not None:
+            if counts is not None and mins > 0:
                 c = counts.setdefault(pid, {})
                 for stat, v in rate90.items():
                     c[stat] = c.get(stat, 0.0) + v * mins / 90
@@ -215,6 +219,10 @@ def outfield_xp(pos, art, inputs, players, fx_by_club, sp, mj, card90, m_full, m
                     x = app + sc["goal"] * mu["goals"] + 5 * p_at_least(mu["goals"], art["goals"]["nb_r"], 3) + sc["assist"] * mu["assists"]
                     x += sc["sot"] * mu["sot"] + nb_pts(mu["kp"], art["kp"]["nb_r"], 2) + (sc["interception"] * mu["int"] if "int" in mu else 0)
                 return x - card90[0].get(pid, card90[1]) * t
+            if real > 0 and given is not None:
+                given[pid] = given.get(pid, 0.0) + (at(real, 2, 1.0) if real >= 60 else at(real, 1, 0.0))
+            if mins <= 0:
+                continue
             if mix:
                 tot += pf * at(mfull, 2, 1.0) + pp * at(mpart, 1, 0.0)
             else:
@@ -223,7 +231,9 @@ def outfield_xp(pos, art, inputs, players, fx_by_club, sp, mj, card90, m_full, m
     return out
 
 
-def keeper_xp(players, fx_by_club, sp, saves_model, consts, mj, mix=True):
+def keeper_xp(players, fx_by_club, sp, saves_model, consts, mj, mix=True, played=None, given=None):
+    """played / given: as in outfield_xp (a keeper who played 60+ gets the full-game xP; under 60, one appearance point
+    and the goals-conceded / saves / penalty / card parts scaled by his minutes)."""
     out = {}
     for p in players:
         tot = 0.0
@@ -232,7 +242,12 @@ def keeper_xp(players, fx_by_club, sp, saves_model, consts, mj, mix=True):
             lo, lp = (f["lh"], f["la"]) if home else (f["la"], f["lh"])
             row = pd.DataFrame([dict(lam_own=lo, lam_opp=lp, home=int(home))])
             mu = float(kp.predict_saves(saves_model, row)[0])
-            tot += kp.fixture_points(lo, lp, home, mu, saves_model["nb_r"], consts)["xp"]
+            pt = kp.fixture_points(lo, lp, home, mu, saves_model["nb_r"], consts)
+            tot += pt["xp"]
+            real = played.get((p["id"], f["away"] if home else f["home"], home), 0.0) if played is not None else 0.0
+            if real > 0 and given is not None:
+                part = 1 + (pt["gcPts"] + pt["savePts"] + consts["pen"] + consts["cards"]) * real / 90
+                given[p["id"]] = given.get(p["id"], 0.0) + (pt["xp"] if real >= 60 else part)
         _, pf, pp = sp.get(p["id"], (0.0, 0.0, 0.0))
         if mix:  # P(full game) x full-game xP + P(part game) x one appearance point per game
             out[p["id"]] = pf * tot + pp * len(fx_by_club.get(p["squadId"], []))
@@ -291,7 +306,7 @@ def main():
     consts = kp.keeper_constants(gk_rows[gk_rows["season"] == "2025_26"])
     rows_all = pd.concat([mm.load_rows(pos).assign(pos=pos) for pos in POS], ignore_index=True)
     uses, form_uses = {}, {}
-    calib, stat_rows = [], []
+    calib, stat_rows, club_rows = [], [], []
     weeks = []
     for gw in done:
         fx, start = fixtures_for(rounds, squads, gw)
@@ -315,7 +330,9 @@ def main():
         raw = {i: v for pos in mm.OUTFIELD for i, v in sp_gw[pos][0].items() if i in club_of}
         totalled = club_total(raw, club_of)
         first = rows_all[(rows_all["season"] == "2627") & (rows_all["gameweek"] == gw)].sort_values("date").drop_duplicates("player_id").set_index("player_id")
-        start_chance, counts = {}, {}
+        start_chance, counts, given = {}, {}, {}
+        mins_real = {(int(r.player_id), int(r.opponent_id), r.is_home == "H"): float(r.minutes_played)
+                     for r in cur[cur["minutes_played"] > 0].itertuples()}
         for pos in POS:
             plist = [dict(p, position=pos) for p in players if p["pos"] == pos]
             xm, q = sp_gw[pos]
@@ -334,7 +351,7 @@ def main():
                         qi = pf / ps if ps > 0 else q  # his P(60+ | started)
                         pb = (pp - ps * (1 - qi)) / (1 - ps) if ps < 1 else 0.0  # P(sub | not started)
                         xm[i] = (ps2, ps2 * qi, ps2 * (1 - qi) + (1 - ps2) * max(pb, 0.0))
-                xp.update(keeper_xp(plist, fx_by_club, xm, saves_gw, consts, mins_json[pos]))
+                xp.update(keeper_xp(plist, fx_by_club, xm, saves_gw, consts, mins_json[pos], played=mins_real, given=given))
                 xp_lin.update(keeper_xp(plist, fx_by_club, xm, saves_gw, consts, mins_json[pos]))
                 start_chance.update({i: v[0] for i, v in xm.items()})
                 continue
@@ -351,7 +368,7 @@ def main():
                 g = f60[(f60["player_id"] == p_["id"]) & (f60["squad_id"] == p_["squadId"])]["mins"].tail(10)
                 m_full[p_["id"]] = (g.sum() + 3 * prior_full) / (len(g) + 3)
             cards = card_costs(rows_all[(rows_all["pos"] == pos) & ((rows_all["season"] == "2526") | (rows_all["gameweek"] < gw))])
-            xp.update(outfield_xp(pos, art, inputs, plist, fx_by_club, xm, mins_json[pos], cards, m_full, counts=counts))
+            xp.update(outfield_xp(pos, art, inputs, plist, fx_by_club, xm, mins_json[pos], cards, m_full, counts=counts, played=mins_real, given=given))
             xp_lin.update(outfield_xp(pos, art, inputs, plist, fx_by_club, xm_raw, mins_json[pos], cards, m_full))
             got = cur[cur["pos"] == pos].groupby("player_id")[[STAT_COLS[st] for st in art]].sum()
             for st in art:  # expected vs actual count of each stat over everyone registered
@@ -368,6 +385,7 @@ def main():
             i = p["id"]
             calib.append(dict(gw=gw, pos=p["pos"], id=i, club=p["squadId"], xp=xp[i], xp_alt=xp_lin[i], pts=realised[i], form=form[i],
                               games=len(fx_by_club.get(p["squadId"], [])), p_start=start_chance.get(i),
+                              xp_mins=given.get(i, 0.0), mins=float(real.at[i, "mins"]) if i in real.index else 0.0,
                               started=float(first.at[i, "start"]) if i in first.index and i in start_chance else None))
         played = {p["id"]: float(real.at[p["id"], "mins"]) if p["id"] in real.index else 0.0 for p in players}
 
@@ -391,6 +409,7 @@ def main():
                 if f["hs"] is not None:
                     gf, ga = (f["hs"], f["as_"]) if home else (f["as_"], f["hs"])
                     club_r[cid] = club_r.get(cid, 0) + club_realised(gf, ga, home)
+        club_rows += [dict(gw=gw, club=c, xp=club_x[c], pts=club_r.get(c, 0), games=len(fx_by_club[c])) for c in club_x]
         avail = sorted((c for c in club_x if uses.get(c, 0) < 5), key=lambda c: -club_x[c])[:2]
         for c in avail:
             uses[c] = uses.get(c, 0) + 1
@@ -409,7 +428,8 @@ def main():
         print(f"GW{gw}: model {pts + clubs_pts:.0f} (players {pts:.0f} + clubs {clubs_pts}) | xP {weeks[-1]['model']['xp']:.1f} | form picker "
               f"{f_pts + clubs_pts:.0f} | hindsight best {weeks[-1]['hindsight']['total']:.0f}", flush=True)
     c = pd.DataFrame(calib)
-    c.to_csv(HERE / "output" / "backtest_players.csv", index=False)  # every player-gameweek, for a closer look (not committed)
+    c.to_csv(HERE / "output" / "backtest_players.csv", index=False)  # every player-gameweek (not committed; read by league_rivals.py)
+    pd.DataFrame(club_rows).to_csv(HERE / "output" / "backtest_clubs.csv", index=False)  # every club-gameweek, likewise
     card = scorecard(c, pd.DataFrame(stat_rows), weeks)
     OUT.write_text(json.dumps(dict(generatedAt=datetime.now(timezone.utc).isoformat(timespec="seconds"), season="2026/27", weeks=weeks, scorecard=card,
                                    totals=dict(model=sum(w["model"]["total"] for w in weeks), form=sum(w["form"]["total"] for w in weeks),

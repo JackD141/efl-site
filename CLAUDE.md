@@ -8,7 +8,7 @@ serverless functions, deployed from `main` at https://dexters-corner.vercel.app 
 
 | Path | What |
 |---|---|
-| `public/` | the site (vanilla HTML/JS/CSS, no build step): `index.html` **Optimal Picks** homepage (`optimal.js`; see docs/optimal-picks.md), `players.html` player stats + "Export Stats" button, `clubs.html` **Club Planner**, `backtest.html` **Backtest** (backtest.py), `picks.html` **Player Picks** (one page, `?pos=GK|DEF|MID|FWD` loads `keepers.js` / `defenders.js` / `attackers.js`; the old keepers/defenders/midfielders/forwards.html redirect there) (see docs) |
+| `public/` | the site (vanilla HTML/JS/CSS, no build step): `index.html` **Optimal Picks** homepage (`optimal.js`; see docs/optimal-picks.md), `players.html` player stats + "Export Stats" button, `clubs.html` **Club Planner**, `backtest.html` **Backtest** (backtest.py), `rivals.html` **League Rivals** (league managers' picks rated by expected points: `api/export-league.js` -> `data/<season>/leagues/` -> `league_rivals.py`), `picks.html` **Player Picks** (one page, `?pos=GK|DEF|MID|FWD` loads `keepers.js` / `defenders.js` / `attackers.js`; the old keepers/defenders/midfielders/forwards.html redirect there) (see docs) |
 | `api/*.js` | Vercel functions (Node, `module.exports = async function handler(req, res)`): proxies to `fantasy.efl.com` JSON, `export-player-stats.js` (commits per-gameweek CSVs to GitHub), `club-picks.js` (cloud backup of club picks) |
 | `data/<season>/player_stats_gwN.csv` | per-gameweek player stats, one folder per season (`2025_26`, `2026_27`). Written by the Export Stats button |
 | `data/season_2025_26_final_totals.json` | final season-aggregate stats for last season, snapshotted before the API reset |
@@ -49,6 +49,14 @@ mocks (see `docs/club-planner.md`, "Testing").
   names were overwritten by the new season's GW1-3 (recovered from git history).
 - The export function authenticates with env vars on Vercel (`EFL_EMAIL`, `EFL_PASSWORD`, `GITHUB_TOKEN`); none are
   available locally. Never put credentials in the repo.
+- **Logged-in EFL API** (league tables, other managers' teams; found 14 Nov 2026): the fantasy site no longer reads
+  Cognito cookies. Get the Cognito `IdToken` as before, `POST https://fantasy.efl.com/api/en/auth/login {token}`, and send
+  the returned session cookies (`X-SID`, `PHPSESSID`). Then `season/ranking/overall_ladder?leagueId=<id>&page=<n>` (20 a
+  page) and `season/other-user-team/<userId>/<roundId>`. `api/export-league.js` does this; `api/league.js` is the old,
+  broken way (unused). Club leagues: Lincoln City 40, Derby County 7 (any club league can be read without joining).
+- **The stats export drops a player's games for a previous club** (it matches his results to his current club's
+  fixtures), so a player who moved between EFL clubs has no rows before the move (e.g. C. O'Hare GW1-3 2026/27). Seen
+  in `league_rivals.py`'s totals check. Not fixed yet (docs/TODO.md).
 - The built-in browser pane blocks pinnacle.com (and similar); do not try to scrape around it.
 - Use dedicated tools; before committing run `git status` and add **specific files**. There is unrelated work in
   progress in the tree (untracked `ml/midfielder/*.ipynb`, `ml/odds_expected_points.ipynb`, `data/gw36_pred_*.csv`,

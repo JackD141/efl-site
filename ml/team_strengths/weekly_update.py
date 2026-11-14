@@ -184,6 +184,9 @@ def main(gw=None, overrides=(), retrain=True, backtest=True, allow_missing_odds=
         t = step("5. backtest over finished gameweeks")
         bt.main()
         print(f"  done in {time.time() - t:.0f}s")
+        import league_rivals
+        step("5b. League Rivals: the league managers' picks scored with the backtest's expected points")
+        league_rivals.main()
 
     import check_site_maths
     step("6. reference xP for checking the pages; prediction log; live record")

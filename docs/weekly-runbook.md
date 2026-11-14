@@ -13,6 +13,14 @@ It reads every player's game log from the EFL fantasy API (logged in with the cr
 ```bash
 git pull origin main
 ```
+For the League Rivals page, also save the league tables and every listed manager's teams (Lincoln City is league 40,
+Derby County league 7; each call commits `data/2026_27/leagues/league_<id>.json`; do it before the `git pull`):
+```bash
+curl -s -X POST "https://dexters-corner.vercel.app/api/export-league?league=40" --max-time 90
+```
+```bash
+curl -s -X POST "https://dexters-corner.vercel.app/api/export-league?league=7" --max-time 90
+```
 Check the newest file is not empty (`wc -l data/2026_27/player_stats_gw*.csv`). Since 15 Oct the export includes finished
 games even when the EFL still marks the round "playing" (it did for GW9 for days), and never writes an empty file.
 
@@ -53,7 +61,9 @@ cd ml/team_strengths
    the EFL's, probabilities valid, expected minutes 0-90, each club's outfield start chances add up to ten; FAIL stops
    before anything is pushed
 5. re-runs the backtest over every finished gameweek (`backtest.py`, each gameweek refitted on games before it) and
-   prints its scorecard (calibration of xP, of start chances and of every stat; read it for drift)
+   prints its scorecard (calibration of xP, of start chances and of every stat; read it for drift), then scores the
+   league managers' picks for the League Rivals page (`league_rivals.py` -> `public/data/league_rivals.json`; it prints
+   whether the rebuilt real totals equal the EFL's: they must)
 6. writes the reference xP for checking the pages (`check_site_maths.py` -> `public/data/check_xp.json`), logs what is
    being published (`data/2026_27/predictions/gw<N>.json`, only before the gameweek's first kick-off) and prints the
    live record (`live_record.py`: logged gameweeks scored against what happened)

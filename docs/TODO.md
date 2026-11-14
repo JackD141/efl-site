@@ -17,3 +17,10 @@ Championship, League One and League Two would help model goals and assists.
 - Defenders: recalibrate the clearance model's top end (top xP fifth is over-predicted).
 - Penalty takers: a goals boost for designated takers.
 - Optional: automate the weekly refresh (currently Jack runs `run_gameweek.py` by hand).
+
+## Stats export loses games played for a previous club (found 14 Nov 2026)
+`api/export-player-stats.js` looks up each result's game among the fixtures of the player's CURRENT club and skips it
+when it is not there, so a player who moved between EFL clubs during the season has no rows for his old club (C. O'Hare:
+nothing before GW3 2026/27). Effects: a few missing training rows, and the League Rivals page cannot score a pick of such
+a player (its totals check shows it). Fix: find the game by `gameId` among all the round's games and take the club from
+the side he played for (check what the profile's result row offers), then re-export.

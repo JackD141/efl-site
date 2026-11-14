@@ -1027,3 +1027,19 @@ input[type="range"]::-moz-range-thumb:hover {
 .cp-h3 { font-size: 1rem; margin: 14px 0 6px; }
 
 .kp-tag-job { background: #eef1f5; color: #44546a; cursor: help; }
+
+/* League Rivals */
+.rv-up { color: #1f7a45; }
+.rv-down { color: #b3261e; }
+.rv-sort { cursor: pointer; user-select: none; }
+.rv-sort:hover, .rv-sorted { text-decoration: underline; text-underline-offset: 3px; }
+.rv-th-sub { font-weight: normal; opacity: 0.8; font-size: 0.7rem; }
+.rv-table .cp-link-btn { margin-top: 0; padding: 0; text-align: left; color: #1a1a1a; font-size: 0.9rem; }
+.rv-table .cp-link-btn:hover { color: #f05a28; }
+.rv-name { margin-left: 14px; }
+.rv-table tbody tr.rv-detail-row, .rv-table tbody tr.rv-detail-row:nth-child(even) { background: #fff; }
+.rv-detail { margin: 2px 0 12px 14px; border-left: 3px solid #f05a28; padding-left: 12px; }
+.rv-detail thead th { background: #555; }
+.rv-detail .bt-team thead th { background: #888; }
+.rv-detail .cp-tag { margin-left: 8px; }
+.rv-miss { color: #b26a00; cursor: help; margin-left: 2px; }

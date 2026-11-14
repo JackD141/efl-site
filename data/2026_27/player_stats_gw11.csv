@@ -13,10 +13,10 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 41789,Lucas,Akins,L. Akins,FWD,77,11,92,Blackpool,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 42887,Frank,Fielding,F. Fielding,GK,110,11,113,Bristol C,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 44699,Ashley,Barnes,A. Barnes,FWD,90,11,83,Lincoln,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-48613,Ched,Evans,C. Evans,FWD,2048,11,71,Exeter,medium,A,61,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,3
+48613,Ched,Evans,C. Evans,FWD,2048,11,71,Exeter,hard,A,61,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,3
 48903,Joe,Day,J. Day,GK,87,11,437,Newport,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 48938,Josh,Magennis,J. Magennis,FWD,288,11,22,MK Dons,medium,H,90,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,1,2
-49145,Tom,Graves,T. Graves,DEF,51,11,98,Chesterfield,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+49145,Tom,Graves,T. Graves,DEF,51,11,98,Chesterfield,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 49773,Albert,Adomah,A. Adomah,FWD,42,11,3448,Salford,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 49949,Garath,McCleary,G. McCleary,FWD,100,11,53,Grimsby,hard,H,66,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,3,0,5
 51922,Ben,Amos,B. Amos,GK,90,11,83,Lincoln,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -24,7 +24,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 55451,Jamie,Jones,J. Jones,GK,20,11,21,West Ham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 55459,Aaron,Cresswell,A. Cresswell,DEF,110,11,113,Bristol C,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 55914,Liam,Cooper,L. Cooper,DEF,19,11,290,Doncaster,easy,A,90,0,0,0,0,0,0,0,0,0,0,2,9,0,0,0,0,0,3
-55914,Liam,Cooper,L. Cooper,DEF,19,11,101,Cambridge,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+55914,Liam,Cooper,L. Cooper,DEF,19,11,101,Cambridge,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 56206,Jordan,Bowery,J. Bowery,DEF,77,11,92,Blackpool,easy,A,45,0,0,0,0,0,0,0,0,0,0,0,1,0,2,0,0,0,2
 56917,Steve,Cook,S. Cook,DEF,112,11,2623,AFC Wim,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 57531,Michail,Antonio,M. Antonio,FWD,57,11,39,Wolves,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -35,9 +35,9 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 58376,Alex,McCarthy,A. McCarthy,GK,13,11,111,Wigan,easy,H,90,0,0,0,0,0,0,0,2,0,1,0,0,0,0,0,0,0,7
 58621,Kyle,Walker,K. Walker,DEF,90,11,83,Lincoln,easy,A,45,0,0,0,0,0,0,0,0,0,0,1,1,1,3,0,0,0,2
 59013,Barry,Bannan,B. Bannan,MID,19,11,290,Doncaster,easy,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,4
-59013,Barry,Bannan,B. Bannan,MID,19,11,101,Cambridge,hard,H,82,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,4
+59013,Barry,Bannan,B. Bannan,MID,19,11,101,Cambridge,medium,H,82,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,4
 59037,Will,Grigg,W. Grigg,FWD,98,11,51,Crewe,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-59127,Danny,Andrew,D. Andrew,DEF,2048,11,71,Exeter,medium,A,29,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1
+59127,Danny,Andrew,D. Andrew,DEF,2048,11,71,Exeter,hard,A,29,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1
 60057,James,Belshaw,J. Belshaw,GK,104,11,48,Stockport,hard,H,90,0,0,0,0,0,0,0,4,0,0,1,0,0,0,0,0,0,4
 60084,David,Cornell,D. Cornell,GK,13,11,102,Luton,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 60084,David,Cornell,D. Cornell,GK,13,11,111,Wigan,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -48,8 +48,8 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 61538,Callum,McManaman,C. McManaman,MID,111,11,13,Leicester,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 61604,Matty,James,M. James,MID,109,11,5,Blackburn,medium,A,64,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,1
 66588,Luke,Ayling,L. Ayling,DEF,25,11,30,Bolton,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-73256,Joe,Edwards,J. Edwards,DEF,76,11,101,Cambridge,hard,A,8,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1
-73388,Andy,Cook,A. Cook,FWD,53,11,100,Gillingham,hard,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,3
+73256,Joe,Edwards,J. Edwards,DEF,76,11,101,Cambridge,medium,A,8,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1
+73388,Andy,Cook,A. Cook,FWD,53,11,100,Gillingham,medium,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,3
 73455,Matty,Godden,M. Godden,FWD,33,11,45,Norwich,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 73716,Jack,Hunt,J. Hunt,DEF,78,11,50,Port Vale,easy,H,63,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,7
 73716,Jack,Hunt,J. Hunt,DEF,78,11,34,Barnet,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -65,7 +65,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 78296,Ryan,Tafazolli,R. Tafazolli,DEF,46,11,96,Bristol R,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 78607,Kenny,McLean,K. McLean,MID,45,11,33,Charlton,easy,A,45,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,0,5
 78612,Omar,Beckles,O. Beckles,DEF,100,11,53,Grimsby,hard,H,90,0,0,0,0,0,0,0,0,0,0,4,8,2,1,0,0,0,3
-78773,James,Collins,J. Collins,FWD,290,11,19,Sheffield Wed,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+78773,James,Collins,J. Collins,FWD,290,11,19,Sheffield Wed,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 78773,James,Collins,J. Collins,FWD,290,11,102,Luton,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 78911,Kadeem,Harris,K. Harris,FWD,100,11,53,Grimsby,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 79287,Tom,Eaves,T. Eaves,FWD,100,11,53,Grimsby,hard,H,24,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
@@ -77,7 +77,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 80179,Adam,Forshaw,A. Forshaw,MID,5,11,109,Wrexham,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 80183,Luke,Garbutt,L. Garbutt,DEF,3448,11,42,Walsall,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 80277,Liam,Palmer,L. Palmer,DEF,19,11,290,Doncaster,easy,A,88,0,0,0,0,0,0,0,0,0,0,2,3,3,4,0,0,0,4
-80277,Liam,Palmer,L. Palmer,DEF,19,11,101,Cambridge,hard,H,8,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1
+80277,Liam,Palmer,L. Palmer,DEF,19,11,101,Cambridge,medium,H,8,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1
 80282,Lee,Nicholls,L. Nicholls,GK,107,11,35,West Brom,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 80942,Tom,Bradshaw,T. Bradshaw,FWD,72,11,74,Shrewsbury,medium,H,28,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,7
 80979,Andreas,Weimann,A. Weimann,FWD,87,11,437,Newport,medium,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
@@ -103,7 +103,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 86439,Rod,McDonald,R. McDonald,DEF,104,11,48,Stockport,hard,H,90,0,0,0,0,0,1,0,0,0,0,1,8,1,1,0,0,0,3
 86590,Max,Power,M. Power,MID,111,11,38,Huddersfield,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 86590,Max,Power,M. Power,MID,111,11,13,Leicester,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-87110,Conor,Thomas,C. Thomas,MID,51,11,98,Chesterfield,medium,A,45,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,3
+87110,Conor,Thomas,C. Thomas,MID,51,11,98,Chesterfield,hard,A,45,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,3
 87111,Ollie,Banks,O. Banks,MID,78,11,50,Port Vale,easy,H,80,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
 87111,Ollie,Banks,O. Banks,MID,78,11,34,Barnet,hard,A,14,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 87115,Richard,Smallwood,R. Smallwood,MID,96,11,46,Swindon,medium,H,63,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,2,0,2
@@ -118,15 +118,15 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 89085,Nathaniel,Chalobah,N. Chalobah,MID,33,11,45,Norwich,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 89184,Matt,Ingram,M. Ingram,GK,35,11,107,Preston,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 89470,Onel,Hernández,O. Hernández,FWD,50,11,78,York,hard,A,23,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
-90263,James,Husband,J. Husband,DEF,290,11,19,Sheffield Wed,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+90263,James,Husband,J. Husband,DEF,290,11,19,Sheffield Wed,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 90263,James,Husband,J. Husband,DEF,290,11,102,Luton,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 90495,Sonny,Bradley,S. Bradley,DEF,83,11,90,Burnley,easy,H,81,0,0,0,0,0,0,0,0,0,0,1,4,0,0,0,0,0,3
 90690,Patrick,Bauer,P. Bauer,DEF,101,11,76,Plymouth,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-90690,Patrick,Bauer,P. Bauer,DEF,101,11,19,Sheffield Wed,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+90690,Patrick,Bauer,P. Bauer,DEF,101,11,19,Sheffield Wed,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 90938,Ollie,Palmer,O. Palmer,FWD,46,11,96,Bristol R,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 91043,Connor,Ripley,C. Ripley,GK,46,11,96,Bristol R,easy,A,90,0,0,0,0,0,0,0,7,0,1,0,0,0,0,0,0,0,11
 91046,Cauley,Woodrow,C. Woodrow,FWD,112,11,2623,AFC Wim,easy,A,74,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
-91126,Will,Keane,W. Keane,FWD,290,11,19,Sheffield Wed,medium,H,68,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,4
+91126,Will,Keane,W. Keane,FWD,290,11,19,Sheffield Wed,hard,H,68,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,4
 91126,Will,Keane,W. Keane,FWD,290,11,102,Luton,hard,A,73,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,3
 91915,Sean,Raggett,S. Raggett,DEF,99,11,75,Northampton,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 92178,Ethan,Ebanks-Landell,E. Ebanks-Landell,DEF,82,11,888,Accrington,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -134,7 +134,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 92383,Nahki,Wells,N. Wells,FWD,102,11,290,Doncaster,easy,H,41,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
 92423,Stephen,McLaughlin,S. McLaughlin,DEF,77,11,92,Blackpool,easy,A,45,0,0,0,0,0,0,0,0,0,0,1,3,0,1,0,0,0,1
 92505,George,Long,G. Long,GK,20,11,21,West Ham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-93469,Mickey,Demetriou,M. Demetriou,DEF,51,11,98,Chesterfield,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+93469,Mickey,Demetriou,M. Demetriou,DEF,51,11,98,Chesterfield,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 93480,Josh,Ruffels,J. Ruffels,DEF,74,11,72,Rotherham,easy,A,90,1,0,0,0,0,0,0,0,0,0,3,4,0,0,0,0,0,9
 93658,Jake,Reeves,J. Reeves,MID,34,11,105,Oldham,easy,H,62,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,4
 93658,Jake,Reeves,J. Reeves,MID,34,11,78,York,hard,H,27,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,1,7
@@ -163,11 +163,11 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 102549,Adam,Davies,A. Davies,GK,49,11,24,Derby,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 103914,Charlie,Taylor,C. Taylor,DEF,24,11,49,Sheffield Utd,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 104047,Pelly,Mpanzu,P. Mpanzu,MID,101,11,76,Plymouth,hard,H,80,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
-104047,Pelly,Mpanzu,P. Mpanzu,MID,101,11,19,Sheffield Wed,medium,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,5
+104047,Pelly,Mpanzu,P. Mpanzu,MID,101,11,19,Sheffield Wed,hard,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,5
 104074,Adedeji,Oshilaja,A. Oshilaja,DEF,77,11,92,Blackpool,easy,A,90,0,0,0,0,0,0,0,0,0,0,1,9,0,1,0,0,0,4
 104532,Devante,Cole,D. Cole,FWD,102,11,13,Leicester,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 104532,Devante,Cole,D. Cole,FWD,102,11,290,Doncaster,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-104536,Ian,Lawlor,I. Lawlor,GK,51,11,98,Chesterfield,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+104536,Ian,Lawlor,I. Lawlor,GK,51,11,98,Chesterfield,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 105711,Jed,Wallace,J. Wallace,MID,113,11,110,Stoke,hard,A,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 106256,Jak,Alnwick,J. Alnwick,GK,38,11,111,Wigan,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 106423,George,Evans,G. Evans,MID,587,11,85,L Orient,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -181,16 +181,16 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 108799,Louis,Thompson,L. Thompson,MID,288,11,22,MK Dons,medium,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,4
 108801,Max,Crocombe,M. Crocombe,GK,103,11,47,Portsmouth,medium,A,90,0,0,0,0,0,0,0,1,0,0,2,0,0,0,0,0,0,1
 109011,Joe,Rafferty,J. Rafferty,DEF,72,11,74,Shrewsbury,medium,H,90,0,0,0,0,0,0,0,0,0,0,3,10,0,1,0,0,0,3
-109195,Jamie,Walker,J. Walker,FWD,53,11,100,Gillingham,hard,A,81,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
+109195,Jamie,Walker,J. Walker,FWD,53,11,100,Gillingham,medium,A,81,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
 109224,Jack,Bonham,J. Bonham,GK,30,11,25,Middlesbrough,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 109633,Dominic,Iorfa,D. Iorfa,DEF,72,11,74,Shrewsbury,medium,H,44,0,0,0,0,0,0,0,0,0,0,1,3,0,0,0,0,0,1
 109674,Cole,Stockton,C. Stockton,FWD,888,11,82,Rochdale,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-109690,Neill,Byrne,N. Byrne,DEF,290,11,19,Sheffield Wed,medium,H,90,0,0,0,0,0,0,0,0,0,1,0,10,0,0,0,0,0,9
+109690,Neill,Byrne,N. Byrne,DEF,290,11,19,Sheffield Wed,hard,H,90,0,0,0,0,0,0,0,0,0,1,0,10,0,0,0,0,0,9
 109690,Neill,Byrne,N. Byrne,DEF,290,11,102,Luton,hard,A,90,0,0,0,0,0,0,0,0,0,0,3,6,2,2,0,0,0,4
 110219,Ross,Fitzsimons,R. Fitzsimons,GK,75,11,99,Colchester,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 110504,Bertrand,Traoré,B. Traoré,FWD,39,11,57,Watford,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-110578,Jay,Lynch,J. Lynch,GK,2048,11,71,Exeter,medium,A,90,0,0,0,0,0,0,0,2,0,0,2,0,0,0,0,0,0,1
-110698,Matthew,Pearson,M. Pearson,DEF,290,11,19,Sheffield Wed,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+110578,Jay,Lynch,J. Lynch,GK,2048,11,71,Exeter,hard,A,90,0,0,0,0,0,0,0,2,0,0,2,0,0,0,0,0,0,1
+110698,Matthew,Pearson,M. Pearson,DEF,290,11,19,Sheffield Wed,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 110698,Matthew,Pearson,M. Pearson,DEF,290,11,102,Luton,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 111257,Jordan,Roberts,J. Roberts,FWD,288,11,22,MK Dons,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 111478,Joël,Veltman,J. Veltman,DEF,21,11,20,Southampton,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -239,7 +239,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 126189,John,Swift,J. Swift,MID,47,11,103,Millwall,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 127571,Bojan,Radulovic,B. Radulovic,FWD,38,11,111,Wigan,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 128309,Jamal,Lowe,J. Lowe,FWD,19,11,290,Doncaster,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-128309,Jamal,Lowe,J. Lowe,FWD,19,11,101,Cambridge,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+128309,Jamal,Lowe,J. Lowe,FWD,19,11,101,Cambridge,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 128340,Kieffer,Moore,K. Moore,FWD,109,11,5,Blackburn,medium,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,4
 130103,Hiram,Boateng,H. Boateng,MID,78,11,50,Port Vale,easy,H,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 130103,Hiram,Boateng,H. Boateng,MID,78,11,34,Barnet,hard,A,52,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,-2
@@ -252,10 +252,10 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 135715,Kabongo,Tshimanga,K. Tshimanga,FWD,34,11,105,Oldham,easy,H,90,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,8
 135715,Kabongo,Tshimanga,K. Tshimanga,FWD,34,11,78,York,hard,H,83,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,10
 136361,Ricardo,Santos,R. Santos,DEF,19,11,290,Doncaster,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-136361,Ricardo,Santos,R. Santos,DEF,19,11,101,Cambridge,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+136361,Ricardo,Santos,R. Santos,DEF,19,11,101,Cambridge,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 137974,Connor,Hall,C. Hall,DEF,50,11,78,York,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 138009,Sullay,Kaikai,S. Kaikai,FWD,101,11,76,Plymouth,hard,H,90,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,5,1,9
-138009,Sullay,Kaikai,S. Kaikai,FWD,101,11,19,Sheffield Wed,medium,A,30,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,7
+138009,Sullay,Kaikai,S. Kaikai,FWD,101,11,19,Sheffield Wed,hard,A,30,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,7
 140172,Liam,Roberts,L. Roberts,GK,77,11,92,Blackpool,easy,A,90,0,0,0,0,0,0,0,4,0,0,1,0,0,0,0,0,0,4
 141290,Adam,Phillips,A. Phillips,MID,55,11,106,Oxford,hard,A,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,3
 141874,Craig,MacGillivray,C. MacGillivray,GK,22,11,288,Stevenage,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -271,7 +271,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 149388,Ben,Killip,B. Killip,GK,47,11,103,Millwall,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 149421,Michael,Rose,M. Rose,DEF,3448,11,42,Walsall,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 149443,Nick,Freeman,N. Freeman,MID,100,11,53,Grimsby,hard,H,67,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,4
-149472,Hakeeb,Adelakun,H. Adelakun,FWD,290,11,19,Sheffield Wed,medium,H,69,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
+149472,Hakeeb,Adelakun,H. Adelakun,FWD,290,11,19,Sheffield Wed,hard,H,69,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
 149472,Hakeeb,Adelakun,H. Adelakun,FWD,290,11,102,Luton,hard,A,45,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 149519,Maxwel,Cornet,M. Cornet,FWD,21,11,20,Southampton,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 149929,Wes,Burns,W. Burns,FWD,13,11,102,Luton,hard,A,45,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
@@ -284,7 +284,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 153134,Glen,Kamara,G. Kamara,MID,52,11,80,Swansea,hard,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,0,7
 153271,Josh,Windass,J. Windass,MID,109,11,5,Blackburn,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 153346,Aaron,McGowan,A. McGowan,DEF,50,11,78,York,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-153352,Christian,Doidge,C. Doidge,FWD,437,11,87,Cheltenham,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+153352,Christian,Doidge,C. Doidge,FWD,437,11,87,Cheltenham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 153371,Sam,Gallagher,S. Gallagher,FWD,110,11,113,Bristol C,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 153477,Conor,Masterson,C. Masterson,DEF,108,11,37,Barnsley,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 153671,Gethin,Jones,G. Jones,DEF,22,11,288,Stevenage,medium,A,1,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,1
@@ -296,7 +296,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 153724,Conor,Grant,C. Grant,MID,888,11,82,Rochdale,easy,A,17,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
 153772,Luke,McGee,L. McGee,GK,44,11,1525,Crawley,easy,A,90,0,0,0,0,0,0,0,6,0,0,1,0,0,0,0,0,0,6
 153775,Dominic,Ball,D. Ball,MID,101,11,76,Plymouth,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-153775,Dominic,Ball,D. Ball,MID,101,11,19,Sheffield Wed,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+153775,Dominic,Ball,D. Ball,MID,101,11,19,Sheffield Wed,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 154040,George,Dobson,G. Dobson,MID,109,11,5,Blackburn,medium,A,26,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 154042,Marc,Bola,M. Bola,DEF,57,11,39,Wolves,hard,A,61,0,0,0,0,0,0,0,0,0,0,1,4,1,0,0,0,0,3
 154047,Chris,Willock,C. Willock,MID,97,11,41,Birmingham,hard,H,22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
@@ -306,11 +306,11 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 154133,Liam,Kelly,L. Kelly,MID,73,11,2050,Bromley,easy,A,70,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,3
 154506,Daniel,Bachmann,D. Bachmann,GK,57,11,39,Wolves,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 154510,Ryan,Boot,R. Boot,GK,98,11,51,Crewe,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-154511,Christy,Pym,C. Pym,GK,53,11,100,Gillingham,hard,A,90,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,2
+154511,Christy,Pym,C. Pym,GK,53,11,100,Gillingham,medium,A,90,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,2
 154581,Luke,Molyneux,L. Molyneux,MID,3448,11,42,Walsall,hard,A,90,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,4,1,11
 154936,Janoi,Donacien,J. Donacien,DEF,75,11,99,Colchester,easy,H,90,0,0,0,0,0,0,0,0,0,1,0,1,0,4,0,0,0,9
 155197,Max,Lowe,M. Lowe,DEF,19,11,290,Doncaster,easy,A,90,0,0,0,0,0,0,0,0,0,0,2,3,0,4,0,0,0,3
-155197,Max,Lowe,M. Lowe,DEF,19,11,101,Cambridge,hard,H,90,0,0,0,0,0,0,0,0,0,0,1,8,1,0,0,0,0,4
+155197,Max,Lowe,M. Lowe,DEF,19,11,101,Cambridge,medium,H,90,0,0,0,0,0,0,0,0,0,0,1,8,1,0,0,0,0,4
 155202,Farrend,Rawson,F. Rawson,DEF,888,11,82,Rochdale,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 155405,Kalvin,Phillips,K. Phillips,MID,49,11,24,Derby,easy,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,5
 155508,Macaulay,Gillesphey,M. Gillesphey,DEF,55,11,106,Oxford,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -321,7 +321,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 156658,Reece,Burke,R. Burke,DEF,33,11,45,Norwich,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 156685,Joe,Rothwell,J. Rothwell,MID,49,11,24,Derby,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 156687,Ben,Pearson,B. Pearson,MID,110,11,113,Bristol C,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-156699,Cameron,Norman,C. Norman,DEF,437,11,87,Cheltenham,hard,A,90,0,0,0,0,0,0,0,0,0,0,1,4,0,4,0,0,0,5
+156699,Cameron,Norman,C. Norman,DEF,437,11,87,Cheltenham,medium,A,90,0,0,0,0,0,0,0,0,0,0,1,4,0,4,0,0,0,5
 156700,Carlton,Morris,C. Morris,FWD,24,11,49,Sheffield Utd,medium,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
 156706,Cameron,McGeehan,C. McGeehan,MID,37,11,108,Reading,hard,A,83,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,3
 158534,Kyle,Walker-Peters,K. Walker-Peters,DEF,21,11,20,Southampton,hard,H,74,1,0,0,0,0,0,0,0,0,0,3,2,0,0,0,0,0,8
@@ -338,9 +338,9 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 160816,Donald,Love,D. Love,DEF,888,11,82,Rochdale,easy,A,90,0,0,0,0,0,1,0,0,0,1,0,3,0,1,0,0,0,6
 160996,Jack,Marriott,J. Marriott,FWD,108,11,37,Barnsley,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 161006,Liam,Lindsay,L. Lindsay,DEF,107,11,35,West Brom,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-161043,Andy,Cannon,A. Cannon,MID,2048,11,71,Exeter,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+161043,Andy,Cannon,A. Cannon,MID,2048,11,71,Exeter,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 161076,Reece,James,R. James,DEF,19,11,290,Doncaster,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-161076,Reece,James,R. James,DEF,19,11,101,Cambridge,hard,H,90,0,0,0,0,0,1,0,0,0,0,1,4,0,0,0,0,0,2
+161076,Reece,James,R. James,DEF,19,11,101,Cambridge,medium,H,90,0,0,0,0,0,1,0,0,0,0,1,4,0,0,0,0,0,2
 164658,Séamus,Conneely,S. Conneely,MID,888,11,82,Rochdale,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 164866,Sven,Sprangler,S. Sprangler,MID,42,11,3448,Salford,hard,H,58,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,3
 165157,Ryan,Croasdale,R. Croasdale,MID,50,11,78,York,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -350,7 +350,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 167191,Marcus,Harness,M. Harness,FWD,38,11,111,Wigan,easy,H,21,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,1,0,3
 167447,Paul,Mullin,P. Mullin,FWD,72,11,74,Shrewsbury,medium,H,62,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,16
 167541,Jack,Payne,J. Payne,MID,99,11,75,Northampton,easy,A,29,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,3
-167685,Shaun,Rooney,S. Rooney,DEF,2048,11,71,Exeter,medium,A,90,0,0,0,0,0,0,0,0,0,0,2,3,0,0,0,0,0,1
+167685,Shaun,Rooney,S. Rooney,DEF,2048,11,71,Exeter,hard,A,90,0,0,0,0,0,0,0,0,0,0,2,3,0,0,0,0,0,1
 167724,Ryan,Hardie,R. Hardie,FWD,30,11,25,Middlesbrough,hard,H,35,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 167789,Baily,Cargill,B. Cargill,DEF,77,11,92,Blackpool,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 167810,Rob,Hunt,R. Hunt,DEF,99,11,75,Northampton,easy,A,61,0,0,0,0,0,0,0,0,0,0,2,2,0,0,0,0,0,1
@@ -359,7 +359,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 167878,Ben,Osborn,B. Osborn,MID,48,11,106,Oxford,hard,A,45,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 167887,Josh,Laurent,J. Laurent,MID,90,11,83,Lincoln,easy,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
 167888,Joe,Lumley,J. Lumley,GK,19,11,290,Doncaster,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-167888,Joe,Lumley,J. Lumley,GK,19,11,101,Cambridge,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+167888,Joe,Lumley,J. Lumley,GK,19,11,101,Cambridge,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 167889,Manny,Monthé,M. Monthé,DEF,105,11,34,Barnet,hard,A,90,0,0,0,0,0,0,0,0,0,0,1,8,0,1,0,0,0,4
 167894,Stuart,Moore,S. Moore,GK,112,11,2623,AFC Wim,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 167895,Jake,Cooper,J. Cooper,DEF,103,11,47,Portsmouth,medium,A,90,0,0,0,0,0,1,0,0,0,0,2,7,1,1,0,0,0,1
@@ -370,7 +370,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 168229,Liam,Gordon,L. Gordon,DEF,100,11,53,Grimsby,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 168315,Patrick,Brough,P. Brough,DEF,44,11,1525,Crawley,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 168399,Will,Norris,W. Norris,GK,3448,11,42,Walsall,hard,A,90,0,0,0,0,0,0,0,2,0,0,2,0,0,0,0,0,0,1
-168478,Charles,Vernam,C. Vernam,FWD,53,11,100,Gillingham,hard,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,2,6
+168478,Charles,Vernam,C. Vernam,FWD,53,11,100,Gillingham,medium,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,2,6
 168549,Dion,Charles,D. Charles,FWD,92,11,77,Mansfield,medium,H,66,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,8
 168648,Jordan,Turnbull,J. Turnbull,DEF,44,11,1525,Crawley,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 168759,Kane,Vincent-Young,K. Vincent-Young,DEF,99,11,75,Northampton,easy,A,29,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1
@@ -397,7 +397,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 171975,Callum,Robinson,C. Robinson,FWD,97,11,41,Birmingham,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 172453,Sam,Szmodics,S. Szmodics,MID,24,11,49,Sheffield Utd,medium,A,73,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,3
 172455,Tom,Conlon,T. Conlon,MID,44,11,1525,Crawley,easy,A,57,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,3
-172549,Kyle,Cameron,K. Cameron,DEF,437,11,87,Cheltenham,hard,A,90,0,0,0,0,0,0,0,0,0,0,1,8,0,0,0,0,0,4
+172549,Kyle,Cameron,K. Cameron,DEF,437,11,87,Cheltenham,medium,A,90,0,0,0,0,0,0,0,0,0,0,1,8,0,0,0,0,0,4
 172551,Callum,Roberts,C. Roberts,FWD,104,11,48,Stockport,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 172567,Josh,Cullen,J. Cullen,MID,90,11,83,Lincoln,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 172632,Demarai,Gray,D. Gray,FWD,41,11,97,Cardiff,medium,A,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2
@@ -414,7 +414,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 173995,Frankie,Kent,F. Kent,DEF,106,11,55,Bradford,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 173995,Frankie,Kent,F. Kent,DEF,106,11,48,Stockport,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 174205,Dan,Casey,D. Casey,DEF,112,11,2623,AFC Wim,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-174308,Julio,Pleguezuelo,J. Pleguezuelo,DEF,76,11,101,Cambridge,hard,A,90,0,0,0,0,0,0,0,0,0,0,2,14,0,1,0,0,0,4
+174308,Julio,Pleguezuelo,J. Pleguezuelo,DEF,76,11,101,Cambridge,medium,A,90,0,0,0,0,0,0,0,0,0,0,2,14,0,1,0,0,0,4
 174310,Elijah,Adebayo,E. Adebayo,FWD,113,11,110,Stoke,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 174587,Taye,Ashby-Hammond,T. Ashby-Hammond,GK,34,11,105,Oldham,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 174587,Taye,Ashby-Hammond,T. Ashby-Hammond,GK,34,11,78,York,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -445,7 +445,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 178017,Michael,Cheek,M. Cheek,FWD,2050,11,73,Peterborough,easy,H,79,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,8
 178017,Michael,Cheek,M. Cheek,FWD,2050,11,22,MK Dons,medium,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
 178023,Myles,Hippolyte,M. Hippolyte,MID,2623,11,112,Wycombe,medium,H,82,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,4
-178161,Alfie,May,A. May,FWD,290,11,19,Sheffield Wed,medium,H,22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+178161,Alfie,May,A. May,FWD,290,11,19,Sheffield Wed,hard,H,22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 178161,Alfie,May,A. May,FWD,290,11,102,Luton,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 178173,Matt,Clarke,M. Clarke,DEF,24,11,49,Sheffield Utd,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 178186,Jarrod,Bowen,J. Bowen,FWD,21,11,20,Southampton,hard,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,1,5
@@ -468,7 +468,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 180732,Jake,Clarke-Salter,J. Clarke-Salter,DEF,52,11,80,Swansea,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 180801,Aynsley,Pears,A. Pears,GK,5,11,109,Wrexham,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 181291,Will,Boyle,W. Boyle,DEF,74,11,72,Rotherham,easy,A,90,1,0,0,0,0,0,0,0,0,0,3,14,1,0,0,0,0,11
-181397,Jamie,Sterry,J. Sterry,DEF,290,11,19,Sheffield Wed,medium,H,68,0,0,0,0,0,0,0,0,0,1,0,3,0,0,0,0,0,7
+181397,Jamie,Sterry,J. Sterry,DEF,290,11,19,Sheffield Wed,hard,H,68,0,0,0,0,0,0,0,0,0,1,0,3,0,0,0,0,0,7
 181397,Jamie,Sterry,J. Sterry,DEF,290,11,102,Luton,hard,A,69,0,0,0,0,0,1,0,0,0,0,2,6,0,0,0,0,0,1
 182436,Ben,Woodburn,B. Woodburn,MID,3448,11,42,Walsall,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 182744,Ryan,Leak,R. Leak,DEF,42,11,3448,Salford,hard,H,71,0,0,0,0,0,0,0,0,0,0,3,9,4,0,0,0,0,5
@@ -492,7 +492,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 185506,Scott,Wright,S. Wright,FWD,41,11,97,Cardiff,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 186797,Tom,Pett,T. Pett,MID,105,11,34,Barnet,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 186800,Perry,Ng,P. Ng,DEF,97,11,41,Birmingham,hard,H,90,0,0,0,0,0,0,0,0,0,1,0,3,0,2,0,0,0,8
-191844,Ronan,Coughlan,R. Coughlan,FWD,2048,11,71,Exeter,medium,A,90,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,3,11
+191844,Ronan,Coughlan,R. Coughlan,FWD,2048,11,71,Exeter,hard,A,90,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,3,11
 192281,Marvin,Ekpiteta,M. Ekpiteta,DEF,22,11,288,Stevenage,medium,A,90,0,0,0,0,0,0,0,0,0,1,0,5,0,1,0,0,0,8
 192281,Marvin,Ekpiteta,M. Ekpiteta,DEF,22,11,2050,Bromley,easy,H,90,0,0,0,0,0,0,0,0,0,0,1,2,0,0,0,0,0,2
 192290,Connor,Roberts,C. Roberts,DEF,90,11,83,Lincoln,easy,A,45,0,0,0,0,0,0,0,0,0,0,3,1,0,1,0,0,0,0
@@ -500,9 +500,9 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 192441,Omar,Sowunmi,O. Sowunmi,DEF,2050,11,22,MK Dons,medium,A,90,0,0,0,0,0,0,0,0,0,0,4,6,2,3,0,0,0,3
 193041,Jamie,Robson,J. Robson,DEF,105,11,34,Barnet,hard,A,90,0,0,0,0,0,0,0,0,0,0,1,3,0,3,0,0,0,3
 193061,Connal,Trueman,C. Trueman,GK,19,11,290,Doncaster,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-193061,Connal,Trueman,C. Trueman,GK,19,11,101,Cambridge,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+193061,Connal,Trueman,C. Trueman,GK,19,11,101,Cambridge,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 193109,Callum,Slattery,C. Slattery,MID,19,11,290,Doncaster,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-193109,Callum,Slattery,C. Slattery,MID,19,11,101,Cambridge,hard,H,90,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,2,1,7
+193109,Callum,Slattery,C. Slattery,MID,19,11,101,Cambridge,medium,H,90,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,2,1,7
 193111,Todd,Cantwell,T. Cantwell,MID,5,11,109,Wrexham,medium,H,90,0,0,1,0,0,1,0,0,0,0,0,0,0,0,2,7,0,11
 193448,Benjamin,Whiteman,B. Whiteman,MID,109,11,5,Blackburn,medium,A,64,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,0,5
 193576,Zak,Vyner,Z. Vyner,DEF,109,11,5,Blackburn,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -511,7 +511,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 194190,Harry,Souttar,H. Souttar,DEF,13,11,102,Luton,hard,A,90,0,0,0,0,0,0,0,0,0,0,2,10,1,1,0,0,0,3
 194190,Harry,Souttar,H. Souttar,DEF,13,11,111,Wigan,easy,H,90,0,0,1,0,0,0,0,0,0,1,0,7,0,2,0,0,0,12
 194209,Owen,Moxon,O. Moxon,MID,101,11,76,Plymouth,hard,H,28,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
-194209,Owen,Moxon,O. Moxon,MID,101,11,19,Sheffield Wed,medium,A,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2
+194209,Owen,Moxon,O. Moxon,MID,101,11,19,Sheffield Wed,hard,A,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2
 194213,Lyndon,Dykes,L. Dykes,FWD,103,11,47,Portsmouth,medium,A,68,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,-1
 194230,Macauley,Southam-Hales,M. Southam-Hales,DEF,96,11,46,Swindon,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 194231,David,Tutonda,D. Tutonda,DEF,888,11,82,Rochdale,easy,A,90,0,0,1,0,0,1,0,0,0,1,0,2,0,5,0,0,0,11
@@ -534,7 +534,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 196402,Matty,Stevens,M. Stevens,FWD,2623,11,112,Wycombe,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 196411,Conor,Chaplin,C. Chaplin,FWD,13,11,102,Luton,hard,A,17,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2
 196411,Conor,Chaplin,C. Chaplin,FWD,13,11,111,Wigan,easy,H,60,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
-197112,Matt,Smith,M. Smith,MID,437,11,87,Cheltenham,hard,A,56,0,0,0,0,0,1,0,0,0,0,0,0,0,0,2,1,0,4
+197112,Matt,Smith,M. Smith,MID,437,11,87,Cheltenham,medium,A,56,0,0,0,0,0,1,0,0,0,0,0,0,0,0,2,1,0,4
 197139,Liam,Coyle,L. Coyle,MID,888,11,82,Rochdale,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 197197,Regan,Poole,R. Poole,DEF,47,11,103,Millwall,medium,H,90,0,0,0,0,0,0,0,0,0,0,1,9,1,1,0,0,0,4
 197203,Aden,Baldwin,A. Baldwin,DEF,55,11,106,Oxford,hard,A,90,0,0,0,0,0,0,0,0,0,1,0,4,1,2,0,0,0,9
@@ -544,7 +544,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 197469,Hamza,Choudhury,H. Choudhury,MID,49,11,24,Derby,easy,H,57,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,5
 198044,Harry,Lewis,H. Lewis,GK,77,11,92,Blackpool,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 198508,Josh,Vickers,J. Vickers,GK,24,11,49,Sheffield Utd,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-198563,Kieran,Green,K. Green,MID,53,11,100,Gillingham,hard,A,81,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1,0,8
+198563,Kieran,Green,K. Green,MID,53,11,100,Gillingham,medium,A,81,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1,0,8
 198843,Niall,Ennis,N. Ennis,FWD,92,11,77,Mansfield,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 198868,Will,Collar,W. Collar,MID,587,11,85,L Orient,medium,H,90,1,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,15
 198873,James,Tilley,J. Tilley,FWD,2623,11,112,Wycombe,medium,H,90,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5
@@ -587,10 +587,10 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 203391,Luke,Bolton,L. Bolton,MID,77,11,92,Blackpool,easy,A,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,3
 203576,Jodi,Jones,J. Jones,FWD,2050,11,73,Peterborough,easy,H,73,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
 203576,Jodi,Jones,J. Jones,FWD,2050,11,22,MK Dons,medium,A,29,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
-204137,Wes,Harding,W. Harding,DEF,76,11,101,Cambridge,hard,A,90,0,0,0,0,0,0,0,0,0,0,2,5,1,4,0,0,0,4
+204137,Wes,Harding,W. Harding,DEF,76,11,101,Cambridge,medium,A,90,0,0,0,0,0,0,0,0,0,0,2,5,1,4,0,0,0,4
 204143,Steve,Seddon,S. Seddon,DEF,2623,11,112,Wycombe,medium,H,90,0,0,0,0,0,1,0,0,0,0,1,4,1,0,0,0,0,2
 204216,Keshi,Anderson,K. Anderson,MID,47,11,103,Millwall,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-204606,Mark,Shelton,M. Shelton,MID,53,11,100,Gillingham,hard,A,18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+204606,Mark,Shelton,M. Shelton,MID,53,11,100,Gillingham,medium,A,18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 204694,Róbert,Bozeník,R. Bozeník,FWD,110,11,113,Bristol C,easy,H,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 204814,Ben,Brereton,B. Brereton,FWD,49,11,24,Derby,easy,H,67,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
 204863,Ryan,Manning,R. Manning,DEF,20,11,21,West Ham,medium,A,90,0,0,0,0,0,0,0,0,0,0,2,4,0,0,0,0,0,2
@@ -624,20 +624,20 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 210148,Nik,Tzanev,N. Tzanev,GK,38,11,111,Wigan,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 210440,Mark,Sykes,M. Sykes,MID,103,11,47,Portsmouth,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 210443,Shayne,Lavery,S. Lavery,FWD,101,11,76,Plymouth,hard,H,29,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,8
-210443,Shayne,Lavery,S. Lavery,FWD,101,11,19,Sheffield Wed,medium,A,30,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,1,1,4
+210443,Shayne,Lavery,S. Lavery,FWD,101,11,19,Sheffield Wed,hard,A,30,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,1,1,4
 210834,Curtis,Tilt,C. Tilt,DEF,587,11,85,L Orient,medium,H,90,0,0,0,0,0,0,0,0,0,0,1,5,0,3,0,0,0,4
 212596,Nicolas,Schmid,N. Schmid,GK,47,11,103,Millwall,medium,H,90,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,2
 213279,Josh,Dacres-Cogley,J. Dacres-Cogley,DEF,48,11,104,Notts C,easy,A,26,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,2
 213279,Josh,Dacres-Cogley,J. Dacres-Cogley,DEF,48,11,106,Oxford,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 213280,Jake,Eastwood,J. Eastwood,GK,101,11,76,Plymouth,hard,H,90,0,0,0,0,0,0,0,3,0,0,3,0,0,0,0,0,0,3
-213280,Jake,Eastwood,J. Eastwood,GK,101,11,19,Sheffield Wed,medium,A,90,0,0,0,0,0,0,0,5,0,0,1,0,0,0,0,0,0,4
-213372,Harry,Clifton,H. Clifton,MID,290,11,19,Sheffield Wed,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+213280,Jake,Eastwood,J. Eastwood,GK,101,11,19,Sheffield Wed,hard,A,90,0,0,0,0,0,0,0,5,0,0,1,0,0,0,0,0,0,4
+213372,Harry,Clifton,H. Clifton,MID,290,11,19,Sheffield Wed,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 213372,Harry,Clifton,H. Clifton,MID,290,11,102,Luton,hard,A,17,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,2,0,5
 213412,Robbie,Cundy,R. Cundy,DEF,87,11,437,Newport,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 213482,Yan,Valery,Y. Valery,DEF,19,11,290,Doncaster,easy,A,90,0,0,0,0,0,0,0,0,0,0,2,3,0,2,0,0,0,2
-213482,Yan,Valery,Y. Valery,DEF,19,11,101,Cambridge,hard,H,82,0,0,0,0,0,0,0,0,0,0,1,5,0,4,0,0,0,5
+213482,Yan,Valery,Y. Valery,DEF,19,11,101,Cambridge,medium,H,82,0,0,0,0,0,0,0,0,0,0,1,5,0,4,0,0,0,5
 213589,Fraser,Horsfall,F. Horsfall,DEF,92,11,77,Mansfield,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-213598,Jack,Senior,J. Senior,DEF,290,11,19,Sheffield Wed,medium,H,90,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,7
+213598,Jack,Senior,J. Senior,DEF,290,11,19,Sheffield Wed,hard,H,90,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,7
 213598,Jack,Senior,J. Senior,DEF,290,11,102,Luton,hard,A,90,0,0,0,0,0,0,0,0,0,0,3,5,1,0,0,0,0,2
 213687,Charlie,Goode,C. Goode,DEF,22,11,288,Stevenage,medium,A,90,0,0,0,0,0,0,0,0,0,1,0,15,2,1,0,0,0,11
 213687,Charlie,Goode,C. Goode,DEF,22,11,2050,Bromley,easy,H,90,1,0,0,0,0,0,0,0,0,0,1,7,1,1,0,0,0,10
@@ -656,7 +656,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 214964,George,Edmundson,G. Edmundson,DEF,25,11,30,Bolton,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 214988,Ellis,Iandolo,E. Iandolo,DEF,99,11,75,Northampton,easy,A,90,0,0,0,0,0,0,0,0,0,0,2,4,0,4,0,0,0,4
 215062,Max,Sanders,M. Sanders,MID,104,11,48,Stockport,hard,H,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
-215064,Isaac,Hutchinson,I. Hutchinson,MID,290,11,19,Sheffield Wed,medium,H,68,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,4,1,8
+215064,Isaac,Hutchinson,I. Hutchinson,MID,290,11,19,Sheffield Wed,hard,H,68,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,4,1,8
 215064,Isaac,Hutchinson,I. Hutchinson,MID,290,11,102,Luton,hard,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
 215066,Alex,Cochrane,A. Cochrane,DEF,41,11,97,Cardiff,medium,A,90,0,0,0,0,0,0,0,0,0,0,1,4,1,0,0,0,0,3
 215068,Kelsey,Mooney,K. Mooney,FWD,888,11,82,Rochdale,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -668,11 +668,11 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 215457,Kane,Wilson,K. Wilson,DEF,22,11,288,Stevenage,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 215457,Kane,Wilson,K. Wilson,DEF,22,11,2050,Bromley,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 215459,George,McEachran,G. McEachran,MID,98,11,51,Crewe,hard,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,0,8
-215828,Aaron,Lewis,A. Lewis,DEF,437,11,87,Cheltenham,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+215828,Aaron,Lewis,A. Lewis,DEF,437,11,87,Cheltenham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 215974,Jordan,Williams,J. Williams,DEF,92,11,77,Mansfield,medium,H,90,0,0,0,0,0,0,0,0,0,0,4,2,0,1,0,0,0,0
 216554,Sam,Hughes,S. Hughes,DEF,73,11,2050,Bromley,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 216555,Alfie,Kilgour,A. Kilgour,DEF,96,11,46,Swindon,medium,H,90,0,0,0,0,0,0,0,0,0,1,0,6,0,0,0,0,0,8
-216558,Shaun,MacDonald,S. MacDonald,GK,437,11,87,Cheltenham,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+216558,Shaun,MacDonald,S. MacDonald,GK,437,11,87,Cheltenham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 217583,Hakeem,Odoffin,H. Odoffin,DEF,102,11,13,Leicester,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 217583,Hakeem,Odoffin,H. Odoffin,DEF,102,11,290,Doncaster,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 217633,Rosaire,Longelo,R. Longelo,MID,104,11,48,Stockport,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -683,7 +683,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 218673,Liam,Cullen,L. Cullen,FWD,13,11,102,Luton,hard,A,7,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,7
 218673,Liam,Cullen,L. Cullen,FWD,13,11,111,Wigan,easy,H,30,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 218675,Brandon,Cooper,B. Cooper,DEF,3448,11,42,Walsall,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-219163,Ronan,Curtis,R. Curtis,MID,76,11,101,Cambridge,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+219163,Ronan,Curtis,R. Curtis,MID,76,11,101,Cambridge,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 219333,Dan,Scarr,D. Scarr,DEF,3448,11,42,Walsall,hard,A,90,0,0,0,0,0,0,0,0,0,0,2,11,1,0,0,0,0,3
 219339,Terence,Vancooten,T. Vancooten,DEF,288,11,22,MK Dons,medium,H,90,0,0,0,0,0,0,0,0,0,0,1,3,1,0,0,0,0,2
 220037,Bailey,Peacock-Farrell,B. Peacock-Farrell,GK,92,11,77,Mansfield,medium,H,90,0,0,0,0,0,0,0,4,1,0,4,0,0,0,0,0,0,7
@@ -694,7 +694,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 220334,Ronan,Hale,R. Hale,FWD,100,11,53,Grimsby,hard,H,90,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,9
 220336,Charlie,Lakin,C. Lakin,MID,34,11,105,Oldham,easy,H,62,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
 220336,Charlie,Lakin,C. Lakin,MID,34,11,78,York,hard,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,1,7
-220355,Jordan,Gibson,J. Gibson,MID,51,11,98,Chesterfield,medium,A,90,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,6
+220355,Jordan,Gibson,J. Gibson,MID,51,11,98,Chesterfield,hard,A,90,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,6
 220394,Tommy,Doyle,T. Doyle,MID,39,11,57,Watford,easy,H,12,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,1,3
 220399,Mikey,Johnston,M. Johnston,FWD,35,11,107,Preston,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 220483,George,Miller,G. Miller,FWD,87,11,437,Newport,medium,H,17,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
@@ -702,7 +702,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 220594,Charlie,Brown,C. Brown,FWD,888,11,82,Rochdale,easy,A,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2
 220598,Michael,Obafemi,M. Obafemi,FWD,90,11,83,Lincoln,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 220625,Dan,Sweeney,D. Sweeney,DEF,2623,11,112,Wycombe,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-220651,Owen,Bailey,O. Bailey,MID,290,11,19,Sheffield Wed,medium,H,90,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,17
+220651,Owen,Bailey,O. Bailey,MID,290,11,19,Sheffield Wed,hard,H,90,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,17
 220651,Owen,Bailey,O. Bailey,MID,290,11,102,Luton,hard,A,90,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,1
 220682,Arthur,Okonkwo,A. Okonkwo,GK,33,11,45,Norwich,medium,H,90,0,0,0,0,0,0,0,2,0,0,3,0,0,0,0,0,0,1
 220686,Bali,Mumba,B. Mumba,DEF,38,11,111,Wigan,easy,H,90,0,0,0,0,0,0,0,0,0,0,1,1,0,5,0,0,0,4
@@ -714,13 +714,13 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 220738,Jayson,Molumby,J. Molumby,MID,35,11,107,Preston,easy,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,0,5
 220803,Paul,Smyth,P. Smyth,FWD,52,11,80,Swansea,hard,H,72,0,0,2,0,0,1,0,0,0,0,0,0,0,0,0,1,0,7
 221224,Randell,Williams,R. Williams,MID,108,11,37,Barnsley,easy,H,56,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4
-221265,Harvey,Rodgers,H. Rodgers,DEF,53,11,100,Gillingham,hard,A,90,1,0,0,0,0,0,0,0,0,0,1,3,0,0,0,0,0,9
+221265,Harvey,Rodgers,H. Rodgers,DEF,53,11,100,Gillingham,medium,A,90,1,0,0,0,0,0,0,0,0,0,1,3,0,0,0,0,0,9
 221266,Robbie,McKenzie,R. McKenzie,DEF,100,11,53,Grimsby,hard,H,90,0,0,0,0,0,0,0,0,0,0,4,0,1,2,0,0,0,1
 221267,Josh,Tymon,J. Tymon,DEF,80,11,52,QPR,hard,A,90,0,0,0,0,0,0,0,0,0,0,5,3,1,2,0,0,0,1
 221285,Danilo,Orsi,D. Orsi,FWD,1525,11,44,Tranmere,medium,H,69,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
 221287,Ashley,Charles,A. Charles,MID,2050,11,73,Peterborough,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 221287,Ashley,Charles,A. Charles,MID,2050,11,22,MK Dons,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-221293,Brandon,Hanlan,B. Hanlan,FWD,290,11,19,Sheffield Wed,medium,H,22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+221293,Brandon,Hanlan,B. Hanlan,FWD,290,11,19,Sheffield Wed,hard,H,22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 221293,Brandon,Hanlan,B. Hanlan,FWD,290,11,102,Luton,hard,A,45,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 221347,Kane,Smith,K. Smith,DEF,34,11,105,Oldham,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 221347,Kane,Smith,K. Smith,DEF,34,11,78,York,hard,H,26,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,1
@@ -734,7 +734,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 221610,Jamie,Shackleton,J. Shackleton,DEF,49,11,24,Derby,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 221700,Ethan,Coleman,E. Coleman,MID,100,11,53,Grimsby,hard,H,11,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,2
 221751,Shane,McLoughlin,S. McLoughlin,MID,101,11,76,Plymouth,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-221751,Shane,McLoughlin,S. McLoughlin,MID,101,11,19,Sheffield Wed,medium,A,60,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
+221751,Shane,McLoughlin,S. McLoughlin,MID,101,11,19,Sheffield Wed,hard,A,60,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
 222015,Jack,Diamond,J. Diamond,FWD,48,11,104,Notts C,easy,A,64,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,3
 222015,Jack,Diamond,J. Diamond,FWD,48,11,106,Oxford,hard,A,23,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 222017,Conor,Coventry,C. Coventry,MID,33,11,45,Norwich,medium,H,75,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,6
@@ -748,11 +748,11 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 222658,Sam,Stubbs,S. Stubbs,DEF,74,11,72,Rotherham,easy,A,90,0,0,0,0,0,0,0,0,0,0,3,5,1,0,0,0,0,2
 222663,Callum,Lang,C. Lang,FWD,107,11,35,West Brom,hard,H,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 222677,Tahith,Chong,T. Chong,MID,49,11,24,Derby,easy,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,3
-222775,Jordan,Wright,J. Wright,GK,437,11,87,Cheltenham,hard,A,90,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,2
+222775,Jordan,Wright,J. Wright,GK,437,11,87,Cheltenham,medium,A,90,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,2
 222776,Jordan,Lawrence-Gabriel,J. Lawrence-Gabriel,DEF,50,11,78,York,hard,A,67,0,0,0,0,0,0,0,0,0,0,2,1,1,0,0,0,0,1
 223151,Lee,Ndlovu,L. Ndlovu,FWD,104,11,48,Stockport,hard,H,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 223333,Louie,Watson,L. Watson,MID,1525,11,44,Tranmere,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-223339,Xavier,Amaechi,X. Amaechi,FWD,76,11,101,Cambridge,hard,A,68,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,11
+223339,Xavier,Amaechi,X. Amaechi,FWD,76,11,101,Cambridge,medium,A,68,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,11
 223411,Maz,Kouhyar,M. Kouhyar,MID,104,11,48,Stockport,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 223434,Igor,Julio,I. Julio,DEF,90,11,83,Lincoln,easy,A,90,0,0,0,0,0,0,0,0,0,0,4,8,2,0,0,0,0,3
 223810,Jonny,Smith,J. Smith,MID,82,11,888,Accrington,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -773,7 +773,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 226473,Scott,Twine,S. Twine,MID,113,11,110,Stoke,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 226474,David,Kasumu,D. Kasumu,MID,38,11,111,Wigan,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 226495,Daniel,Butterworth,D. Butterworth,MID,46,11,96,Bristol R,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-226847,Tyreeq,Bakinson,T. Bakinson,MID,76,11,101,Cambridge,hard,A,83,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,1
+226847,Tyreeq,Bakinson,T. Bakinson,MID,76,11,101,Cambridge,medium,A,83,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,1
 226878,Callum,Styles,C. Styles,MID,35,11,107,Preston,easy,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,3
 226956,Mads,Roerslev,M. Roerslev,DEF,20,11,21,West Ham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 227035,Ryan,Delaney,R. Delaney,DEF,105,11,34,Barnet,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -790,7 +790,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 230348,Ross,Stewart,R. Stewart,FWD,80,11,52,QPR,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 231057,Jean-Ricner,Bellegarde,J. Bellegarde,MID,39,11,57,Watford,easy,H,89,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,4
 231487,Davis,Keillor-Dunn,D. Keillor-Dunn,MID,19,11,290,Doncaster,easy,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,4
-231487,Davis,Keillor-Dunn,D. Keillor-Dunn,MID,19,11,101,Cambridge,hard,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,3
+231487,Davis,Keillor-Dunn,D. Keillor-Dunn,MID,19,11,101,Cambridge,medium,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,3
 231539,Ali,McCann,A. McCann,MID,107,11,35,West Brom,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 231646,Tyler,Walton,T. Walton,MID,888,11,82,Rochdale,easy,A,90,2,0,1,0,0,0,0,0,0,0,0,0,0,0,0,2,4,22
 231810,James,Gibbons,J. Gibbons,DEF,104,11,48,Stockport,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -801,7 +801,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 231848,Ryan,Glover,R. Glover,MID,48,11,104,Notts C,easy,A,64,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,3
 231848,Ryan,Glover,R. Glover,MID,48,11,106,Oxford,hard,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,0,6
 231854,Sam,Sherring,S. Sherring,DEF,82,11,888,Accrington,medium,H,56,0,0,0,0,0,0,0,0,0,0,4,3,1,0,0,0,0,-1
-231900,Justin,Amaluzor,J. Amaluzor,FWD,53,11,100,Gillingham,hard,A,55,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+231900,Justin,Amaluzor,J. Amaluzor,FWD,53,11,100,Gillingham,medium,A,55,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
 231906,Jordan,Storey,J. Storey,DEF,107,11,35,West Brom,hard,H,90,0,0,0,0,0,0,0,0,0,0,1,10,2,0,0,0,0,5
 231908,Aaron,Morley,A. Morley,MID,112,11,2623,AFC Wim,easy,A,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
 232228,Harry,Clarke,H. Clarke,DEF,107,11,35,West Brom,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -820,9 +820,9 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 232456,Dilan,Markanday,D. Markanday,FWD,98,11,51,Crewe,hard,H,85,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5
 232460,Jubril,Okedina,J. Okedina,DEF,37,11,108,Reading,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 232463,Phoenix,Patterson,P. Patterson,FWD,288,11,22,MK Dons,medium,H,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
-232474,Kane,Thompson-Sommers,K. Thompson-Sommers,MID,2048,11,71,Exeter,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+232474,Kane,Thompson-Sommers,K. Thompson-Sommers,MID,2048,11,71,Exeter,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 232496,Ollie,Cooper,O. Cooper,MID,104,11,48,Stockport,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-232505,Cameron,Evans,C. Evans,DEF,437,11,87,Cheltenham,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+232505,Cameron,Evans,C. Evans,DEF,437,11,87,Cheltenham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 232571,Anthony,Patterson,A. Patterson,GK,109,11,5,Blackburn,medium,A,90,0,0,0,0,0,0,0,3,0,0,2,0,0,0,0,0,0,3
 232573,Oliver,Scott,O. Scott,DEF,44,11,1525,Crawley,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 232606,Will,Forrester,W. Forrester,DEF,85,11,587,Burton,medium,A,90,0,0,0,0,0,0,0,0,0,0,2,10,1,0,0,0,0,3
@@ -834,7 +834,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 232774,Ryan,Longman,R. Longman,MID,109,11,5,Blackburn,medium,A,12,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
 232780,Kevin,Berkoe,K. Berkoe,DEF,74,11,72,Rotherham,easy,A,90,0,0,0,0,0,0,0,0,0,0,3,2,0,0,0,0,0,1
 232781,Di'Shon,Bernard,D. Bernard,DEF,19,11,290,Doncaster,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-232781,Di'Shon,Bernard,D. Bernard,DEF,19,11,101,Cambridge,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+232781,Di'Shon,Bernard,D. Bernard,DEF,19,11,101,Cambridge,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 232792,Tariq,Lamptey,T. Lamptey,DEF,52,11,80,Swansea,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 232794,Clinton,Mola,C. Mola,DEF,96,11,46,Swindon,medium,H,90,0,0,0,0,0,0,0,0,0,1,0,3,0,0,0,0,0,7
 232797,Kayne,Ramsay,K. Ramsay,DEF,33,11,45,Norwich,medium,H,90,0,0,0,0,0,0,0,0,0,0,3,3,1,0,0,0,0,1
@@ -844,12 +844,12 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 232825,Stephen,Duke-McKenna,S. Duke-McKenna,MID,1525,11,44,Tranmere,medium,H,89,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,1,8
 232829,Kyle,John,K. John,DEF,50,11,78,York,hard,A,90,0,0,0,0,0,0,0,0,0,0,2,6,0,1,0,0,0,2
 232842,Ryan,De Havilland,R. De Havilland,MID,96,11,46,Swindon,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-232858,Matthew,Sorinola,M. Sorinola,DEF,76,11,101,Cambridge,hard,A,82,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,2
+232858,Matthew,Sorinola,M. Sorinola,DEF,76,11,101,Cambridge,medium,A,82,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,2
 232883,Jasper,Moon,J. Moon,DEF,50,11,78,York,hard,A,90,0,0,0,0,0,0,0,0,0,0,2,12,1,1,0,0,0,4
 232901,Ted,Cann,T. Cann,GK,72,11,74,Shrewsbury,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 232903,Kane,Drummond,K. Drummond,FWD,105,11,34,Barnet,hard,A,45,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,3
 232905,Liam,Millar,L. Millar,FWD,41,11,97,Cardiff,medium,A,70,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
-232923,George,Broadbent,G. Broadbent,MID,290,11,19,Sheffield Wed,medium,H,22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+232923,George,Broadbent,G. Broadbent,MID,290,11,19,Sheffield Wed,hard,H,22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 232923,George,Broadbent,G. Broadbent,MID,290,11,102,Luton,hard,A,22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 232929,Ethan,Laird,E. Laird,DEF,41,11,97,Cardiff,medium,A,12,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1
 232937,Brandon,Williams,B. Williams,DEF,72,11,74,Shrewsbury,medium,H,28,0,0,0,0,0,0,0,0,0,0,1,2,0,0,0,0,0,1
@@ -858,11 +858,11 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 232951,Kian,Spence,K. Spence,MID,72,11,74,Shrewsbury,medium,H,21,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,-2
 232964,Lewis,Gibson,L. Gibson,DEF,107,11,35,West Brom,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 232977,Kelland,Watts,K. Watts,DEF,101,11,76,Plymouth,hard,H,90,0,0,0,0,0,0,0,0,0,0,3,2,0,1,0,0,0,1
-232977,Kelland,Watts,K. Watts,DEF,101,11,19,Sheffield Wed,medium,A,90,0,0,0,0,0,0,0,0,0,0,1,9,1,0,0,0,0,4
+232977,Kelland,Watts,K. Watts,DEF,101,11,19,Sheffield Wed,hard,A,90,0,0,0,0,0,0,0,0,0,0,1,9,1,0,0,0,0,4
 232985,Sonny,Carey,S. Carey,MID,33,11,45,Norwich,medium,H,55,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 233021,Akin,Odimayo,A. Odimayo,DEF,1525,11,44,Tranmere,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 233312,Louis,Appéré,L. Appéré,FWD,101,11,76,Plymouth,hard,H,90,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,1,0
-233312,Louis,Appéré,L. Appéré,FWD,101,11,19,Sheffield Wed,medium,A,74,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+233312,Louis,Appéré,L. Appéré,FWD,101,11,19,Sheffield Wed,hard,A,74,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
 233403,Jordan,Brown,J. Brown,MID,92,11,77,Mansfield,medium,H,11,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 233425,Aaron,Connolly,A. Connolly,FWD,85,11,587,Burton,medium,A,26,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 233461,Liam,Morrison,L. Morrison,DEF,52,11,80,Swansea,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -875,14 +875,14 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 234557,Reeco,Hackett,R. Hackett,MID,83,11,90,Burnley,easy,H,81,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,9
 235179,Ben,House,B. House,FWD,83,11,90,Burnley,easy,H,90,1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,1,2,11
 235182,Lee,O'Connor,L. O'Connor,DEF,44,11,1525,Crawley,easy,A,90,0,0,0,0,0,0,0,0,0,0,1,5,1,3,0,0,0,4
-235192,Jake,Turner,J. Turner,GK,437,11,87,Cheltenham,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+235192,Jake,Turner,J. Turner,GK,437,11,87,Cheltenham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 235371,Arthur,Read,A. Read,MID,78,11,50,Port Vale,easy,H,90,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,2,0,8
 235371,Arthur,Read,A. Read,MID,78,11,34,Barnet,hard,A,76,1,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,1,13
 235372,Lewis,Freestone,L. Freestone,DEF,288,11,22,MK Dons,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 235381,Sam,Dalby,S. Dalby,FWD,30,11,25,Middlesbrough,hard,H,35,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 235449,George,Wickens,G. Wickens,GK,83,11,90,Burnley,easy,H,90,0,0,0,0,0,0,0,2,1,0,1,0,0,0,0,0,0,7
 235457,Jack,Evans,J. Evans,MID,104,11,48,Stockport,hard,H,29,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
-235517,Cameron,McJannet,C. McJannet,DEF,53,11,100,Gillingham,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+235517,Cameron,McJannet,C. McJannet,DEF,53,11,100,Gillingham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 235534,Cameron,Pring,C. Pring,DEF,113,11,110,Stoke,hard,A,90,0,0,0,0,0,0,0,0,0,1,0,7,0,0,0,0,0,8
 235599,Nikola,Tavares,N. Tavares,DEF,34,11,105,Oldham,easy,H,1,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1
 235599,Nikola,Tavares,N. Tavares,DEF,34,11,78,York,hard,H,90,0,0,0,0,0,0,0,0,0,0,1,11,0,1,0,0,0,4
@@ -891,7 +891,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 235640,Harry,Boyes,H. Boyes,DEF,78,11,34,Barnet,hard,A,90,0,0,0,0,0,0,0,0,0,0,3,2,0,3,0,0,0,2
 235643,Fraser,Murray,F. Murray,MID,111,11,38,Huddersfield,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 235643,Fraser,Murray,F. Murray,MID,111,11,13,Leicester,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-235649,Will,Evans,W. Evans,FWD,76,11,101,Cambridge,hard,A,90,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,6
+235649,Will,Evans,W. Evans,FWD,76,11,101,Cambridge,medium,A,90,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,6
 235674,Manor,Solomon,M. Solomon,MID,21,11,20,Southampton,hard,H,63,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,5,0,3
 235755,Vladan,Kovacevic,V. Kovacevic,GK,45,11,33,Charlton,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 235826,Joël,Piroe,J. Piroe,FWD,21,11,20,Southampton,hard,H,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
@@ -932,7 +932,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 244856,Teden,Mengi,T. Mengi,DEF,102,11,290,Doncaster,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 244890,Joseph,Hungbo,J. Hungbo,FWD,46,11,96,Bristol R,easy,A,26,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 244932,Ben,Knight,B. Knight,MID,101,11,76,Plymouth,hard,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,3
-244932,Ben,Knight,B. Knight,MID,101,11,19,Sheffield Wed,medium,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,4,0,8
+244932,Ben,Knight,B. Knight,MID,101,11,19,Sheffield Wed,hard,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,4,0,8
 245649,Harvey,Saunders,H. Saunders,FWD,75,11,99,Colchester,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 245693,Eoin,Toal,E. Toal,DEF,30,11,25,Middlesbrough,hard,H,90,0,0,0,0,0,0,0,0,0,0,5,6,3,0,0,0,0,2
 245748,Felix,Myhre,F. Myhre,MID,35,11,107,Preston,easy,A,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,1,6
@@ -959,12 +959,12 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 248937,Sam,Greenwood,S. Greenwood,FWD,113,11,110,Stoke,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 248938,Lewis,Macari,L. Macari,DEF,104,11,48,Stockport,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 248954,Ashley,Maynard-Brewer,A. Maynard-Brewer,GK,19,11,290,Doncaster,easy,A,90,0,0,0,0,0,0,0,4,0,0,2,0,0,0,0,0,0,3
-248954,Ashley,Maynard-Brewer,A. Maynard-Brewer,GK,19,11,101,Cambridge,hard,H,90,0,0,0,0,0,0,0,5,0,0,1,0,0,0,0,0,0,4
-249111,Harrison,Biggins,H. Biggins,MID,437,11,87,Cheltenham,hard,A,90,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,4,1,2
+248954,Ashley,Maynard-Brewer,A. Maynard-Brewer,GK,19,11,101,Cambridge,medium,H,90,0,0,0,0,0,0,0,5,0,0,1,0,0,0,0,0,0,4
+249111,Harrison,Biggins,H. Biggins,MID,437,11,87,Cheltenham,medium,A,90,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,4,1,2
 249931,Josh,Gordon,J. Gordon,FWD,71,11,2048,Fleetwood,medium,H,71,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
 249956,Krépin,Diatta,K. Diatta,MID,57,11,39,Wolves,hard,A,62,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,4
 250370,Nathan,Bishop,N. Bishop,GK,2623,11,112,Wycombe,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-250380,Alex,Hartridge,A. Hartridge,DEF,76,11,101,Cambridge,hard,A,12,0,0,0,0,0,0,0,0,0,0,1,3,0,0,0,0,0,1
+250380,Alex,Hartridge,A. Hartridge,DEF,76,11,101,Cambridge,medium,A,12,0,0,0,0,0,0,0,0,0,0,1,3,0,0,0,0,0,1
 250429,Paudie,O'Connor,P. O'Connor,DEF,108,11,37,Barnsley,easy,H,90,0,0,0,0,0,1,0,0,0,0,1,5,2,2,0,0,0,4
 420897,Jeriel,Dorsett,J. Dorsett,DEF,108,11,37,Barnsley,easy,H,90,0,0,0,0,0,0,0,0,0,0,1,3,1,1,0,0,0,2
 421194,Louie,Sibley,L. Sibley,MID,106,11,55,Bradford,hard,H,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
@@ -979,7 +979,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 426490,Sebastian,Berhalter,S. Berhalter,MID,25,11,30,Bolton,easy,A,86,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,4
 426797,George,Campbell,G. Campbell,DEF,35,11,107,Preston,easy,A,90,0,0,0,0,0,0,0,0,0,0,1,6,1,1,0,0,0,3
 427542,Aidan,Morris,A. Morris,MID,25,11,30,Bolton,easy,A,90,1,0,0,0,0,0,0,0,0,0,0,0,0,0,2,4,1,15
-428578,Michael,Baidoo,M. Baidoo,MID,76,11,101,Cambridge,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+428578,Michael,Baidoo,M. Baidoo,MID,76,11,101,Cambridge,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 428683,Aaron,Drinan,A. Drinan,FWD,46,11,96,Bristol R,easy,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,4
 428774,Boy,Kemper,B. Kemper,DEF,52,11,80,Swansea,hard,H,80,0,0,0,0,0,0,0,0,0,1,0,2,0,1,0,0,0,7
 429125,Ilias,Bronkhorst,I. Bronkhorst,DEF,38,11,111,Wigan,easy,H,90,1,0,0,0,0,0,0,0,0,0,1,0,0,3,0,0,0,10
@@ -997,7 +997,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 432160,Shandon,Baptiste,S. Baptiste,MID,102,11,290,Doncaster,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 432418,Ollie,Pearce,O. Pearce,FWD,78,11,50,Port Vale,easy,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
 432418,Ollie,Pearce,O. Pearce,FWD,78,11,34,Barnet,hard,A,71,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,2
-432585,Gerard,Garner,G. Garner,FWD,437,11,87,Cheltenham,hard,A,62,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+432585,Gerard,Garner,G. Garner,FWD,437,11,87,Cheltenham,medium,A,62,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
 432647,Lewis,Wing,L. Wing,MID,108,11,37,Barnsley,easy,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,0,6
 432668,Ilias,Chair,I. Chair,MID,52,11,80,Swansea,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 432710,Finley,Burns,F. Burns,DEF,111,11,38,Huddersfield,hard,A,90,0,0,0,0,0,0,0,0,0,0,2,8,1,1,0,0,0,3
@@ -1012,7 +1012,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 433028,Jayden,Nelson,J. Nelson,FWD,30,11,25,Middlesbrough,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 433138,Marc,Leonard,M. Leonard,MID,41,11,97,Cardiff,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 433172,George,Lloyd,G. Lloyd,FWD,74,11,72,Rotherham,easy,A,44,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
-433191,Jack,MacKenzie,J. MacKenzie,DEF,76,11,101,Cambridge,hard,A,78,0,0,0,0,0,0,0,0,0,0,1,1,1,2,0,0,0,3
+433191,Jack,MacKenzie,J. MacKenzie,DEF,76,11,101,Cambridge,medium,A,78,0,0,0,0,0,0,0,0,0,0,1,1,1,2,0,0,0,3
 433312,Marshall,Munetsi,M. Munetsi,MID,39,11,57,Watford,easy,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,4
 433462,Pol,Valentín,P. Valentín,DEF,107,11,35,West Brom,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 433589,Haydon,Roberts,H. Roberts,DEF,108,11,37,Barnsley,easy,H,90,0,0,0,0,0,0,0,0,0,0,1,7,0,1,0,0,0,3
@@ -1032,11 +1032,11 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 434139,Harrison,Burrows,H. Burrows,DEF,49,11,24,Derby,easy,H,90,0,0,0,0,0,0,0,0,0,0,1,4,0,0,0,0,0,3
 434158,Riley,Harbottle,R. Harbottle,DEF,96,11,46,Swindon,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 435788,Jack,McGlynn,J. McGlynn,MID,110,11,113,Bristol C,easy,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
-435998,Doug,Tharme,D. Tharme,DEF,53,11,100,Gillingham,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+435998,Doug,Tharme,D. Tharme,DEF,53,11,100,Gillingham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 436203,Alex,Bangura,A. Bangura,DEF,25,11,30,Bolton,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 436680,Jakub,Stolarczyk,J. Stolarczyk,GK,13,11,102,Luton,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 436680,Jakub,Stolarczyk,J. Stolarczyk,GK,13,11,111,Wigan,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-436760,Robbie,Gotts,R. Gotts,MID,290,11,19,Sheffield Wed,medium,H,90,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+436760,Robbie,Gotts,R. Gotts,MID,290,11,19,Sheffield Wed,hard,H,90,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
 436760,Robbie,Gotts,R. Gotts,MID,290,11,102,Luton,hard,A,68,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
 436761,Liam,Kitching,L. Kitching,DEF,49,11,24,Derby,easy,H,90,0,0,0,0,0,1,0,0,0,0,1,3,0,0,0,0,0,1
 436806,Stephen,Eustaquio,S. Eustaquio,MID,80,11,52,QPR,hard,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,3
@@ -1046,7 +1046,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 438001,Zan,Vipotnik,Z. Vipotnik,FWD,80,11,52,QPR,hard,A,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 438040,Elijah,Just,E. Just,FWD,80,11,52,QPR,hard,A,45,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0
 438130,Liberato,Cacace,L. Cacace,DEF,109,11,5,Blackburn,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-438432,Lee,Jenkins,L. Jenkins,DEF,437,11,87,Cheltenham,hard,A,90,0,0,0,0,0,0,0,0,0,0,1,3,1,1,0,0,0,2
+438432,Lee,Jenkins,L. Jenkins,DEF,437,11,87,Cheltenham,medium,A,90,0,0,0,0,0,0,0,0,0,0,1,3,1,1,0,0,0,2
 438654,Brendan,Wiredu,B. Wiredu,MID,3448,11,42,Walsall,hard,A,73,0,0,1,0,0,0,0,0,0,0,0,0,0,0,2,2,0,10
 438659,Alex,Gilbert,A. Gilbert,FWD,85,11,587,Burton,medium,A,90,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,8
 438819,Josh,Neufville,J. Neufville,FWD,55,11,106,Oxford,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -1060,8 +1060,8 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 439493,Ruel,Sotiriou,R. Sotiriou,FWD,98,11,51,Crewe,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 439670,Jack,Burroughs,J. Burroughs,DEF,75,11,99,Colchester,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 440123,James,Furlong,J. Furlong,DEF,42,11,3448,Salford,hard,H,19,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1
-440229,Reece,Staunton,R. Staunton,DEF,53,11,100,Gillingham,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-440240,Owen,Taylor,O. Taylor,MID,51,11,98,Chesterfield,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+440229,Reece,Staunton,R. Staunton,DEF,53,11,100,Gillingham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+440240,Owen,Taylor,O. Taylor,MID,51,11,98,Chesterfield,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 440241,Jensen,Weir,J. Weir,MID,111,11,38,Huddersfield,hard,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
 440241,Jensen,Weir,J. Weir,MID,111,11,13,Leicester,medium,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,0,0,12
 440323,Armando,Broja,A. Broja,FWD,90,11,83,Lincoln,easy,A,13,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
@@ -1070,13 +1070,13 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 440439,Sam,Silvera,S. Silvera,FWD,22,11,2050,Bromley,easy,H,84,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,3
 441024,Harrison,Ashby,H. Ashby,DEF,102,11,13,Leicester,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 441024,Harrison,Ashby,H. Ashby,DEF,102,11,290,Doncaster,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-441041,Luke,Offord,L. Offord,DEF,51,11,98,Chesterfield,medium,A,90,0,0,0,0,0,0,0,0,0,0,5,3,0,1,0,0,0,0
+441041,Luke,Offord,L. Offord,DEF,51,11,98,Chesterfield,hard,A,90,0,0,0,0,0,0,0,0,0,0,5,3,0,1,0,0,0,0
 441192,Jeremy,Sarmiento,J. Sarmiento,MID,25,11,30,Bolton,easy,A,11,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 441199,Joel,Randall,J. Randall,MID,98,11,51,Crewe,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 441332,Delano,Burgzorg,D. Burgzorg,FWD,107,11,35,West Brom,hard,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,1,5
 441533,Ossama,Ashley,O. Ashley,MID,72,11,74,Shrewsbury,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 441536,Udoka,Godwin-Malife,U. Godwin-Malife,DEF,108,11,37,Barnsley,easy,H,90,0,0,0,0,0,0,0,0,0,0,1,6,2,1,0,0,0,4
-441590,Jack,Lankester,J. Lankester,MID,51,11,98,Chesterfield,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+441590,Jack,Lankester,J. Lankester,MID,51,11,98,Chesterfield,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 441598,Idris,El Mizouni,I. El Mizouni,MID,85,11,587,Burton,medium,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,0,6
 442179,Jack,Armer,J. Armer,DEF,587,11,85,L Orient,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 442245,Klaidi,Lolos,K. Lolos,MID,72,11,74,Shrewsbury,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -1117,26 +1117,26 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 447810,Mathias,Jørgensen,M. Jørgensen,FWD,5,11,109,Wrexham,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 447849,Neto,Borges,N. Borges,DEF,25,11,30,Bolton,easy,A,90,0,0,0,0,0,0,0,0,0,0,1,1,0,3,0,0,0,3
 447932,Jordan,Zemura,J. Zemura,DEF,57,11,39,Wolves,hard,A,29,0,0,0,0,0,1,0,0,0,0,0,2,0,1,0,0,0,0
-448360,Josh,Andrews,J. Andrews,FWD,53,11,100,Gillingham,hard,A,18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2
+448360,Josh,Andrews,J. Andrews,FWD,53,11,100,Gillingham,medium,A,18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2
 448482,Rob,Street,R. Street,FWD,83,11,90,Burnley,easy,H,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 448484,Liam,Thompson,L. Thompson,MID,77,11,92,Blackpool,easy,A,45,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 448496,Ed,Turns,E. Turns,DEF,71,11,2048,Fleetwood,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-448791,Harvey,White,H. White,MID,76,11,101,Cambridge,hard,A,90,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,2,1,9
-449082,Reece,Hutchinson,R. Hutchinson,DEF,51,11,98,Chesterfield,medium,A,63,0,0,0,0,0,0,0,0,0,0,5,2,1,1,0,0,0,0
+448791,Harvey,White,H. White,MID,76,11,101,Cambridge,medium,A,90,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,2,1,9
+449082,Reece,Hutchinson,R. Hutchinson,DEF,51,11,98,Chesterfield,hard,A,63,0,0,0,0,0,0,0,0,0,0,5,2,1,1,0,0,0,0
 449213,Nicolas,Madsen,N. Madsen,MID,52,11,80,Swansea,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 449290,Rio,Adebisi,R. Adebisi,DEF,73,11,2050,Bromley,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 449366,Aune,Heggebø,A. Heggebø,FWD,35,11,107,Preston,easy,A,30,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,7
-449428,Matty,Jacob,M. Jacob,DEF,437,11,87,Cheltenham,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-449693,Josh,Thomas,J. Thomas,FWD,2048,11,71,Exeter,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+449428,Matty,Jacob,M. Jacob,DEF,437,11,87,Cheltenham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+449693,Josh,Thomas,J. Thomas,FWD,2048,11,71,Exeter,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 449974,Lukas,Jensen,L. Jensen,GK,103,11,47,Portsmouth,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 450072,Shurandy,Sambo,S. Sambo,DEF,90,11,83,Lincoln,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 450270,Tyreik,Wright,T. Wright,FWD,55,11,106,Oxford,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 450271,Luca,Connell,L. Connell,MID,37,11,108,Reading,hard,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,4
 450273,Conor,Grant,C. Grant,MID,104,11,48,Stockport,hard,H,85,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,5
-450331,Mathias,Ross,M. Ross,DEF,76,11,101,Cambridge,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+450331,Mathias,Ross,M. Ross,DEF,76,11,101,Cambridge,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 450529,Lewis,Bate,L. Bate,MID,48,11,104,Notts C,easy,A,73,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,3
 450529,Lewis,Bate,L. Bate,MID,48,11,106,Oxford,hard,A,71,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,4
-450530,Joshua,Clarke,J. Clarke,GK,290,11,19,Sheffield Wed,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+450530,Joshua,Clarke,J. Clarke,GK,290,11,19,Sheffield Wed,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 450530,Joshua,Clarke,J. Clarke,GK,290,11,102,Luton,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 450535,Malcolm,Ebiowei,M. Ebiowei,FWD,1525,11,44,Tranmere,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 450539,Myles,Peart-Harris,M. Peart-Harris,MID,25,11,30,Bolton,easy,A,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
@@ -1154,8 +1154,8 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 456350,Gavin,Bazunu,G. Bazunu,GK,30,11,25,Middlesbrough,hard,H,90,0,0,0,0,0,0,0,8,0,0,5,0,0,0,0,0,0,4
 456354,Augustus,Kargbo,A. Kargbo,FWD,5,11,109,Wrexham,medium,H,18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 456498,James,Maxwell,J. Maxwell,DEF,75,11,99,Colchester,easy,H,67,0,0,0,0,0,0,0,0,0,1,0,7,0,0,0,0,0,8
-456966,Caleb,Watts,C. Watts,MID,76,11,101,Cambridge,hard,A,22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
-457327,Lewis,McCann,L. McCann,FWD,2048,11,71,Exeter,medium,A,70,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+456966,Caleb,Watts,C. Watts,MID,76,11,101,Cambridge,medium,A,22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+457327,Lewis,McCann,L. McCann,FWD,2048,11,71,Exeter,hard,A,70,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
 459685,Alex,Hunt,A. Hunt,MID,78,11,50,Port Vale,easy,H,71,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,12
 459685,Alex,Hunt,A. Hunt,MID,78,11,34,Barnet,hard,A,90,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
 459746,Max,Watters,M. Watters,FWD,50,11,78,York,hard,A,23,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2
@@ -1173,21 +1173,21 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 461079,Keenan,Appiah-Forson,K. Appiah-Forson,MID,105,11,34,Barnet,hard,A,45,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 461082,Daniel,Moss,D. Moss,DEF,82,11,888,Accrington,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 461086,Daniel,Phillips,D. Phillips,MID,288,11,22,MK Dons,medium,H,84,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,4
-461093,Edon,Pruti,E. Pruti,DEF,53,11,100,Gillingham,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+461093,Edon,Pruti,E. Pruti,DEF,53,11,100,Gillingham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 461101,Richard,Taylor,R. Taylor,DEF,2050,11,73,Peterborough,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 461101,Richard,Taylor,R. Taylor,DEF,2050,11,22,MK Dons,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 461128,Rubin,Colwill,R. Colwill,MID,97,11,41,Birmingham,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 461132,Isaak,Davies,I. Davies,FWD,97,11,41,Birmingham,hard,H,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
-461137,Kieron,Evans,K. Evans,MID,437,11,87,Cheltenham,hard,A,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+461137,Kieron,Evans,K. Evans,MID,437,11,87,Cheltenham,medium,A,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 461149,Eli,King,E. King,MID,100,11,53,Grimsby,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-461159,Keenan,Patten,K. Patten,MID,437,11,87,Cheltenham,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+461159,Keenan,Patten,K. Patten,MID,437,11,87,Cheltenham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 461173,Lewis,Gordon,L. Gordon,DEF,98,11,51,Crewe,hard,H,30,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1
 461188,Bashir,Humphreys,B. Humphreys,DEF,90,11,83,Lincoln,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 461192,Kallum,Cesay,K. Cesay,DEF,3448,11,42,Walsall,hard,A,30,1,0,0,0,0,0,0,0,0,0,1,0,0,3,0,0,0,9
 461195,Dennis,Cirkin,D. Cirkin,DEF,52,11,80,Swansea,hard,H,10,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,1
 461198,Jason,Sraha,J. Sraha,DEF,587,11,85,L Orient,medium,H,90,0,0,0,0,0,0,0,0,0,0,1,5,0,4,0,0,0,5
 461201,Matthew,Craig,M. Craig,MID,50,11,78,York,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-461377,Malachi,Boateng,M. Boateng,MID,76,11,101,Cambridge,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+461377,Malachi,Boateng,M. Boateng,MID,76,11,101,Cambridge,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 461391,Rohan,Luthra,R. Luthra,GK,100,11,53,Grimsby,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 461411,Deonysus,Woodman,D. Woodman,DEF,2050,11,73,Peterborough,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 461411,Deonysus,Woodman,D. Woodman,DEF,2050,11,22,MK Dons,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -1195,17 +1195,17 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 461421,Lewis,Dobbin,L. Dobbin,FWD,20,11,21,West Ham,medium,A,89,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,2,1,8
 461430,Lewis,Montsma,L. Montsma,DEF,50,11,78,York,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 461446,Tyler,Onyango,T. Onyango,MID,19,11,290,Doncaster,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-461446,Tyler,Onyango,T. Onyango,MID,19,11,101,Cambridge,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+461446,Tyler,Onyango,T. Onyango,MID,19,11,101,Cambridge,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 461453,Lewis,Warrington,L. Warrington,MID,44,11,1525,Crawley,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 461475,Ollie,O'Neill,O. O'Neill,MID,85,11,587,Burton,medium,A,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
-461484,Joe,White,J. White,MID,51,11,98,Chesterfield,medium,A,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+461484,Joe,White,J. White,MID,51,11,98,Chesterfield,hard,A,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 461490,Josh,Austerfield,J. Austerfield,MID,72,11,74,Shrewsbury,medium,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,0,7
 461509,Jaheim,Headley,J. Headley,DEF,50,11,78,York,hard,A,90,0,0,0,0,0,0,0,0,0,0,2,3,0,1,0,0,0,1
 461521,Ben,Woods,B. Woods,MID,73,11,2050,Bromley,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 461522,Charlie,Wellens,C. Wellens,MID,85,11,587,Burton,medium,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,0,6
 461529,Charlie,Savage,C. Savage,MID,108,11,37,Barnsley,easy,H,13,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
 461552,Alfie,Hughes,A. Hughes,MID,105,11,34,Barnet,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-461556,Mark,Helm,M. Helm,MID,2048,11,71,Exeter,medium,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
+461556,Mark,Helm,M. Helm,MID,2048,11,71,Exeter,hard,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
 461566,Will,Fish,W. Fish,DEF,97,11,41,Birmingham,hard,H,90,0,0,0,0,0,0,0,0,0,1,0,7,1,0,0,0,0,8
 461567,Owen,Dodgson,O. Dodgson,DEF,77,11,92,Blackpool,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 461584,Wanya,Marçal,W. Marçal,MID,288,11,22,MK Dons,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -1217,8 +1217,8 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 462381,Filip,Marschall,F. Marschall,GK,103,11,47,Portsmouth,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 462384,Jamal,Baptiste,J. Baptiste,DEF,49,11,24,Derby,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 462387,Ali,Al-Hamadi,A. Al-Hamadi,FWD,19,11,290,Doncaster,easy,A,80,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,2,2,4
-462387,Ali,Al-Hamadi,A. Al-Hamadi,FWD,19,11,101,Cambridge,hard,H,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
-462437,Charlie,McNeill,C. McNeill,FWD,51,11,98,Chesterfield,medium,A,45,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,7
+462387,Ali,Al-Hamadi,A. Al-Hamadi,FWD,19,11,101,Cambridge,medium,H,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+462437,Charlie,McNeill,C. McNeill,FWD,51,11,98,Chesterfield,hard,A,45,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,7
 462438,Micah,Hamilton,M. Hamilton,FWD,25,11,30,Bolton,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 462492,Joe,Gauci,J. Gauci,GK,83,11,90,Burnley,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 462624,Jay,Williams,J. Williams,DEF,99,11,75,Northampton,easy,A,61,0,0,0,0,0,0,0,0,0,0,2,2,0,0,0,0,0,1
@@ -1233,7 +1233,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 465276,Sam,McCallum,S. McCallum,DEF,49,11,24,Derby,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 465313,Chris,Conn-Clarke,C. Conn-Clarke,MID,73,11,2050,Bromley,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 465387,Louie,Barry,L. Barry,FWD,19,11,290,Doncaster,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-465387,Louie,Barry,L. Barry,FWD,19,11,101,Cambridge,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+465387,Louie,Barry,L. Barry,FWD,19,11,101,Cambridge,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 465527,Hannibal,Mejbri,H. Mejbri,MID,90,11,83,Lincoln,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 465707,Ziyad,Larkeche,Z. Larkeche,DEF,37,11,108,Reading,hard,A,88,0,0,0,0,0,0,0,0,0,0,2,4,1,1,0,0,0,2
 466148,Edoardo,Bove,E. Bove,MID,57,11,39,Wolves,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -1245,7 +1245,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 467114,Oliver,Casey,O. Casey,DEF,92,11,77,Mansfield,medium,H,90,0,0,0,0,0,0,0,0,0,0,4,4,2,2,0,0,0,3
 467125,Tom,Fellows,T. Fellows,MID,20,11,21,West Ham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 467189,Mads,Hermansen,M. Hermansen,GK,21,11,20,Southampton,hard,H,90,0,0,0,0,0,0,0,4,0,0,3,0,0,0,0,0,0,3
-467291,Kion,Etete,K. Etete,FWD,437,11,87,Cheltenham,hard,A,28,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+467291,Kion,Etete,K. Etete,FWD,437,11,87,Cheltenham,medium,A,28,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 467311,Mattie,Pollock,M. Pollock,DEF,57,11,39,Wolves,hard,A,90,0,0,0,0,0,0,0,0,0,0,1,11,4,0,0,0,0,6
 467312,Rumarn,Burrell,R. Burrell,FWD,52,11,80,Swansea,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 467389,Adam,Senior,A. Senior,DEF,34,11,105,Oldham,easy,H,90,0,0,0,0,0,0,0,0,0,0,1,4,1,3,0,0,0,4
@@ -1271,9 +1271,9 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 472312,Tommy,Conway,T. Conway,FWD,25,11,30,Bolton,easy,A,69,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,4,1,8
 472767,Callum,Doyle,C. Doyle,DEF,109,11,5,Blackburn,medium,A,90,0,0,0,0,0,0,0,0,0,0,2,3,0,2,0,0,0,2
 472770,Isaac,Smith,I. Smith,DEF,37,11,108,Reading,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-472838,Alex,Mitchell,A. Mitchell,DEF,76,11,101,Cambridge,hard,A,90,0,0,0,0,0,1,0,0,0,0,2,8,1,1,0,0,0,2
+472838,Alex,Mitchell,A. Mitchell,DEF,76,11,101,Cambridge,medium,A,90,0,0,0,0,0,1,0,0,0,0,2,8,1,1,0,0,0,2
 472839,Billy,Mitchell,B. Mitchell,MID,19,11,290,Doncaster,easy,A,90,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,3,0,2
-472839,Billy,Mitchell,B. Mitchell,MID,19,11,101,Cambridge,hard,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,4
+472839,Billy,Mitchell,B. Mitchell,MID,19,11,101,Cambridge,medium,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,4
 473341,Caleb,Okoli,C. Okoli,DEF,13,11,102,Luton,hard,A,45,0,0,0,0,0,0,0,0,0,0,1,4,0,4,0,0,0,4
 473341,Caleb,Okoli,C. Okoli,DEF,13,11,111,Wigan,easy,H,90,0,0,1,0,0,1,0,0,0,1,0,6,1,2,0,0,0,11
 473437,Jacob,Mendy,J. Mendy,DEF,2050,11,73,Peterborough,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -1289,7 +1289,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 476369,Issa,Kaboré,I. Kaboré,DEF,109,11,5,Blackburn,medium,A,78,0,0,0,0,0,0,0,0,0,0,1,0,0,2,0,0,0,3
 476502,Boubacar,Traoré,B. Traoré,MID,39,11,57,Watford,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 476586,Gassan,Ahadme,G. Ahadme,FWD,101,11,76,Plymouth,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-476586,Gassan,Ahadme,G. Ahadme,FWD,101,11,19,Sheffield Wed,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+476586,Gassan,Ahadme,G. Ahadme,FWD,101,11,19,Sheffield Wed,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 476773,Tyreece,Simpson,T. Simpson,FWD,50,11,78,York,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 476946,Priestley,Farquharson,P. Farquharson,DEF,1525,11,44,Tranmere,medium,H,90,0,0,0,0,0,0,0,0,0,0,1,12,1,0,0,0,0,5
 477131,Márk,Kosznovszky,M. Kosznovszky,MID,47,11,103,Millwall,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -1304,13 +1304,13 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 477733,Radek,Vítek,R. Vítek,GK,25,11,30,Bolton,easy,A,90,0,0,0,0,0,0,0,3,0,0,1,0,0,0,0,0,0,4
 478219,Tiernan,Brooks,T. Brooks,GK,33,11,45,Norwich,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 478239,Kyran,Lofthouse,K. Lofthouse,DEF,587,11,85,L Orient,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-478446,Harrison,Neal,H. Neal,MID,2048,11,71,Exeter,medium,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,4
+478446,Harrison,Neal,H. Neal,MID,2048,11,71,Exeter,hard,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,4
 478449,Kyron,Gordon,K. Gordon,DEF,48,11,104,Notts C,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 478449,Kyron,Gordon,K. Gordon,DEF,48,11,106,Oxford,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 478969,Hjalmar,Ekdal,H. Ekdal,DEF,90,11,83,Lincoln,easy,A,90,0,0,0,0,0,0,0,0,0,0,4,8,0,1,0,0,0,2
 479245,Rokas,Pukstas,R. Pukstas,MID,25,11,30,Bolton,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 479393,Jacob,Widell Zetterström,J. Widell Zetterström,GK,24,11,49,Sheffield Utd,medium,A,90,0,0,0,0,0,0,0,10,0,0,1,0,0,0,0,0,0,8
-479532,Ciarán,Brennan,C. Brennan,DEF,437,11,87,Cheltenham,hard,A,90,0,0,0,0,0,0,0,0,0,0,1,1,0,4,0,0,0,4
+479532,Ciarán,Brennan,C. Brennan,DEF,437,11,87,Cheltenham,medium,A,90,0,0,0,0,0,0,0,0,0,0,1,1,0,4,0,0,0,4
 479641,Sebastian,Revan,S. Revan,MID,109,11,5,Blackburn,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 480364,Anthony,Musaba,A. Musaba,FWD,45,11,33,Charlton,easy,A,15,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,5
 480818,Billy,Koumetio,B. Koumetio,DEF,33,11,45,Norwich,medium,H,90,0,0,0,0,0,0,0,0,0,0,3,6,2,2,0,0,0,4
@@ -1347,9 +1347,9 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 488439,Woyo,Coulibaly,W. Coulibaly,DEF,13,11,111,Wigan,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 488464,Caleb,Wiley,C. Wiley,DEF,107,11,35,West Brom,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 488709,Frazer,Blake-Tracy,F. Blake-Tracy,DEF,77,11,92,Blackpool,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-488727,Jayden,Sweeney,J. Sweeney,DEF,53,11,100,Gillingham,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+488727,Jayden,Sweeney,J. Sweeney,DEF,53,11,100,Gillingham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 489034,Brad,Young,B. Young,GK,96,11,46,Swindon,medium,H,90,0,0,0,0,0,0,0,3,0,1,0,0,0,0,0,0,0,9
-489192,Josh,March,J. March,FWD,51,11,98,Chesterfield,medium,A,63,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+489192,Josh,March,J. March,FWD,51,11,98,Chesterfield,hard,A,63,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
 489193,Isaac,Sinclair,I. Sinclair,MID,888,11,82,Rochdale,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 489218,Joe,Walsh,J. Walsh,GK,111,11,38,Huddersfield,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 489218,Joe,Walsh,J. Walsh,GK,111,11,13,Leicester,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -1361,7 +1361,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 489738,Ewan,Otoo,E. Otoo,MID,72,11,74,Shrewsbury,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 489842,Franco,Ravizzoli,F. Ravizzoli,GK,13,11,102,Luton,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 489842,Franco,Ravizzoli,F. Ravizzoli,GK,13,11,111,Wigan,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-489999,Tom,Nixon,T. Nixon,DEF,290,11,19,Sheffield Wed,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+489999,Tom,Nixon,T. Nixon,DEF,290,11,19,Sheffield Wed,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 489999,Tom,Nixon,T. Nixon,DEF,290,11,102,Luton,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 490082,Zac,Ashworth,Z. Ashworth,DEF,92,11,77,Mansfield,medium,H,90,0,0,0,0,0,0,0,0,0,0,4,6,0,1,0,0,0,1
 490121,Isaiah,Jones,I. Jones,FWD,102,11,13,Leicester,medium,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
@@ -1370,7 +1370,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 490146,Jay,Stansfield,J. Stansfield,FWD,41,11,97,Cardiff,medium,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,3
 490151,Calum,Kavanagh,C. Kavanagh,FWD,105,11,34,Barnet,hard,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,3
 490161,Abu,Kamara,A. Kamara,FWD,47,11,103,Millwall,medium,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
-490180,Aribim,Pepple,A. Pepple,FWD,76,11,101,Cambridge,hard,A,90,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,9
+490180,Aribim,Pepple,A. Pepple,FWD,76,11,101,Cambridge,medium,A,90,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,9
 490503,Samuel,Edozie,S. Edozie,MID,20,11,21,West Ham,medium,A,26,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 490721,Hugo,Bueno,H. Bueno,DEF,39,11,57,Watford,easy,H,89,0,0,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,6
 490722,Kwame,Poku,K. Poku,MID,52,11,80,Swansea,hard,H,72,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,3,0,8
@@ -1379,7 +1379,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 490887,Zach,Awe,Z. Awe,DEF,3448,11,42,Walsall,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 490986,Marcus,Ifill,M. Ifill,MID,2050,11,73,Peterborough,easy,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,6
 490986,Marcus,Ifill,M. Ifill,MID,2050,11,22,MK Dons,medium,A,61,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,6
-491250,Seán,Grehan,S. Grehan,DEF,290,11,19,Sheffield Wed,medium,H,90,0,0,0,0,0,0,0,0,0,1,0,4,1,3,0,0,0,9
+491250,Seán,Grehan,S. Grehan,DEF,290,11,19,Sheffield Wed,hard,H,90,0,0,0,0,0,0,0,0,0,1,0,4,1,3,0,0,0,9
 491250,Seán,Grehan,S. Grehan,DEF,290,11,102,Luton,hard,A,90,0,0,0,0,0,0,0,0,0,0,3,5,0,2,0,0,0,3
 491260,Jamie,Mullins,J. Mullins,MID,112,11,2623,AFC Wim,easy,A,61,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
 491551,Thierry,Small,T. Small,DEF,107,11,35,West Brom,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -1406,7 +1406,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 492917,Ugo,Raghouber,U. Raghouber,MID,90,11,83,Lincoln,easy,A,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 493167,Arne,Engels,A. Engels,MID,21,11,20,Southampton,hard,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,5
 493357,Soumaïla,Coulibaly,S. Coulibaly,DEF,57,11,39,Wolves,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-493663,Tommy,Simkin,T. Simkin,GK,290,11,19,Sheffield Wed,medium,H,90,0,0,0,0,0,0,0,8,0,1,0,0,0,0,0,0,0,11
+493663,Tommy,Simkin,T. Simkin,GK,290,11,19,Sheffield Wed,hard,H,90,0,0,0,0,0,0,0,8,0,1,0,0,0,0,0,0,0,11
 493663,Tommy,Simkin,T. Simkin,GK,290,11,102,Luton,hard,A,90,0,0,0,0,0,0,0,4,0,0,3,0,0,0,0,0,0,3
 493727,Bastian,Smith,B. Smith,GK,73,11,2050,Bromley,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 493735,Barnaby,Williams,B. Williams,MID,20,11,21,West Ham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -1428,7 +1428,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 494541,Kamari,Doyle,K. Doyle,MID,13,11,102,Luton,hard,A,83,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,5
 494541,Kamari,Doyle,K. Doyle,MID,13,11,111,Wigan,easy,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
 494543,Dom,Ballard,D. Ballard,FWD,113,11,110,Stoke,hard,A,87,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
-494950,Harvey,Cartwright,H. Cartwright,GK,53,11,100,Gillingham,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+494950,Harvey,Cartwright,H. Cartwright,GK,53,11,100,Gillingham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 494955,JJ,McKiernan,J. McKiernan,MID,2050,11,73,Peterborough,easy,H,11,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 494955,JJ,McKiernan,J. McKiernan,MID,2050,11,22,MK Dons,medium,A,28,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0
 495148,Matthew,Garbett,M. Garbett,MID,73,11,2050,Bromley,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -1443,12 +1443,12 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 496228,Sonny,Perkins,S. Perkins,FWD,111,11,38,Huddersfield,hard,A,45,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
 496228,Sonny,Perkins,S. Perkins,FWD,111,11,13,Leicester,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 496279,Isaac,Heath,I. Heath,FWD,101,11,76,Plymouth,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-496279,Isaac,Heath,I. Heath,FWD,101,11,19,Sheffield Wed,medium,A,60,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
+496279,Isaac,Heath,I. Heath,FWD,101,11,19,Sheffield Wed,hard,A,60,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
 496766,Jay,Turner-Cooke,J. Turner-Cooke,MID,74,11,72,Rotherham,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 496904,Miles,Henry,M. Henry,FWD,587,11,85,L Orient,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 496932,Cameron,Bragg,C. Bragg,MID,20,11,21,West Ham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 497082,Jordi,Liongola,J. Liongola,MID,19,11,290,Doncaster,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-497082,Jordi,Liongola,J. Liongola,MID,19,11,101,Cambridge,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+497082,Jordi,Liongola,J. Liongola,MID,19,11,101,Cambridge,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 497605,Liam,Gibbs,L. Gibbs,MID,107,11,35,West Brom,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 497606,Tawanda,Chirewa,T. Chirewa,FWD,39,11,57,Watford,easy,H,12,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 497731,Cian,Hayes,C. Hayes,MID,82,11,888,Accrington,medium,H,70,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
@@ -1473,7 +1473,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 501144,Jayden,Wareham,J. Wareham,FWD,112,11,2623,AFC Wim,easy,A,90,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,6
 501325,Lee,Bonis,L. Bonis,FWD,98,11,51,Crewe,hard,H,30,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 501451,George,Thomason,G. Thomason,MID,109,11,5,Blackburn,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-501515,Joe,Foulkes,J. Foulkes,DEF,53,11,100,Gillingham,hard,A,90,0,0,0,0,0,0,0,0,0,0,1,6,0,1,0,0,0,3
+501515,Joe,Foulkes,J. Foulkes,DEF,53,11,100,Gillingham,medium,A,90,0,0,0,0,0,0,0,0,0,0,1,6,0,1,0,0,0,3
 501770,Ben,Nelson,B. Nelson,DEF,13,11,102,Luton,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 501770,Ben,Nelson,B. Nelson,DEF,13,11,111,Wigan,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 501837,Yerson,Mosquera,Y. Mosquera,DEF,39,11,57,Watford,easy,H,90,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,0,7
@@ -1505,10 +1505,10 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 505200,Gibson,Yah,G. Yah,MID,113,11,110,Stoke,hard,A,62,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
 505458,Michael,Mellon,M. Mellon,FWD,288,11,22,MK Dons,medium,H,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
 505872,Lucas,Ness,L. Ness,DEF,104,11,48,Stockport,hard,H,90,0,0,0,0,0,1,0,0,0,0,1,8,0,5,0,0,0,5
-507614,Géza,Turi,G. Turi,MID,53,11,100,Gillingham,hard,A,72,1,0,1,0,0,1,0,0,0,0,0,0,0,0,1,1,1,13
+507614,Géza,Turi,G. Turi,MID,53,11,100,Gillingham,medium,A,72,1,0,1,0,0,1,0,0,0,0,0,0,0,0,1,1,1,13
 508958,Atsuki,Ito,A. Ito,MID,30,11,25,Middlesbrough,hard,H,45,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 509291,,André,André,MID,39,11,57,Watford,easy,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
-509486,Jay,McGrath,J. McGrath,DEF,290,11,19,Sheffield Wed,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+509486,Jay,McGrath,J. McGrath,DEF,290,11,19,Sheffield Wed,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 509486,Jay,McGrath,J. McGrath,DEF,290,11,102,Luton,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 510171,Derensili,Sanches Fernandes,D. Sanches Fernandes,FWD,38,11,111,Wigan,easy,H,85,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,8
 510328,Stanley,Mills,S. Mills,MID,107,11,35,West Brom,hard,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,0,6
@@ -1529,29 +1529,29 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 513826,Harry,Wood,H. Wood,MID,48,11,106,Oxford,hard,A,66,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,1,5
 513834,Andrew,Moran,A. Moran,MID,107,11,35,West Brom,hard,H,45,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
 514229,Sam,Waller,S. Waller,GK,82,11,888,Accrington,medium,H,90,0,0,0,0,0,0,0,5,0,0,5,0,0,0,0,0,0,2
-514231,Dan,Sassi,D. Sassi,DEF,437,11,87,Cheltenham,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+514231,Dan,Sassi,D. Sassi,DEF,437,11,87,Cheltenham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 514243,Will,Brook,W. Brook,GK,74,11,72,Rotherham,easy,A,90,0,0,0,0,0,0,0,2,0,0,3,0,0,0,0,0,0,1
 514280,Alfie,Gilchrist,A. Gilchrist,DEF,85,11,587,Burton,medium,A,90,0,0,0,0,0,0,0,0,0,0,2,5,1,1,0,0,0,2
 514281,Brandon,Cover,B. Cover,MID,72,11,74,Shrewsbury,medium,H,63,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,0,6
 514284,Joe,Wormleighton,J. Wormleighton,DEF,75,11,99,Colchester,easy,H,90,0,0,0,0,0,0,0,0,0,1,0,3,0,4,0,0,0,9
 514287,Sil,Swinkels,S. Swinkels,DEF,19,11,290,Doncaster,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-514287,Sil,Swinkels,S. Swinkels,DEF,19,11,101,Cambridge,hard,H,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
+514287,Sil,Swinkels,S. Swinkels,DEF,19,11,101,Cambridge,medium,H,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
 514296,Emre,Tezgel,E. Tezgel,FWD,112,11,2623,AFC Wim,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 514315,Lino,Sousa,L. Sousa,DEF,74,11,72,Rotherham,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 514333,Oscar,Thorn,O. Thorn,FWD,99,11,75,Northampton,easy,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,3
 514354,Mikki,van Sas,M. van Sas,GK,112,11,2623,AFC Wim,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 514358,Samson,Tovide,S. Tovide,FWD,38,11,111,Wigan,easy,H,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
-514611,Francis,Okoronkwo,F. Okoronkwo,FWD,290,11,19,Sheffield Wed,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+514611,Francis,Okoronkwo,F. Okoronkwo,FWD,290,11,19,Sheffield Wed,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 514611,Francis,Okoronkwo,F. Okoronkwo,FWD,290,11,102,Luton,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 514613,Zak,Johnson,Z. Johnson,DEF,78,11,50,Port Vale,easy,H,90,1,0,0,0,0,0,0,0,0,1,0,6,0,2,0,0,0,16
 514613,Zak,Johnson,Z. Johnson,DEF,78,11,34,Barnet,hard,A,90,0,0,0,0,0,0,0,0,0,0,3,13,3,0,0,0,0,5
 514621,Rocco,Shein,R. Shein,MID,47,11,103,Millwall,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-515023,Matt,Dibley-Dias,M. Dibley-Dias,MID,437,11,87,Cheltenham,hard,A,34,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,3
+515023,Matt,Dibley-Dias,M. Dibley-Dias,MID,437,11,87,Cheltenham,medium,A,34,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,3
 515024,Luke,Harris,L. Harris,MID,111,11,38,Huddersfield,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 515024,Luke,Harris,L. Harris,MID,111,11,13,Leicester,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-515500,Rhys,Bennett,R. Bennett,DEF,2048,11,71,Exeter,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+515500,Rhys,Bennett,R. Bennett,DEF,2048,11,71,Exeter,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 515575,Max,Dyche,M. Dyche,DEF,75,11,99,Colchester,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-515599,Tommi,O'Reilly,T. O'Reilly,MID,290,11,19,Sheffield Wed,medium,H,21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+515599,Tommi,O'Reilly,T. O'Reilly,MID,290,11,19,Sheffield Wed,hard,H,21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 515599,Tommi,O'Reilly,T. O'Reilly,MID,290,11,102,Luton,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 515724,Jude,Arthurs,J. Arthurs,MID,1525,11,44,Tranmere,medium,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,8
 515846,Tom,Bloxham,T. Bloxham,FWD,92,11,77,Mansfield,medium,H,24,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
@@ -1561,7 +1561,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 516234,Charlie,Gray,C. Gray,MID,111,11,38,Huddersfield,hard,A,45,0,0,0,0,0,1,0,0,0,0,0,0,0,0,2,1,0,4
 516234,Charlie,Gray,C. Gray,MID,111,11,13,Leicester,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 516236,Jaden,Heskey,J. Heskey,FWD,19,11,290,Doncaster,easy,A,45,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
-516236,Jaden,Heskey,J. Heskey,FWD,19,11,101,Cambridge,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+516236,Jaden,Heskey,J. Heskey,FWD,19,11,101,Cambridge,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 516239,Jayden,Joseph,J. Joseph,MID,13,11,102,Luton,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 516239,Jayden,Joseph,J. Joseph,MID,13,11,111,Wigan,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 516248,Lakyle,Samuel,L. Samuel,DEF,71,11,2048,Fleetwood,medium,H,90,0,0,0,0,0,0,0,0,0,0,1,5,1,1,0,0,0,3
@@ -1583,8 +1583,8 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 518052,Kieran,Ngwenya,K. Ngwenya,DEF,72,11,74,Shrewsbury,medium,H,90,0,0,0,0,0,0,0,0,0,0,3,4,2,0,0,0,0,3
 518438,Kaelan,Casey,K. Casey,DEF,288,11,22,MK Dons,medium,H,28,0,0,0,0,0,0,0,0,0,0,1,2,1,0,0,0,0,1
 518442,Lewis,Orford,L. Orford,MID,21,11,20,Southampton,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-518504,James,Storer,J. Storer,GK,76,11,101,Cambridge,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-518506,Will,Davies,W. Davies,FWD,2048,11,71,Exeter,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+518504,James,Storer,J. Storer,GK,76,11,101,Cambridge,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+518506,Will,Davies,W. Davies,FWD,2048,11,71,Exeter,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 518650,Zane,Albarus,Z. Albarus,MID,100,11,53,Grimsby,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 518895,Filip,Lissah,F. Lissah,DEF,80,11,52,QPR,hard,A,90,0,0,0,0,0,0,0,0,0,0,5,1,0,0,0,0,0,0
 518896,Tudor,Mendel-Idowu,T. Mendel-Idowu,FWD,102,11,13,Leicester,medium,H,64,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,3
@@ -1638,11 +1638,11 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 524196,Shaq,Forde,S. Forde,FWD,96,11,46,Swindon,medium,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,4
 524200,Daniel,Watts,D. Watts,DEF,71,11,2048,Fleetwood,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 524389,Gabriel,Breeze,G. Breeze,GK,101,11,76,Plymouth,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-524389,Gabriel,Breeze,G. Breeze,GK,101,11,19,Sheffield Wed,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+524389,Gabriel,Breeze,G. Breeze,GK,101,11,19,Sheffield Wed,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 529978,Harrison,Burke,H. Burke,DEF,42,11,3448,Salford,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 529999,Chris,Sze,C. Sze,FWD,111,11,38,Huddersfield,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 529999,Chris,Sze,C. Sze,FWD,111,11,13,Leicester,medium,A,32,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
-530025,Tom,Davies,T. Davies,DEF,437,11,87,Cheltenham,hard,A,9,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
+530025,Tom,Davies,T. Davies,DEF,437,11,87,Cheltenham,medium,A,9,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
 530121,Zain,Silcott-Duberry,Z. Silcott-Duberry,MID,82,11,888,Accrington,medium,H,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 530125,Benn,Ward,B. Ward,DEF,108,11,37,Barnsley,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 530330,Pierce,Charles,P. Charles,GK,52,11,80,Swansea,hard,H,90,0,0,0,0,0,0,0,3,0,1,0,0,0,0,0,0,0,9
@@ -1654,11 +1654,11 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 531076,Frankie,Maguire,F. Maguire,MID,78,11,34,Barnet,hard,A,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 531170,Nasser,Djiga,N. Djiga,DEF,39,11,57,Watford,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 531967,Declan,Frith,D. Frith,FWD,73,11,2050,Bromley,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-531985,Jake,Batty,J. Batty,DEF,2048,11,71,Exeter,medium,A,90,0,0,0,0,0,0,0,0,0,0,2,3,0,2,0,0,0,2
+531985,Jake,Batty,J. Batty,DEF,2048,11,71,Exeter,hard,A,90,0,0,0,0,0,0,0,0,0,0,2,3,0,2,0,0,0,2
 531989,David,Ozoh,D. Ozoh,MID,24,11,49,Sheffield Utd,medium,A,89,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,4
 531997,Henry,Cartwright,H. Cartwright,MID,55,11,106,Oxford,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-532004,Sonny,Finch,S. Finch,FWD,53,11,100,Gillingham,hard,A,35,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,6
-532076,James,Crole,J. Crole,FWD,437,11,87,Cheltenham,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+532004,Sonny,Finch,S. Finch,FWD,53,11,100,Gillingham,medium,A,35,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,6
+532076,James,Crole,J. Crole,FWD,437,11,87,Cheltenham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 532097,Ivan,Varfolomeev,I. Varfolomeev,MID,83,11,90,Burnley,easy,H,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
 532372,Oliver,Arblaster,O. Arblaster,MID,49,11,24,Derby,easy,H,57,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,0,6
 532373,Kamarl,Grant,K. Grant,DEF,2050,11,73,Peterborough,easy,H,90,0,0,0,0,0,1,0,0,0,0,1,3,1,0,0,0,0,1
@@ -1672,12 +1672,12 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 533458,Tom,Moore,T. Moore,DEF,888,11,82,Rochdale,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 533515,Jhon,Solís,J. Solís,MID,41,11,97,Cardiff,medium,A,64,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,3
 533595,Jusef,Erabi,J. Erabi,FWD,107,11,35,West Brom,hard,H,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
-533710,Iwan,Morgan,I. Morgan,FWD,53,11,100,Gillingham,hard,A,72,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,9
+533710,Iwan,Morgan,I. Morgan,FWD,53,11,100,Gillingham,medium,A,72,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,9
 534389,Miles,Leaburn,M. Leaburn,FWD,33,11,45,Norwich,medium,H,35,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 534390,Deji,Elerewe,D. Elerewe,DEF,83,11,90,Burnley,easy,H,90,0,0,0,0,0,0,0,0,0,0,1,6,0,0,0,0,0,3
 534391,Tyreece,Campbell,T. Campbell,FWD,33,11,45,Norwich,medium,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,3
 534392,Mason,Burstow,M. Burstow,FWD,19,11,290,Doncaster,easy,A,45,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,4
-534392,Mason,Burstow,M. Burstow,FWD,19,11,101,Cambridge,hard,H,90,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,3,10
+534392,Mason,Burstow,M. Burstow,FWD,19,11,101,Cambridge,medium,H,90,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,3,10
 534394,Nathan,Asiimwe,N. Asiimwe,DEF,3448,11,42,Walsall,hard,A,30,0,0,0,0,0,0,0,0,0,0,1,1,0,1,0,0,0,1
 534403,Karoy,Anderson,K. Anderson,MID,92,11,77,Mansfield,medium,H,90,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,3
 534466,George,Hall,G. Hall,MID,50,11,78,York,hard,A,23,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
@@ -1688,7 +1688,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 535017,Julian,Eyestone,J. Eyestone,GK,72,11,74,Shrewsbury,medium,H,90,0,0,1,0,0,0,0,4,0,0,3,0,0,0,0,0,0,6
 535262,Reuell,Walters,R. Walters,DEF,102,11,13,Leicester,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 535262,Reuell,Walters,R. Walters,DEF,102,11,290,Doncaster,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-535264,Bradley,Ibrahim,B. Ibrahim,MID,76,11,101,Cambridge,hard,A,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+535264,Bradley,Ibrahim,B. Ibrahim,MID,76,11,101,Cambridge,medium,A,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 535393,Jason,Adigun,J. Adigun,MID,48,11,104,Notts C,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 535393,Jason,Adigun,J. Adigun,MID,48,11,106,Oxford,hard,A,24,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
 535606,Isaac,Ogundere,I. Ogundere,DEF,2623,11,112,Wycombe,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -1698,17 +1698,17 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 536109,Ollie,Scarles,O. Scarles,DEF,21,11,20,Southampton,hard,H,45,0,0,0,0,0,0,0,0,0,0,0,1,0,3,0,0,0,2
 536110,Josh,Feeney,J. Feeney,DEF,73,11,2050,Bromley,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 536119,Charlie,Crew,C. Crew,MID,42,11,3448,Salford,hard,H,32,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
-536124,James,Pradic,J. Pradic,GK,2048,11,71,Exeter,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-536126,Calum,Agius,C. Agius,FWD,51,11,98,Chesterfield,medium,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+536124,James,Pradic,J. Pradic,GK,2048,11,71,Exeter,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+536126,Calum,Agius,C. Agius,FWD,51,11,98,Chesterfield,hard,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
 536133,Gideon,Kodua,G. Kodua,FWD,102,11,13,Leicester,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 536133,Gideon,Kodua,G. Kodua,FWD,102,11,290,Doncaster,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 536238,Ishé,Samuels-Smith,I. Samuels-Smith,DEF,104,11,48,Stockport,hard,H,90,0,0,0,0,0,0,0,0,0,0,1,6,0,1,0,0,0,3
 536375,Zac,Williams,Z. Williams,DEF,34,11,105,Oldham,easy,H,90,0,0,0,0,0,0,0,0,0,0,1,11,0,1,0,0,0,4
 536375,Zac,Williams,Z. Williams,DEF,34,11,78,York,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 536376,Connor,O'Riordan,C. O'Riordan,DEF,37,11,108,Reading,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-536377,Lewis,Billington,L. Billington,DEF,51,11,98,Chesterfield,medium,A,90,0,0,0,0,0,0,0,0,0,0,5,2,1,1,0,0,0,0
-536380,Joel,Tabiner,J. Tabiner,MID,51,11,98,Chesterfield,medium,A,45,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
-536382,Tom,Booth,T. Booth,GK,51,11,98,Chesterfield,medium,A,90,0,0,0,0,0,0,0,1,0,0,5,0,0,0,0,0,0,0
+536377,Lewis,Billington,L. Billington,DEF,51,11,98,Chesterfield,hard,A,90,0,0,0,0,0,0,0,0,0,0,5,2,1,1,0,0,0,0
+536380,Joel,Tabiner,J. Tabiner,MID,51,11,98,Chesterfield,hard,A,45,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+536382,Tom,Booth,T. Booth,GK,51,11,98,Chesterfield,hard,A,90,0,0,0,0,0,0,0,1,0,0,5,0,0,0,0,0,0,0
 536412,Frankie,Terry,F. Terry,DEF,99,11,75,Northampton,easy,A,90,0,0,0,0,0,0,0,0,0,0,2,4,1,0,0,0,0,2
 536556,James,Edmondson,J. Edmondson,MID,5,11,109,Wrexham,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 536575,Johnny,Kenny,J. Kenny,FWD,107,11,35,West Brom,hard,H,70,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,4
@@ -1722,7 +1722,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 538189,Boyd,Beacroft,B. Beacroft,DEF,108,11,37,Barnsley,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 538210,Andre,Brooks,A. Brooks,MID,45,11,33,Charlton,easy,A,75,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
 538292,Zak,Bradshaw,Z. Bradshaw,DEF,101,11,76,Plymouth,hard,H,90,0,0,1,0,0,0,0,0,0,0,3,0,0,1,0,0,0,4
-538292,Zak,Bradshaw,Z. Bradshaw,DEF,101,11,19,Sheffield Wed,medium,A,30,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
+538292,Zak,Bradshaw,Z. Bradshaw,DEF,101,11,19,Sheffield Wed,hard,A,30,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
 538631,Bradley,Mayo,B. Mayo,GK,41,11,97,Cardiff,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 538637,Brandon,Khela,B. Khela,MID,73,11,2050,Bromley,easy,A,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
 538638,Tyler,Bindon,T. Bindon,DEF,33,11,45,Norwich,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -1742,12 +1742,12 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 543866,Charlie,McArthur,C. McArthur,DEF,78,11,34,Barnet,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 544415,Kristoffer,Lund,K. Lund,DEF,41,11,97,Cardiff,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 544846,Noah,Phillips,N. Phillips,GK,85,11,587,Burton,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-545386,Adam,Murphy,A. Murphy,MID,2048,11,71,Exeter,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+545386,Adam,Murphy,A. Murphy,MID,2048,11,71,Exeter,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 545411,Mason,Hancock,M. Hancock,DEF,42,11,3448,Salford,hard,H,90,0,0,1,0,0,0,0,0,0,0,4,6,0,1,0,0,0,4
 545436,Dylan,Duffy,D. Duffy,MID,98,11,51,Crewe,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 545508,Joe,O'Brien-Whitmarsh,J. O'Brien-Whitmarsh,MID,75,11,99,Colchester,easy,H,23,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,3
 545511,Cathal,Heffernan,C. Heffernan,DEF,101,11,76,Plymouth,hard,H,90,0,0,0,0,0,1,0,0,0,0,3,1,0,0,0,0,0,0
-545511,Cathal,Heffernan,C. Heffernan,DEF,101,11,19,Sheffield Wed,medium,A,90,0,0,0,0,0,0,0,0,0,0,1,7,1,1,0,0,0,3
+545511,Cathal,Heffernan,C. Heffernan,DEF,101,11,19,Sheffield Wed,hard,A,90,0,0,0,0,0,0,0,0,0,0,1,7,1,1,0,0,0,3
 545690,Dion,De Neve,D. De Neve,DEF,5,11,109,Wrexham,medium,H,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 545743,Iyad,Mohamed,I. Mohamed,MID,47,11,103,Millwall,medium,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
 545956,Ethan,Pye,E. Pye,DEF,48,11,104,Notts C,easy,A,90,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,2
@@ -1757,7 +1757,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 546324,Amadou,Mbengue,A. Mbengue,DEF,52,11,80,Swansea,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 546393,Tommy,Leigh,T. Leigh,MID,96,11,46,Swindon,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 546399,Liam,Bennett,L. Bennett,DEF,101,11,76,Plymouth,hard,H,90,0,0,0,0,0,0,0,0,0,0,3,4,0,0,0,0,0,2
-546399,Liam,Bennett,L. Bennett,DEF,101,11,19,Sheffield Wed,medium,A,90,0,0,0,0,0,0,0,0,0,0,1,5,0,1,0,0,0,3
+546399,Liam,Bennett,L. Bennett,DEF,101,11,19,Sheffield Wed,hard,A,90,0,0,0,0,0,0,0,0,0,0,1,5,0,1,0,0,0,3
 546400,Mamadou,Jobe,M. Jobe,DEF,48,11,104,Notts C,easy,A,90,0,0,0,0,0,0,0,0,0,0,1,2,0,1,0,0,0,2
 546400,Mamadou,Jobe,M. Jobe,DEF,48,11,106,Oxford,hard,A,90,0,0,0,0,0,0,0,0,0,0,1,3,1,0,0,0,0,2
 546579,Jovon,Makama,J. Makama,FWD,45,11,33,Charlton,easy,A,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
@@ -1778,18 +1778,18 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 547693,Somto,Boniface,S. Boniface,DEF,85,11,587,Burton,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 547698,Akeel,Higgins,A. Higgins,FWD,111,11,38,Huddersfield,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 547698,Akeel,Higgins,A. Higgins,FWD,111,11,13,Leicester,medium,A,21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
-547711,Darren,Robinson,D. Robinson,MID,290,11,19,Sheffield Wed,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+547711,Darren,Robinson,D. Robinson,MID,290,11,19,Sheffield Wed,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 547711,Darren,Robinson,D. Robinson,MID,290,11,102,Luton,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 547714,Matteo,Spinelli,M. Spinelli,GK,111,11,38,Huddersfield,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 547714,Matteo,Spinelli,M. Spinelli,GK,111,11,13,Leicester,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 547720,Charlie,Tasker,C. Tasker,DEF,82,11,888,Accrington,medium,H,70,0,0,0,0,0,0,0,0,0,0,5,1,0,2,0,0,0,1
-547747,Murphy,Cooper,M. Cooper,GK,76,11,101,Cambridge,hard,A,90,0,0,0,0,0,0,0,4,0,0,2,0,0,0,0,0,0,3
+547747,Murphy,Cooper,M. Cooper,GK,76,11,101,Cambridge,medium,A,90,0,0,0,0,0,0,0,4,0,0,2,0,0,0,0,0,0,3
 547800,Joel,Catesby,J. Catesby,FWD,888,11,82,Rochdale,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 547921,Charlie,Veevers,C. Veevers,MID,44,11,1525,Crawley,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 548308,Ashley,Phillips,A. Phillips,DEF,25,11,30,Bolton,easy,A,90,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,2
 548328,Matt,Baker,M. Baker,DEF,104,11,48,Stockport,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 548585,Makenzie,Kirk,M. Kirk,FWD,37,11,108,Reading,hard,A,17,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
-549059,Aaron,Loupalo-Bi,A. Loupalo-Bi,FWD,2048,11,71,Exeter,medium,A,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2
+549059,Aaron,Loupalo-Bi,A. Loupalo-Bi,FWD,2048,11,71,Exeter,hard,A,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2
 549067,Zach,Abbott,Z. Abbott,DEF,20,11,21,West Ham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 549070,Nicholas,Michalski,N. Michalski,GK,1525,11,44,Tranmere,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 549074,Tom,Watson,T. Watson,FWD,13,11,102,Luton,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -1800,7 +1800,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 549153,Craig,Hewitt,C. Hewitt,MID,78,11,34,Barnet,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 549329,Lucas,Pires,L. Pires,DEF,90,11,83,Lincoln,easy,A,90,0,0,1,0,0,0,0,0,0,0,4,2,0,5,0,0,0,5
 549344,Sam,Curtis,S. Curtis,DEF,101,11,76,Plymouth,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-549344,Sam,Curtis,S. Curtis,DEF,101,11,19,Sheffield Wed,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+549344,Sam,Curtis,S. Curtis,DEF,101,11,19,Sheffield Wed,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 549640,Michael,Golding,M. Golding,MID,74,11,72,Rotherham,easy,A,46,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 549643,Tom,Myles,T. Myles,GK,3448,11,42,Walsall,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 549841,Chris,Forino,C. Forino,DEF,30,11,25,Middlesbrough,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -1821,18 +1821,18 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 552007,Lemar,Gordon,L. Gordon,FWD,85,11,587,Burton,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 552425,Sydie,Peck,S. Peck,MID,49,11,24,Derby,easy,H,33,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,2,2
 552427,Will,Lankshear,W. Lankshear,FWD,25,11,30,Bolton,easy,A,79,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,5,17
-553242,Owen,Lunt,O. Lunt,MID,51,11,98,Chesterfield,medium,A,45,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
-553676,Joe,Thomas,J. Thomas,DEF,437,11,87,Cheltenham,hard,A,81,0,0,0,0,0,0,0,0,0,0,1,9,0,6,0,0,0,7
+553242,Owen,Lunt,O. Lunt,MID,51,11,98,Chesterfield,hard,A,45,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+553676,Joe,Thomas,J. Thomas,DEF,437,11,87,Cheltenham,medium,A,81,0,0,0,0,0,0,0,0,0,0,1,9,0,6,0,0,0,7
 553742,Finlay,Herrick,F. Herrick,GK,21,11,20,Southampton,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 553756,Oisín,Gallagher,O. Gallagher,MID,34,11,105,Oldham,easy,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,3
 553756,Oisín,Gallagher,O. Gallagher,MID,34,11,78,York,hard,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,0,6
 553986,Henrik,Meister,H. Meister,FWD,24,11,49,Sheffield Utd,medium,A,73,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,3
 554650,Iker,Bravo,I. Bravo,FWD,57,11,39,Wolves,hard,A,85,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
 554921,Joe,Taylor,J. Taylor,FWD,38,11,111,Wigan,easy,H,89,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
-555353,Caleb,Roberts,C. Roberts,MID,76,11,101,Cambridge,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+555353,Caleb,Roberts,C. Roberts,MID,76,11,101,Cambridge,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 555853,Ato,Ampah,A. Ampah,FWD,110,11,113,Bristol C,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 555863,Kevin,Mfuamba,K. Mfuamba,MID,108,11,37,Barnsley,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-556189,Matús,Holícek,M. Holícek,MID,51,11,98,Chesterfield,medium,A,74,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+556189,Matús,Holícek,M. Holícek,MID,51,11,98,Chesterfield,hard,A,74,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
 556639,Jayce,Fitzgerald,J. Fitzgerald,MID,72,11,74,Shrewsbury,medium,H,90,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,2,0,6
 556685,Andrew,Oluwabori,A. Oluwabori,FWD,71,11,2048,Fleetwood,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 558512,James,Golding,J. Golding,DEF,106,11,55,Bradford,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -1847,7 +1847,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 560213,Callum,Tripp,C. Tripp,DEF,22,11,288,Stevenage,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 560213,Callum,Tripp,C. Tripp,DEF,22,11,2050,Bromley,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 560413,Glenn,McConnell,G. McConnell,MID,101,11,76,Plymouth,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-560413,Glenn,McConnell,G. McConnell,MID,101,11,19,Sheffield Wed,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+560413,Glenn,McConnell,G. McConnell,MID,101,11,19,Sheffield Wed,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 560709,Daniel,Kelly,D. Kelly,MID,103,11,47,Portsmouth,medium,A,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 560847,Nolan,Galves,N. Galves,DEF,35,11,107,Preston,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 560860,Joseph,Gbode,J. Gbode,FWD,74,11,72,Rotherham,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -1858,11 +1858,11 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 563367,Owen,Mason,O. Mason,GK,2050,11,73,Peterborough,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 563367,Owen,Mason,O. Mason,GK,2050,11,22,MK Dons,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 563822,Sean,Fusire,S. Fusire,MID,19,11,290,Doncaster,easy,A,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
-563822,Sean,Fusire,S. Fusire,MID,19,11,101,Cambridge,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+563822,Sean,Fusire,S. Fusire,MID,19,11,101,Cambridge,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 563826,Bailey,Cadamarteri,B. Cadamarteri,FWD,109,11,5,Blackburn,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 563829,Jarvis,Thornton,J. Thornton,MID,19,11,290,Doncaster,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-563829,Jarvis,Thornton,J. Thornton,MID,19,11,101,Cambridge,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-563935,Oliver,Irow,O. Irow,FWD,76,11,101,Cambridge,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+563829,Jarvis,Thornton,J. Thornton,MID,19,11,101,Cambridge,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+563935,Oliver,Irow,O. Irow,FWD,76,11,101,Cambridge,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 564365,Max,Jolliffe,M. Jolliffe,MID,99,11,75,Northampton,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 564505,Sam,Proctor,S. Proctor,GK,74,11,72,Rotherham,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 564920,Jacques,Ekomié,J. Ekomié,DEF,109,11,5,Blackburn,medium,A,78,0,0,0,0,0,0,0,0,0,0,1,1,0,4,0,0,0,4
@@ -1883,9 +1883,9 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 567527,Admir,Bristric,A. Bristric,FWD,13,11,102,Luton,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 567527,Admir,Bristric,A. Bristric,FWD,13,11,111,Wigan,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 568164,Callum,Stead,C. Stead,FWD,101,11,76,Plymouth,hard,H,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
-568164,Callum,Stead,C. Stead,FWD,101,11,19,Sheffield Wed,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+568164,Callum,Stead,C. Stead,FWD,101,11,19,Sheffield Wed,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 570723,Bae,Jun-Ho,B. Jun-Ho,MID,110,11,113,Bristol C,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-570919,Josh,Robertson,J. Robertson,MID,2048,11,71,Exeter,medium,A,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+570919,Josh,Robertson,J. Robertson,MID,2048,11,71,Exeter,hard,A,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 571032,Jamie,Jellis,J. Jellis,MID,72,11,74,Shrewsbury,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 571092,Matt,Young,M. Young,GK,38,11,111,Wigan,easy,H,90,0,0,0,0,0,0,0,2,0,0,1,0,0,0,0,0,0,2
 571380,Luka,Lynch,L. Lynch,FWD,106,11,55,Bradford,hard,H,14,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
@@ -1909,7 +1909,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 575034,Ethan,Wheatley,E. Wheatley,FWD,83,11,90,Burnley,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 575066,Ethan,Stiver,E. Stiver,FWD,78,11,50,Port Vale,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 575066,Ethan,Stiver,E. Stiver,FWD,78,11,34,Barnet,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-576496,Kyle,Ure,K. Ure,MID,51,11,98,Chesterfield,medium,A,27,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
+576496,Kyle,Ure,K. Ure,MID,51,11,98,Chesterfield,hard,A,27,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
 576627,Zach,Baumann,Z. Baumann,MID,45,11,33,Charlton,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 576638,James,Bailey,J. Bailey,MID,48,11,104,Notts C,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 576638,James,Bailey,J. Bailey,MID,48,11,106,Oxford,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -1930,7 +1930,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 581077,Mihailo,Ivanovic,M. Ivanovic,FWD,103,11,47,Portsmouth,medium,A,22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 581236,Gbemi,Arubi,G. Arubi,FWD,587,11,85,L Orient,medium,H,32,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 581268,Stephan,Negru,S. Negru,DEF,46,11,96,Bristol R,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-581537,Finley,Potter,F. Potter,DEF,2048,11,71,Exeter,medium,A,61,0,0,0,0,0,0,0,0,0,0,1,2,0,1,0,0,0,2
+581537,Finley,Potter,F. Potter,DEF,2048,11,71,Exeter,hard,A,61,0,0,0,0,0,0,0,0,0,0,1,2,0,1,0,0,0,2
 582288,Mohammed,Fuseini,M. Fuseini,FWD,24,11,49,Sheffield Utd,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 582400,Tyrese,Noslin,T. Noslin,MID,37,11,108,Reading,hard,A,17,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 582584,Lewis,Temple,L. Temple,DEF,105,11,34,Barnet,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -1948,12 +1948,12 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 587252,James,Plant,J. Plant,MID,44,11,1525,Crawley,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 587387,Connor,O'Brien,C. O'Brien,DEF,888,11,82,Rochdale,easy,A,90,0,0,0,0,0,0,0,0,0,1,0,0,0,2,0,0,0,8
 587433,Conor,McManus,C. McManus,DEF,100,11,53,Grimsby,hard,H,90,0,0,0,0,0,0,0,0,0,0,4,4,1,0,0,0,0,1
-587644,Owen,Oseni,O. Oseni,FWD,76,11,101,Cambridge,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+587644,Owen,Oseni,O. Oseni,FWD,76,11,101,Cambridge,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 587645,Romeo,Akachukwu,R. Akachukwu,MID,20,11,21,West Ham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 587664,Elicha,Ahui,E. Ahui,DEF,42,11,3448,Salford,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 587799,Tobi,Adeyemo,T. Adeyemo,FWD,37,11,108,Reading,hard,A,73,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,3
 588237,Kellen,Fisher,K. Fisher,DEF,45,11,33,Charlton,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-588793,Maldini,Kacurri,M. Kacurri,DEF,53,11,100,Gillingham,hard,A,90,0,0,0,0,0,1,0,0,0,0,1,5,0,1,0,0,0,2
+588793,Maldini,Kacurri,M. Kacurri,DEF,53,11,100,Gillingham,medium,A,90,0,0,0,0,0,1,0,0,0,0,1,5,0,1,0,0,0,2
 589100,Jacob,Slater,J. Slater,DEF,44,11,1525,Crawley,easy,A,90,0,0,0,0,0,0,0,0,0,0,1,1,2,1,0,0,0,3
 589111,Lenny,Agbaire,L. Agbaire,DEF,72,11,74,Shrewsbury,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 589113,Casey,Pettit,C. Pettit,MID,82,11,888,Accrington,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -2000,7 +2000,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 594297,Isak,Alemayehu,I. Alemayehu,MID,52,11,80,Swansea,hard,H,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 594303,Timothy,Ouma,T. Ouma,MID,33,11,45,Norwich,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 596042,Kieran,Morrison,K. Morrison,MID,19,11,290,Doncaster,easy,A,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,3
-596042,Kieran,Morrison,K. Morrison,MID,19,11,101,Cambridge,hard,H,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,3
+596042,Kieran,Morrison,K. Morrison,MID,19,11,101,Cambridge,medium,H,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,3
 596054,Tom,Edozie,T. Edozie,FWD,39,11,57,Watford,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 597182,Kieran,Graham,K. Graham,FWD,37,11,108,Reading,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 597234,Luke,Alker,L. Alker,FWD,37,11,108,Reading,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -2013,25 +2013,25 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 599303,Sean,Neave,S. Neave,FWD,39,11,57,Watford,easy,H,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 599405,Cristian,Pascaluta,C. Pascaluta,MID,85,11,587,Burton,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 600882,Harry,Gray,H. Gray,FWD,19,11,290,Doncaster,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-600882,Harry,Gray,H. Gray,FWD,19,11,101,Cambridge,hard,H,74,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
+600882,Harry,Gray,H. Gray,FWD,19,11,101,Cambridge,medium,H,74,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
 600952,Freddy,Willcox,F. Willcox,MID,87,11,437,Newport,medium,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,4
 600956,Rhys,Walters,R. Walters,MID,50,11,78,York,hard,A,67,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
 601496,Jili,Buyabu,J. Buyabu,DEF,72,11,74,Shrewsbury,medium,H,27,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1
 601956,Saheed,Olagunju,S. Olagunju,DEF,39,11,57,Watford,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-601958,Finlay,Cartwright,F. Cartwright,MID,53,11,100,Gillingham,hard,A,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,3
+601958,Finlay,Cartwright,F. Cartwright,MID,53,11,100,Gillingham,medium,A,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,3
 601986,David,Kamara,D. Kamara,FWD,44,11,1525,Crawley,easy,A,33,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 602735,Oscar,Lunn,O. Lunn,DEF,55,11,106,Oxford,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 602896,Logan,Dobbs,L. Dobbs,DEF,100,11,53,Grimsby,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 602903,Ezra,Mayers,E. Mayers,DEF,21,11,20,Southampton,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-602925,Bayley,McCann,B. McCann,DEF,290,11,19,Sheffield Wed,medium,H,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+602925,Bayley,McCann,B. McCann,DEF,290,11,19,Sheffield Wed,hard,H,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 602925,Bayley,McCann,B. McCann,DEF,290,11,102,Luton,hard,A,21,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,8
-602926,Jake,Oram,J. Oram,GK,290,11,19,Sheffield Wed,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+602926,Jake,Oram,J. Oram,GK,290,11,19,Sheffield Wed,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 602934,Fletcher,Holman,F. Holman,FWD,46,11,96,Bristol R,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 603889,Hamish,Douglas,H. Douglas,MID,72,11,74,Shrewsbury,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 603890,Elijah,Morrison,E. Morrison,MID,113,11,110,Stoke,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 603985,Isaac,Gordon,I. Gordon,DEF,24,11,49,Sheffield Utd,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 604142,George,Hoddle,G. Hoddle,MID,101,11,76,Plymouth,hard,H,62,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,0,7
-604142,George,Hoddle,G. Hoddle,MID,101,11,19,Sheffield Wed,medium,A,82,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,10
+604142,George,Hoddle,G. Hoddle,MID,101,11,19,Sheffield Wed,hard,A,82,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,10
 604358,Taite,Holtam,T. Holtam,GK,100,11,53,Grimsby,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 604664,Tom,Iorpenda,T. Iorpenda,MID,80,11,52,QPR,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 604727,Joshua,Mullins,J. Mullins,DEF,57,11,39,Wolves,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -2051,7 +2051,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 606921,Romain,Esse,R. Esse,MID,103,11,47,Portsmouth,medium,A,22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 607089,Taylor,Anderson,T. Anderson,DEF,77,11,92,Blackpool,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 607130,Papa,Diallo,P. Diallo,FWD,45,11,33,Charlton,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-608031,Michael,Adu-Poku,M. Adu-Poku,FWD,437,11,87,Cheltenham,hard,A,90,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,1
+608031,Michael,Adu-Poku,M. Adu-Poku,FWD,437,11,87,Cheltenham,medium,A,90,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,1
 608060,Jayden,Luker,J. Luker,MID,102,11,13,Leicester,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 608060,Jayden,Luker,J. Luker,MID,102,11,290,Doncaster,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 608905,Connor,Cook,C. Cook,MID,98,11,51,Crewe,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -2061,15 +2061,15 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 611011,Joe,Johnson,J. Johnson,DEF,102,11,290,Doncaster,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 611142,Freddie,Anderson,F. Anderson,DEF,110,11,113,Bristol C,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 611911,Will,McPartland,W. McPartland,DEF,19,11,290,Doncaster,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-611911,Will,McPartland,W. McPartland,DEF,19,11,101,Cambridge,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+611911,Will,McPartland,W. McPartland,DEF,19,11,101,Cambridge,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 611921,Reggie,Walsh,R. Walsh,MID,111,11,38,Huddersfield,hard,A,90,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,4,0,9
 611921,Reggie,Walsh,R. Walsh,MID,111,11,13,Leicester,medium,A,90,0,0,0,0,0,1,0,0,0,0,0,0,0,0,4,0,0,9
-612192,Oliver,Bellizia,O. Bellizia,GK,2048,11,71,Exeter,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-612195,Kayden,Hughes,K. Hughes,DEF,2048,11,71,Exeter,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+612192,Oliver,Bellizia,O. Bellizia,GK,2048,11,71,Exeter,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+612195,Kayden,Hughes,K. Hughes,DEF,2048,11,71,Exeter,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 612345,Patrick,Agyemang,P. Agyemang,FWD,24,11,49,Sheffield Utd,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 612351,Andrew,Wogan,A. Wogan,GK,48,11,104,Notts C,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 612351,Andrew,Wogan,A. Wogan,GK,48,11,106,Oxford,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-612356,Jesse,Dempsey,J. Dempsey,DEF,2048,11,71,Exeter,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+612356,Jesse,Dempsey,J. Dempsey,DEF,2048,11,71,Exeter,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 612592,Eoin,Kenny,E. Kenny,MID,47,11,103,Millwall,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 612903,Rylan,Brownlie,R. Brownlie,FWD,37,11,108,Reading,hard,A,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 612941,Tyler,Sackey,T. Sackey,MID,108,11,37,Barnsley,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -2077,9 +2077,9 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 612944,Emmanuel,Osho,E. Osho,DEF,108,11,37,Barnsley,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 612948,Jerae,Jones,J. Jones,MID,108,11,37,Barnsley,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 612949,Ashqar,Ahmed,A. Ahmed,DEF,108,11,37,Barnsley,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-613041,Leon,Ayinde,L. Ayinde,FWD,290,11,19,Sheffield Wed,medium,H,81,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,3
+613041,Leon,Ayinde,L. Ayinde,FWD,290,11,19,Sheffield Wed,hard,H,81,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,3
 613041,Leon,Ayinde,L. Ayinde,FWD,290,11,102,Luton,hard,A,69,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
-614471,Tanatswa,Nyakuhwa,T. Nyakuhwa,FWD,437,11,87,Cheltenham,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+614471,Tanatswa,Nyakuhwa,T. Nyakuhwa,FWD,437,11,87,Cheltenham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 614499,Tobias,Brenan,T. Brenan,MID,2050,11,73,Peterborough,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 614499,Tobias,Brenan,T. Brenan,MID,2050,11,22,MK Dons,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 614500,Aidan,Elliott-Wheeler,A. Elliott-Wheeler,FWD,106,11,55,Bradford,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -2119,7 +2119,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 626653,Maleace,Asamoah,M. Asamoah,FWD,50,11,78,York,hard,A,21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
 626680,Bobby,Pointon,B. Pointon,FWD,55,11,106,Oxford,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 626746,Djibril,Soumaré,D. Soumaré,MID,110,11,113,Bristol C,easy,H,69,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,3
-627003,Jordan,Thomas,J. Thomas,MID,290,11,19,Sheffield Wed,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+627003,Jordan,Thomas,J. Thomas,MID,290,11,19,Sheffield Wed,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 627003,Jordan,Thomas,J. Thomas,MID,290,11,102,Luton,hard,A,21,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0
 627301,Kain,Adom,K. Adom,FWD,587,11,85,L Orient,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 627550,Nils,Ramming,N. Ramming,GK,82,11,888,Accrington,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -2130,21 +2130,21 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 628819,Jake,Richards,J. Richards,MID,102,11,13,Leicester,medium,H,26,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,4
 628819,Jake,Richards,J. Richards,MID,102,11,290,Doncaster,easy,H,90,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1,1,9
 628933,Callum,Perry,C. Perry,DEF,101,11,76,Plymouth,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-628933,Callum,Perry,C. Perry,DEF,101,11,19,Sheffield Wed,medium,A,60,0,0,0,0,0,0,0,0,0,0,1,5,0,5,0,0,0,5
+628933,Callum,Perry,C. Perry,DEF,101,11,19,Sheffield Wed,hard,A,60,0,0,0,0,0,0,0,0,0,0,1,5,0,5,0,0,0,5
 629013,Theodore,Adelusi,T. Adelusi,DEF,45,11,33,Charlton,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 629397,Kai,Andrews,K. Andrews,MID,106,11,55,Bradford,hard,H,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,3
 629397,Kai,Andrews,K. Andrews,MID,106,11,48,Stockport,hard,H,24,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,3
 629403,Will,Lawrence,W. Lawrence,MID,13,11,102,Luton,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 629403,Will,Lawrence,W. Lawrence,MID,13,11,111,Wigan,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 629427,Rayan,Kolli,R. Kolli,FWD,52,11,80,Swansea,hard,H,18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
-629436,Finn,Robert,F. Robert,FWD,51,11,98,Chesterfield,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+629436,Finn,Robert,F. Robert,FWD,51,11,98,Chesterfield,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 629738,Adama,Boiro,A. Boiro,DEF,21,11,20,Southampton,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 630538,Charlie,Holt,C. Holt,MID,97,11,41,Birmingham,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 630664,Jake,Evans,J. Evans,FWD,87,11,437,Newport,medium,H,73,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,2,0,5
 630699,Mohamadou,Kanté,M. Kanté,MID,21,11,20,Southampton,hard,H,74,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,3
 631099,Vatan,Özcan,V. Özcan,DEF,45,11,33,Charlton,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 631104,Bradley,Tagoe,B. Tagoe,FWD,33,11,45,Norwich,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-631278,Crispin,McLean,C. McLean,MID,2048,11,71,Exeter,medium,A,70,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,2,0,6
+631278,Crispin,McLean,C. McLean,MID,2048,11,71,Exeter,hard,A,70,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,2,0,6
 631516,Errol,Mundle-Smith,E. Mundle-Smith,FWD,45,11,33,Charlton,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 631526,Phillip,Chinedu,P. Chinedu,DEF,85,11,587,Burton,medium,A,27,0,0,0,0,0,0,0,0,0,0,1,0,0,2,0,0,0,2
 631530,Louis,Page,L. Page,MID,13,11,102,Luton,hard,A,45,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
@@ -2158,7 +2158,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 632448,Othmane,Maamma,O. Maamma,FWD,57,11,39,Wolves,hard,A,28,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 632618,Louis,Griffiths,L. Griffiths,FWD,106,11,55,Bradford,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 632618,Louis,Griffiths,L. Griffiths,FWD,106,11,48,Stockport,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-632624,Cameron,Gardner,C. Gardner,MID,53,11,100,Gillingham,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+632624,Cameron,Gardner,C. Gardner,MID,53,11,100,Gillingham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 632822,Archie,Harris,A. Harris,DEF,111,11,38,Huddersfield,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 632822,Archie,Harris,A. Harris,DEF,111,11,13,Leicester,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 632826,Ibrahim,Fullah,I. Fullah,MID,22,11,288,Stevenage,medium,A,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
@@ -2184,7 +2184,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 641092,Ollie,Taylor,O. Taylor,MID,77,11,92,Blackpool,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 641094,Ethon,Archer,E. Archer,MID,2050,11,73,Peterborough,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 641094,Ethon,Archer,E. Archer,MID,2050,11,22,MK Dons,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-641307,Raffaele,Cirino,R. Cirino,DEF,2048,11,71,Exeter,medium,A,29,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,1
+641307,Raffaele,Cirino,R. Cirino,DEF,2048,11,71,Exeter,hard,A,29,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,1
 641312,Charlie,Binns,C. Binns,GK,96,11,46,Swindon,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 641679,Max,Woodford,M. Woodford,GK,288,11,22,MK Dons,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 642301,Joel,McGregor,J. McGregor,DEF,46,11,96,Bristol R,easy,A,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
@@ -2193,14 +2193,14 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 642311,Rian,Silver,R. Silver,MID,22,11,288,Stevenage,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 642311,Rian,Silver,R. Silver,MID,22,11,2050,Bromley,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 642316,Charlie,Parks,C. Parks,DEF,83,11,90,Burnley,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-642317,Stan,Dancey,S. Dancey,DEF,51,11,98,Chesterfield,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+642317,Stan,Dancey,S. Dancey,DEF,51,11,98,Chesterfield,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 643003,Eddie,Fox,E. Fox,MID,73,11,2050,Bromley,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 643135,Fer,López,F. López,FWD,39,11,57,Watford,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 643473,Airidas,Golambeckis,A. Golambeckis,DEF,21,11,20,Southampton,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 644001,Joseph,Wallis,J. Wallis,GK,35,11,107,Preston,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 644593,Kian,McMahon-Brown,K. McMahon-Brown,FWD,74,11,72,Rotherham,easy,A,83,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,2,2,2
-644594,Muhammad,Oladiti,M. Oladiti,MID,2048,11,71,Exeter,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-645136,Pele,Smith,P. Smith,MID,2048,11,71,Exeter,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+644594,Muhammad,Oladiti,M. Oladiti,MID,2048,11,71,Exeter,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+645136,Pele,Smith,P. Smith,MID,2048,11,71,Exeter,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 645282,Richard,Kone,R. Kone,FWD,52,11,80,Swansea,hard,H,87,3,1,1,0,0,1,0,0,0,0,0,0,0,0,0,1,3,27
 645589,Amin,Nabizada,A. Nabizada,FWD,57,11,39,Wolves,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 645618,Bradley,Burrowes,B. Burrowes,FWD,111,11,38,Huddersfield,hard,A,83,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
@@ -2219,7 +2219,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 647651,T'Shay,Saint-Louis,T. Saint-Louis,MID,108,11,37,Barnsley,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 647671,Mateus,Mané,M. Mané,FWD,39,11,57,Watford,easy,H,29,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
 649208,Jeremy,Monga,J. Monga,MID,80,11,52,QPR,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-649240,Joshua,Stephenson,J. Stephenson,DEF,51,11,98,Chesterfield,medium,A,90,0,0,0,0,1,0,0,0,0,0,5,4,0,2,0,0,0,-1
+649240,Joshua,Stephenson,J. Stephenson,DEF,51,11,98,Chesterfield,hard,A,90,0,0,0,0,1,0,0,0,0,0,5,4,0,2,0,0,0,-1
 649241,George,Beaumont,G. Beaumont,MID,103,11,47,Portsmouth,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 649248,Jack,Howland,J. Howland,MID,103,11,47,Portsmouth,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 649250,Sacha,Vieira,S. Vieira,MID,103,11,47,Portsmouth,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -2229,12 +2229,12 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 649619,Patrick,Matejko,P. Matejko,MID,34,11,78,York,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 650516,Zane,Okoro,Z. Okoro,FWD,44,11,1525,Crawley,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 651156,Beck-Ray,Enoru,B. Enoru,FWD,104,11,48,Stockport,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-652105,Conor,Haughey,C. Haughey,DEF,2048,11,71,Exeter,medium,A,90,0,0,0,0,0,0,0,0,0,0,2,2,1,0,0,0,0,1
+652105,Conor,Haughey,C. Haughey,DEF,2048,11,71,Exeter,hard,A,90,0,0,0,0,0,0,0,0,0,0,2,2,1,0,0,0,0,1
 652116,Ilari,Kangasniemi,I. Kangasniemi,DEF,13,11,102,Luton,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 652116,Ilari,Kangasniemi,I. Kangasniemi,DEF,13,11,111,Wigan,easy,H,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 653773,Bruno,Alves,B. Alves,DEF,45,11,33,Charlton,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-654147,Sebastian,Auton,S. Auton,GK,53,11,100,Gillingham,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-655542,Cian,Doyle,C. Doyle,MID,53,11,100,Gillingham,hard,A,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
+654147,Sebastian,Auton,S. Auton,GK,53,11,100,Gillingham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+655542,Cian,Doyle,C. Doyle,MID,53,11,100,Gillingham,medium,A,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
 655588,Harvey,Pates,H. Pates,DEF,5,11,109,Wrexham,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 656699,Moussa,Baradji,M. Baradji,MID,5,11,109,Wrexham,medium,H,89,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,0,8
 657106,Dakarai,Mafico,D. Mafico,MID,97,11,41,Birmingham,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -2242,10 +2242,10 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 658380,Hugo,de Lisle,H. de Lisle,MID,13,11,102,Luton,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 658380,Hugo,de Lisle,H. de Lisle,MID,13,11,111,Wigan,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 661233,Harry,Ibbitson,H. Ibbitson,FWD,55,11,106,Oxford,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-661426,Sean,Costelloe,S. Costelloe,MID,2048,11,71,Exeter,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+661426,Sean,Costelloe,S. Costelloe,MID,2048,11,71,Exeter,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 661792,Rhys,Knight,R. Knight,MID,113,11,110,Stoke,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 662051,Gabriel,Otegbayo,G. Otegbayo,DEF,19,11,290,Doncaster,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-662051,Gabriel,Otegbayo,G. Otegbayo,DEF,19,11,101,Cambridge,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+662051,Gabriel,Otegbayo,G. Otegbayo,DEF,19,11,101,Cambridge,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 662186,Jeval,Thompson-McKenzie,J. Thompson-McKenzie,MID,74,11,72,Rotherham,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 662202,Matthew,Crowther,M. Crowther,MID,35,11,107,Preston,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 662337,Raymond,Offor,R. Offor,DEF,24,11,49,Sheffield Utd,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -2253,12 +2253,12 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 662836,Kamil,Dudek,K. Dudek,GK,587,11,85,L Orient,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 662921,Josh,Smith,J. Smith,DEF,888,11,82,Rochdale,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 662970,Samuel,Duruh,S. Duruh,FWD,19,11,290,Doncaster,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-662970,Samuel,Duruh,S. Duruh,FWD,19,11,101,Cambridge,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+662970,Samuel,Duruh,S. Duruh,FWD,19,11,101,Cambridge,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 663359,Chanse,Headman,C. Headman,DEF,2050,11,73,Peterborough,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 663359,Chanse,Headman,C. Headman,DEF,2050,11,22,MK Dons,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 663615,Jack,Taylor,J. Taylor,DEF,71,11,2048,Fleetwood,medium,H,90,0,0,0,0,0,0,0,0,0,0,1,7,0,3,0,0,0,4
-663638,Yahya,Bamba,Y. Bamba,FWD,437,11,87,Cheltenham,hard,A,81,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
-663752,Ryley,Reynolds,R. Reynolds,MID,53,11,100,Gillingham,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+663638,Yahya,Bamba,Y. Bamba,FWD,437,11,87,Cheltenham,medium,A,81,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+663752,Ryley,Reynolds,R. Reynolds,MID,53,11,100,Gillingham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 663866,Lee,Isaac,L. Isaac,DEF,74,11,72,Rotherham,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 664054,Che,Gardner,C. Gardner,MID,48,11,104,Notts C,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 664054,Che,Gardner,C. Gardner,MID,48,11,106,Oxford,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -2266,7 +2266,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 664417,Leo,Pecover,L. Pecover,MID,113,11,110,Stoke,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 664820,Bruno,Cina,B. Cina,FWD,48,11,104,Notts C,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 664820,Bruno,Cina,B. Cina,FWD,48,11,106,Oxford,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-664824,Henry,Brown,H. Brown,MID,53,11,100,Gillingham,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+664824,Henry,Brown,H. Brown,MID,53,11,100,Gillingham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 664829,Damerai,Singh-Hurditt,D. Singh-Hurditt,MID,22,11,288,Stevenage,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 664829,Damerai,Singh-Hurditt,D. Singh-Hurditt,MID,22,11,2050,Bromley,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 664914,Favour,Onukwuli,F. Onukwuli,MID,87,11,437,Newport,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -2287,7 +2287,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 666335,Tobias,Alsop,T. Alsop,DEF,71,11,2048,Fleetwood,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 666339,Louie,Cayless,L. Cayless,DEF,71,11,2048,Fleetwood,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 666407,Frankie,Phillips,F. Phillips,GK,71,11,2048,Fleetwood,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-666408,Adrien,Thibaut,A. Thibaut,FWD,51,11,98,Chesterfield,medium,A,27,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+666408,Adrien,Thibaut,A. Thibaut,FWD,51,11,98,Chesterfield,hard,A,27,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 666631,Luke,Brooke-Smith,L. Brooke-Smith,FWD,47,11,103,Millwall,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 667884,Theo,Upton,T. Upton,MID,92,11,77,Mansfield,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 667886,Harry,Webster,H. Webster,DEF,100,11,53,Grimsby,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -2302,7 +2302,7 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 668991,Joseph,Opoku,J. Opoku,FWD,80,11,52,QPR,hard,A,64,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
 669044,Ed,Nolan,E. Nolan,DEF,107,11,35,West Brom,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 669053,Cole,McGhee,C. McGhee,DEF,19,11,290,Doncaster,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-669053,Cole,McGhee,C. McGhee,DEF,19,11,101,Cambridge,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+669053,Cole,McGhee,C. McGhee,DEF,19,11,101,Cambridge,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 669055,Theo,Carroll,T. Carroll,MID,107,11,35,West Brom,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 669077,Harry,Fox,H. Fox,MID,102,11,13,Leicester,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 669077,Harry,Fox,H. Fox,MID,102,11,290,Doncaster,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -2317,8 +2317,8 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 672897,Harrison,Duncan,H. Duncan,DEF,72,11,74,Shrewsbury,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 672900,Kane,Richardson,K. Richardson,MID,72,11,74,Shrewsbury,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 672921,Denny,Oliver,D. Oliver,MID,19,11,290,Doncaster,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-672921,Denny,Oliver,D. Oliver,MID,19,11,101,Cambridge,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-672924,Luca,Moore,L. Moore,MID,51,11,98,Chesterfield,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+672921,Denny,Oliver,D. Oliver,MID,19,11,101,Cambridge,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+672924,Luca,Moore,L. Moore,MID,51,11,98,Chesterfield,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 672933,Riley,Horan,R. Horan,DEF,2623,11,112,Wycombe,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 673579,Isiah,Noel-Williams,I. Noel-Williams,FWD,34,11,105,Oldham,easy,H,8,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,-2
 673579,Isiah,Noel-Williams,I. Noel-Williams,FWD,34,11,78,York,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -2339,10 +2339,10 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 680376,Philip,Sanyaolu,P. Sanyaolu,MID,96,11,46,Swindon,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 682082,Robin,Ashamu,R. Ashamu,MID,2623,11,112,Wycombe,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 682231,Michael,Ani,M. Ani,DEF,47,11,103,Millwall,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-682234,Alfie,Merritt,A. Merritt,DEF,437,11,87,Cheltenham,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+682234,Alfie,Merritt,A. Merritt,DEF,437,11,87,Cheltenham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 682331,Barney,Stewart,B. Stewart,FWD,35,11,107,Preston,easy,A,60,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
 682565,Raees,Bangura-Williams,R. Bangura-Williams,FWD,101,11,76,Plymouth,hard,H,61,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,6
-682565,Raees,Bangura-Williams,R. Bangura-Williams,FWD,101,11,19,Sheffield Wed,medium,A,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+682565,Raees,Bangura-Williams,R. Bangura-Williams,FWD,101,11,19,Sheffield Wed,hard,A,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 683823,Alfie,Wellens,A. Wellens,MID,85,11,587,Burton,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 683825,Zack,Hambury,Z. Hambury,MID,85,11,587,Burton,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 685111,Isaac,Swansbury,I. Swansbury,DEF,78,11,50,Port Vale,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -2358,15 +2358,15 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 693036,Harry,Lister,H. Lister,MID,5,11,109,Wrexham,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 695063,Marley,Thelwell,M. Thelwell,DEF,113,11,110,Stoke,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 695064,Tomos,Gibbs,T. Gibbs,DEF,113,11,110,Stoke,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-695074,Joe,Mwaro,J. Mwaro,DEF,76,11,101,Cambridge,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-695080,Seb,Campbell,S. Campbell,MID,76,11,101,Cambridge,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-695087,Jared,Rendle,J. Rendle,FWD,76,11,101,Cambridge,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-695090,James,Sharpe,J. Sharpe,FWD,76,11,101,Cambridge,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+695074,Joe,Mwaro,J. Mwaro,DEF,76,11,101,Cambridge,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+695080,Seb,Campbell,S. Campbell,MID,76,11,101,Cambridge,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+695087,Jared,Rendle,J. Rendle,FWD,76,11,101,Cambridge,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+695090,James,Sharpe,J. Sharpe,FWD,76,11,101,Cambridge,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 695193,James,Clarke,J. Clarke,MID,72,11,74,Shrewsbury,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 695403,Carter,Heywood,C. Heywood,DEF,80,11,52,QPR,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 695409,Rob,Tankiewicz,R. Tankiewicz,MID,97,11,41,Birmingham,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 695410,Leon,Scarlett,L. Scarlett,FWD,52,11,80,Swansea,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-695611,Moses,Alexander-Walker,M. Alexander-Walker,FWD,437,11,87,Cheltenham,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+695611,Moses,Alexander-Walker,M. Alexander-Walker,FWD,437,11,87,Cheltenham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 695616,Bolu,Shofowoke,B. Shofowoke,FWD,73,11,2050,Bromley,easy,A,80,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
 696128,Jack,McEvilly,J. McEvilly,MID,44,11,1525,Crawley,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 698937,Bright,Siaw,B. Siaw,MID,34,11,105,Oldham,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -2379,14 +2379,14 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 701489,Dawid,Przybylo,D. Przybylo,FWD,2050,11,73,Peterborough,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 701489,Dawid,Przybylo,D. Przybylo,FWD,2050,11,22,MK Dons,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 701744,Archie,Hill,A. Hill,FWD,87,11,437,Newport,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-702412,Jacob,Bryant,J. Bryant,GK,290,11,19,Sheffield Wed,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+702412,Jacob,Bryant,J. Bryant,GK,290,11,19,Sheffield Wed,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 702412,Jacob,Bryant,J. Bryant,GK,290,11,102,Luton,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 702839,Robson,Woodcock,R. Woodcock,DEF,37,11,108,Reading,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 702896,Kaion,Lisbie,K. Lisbie,MID,99,11,75,Northampton,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 702898,Fate,Kotey,F. Kotey,MID,1525,11,44,Tranmere,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 703276,Jack,Daley,J. Daley,DEF,100,11,53,Grimsby,hard,H,90,0,0,0,0,0,0,0,0,0,0,4,8,1,2,0,0,0,3
 703610,Jack,Phillips,J. Phillips,GK,19,11,290,Doncaster,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-703610,Jack,Phillips,J. Phillips,GK,19,11,101,Cambridge,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+703610,Jack,Phillips,J. Phillips,GK,19,11,101,Cambridge,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 704149,Cruz,Beszant,C. Beszant,MID,100,11,53,Grimsby,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 704153,Freddie,Taylor,F. Taylor,DEF,2050,11,73,Peterborough,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 704153,Freddie,Taylor,F. Taylor,DEF,2050,11,22,MK Dons,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -2394,12 +2394,12 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 704161,Nathaniel,Chioma,N. Chioma,FWD,47,11,103,Millwall,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 704232,George,Brierley,G. Brierley,MID,90,11,83,Lincoln,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 704367,Ernie,Weaver,E. Weaver,DEF,19,11,290,Doncaster,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-704367,Ernie,Weaver,E. Weaver,DEF,19,11,101,Cambridge,hard,H,89,0,0,0,0,0,0,0,0,0,0,1,15,3,0,0,0,0,6
+704367,Ernie,Weaver,E. Weaver,DEF,19,11,101,Cambridge,medium,H,89,0,0,0,0,0,0,0,0,0,0,1,15,3,0,0,0,0,6
 704369,Will,Grainger,W. Grainger,FWD,19,11,290,Doncaster,easy,A,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
-704369,Will,Grainger,W. Grainger,FWD,19,11,101,Cambridge,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+704369,Will,Grainger,W. Grainger,FWD,19,11,101,Cambridge,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 704371,Mark,Barber,M. Barber,MID,87,11,437,Newport,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 704733,George,Brown,G. Brown,FWD,19,11,290,Doncaster,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-704733,George,Brown,G. Brown,FWD,19,11,101,Cambridge,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+704733,George,Brown,G. Brown,FWD,19,11,101,Cambridge,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 704962,Ellis,Clark,E. Clark,MID,90,11,83,Lincoln,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 705024,Micah,Olabiyi,M. Olabiyi,FWD,112,11,2623,AFC Wim,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 705159,Sulyman,Krubally,S. Krubally,FWD,587,11,85,L Orient,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -2420,27 +2420,27 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 707865,Sam,Bolland,S. Bolland,DEF,111,11,13,Leicester,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 707868,Reece,Greenhalgh,R. Greenhalgh,FWD,111,11,38,Huddersfield,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 707868,Reece,Greenhalgh,R. Greenhalgh,FWD,111,11,13,Leicester,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-707873,Ethan,Hodgett,E. Hodgett,FWD,290,11,19,Sheffield Wed,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+707873,Ethan,Hodgett,E. Hodgett,FWD,290,11,19,Sheffield Wed,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 707873,Ethan,Hodgett,E. Hodgett,FWD,290,11,102,Luton,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-707878,Alex,Graham,A. Graham,DEF,53,11,100,Gillingham,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-707880,Eliot,Smith,E. Smith,FWD,53,11,100,Gillingham,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+707878,Alex,Graham,A. Graham,DEF,53,11,100,Gillingham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+707880,Eliot,Smith,E. Smith,FWD,53,11,100,Gillingham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 707881,Joe,Astles,J. Astles,FWD,48,11,104,Notts C,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 707881,Joe,Astles,J. Astles,FWD,48,11,106,Oxford,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 708843,Jedd,Hobbs,J. Hobbs,MID,2050,11,73,Peterborough,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 708843,Jedd,Hobbs,J. Hobbs,MID,2050,11,22,MK Dons,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 709413,Zak,O’Keefe,Z. O’Keefe,DEF,85,11,587,Burton,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 710163,Jude,Robertson,J. Robertson,MID,1525,11,44,Tranmere,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-710800,Patrick,Mlynarski,P. Mlynarski,FWD,51,11,98,Chesterfield,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+710800,Patrick,Mlynarski,P. Mlynarski,FWD,51,11,98,Chesterfield,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 710810,Jack,Burke,J. Burke,MID,22,11,288,Stevenage,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 710810,Jack,Burke,J. Burke,MID,22,11,2050,Bromley,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 710959,Dan,Marshall,D. Marshall,DEF,48,11,104,Notts C,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 710959,Dan,Marshall,D. Marshall,DEF,48,11,106,Oxford,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 713474,Lohan,McDougald,L. McDougald,MID,101,11,76,Plymouth,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-713474,Lohan,McDougald,L. McDougald,MID,101,11,19,Sheffield Wed,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+713474,Lohan,McDougald,L. McDougald,MID,101,11,19,Sheffield Wed,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 713478,Kyle,Cross,K. Cross,MID,112,11,2623,AFC Wim,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-713484,Harrison,Pugh,H. Pugh,MID,437,11,87,Cheltenham,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-714364,Lucas,Swann,L. Swann,MID,51,11,98,Chesterfield,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-714366,Ryan,Chadwick,R. Chadwick,MID,51,11,98,Chesterfield,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+713484,Harrison,Pugh,H. Pugh,MID,437,11,87,Cheltenham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+714364,Lucas,Swann,L. Swann,MID,51,11,98,Chesterfield,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+714366,Ryan,Chadwick,R. Chadwick,MID,51,11,98,Chesterfield,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 715701,Aaron,Liwala-Lukizalamu,A. Liwala-Lukizalamu,MID,34,11,105,Oldham,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 715701,Aaron,Liwala-Lukizalamu,A. Liwala-Lukizalamu,MID,34,11,78,York,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 716876,Charlie,Smith,C. Smith,MID,24,11,49,Sheffield Utd,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -2470,9 +2470,9 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 727787,Chinedu,Agu,C. Agu,DEF,47,11,103,Millwall,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 728945,Mo,Missanga,M. Missanga,FWD,106,11,55,Bradford,hard,H,62,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
 728945,Mo,Missanga,M. Missanga,FWD,106,11,48,Stockport,hard,H,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
-730848,David,Animasaun,D. Animasaun,MID,2048,11,71,Exeter,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-730851,Fawaz,Junaid,F. Junaid,FWD,2048,11,71,Exeter,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-730867,Thomas,Armytage,T. Armytage,GK,76,11,101,Cambridge,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+730848,David,Animasaun,D. Animasaun,MID,2048,11,71,Exeter,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+730851,Fawaz,Junaid,F. Junaid,FWD,2048,11,71,Exeter,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+730867,Thomas,Armytage,T. Armytage,GK,76,11,101,Cambridge,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 732418,Samuel,Chesworth,S. Chesworth,FWD,109,11,5,Blackburn,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 733517,Tomiwa,Akinyimika,T. Akinyimika,DEF,57,11,39,Wolves,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 734370,Michael,Luxton,M. Luxton,DEF,100,11,53,Grimsby,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -2487,13 +2487,13 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 739308,Mataeo,Moon-Arnaez,M. Moon-Arnaez,MID,75,11,99,Colchester,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 739309,Hugo,Aiston,H. Aiston,FWD,74,11,72,Rotherham,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 739310,Max,Murray,M. Murray,DEF,38,11,111,Wigan,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-739311,Ashton,Swales,A. Swales,MID,290,11,19,Sheffield Wed,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+739311,Ashton,Swales,A. Swales,MID,290,11,19,Sheffield Wed,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 739311,Ashton,Swales,A. Swales,MID,290,11,102,Luton,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 739313,Mohamed,Keita,M. Keita,DEF,112,11,2623,AFC Wim,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 739314,Isaac,Anderson,I. Anderson,DEF,105,11,34,Barnet,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 742159,Damien,Theodore,D. Theodore,MID,100,11,53,Grimsby,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-742481,Shaquille,Gwengwe,S. Gwengwe,FWD,437,11,87,Cheltenham,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-742805,Lincoln,Pawlak,L. Pawlak,DEF,290,11,19,Sheffield Wed,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+742481,Shaquille,Gwengwe,S. Gwengwe,FWD,437,11,87,Cheltenham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+742805,Lincoln,Pawlak,L. Pawlak,DEF,290,11,19,Sheffield Wed,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 742805,Lincoln,Pawlak,L. Pawlak,DEF,290,11,102,Luton,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 743174,Raffaello,Oliveti,R. Oliveti,MID,75,11,99,Colchester,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 744180,Lucas,Griffiths-Brown,L. Griffiths-Brown,DEF,46,11,96,Bristol R,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -2506,20 +2506,20 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 746677,Jake,Spaven,J. Spaven,GK,82,11,888,Accrington,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 747260,Sam,Mann,S. Mann,FWD,44,11,1525,Crawley,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 747261,Thomas,Bradley,T. Bradley,DEF,82,11,888,Accrington,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-747686,Harrison,Halpin,H. Halpin,MID,437,11,87,Cheltenham,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+747686,Harrison,Halpin,H. Halpin,MID,437,11,87,Cheltenham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 747922,Joe,Kirby,J. Kirby,MID,2623,11,112,Wycombe,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 748165,Keaton,Moseley,K. Moseley,GK,50,11,78,York,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 748166,Miracle,Orisakwe,M. Orisakwe,FWD,50,11,78,York,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 748210,Daniel,Efobi,D. Efobi,FWD,101,11,76,Plymouth,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-748210,Daniel,Efobi,D. Efobi,FWD,101,11,19,Sheffield Wed,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+748210,Daniel,Efobi,D. Efobi,FWD,101,11,19,Sheffield Wed,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 748213,Arley,Kay,A. Kay,DEF,37,11,108,Reading,hard,A,82,0,0,0,0,0,0,0,0,0,0,2,3,0,1,0,0,0,1
-748214,Noah,Sawkins,N. Sawkins,MID,2048,11,71,Exeter,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+748214,Noah,Sawkins,N. Sawkins,MID,2048,11,71,Exeter,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 748215,Charlie,Brier,C. Brier,GK,92,11,77,Mansfield,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 748216,Ollie,Hunter,O. Hunter,MID,92,11,77,Mansfield,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 748218,Harrison,Bradney,H. Bradney,MID,106,11,55,Bradford,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 748218,Harrison,Bradney,H. Bradney,MID,106,11,48,Stockport,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 748219,Noah,Town,N. Town,DEF,37,11,108,Reading,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-748221,Kristian,Lee Catchpole,K. Lee Catchpole,MID,53,11,100,Gillingham,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+748221,Kristian,Lee Catchpole,K. Lee Catchpole,MID,53,11,100,Gillingham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 748225,Noah,Saunders,N. Saunders,MID,37,11,108,Reading,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 748230,Bobby,Ashton,B. Ashton,MID,75,11,99,Colchester,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 748231,Jake,Andrassy,J. Andrassy,GK,37,11,108,Reading,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -2528,26 +2528,26 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 748781,Charley,McKee,C. McKee,MID,111,11,13,Leicester,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 748858,Jackson,King,J. King,DEF,112,11,2623,AFC Wim,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 748863,Kayden,Quarcoo,K. Quarcoo,DEF,112,11,2623,AFC Wim,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-749103,Luke,Thomas,L. Thomas,GK,51,11,98,Chesterfield,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+749103,Luke,Thomas,L. Thomas,GK,51,11,98,Chesterfield,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 749228,Kaylan,Hemmings,K. Hemmings,FWD,112,11,2623,AFC Wim,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 749376,Taila,Chonya,T. Chonya,MID,75,11,99,Colchester,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-749396,Muhsi,Bamba,M. Bamba,MID,2048,11,71,Exeter,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+749396,Muhsi,Bamba,M. Bamba,MID,2048,11,71,Exeter,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 750680,Charlie,Brown,C. Brown,MID,288,11,22,MK Dons,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 750681,Ryan,Sjoerdsma,R. Sjoerdsma,MID,42,11,3448,Salford,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 750682,Harry,Quinn,H. Quinn,DEF,92,11,77,Mansfield,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 750687,Tayo,Dunne,T. Dunne,MID,37,11,108,Reading,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-750690,Joel,Ewusi,J. Ewusi,FWD,51,11,98,Chesterfield,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-750692,Noah,Bell,N. Bell,MID,51,11,98,Chesterfield,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+750690,Joel,Ewusi,J. Ewusi,FWD,51,11,98,Chesterfield,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+750692,Noah,Bell,N. Bell,MID,51,11,98,Chesterfield,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 750764,Daniel,Herd,D. Herd,MID,101,11,76,Plymouth,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-750764,Daniel,Herd,D. Herd,MID,101,11,19,Sheffield Wed,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+750764,Daniel,Herd,D. Herd,MID,101,11,19,Sheffield Wed,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 750896,Charlie,Burton,C. Burton,GK,2050,11,73,Peterborough,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 750896,Charlie,Burton,C. Burton,GK,2050,11,22,MK Dons,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 751842,Reece,Leonard,R. Leonard,MID,82,11,888,Accrington,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-753320,Alex,Pavan,A. Pavan,MID,290,11,19,Sheffield Wed,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+753320,Alex,Pavan,A. Pavan,MID,290,11,19,Sheffield Wed,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 753320,Alex,Pavan,A. Pavan,MID,290,11,102,Luton,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-753321,Jonny,Tomlinson,J. Tomlinson,MID,290,11,19,Sheffield Wed,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+753321,Jonny,Tomlinson,J. Tomlinson,MID,290,11,19,Sheffield Wed,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 753321,Jonny,Tomlinson,J. Tomlinson,MID,290,11,102,Luton,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-753324,Ryan,Gray,R. Gray,MID,2048,11,71,Exeter,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+753324,Ryan,Gray,R. Gray,MID,2048,11,71,Exeter,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 753349,Regan,Monty,R. Monty,MID,103,11,47,Portsmouth,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 753651,Anthony,Haralambous,A. Haralambous,GK,34,11,105,Oldham,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 753651,Anthony,Haralambous,A. Haralambous,GK,34,11,78,York,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -2574,14 +2574,14 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 755299,Ryan,Todd,R. Todd,FWD,87,11,437,Newport,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 755300,Ethan,Hardy,E. Hardy,FWD,87,11,437,Newport,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 755301,Archie,Bunn,A. Bunn,MID,42,11,3448,Salford,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-755302,Edward,Sharp,E. Sharp,FWD,53,11,100,Gillingham,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-755303,Darius,Neagu,D. Neagu,MID,53,11,100,Gillingham,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-755304,Curtis,Manyika,C. Manyika,FWD,53,11,100,Gillingham,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+755302,Edward,Sharp,E. Sharp,FWD,53,11,100,Gillingham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+755303,Darius,Neagu,D. Neagu,MID,53,11,100,Gillingham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+755304,Curtis,Manyika,C. Manyika,FWD,53,11,100,Gillingham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 755305,Andrew,Harris,A. Harris,MID,42,11,3448,Salford,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 755306,Jamie,Murefu,J. Murefu,DEF,101,11,76,Plymouth,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-755306,Jamie,Murefu,J. Murefu,DEF,101,11,19,Sheffield Wed,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+755306,Jamie,Murefu,J. Murefu,DEF,101,11,19,Sheffield Wed,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 755307,Joel,Akpobi,J. Akpobi,FWD,19,11,290,Doncaster,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-755307,Joel,Akpobi,J. Akpobi,FWD,19,11,101,Cambridge,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+755307,Joel,Akpobi,J. Akpobi,FWD,19,11,101,Cambridge,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 755308,Jaden,Kandemiri,J. Kandemiri,DEF,42,11,3448,Salford,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 755309,Oscar,Woolford,O. Woolford,MID,78,11,50,Port Vale,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 755309,Oscar,Woolford,O. Woolford,MID,78,11,34,Barnet,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -2596,8 +2596,8 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 757081,Kai,Crowe,K. Crowe,GK,92,11,77,Mansfield,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 757083,O'Rian,Reid,O. Reid,MID,37,11,108,Reading,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 757085,Kailen,Hatfield,K. Hatfield,DEF,19,11,290,Doncaster,easy,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-757085,Kailen,Hatfield,K. Hatfield,DEF,19,11,101,Cambridge,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-757087,Dylan,Hartley,D. Hartley,MID,290,11,19,Sheffield Wed,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+757085,Kailen,Hatfield,K. Hatfield,DEF,19,11,101,Cambridge,medium,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+757087,Dylan,Hartley,D. Hartley,MID,290,11,19,Sheffield Wed,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 757087,Dylan,Hartley,D. Hartley,MID,290,11,102,Luton,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 757089,Kavarni Keanu Lee,Brissett-Levy,K. Brissett-Levy,MID,34,11,105,Oldham,easy,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 757089,Kavarni Keanu Lee,Brissett-Levy,K. Brissett-Levy,MID,34,11,78,York,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -2617,4 +2617,4 @@ player_id,first_name,last_name,display_name,position,squad_id,gameweek,opponent_
 758911,Harry,Johnson,H. Johnson,MID,105,11,34,Barnet,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 758913,Cameron,Maltby,C. Maltby,MID,104,11,48,Stockport,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 758919,Edward,Lilley,E. Lilley,MID,104,11,48,Stockport,hard,H,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-761425,Malaki,Jahiem Golding,M. Jahiem Golding,DEF,53,11,100,Gillingham,hard,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+761425,Malaki,Jahiem Golding,M. Jahiem Golding,DEF,53,11,100,Gillingham,medium,A,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0

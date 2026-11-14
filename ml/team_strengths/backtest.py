@@ -319,7 +319,10 @@ def main():
         saves_gw = dict(saves_model, intercept=float(fs["model"].intercept_), coef=fs["model"].coef_.tolist(),
                         scaler_mean=fs["scaler"][0].tolist(), scaler_sd=fs["scaler"][1].tolist(), nb_r=fs["r"])
         cur = rows_all[(rows_all["season"] == "2627") & (rows_all["gameweek"] == gw)]
-        players = [dict(id=int(pid), squadId=int(g["squad_id"].iloc[0]), pos=g["pos"].iloc[0],
+        # his club for the gameweek. A player who moved during it has rows for both clubs: take the one he played most
+        # for (so the minutes he really played meet that club's fixtures), else the one whose game came first
+        club_gw = cur.sort_values(["minutes_played", "date"], ascending=[False, True], kind="stable").drop_duplicates("player_id").set_index("player_id")["squad_id"]
+        players = [dict(id=int(pid), squadId=int(club_gw[pid]), pos=g["pos"].iloc[0],
                         name=f"{g['first_name'].iloc[0]} {g['last_name'].iloc[0]}") for pid, g in cur.groupby("player_id")]
         players = [p for p in players if p["squadId"] in fx_by_club]
         real = cur.groupby("player_id").agg(points=("points", "sum"), mins=("minutes_played", "sum"))

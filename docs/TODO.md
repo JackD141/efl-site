@@ -18,9 +18,16 @@ Championship, League One and League Two would help model goals and assists.
 - Penalty takers: a goals boost for designated takers.
 - Optional: automate the weekly refresh (currently Jack runs `run_gameweek.py` by hand).
 
-## Stats export loses games played for a previous club (found 14 Nov 2026)
-`api/export-player-stats.js` looks up each result's game among the fixtures of the player's CURRENT club and skips it
-when it is not there, so a player who moved between EFL clubs during the season has no rows for his old club (C. O'Hare:
-nothing before GW3 2026/27). Effects: a few missing training rows, and the League Rivals page cannot score a pick of such
-a player (its totals check shows it). Fix: find the game by `gameId` among all the round's games and take the club from
-the side he played for (check what the profile's result row offers), then re-export.
+## Stats export loses games played for a previous club (found and fixed in code 14 Nov 2026)
+`api/export-player-stats.js` looked up each result's game among the fixtures of the player's CURRENT club and skipped it
+when it was not there, so a player who moved between EFL clubs during the season had no rows for his old club (C. O'Hare:
+nothing before GW3 2026/27). Fixed: the game is found by `gameId` among all the round's games and the club is the
+result's own `squadId`. Second bug fixed with it: games were keyed by `roundNumber`, and the playoff rounds (ids 40-42,
+numbered 1-3) emptied gameweeks 1-3, so those files had not been rewritten since 15 Oct. Tested with the real handler
+on a download of every public profile (14 Nov): all 30,850 results exported, 243 rows added for 83 players in GW1-13
+(238 of them in GW1-3), no existing row lost or changed apart from `fixture_difficulty`.
+- STILL TO DO: push (deploys the function), run the export, `git pull`, then the weekly update (docs/weekly-runbook.md).
+- Playoffs (May): their results now go to `player_stats_gw40..42.csv` (the round ids) instead of being dropped. The
+  loaders glob `player_stats_gw*.csv`, so decide then whether the models should read them.
+- Transfer gameweeks: a player can have rows for two clubs in one gameweek (25 cases in GW1-13). `backtest.py` takes
+  the club he played most for; his start chance still comes from his first game by date, whichever club that was.

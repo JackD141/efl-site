@@ -63,7 +63,8 @@ def suspended(d):
     next 2 after the 10th). Checked on 2025/26-26/27: 89% of red-carded players miss the next game, ~45% the next two or
     three; 29% miss the game after a 5th yellow vs 11% of regulars generally. d sorted by player, club, date."""
     d = d.copy()
-    d["ycum"] = d.groupby(["player_id", "season"])["yellow_cards"].cumsum()
+    # counted in date order: d is sorted by club before date, and a player can have two clubs in a season
+    d["ycum"] = d.sort_values(["date", "gameweek"], kind="stable").groupby(["player_id", "season"])["yellow_cards"].cumsum()
     milestone = ((d["ycum"] // 5) > ((d["ycum"] - d["yellow_cards"]) // 5)) & (d["ycum"] >= 5)
     ban = np.maximum(np.where(d["red_cards"] > 0, 3, 0), np.where(milestone, np.where(d["ycum"] >= 10, 2, 1), 0))
     susp = np.zeros(len(d), bool)

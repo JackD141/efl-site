@@ -113,6 +113,8 @@ function render() {
       <li><strong>Captain</strong> is the captain's expected points counted again (the vice-captain's if the captain did not play). In a Max Captain week it is the
         expected top score of the seven (simulated: ${d.maxCaptain.sim.toFixed(1)} on average across all teams here against ${d.maxCaptain.real.toFixed(1)} real).</li>
       <li><strong>Clubs</strong> are the two club picks, expected points from the closing odds.</li>
+      <li>Expected points are our model's opinion, so a team picked from this site scores well here by construction. For everyone else it measures how
+        far their picks agree with the model, which is not the same as being wrong.</li>
       <li>Only the current top 20 on real points are listed, so a manager with good picks and bad luck further down is not shown.</li>
       <li>Names and teams are as the EFL site shows them in the league table.</li>
     </ul></div>

@@ -54,9 +54,12 @@ mocks (see `docs/club-planner.md`, "Testing").
   the returned session cookies (`X-SID`, `PHPSESSID`). Then `season/ranking/overall_ladder?leagueId=<id>&page=<n>` (20 a
   page) and `season/other-user-team/<userId>/<roundId>`. `api/export-league.js` does this; `api/league.js` is the old,
   broken way (unused). Club leagues: Lincoln City 40, Derby County 7 (any club league can be read without joining).
-- **The stats export drops a player's games for a previous club** (it matches his results to his current club's
-  fixtures), so a player who moved between EFL clubs has no rows before the move (e.g. C. O'Hare GW1-3 2026/27). Seen
-  in `league_rivals.py`'s totals check. Not fixed yet (docs/TODO.md).
+- **A player can have two clubs in one season of stats.** Each profile result carries the club he played for
+  (`squadId`) and the export writes the row with that club, finding the game by `gameId` among all the round's games
+  (until 14 Nov 2026 it looked only in his CURRENT club's fixtures and dropped his games for a previous club, e.g.
+  C. O'Hare GW1-3 2026/27). In the gameweek he moves he can have rows for both clubs, so key by (player, club), not
+  by player. Look rounds up by **id** (`result.roundId`), not `roundNumber`: the playoff rounds (ids 40-42) are
+  numbered 1-3 again, which used to stop the export rewriting gameweeks 1-3.
 - The built-in browser pane blocks pinnacle.com (and similar); do not try to scrape around it.
 - Use dedicated tools; before committing run `git status` and add **specific files**. There is unrelated work in
   progress in the tree (untracked `ml/midfielder/*.ipynb`, `ml/odds_expected_points.ipynb`, `data/gw36_pred_*.csv`,

@@ -12,8 +12,8 @@ For every listed manager and every finished gameweek, each pick's EXPECTED point
 Inputs: data/2026_27/leagues/league_<id>.json (api/export-league.js: POST /api/export-league?league=<id>, then git
 pull) and output/backtest_players.csv + backtest_clubs.csv (backtest.py, run before this).
 Check printed each run: our rebuilt actual total per manager against the EFL's own total. They are equal unless he
-picked a player who has since moved club or left the game: the stats export (api/export-player-stats.js) only keeps a
-player's games for his current club, so those games (and their expected points) are missing; the page marks it.
+picked a player whose games are not in our stats, so those games (and their expected points) are missing; the page
+marks it. (Until 14 Nov 2026 the stats export dropped a player's games for a previous club; it now keeps them.)
 """
 import json
 from datetime import datetime, timezone
@@ -105,7 +105,7 @@ def main():
                                  actP=tot("actP"), actC=tot("actC"), actS=tot("actS"), eflDone=efl, weeks=weeks))
         off = [(m["name"], m["act"], m["eflDone"]) for m in managers if m["eflDone"] is not None and abs(m["act"] - m["eflDone"]) > 0.5]
         print(f"{lname}: {len(managers)} managers, GW{gws[0]}-{gws[-1]}; rebuilt actual total equals the EFL's for {len(managers) - len(off)} of {len(managers)}"
-              + (f"; differ: {off} (a pick whose games are not in our stats: he has since moved club)" if off else "")
+              + (f"; differ: {off} (a pick whose games are not in our stats)" if off else "")
               + ("" if len(ahead) <= 1 else f"; the EFL totals are {len(ahead)} gameweeks ahead of the stats, not compared"))
         for m in sorted(managers, key=lambda m: -m["ev"])[:5]:
             print(f"   {m['name']:18s} expected {m['ev']:7.1f}  actual {m['act']:6.0f}  ({m['act'] - m['ev']:+.0f})  players {m['evP']:.0f} captain {m['evC']:.0f} clubs {m['evS']:.0f}")

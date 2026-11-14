@@ -84,7 +84,7 @@ function render() {
       <td><button class="cp-link-btn rv-toggle" data-id="${m.userId}">${open ? '▾' : '▸'} ${esc(m.team)}</button>${isYou ? '<span class="cp-tag cp-tag-plan">You</span>' : ''}
         <div class="cp-muted cp-small rv-name">${esc(m.name)}</div></td>
       <td class="cp-right cp-muted">${m.rank}</td>
-      <td class="cp-right">${f0(m.eflDone ?? m.act)}${miss ? `<span class="rv-miss" title="${miss} of these points are from a pick whose games are not in our stats (he has since moved club), so they are left out of Expected and Luck">†</span>` : ''}</td>
+      <td class="cp-right">${f0(m.eflDone ?? m.act)}${miss ? `<span class="rv-miss" title="${miss} of these points are from a pick whose games are not in our stats, so they are left out of Expected and Luck">†</span>` : ''}</td>
       <td class="cp-xp">${f0(m.ev)}</td>
       <td class="cp-right ${luckCls(luck)}"><strong>${signed(luck)}</strong></td>
       <td class="cp-right">${f0(m.evP)}</td><td class="cp-right">${f0(m.evC)}</td><td class="cp-right">${f0(m.evS)}</td></tr>
@@ -121,7 +121,7 @@ function render() {
     <p class="cp-foot">League table and teams fetched ${esc(new Date(lg.fetchedAt).toLocaleString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }))}.
       Scored ${esc(new Date(d.generatedAt).toLocaleString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }))} with <code>league_rivals.py</code>.
       The real totals are rebuilt from the picks and checked against the EFL's totals${lg.managers.some(m => m.eflDone != null && Math.abs(m.eflDone - m.act) > 0.5)
-        ? ' (†: a few points are from a pick whose games are not in our stats because he has since moved club; they are left out of Expected and Luck)' : ''}.</p>`;
+        ? ' (†: a few points are from a pick whose games are not in our stats; they are left out of Expected and Luck)' : ''}.</p>`;
   root.querySelectorAll('[data-league]').forEach(b => b.addEventListener('click', () => { state.league = +b.dataset.league; state.open.clear(); state.openGw.clear(); render(); }));
   root.querySelectorAll('.rv-sort').forEach(h => h.addEventListener('click', () => { state.sort = h.dataset.sort; render(); }));
   root.querySelectorAll('.rv-toggle').forEach(b => b.addEventListener('click', () => {

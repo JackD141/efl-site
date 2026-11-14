@@ -94,29 +94,34 @@ async function getAllSquads() {
   return response.json();
 }
 
+// Finished games of each round: { roundId: { gameId: game } }.
+// Keyed by the round's id, which is what a profile result carries (roundId). Not by roundNumber: the playoff rounds
+// (ids 40-42) are numbered 1-3 again and used to wipe the games of gameweeks 1-3.
 function buildGamesByRound(rounds) {
   const gamesByRound = {};
   for (const round of rounds) {
-    gamesByRound[round.roundNumber] = {};
+    if (!gamesByRound[round.id]) gamesByRound[round.id] = {};
     for (const game of round.games) {
       // finished games only; the EFL can leave a round "playing" for days after its last game, so go by the game
       if (round.status !== 'completed' && game.status !== 'completed') continue;
-      // Store games as arrays to handle multiple games per squad per round
-      const homeId = game.homeId;
-      const awayId = game.awayId;
-
-      if (!gamesByRound[round.roundNumber][homeId]) {
-        gamesByRound[round.roundNumber][homeId] = [];
-      }
-      gamesByRound[round.roundNumber][homeId].push({ ...game, isHome: true });
-
-      if (!gamesByRound[round.roundNumber][awayId]) {
-        gamesByRound[round.roundNumber][awayId] = [];
-      }
-      gamesByRound[round.roundNumber][awayId].push({ ...game, isHome: false });
+      gamesByRound[round.id][game.id] = game;
     }
   }
   return gamesByRound;
+}
+
+// The game a profile result belongs to and the club the player was at for it.
+// The game is looked up by gameId among ALL the round's games, not only his current club's, so a player who moved
+// between EFL clubs keeps the games he played for his previous club. The club is the result's own squadId; his current
+// club is only a fallback for a result without a usable one. Returns null when the game is not a finished game of the
+// round or neither club is one of its two sides.
+function findResultGame(result, currentSquadId, gamesByRound) {
+  const game = gamesByRound[result.roundId]?.[result.gameId];
+  if (!game) return null;
+  const squadId = [result.squadId, currentSquadId].find(id => id === game.homeId || id === game.awayId);
+  if (squadId === undefined) return null;
+  const isHome = squadId === game.homeId;
+  return { squadId, isHome, opponentId: isHome ? game.awayId : game.homeId };
 }
 
 function buildSquadsById(squads) {
@@ -331,24 +336,21 @@ module.exports = async function handler(req, res) {
 
         // Add each result to the corresponding gameweek
         for (const result of results) {
-          // Use roundNumber if available, fallback to roundId
-          const roundNum = result.roundNumber || result.roundId;
+          // The round id is the gameweek number for the season's rounds (playoff rounds are 40-42)
+          const roundNum = result.roundId;
           if (!statsByGameweek[roundNum]) {
             statsByGameweek[roundNum] = [];
           }
 
-          // Find all games for this squad in this round
-          const gamesForSquad = gamesByRound[roundNum]?.[player.squadId] || [];
-
-          // Match result to specific game using gameId
-          const gameInfo = gamesForSquad.find(g => g.id === result.gameId);
+          // Match the result to its game by gameId, with the club he played for (may not be his current club)
+          const gameInfo = findResultGame(result, player.squadId, gamesByRound);
 
           if (!gameInfo) {
-            // Game not found for this result - skip it
+            // Not a finished game of this round - skip it
             continue;
           }
 
-          const opponentId = gameInfo.isHome ? gameInfo.awayId : gameInfo.homeId;
+          const opponentId = gameInfo.opponentId;
           const opponentSquad = squadsById[opponentId];
           const fixtureDifficulty = getFixtureDifficulty(opponentSquad);
 
@@ -358,7 +360,7 @@ module.exports = async function handler(req, res) {
             last_name: player.lastName,
             display_name: player.displayName,
             position: player.position,
-            squad_id: player.squadId,
+            squad_id: gameInfo.squadId,
             gameweek: roundNum,
             opponent_id: opponentId,
             opponent_name: opponentSquad?.shortName || opponentSquad?.name || '',

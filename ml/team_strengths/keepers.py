@@ -18,6 +18,7 @@ import numpy as np
 import pandas as pd
 from scipy.stats import nbinom
 
+import minutes_model as mm
 import saves_model as sm
 from per_season import RHO, score_matrix
 from predict_gw import predict_gameweek
@@ -180,6 +181,7 @@ def keeper_roster(players, squads, rounds, gk, consts):
                 xMins=int(round(90 * ps)), **({k: round(v, 3) for k, v in sp.items() if k != "pStart"} if sp else {}),
                 status=p["status"], injury=inj.get("type") if inj else None,
                 injuryStatus=inj.get("status") if inj else None, suspended=bool(p.get("suspensionDetails")),
+                **(mm.ban_fields(p, players, rounds) if xm is not None else {}),  # likely card ban the EFL has not flagged
                 starts=int(starts.get(p["id"], 0)), mins=int(mins.get(p["id"], 0)),
                 lastStartGw=int(ls["gameweek"]) if ls is not None else None,
                 startedLast=bool(club in last.index and last.at[club, "player_id"] == p["id"]),

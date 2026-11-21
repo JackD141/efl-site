@@ -44,20 +44,24 @@ def vals_for(p, clubs, d, f, st):
     return v
 
 
-def start_chance(d, j, starts=False):
-    """Chance he starts game j (0-based) of the first gameweek: game 1 his start chance (1 if starts); a double's second
-    game P(start 2 | started 1) x P(started 1) + P(start 2 | not started 1) x (1 - P(started 1))."""
-    s1 = 1.0 if starts else d.get("pStart", 0.0)
+def start_chance(d, j, starts=False, gw=None):
+    """Chance he starts game j (0-based) of gameweek gw (the first): game 1 his start chance (1 if starts); a double's
+    second game P(start 2 | started 1) x P(started 1) + P(start 2 | not started 1) x (1 - P(started 1)). banGw == gw:
+    a likely ban for the first game only (minutes_model.ban_fields): game 1 is 0 even if he "starts", game 2 then 1."""
+    banned = d.get("banGw") is not None and d.get("banGw") == gw
+    s1 = (0.0 if banned else 1.0) if starts else d.get("pStart", 0.0)
     if j == 0:
         return s1
+    if banned and starts:
+        return 1.0
     c, n = d.get("pStart2c"), d.get("pStart2n")
     return s1 if c is None else s1 * c + (1 - s1) * n
 
 
-def scenarios(p, d, j, starts=False):
-    """(P(he plays his usual full game), P(he plays part of a game)) for game j."""
+def scenarios(p, d, j, starts=False, gw=None):
+    """(P(he plays his usual full game), P(he plays part of a game)) for game j of gameweek gw."""
     q = d.get("pFull", p["startModel"]["q"])  # his chance of lasting 60+ once he starts
-    ps = start_chance(d, j, starts)
+    ps = start_chance(d, j, starts, gw)
     return ps * q, ps * (1 - q) + (1 - ps) * d.get("pSubN", 0.0)
 
 
@@ -66,7 +70,7 @@ def attackers(p, starts=False):
     sc = p["scoring"]
     out = {}
     for d in p["players"]:
-        if d.get("pStart", 0) <= 0 and d.get("pSubN", 0) <= 0:
+        if d.get("pStart", 0) <= 0 and d.get("pSubN", 0) <= 0 and d.get("banGw") is None:
             continue
         tot = 0.0
         for j, f in enumerate(clubs[d["club"]]["weeks"][0]["fx"]):
@@ -83,7 +87,7 @@ def attackers(p, starts=False):
                 x += sc.get("interception", 0) * mu.get("int", 0)
                 return x + t * (sc["yellow"] * r["y90"] + sc["red"] * r["r90"] + sc["penMiss"] * r["pm90"] + sc["ownGoal"] * r["og90"])
             if p.get("startModel"):
-                p60, part = scenarios(p, d, j, starts)
+                p60, part = scenarios(p, d, j, starts, clubs[d["club"]]["weeks"][0]["gw"])
                 tot += p60 * at(d.get("mFull", p["minsMix"]["full"]), sc["appearance60"]) + part * at(p["minsMix"]["part"], sc["appearance"])
             else:
                 tot += at(d["xMins"], curve(p["appCurve"], d["xMins"], "pts"))
@@ -97,7 +101,7 @@ def defenders(p, starts=False):
     units = {"clr": 4, "blk": 2, "tkl": 2}
     out = {}
     for d in p["defenders"]:
-        if d.get("pStart", 0) <= 0 and d.get("pSubN", 0) <= 0:
+        if d.get("pStart", 0) <= 0 and d.get("pSubN", 0) <= 0 and d.get("banGw") is None:
             continue
         tot = 0.0
         for j, f in enumerate(clubs[d["club"]]["weeks"][0]["fx"]):
@@ -113,7 +117,7 @@ def defenders(p, starts=False):
                 x += sc["assist"] * rate["assists"] * p["model"]["assists"]["scale"] * t
                 return x + t * (sc["yellow"] * d["rates"]["y90"] + sc["red"] * d["rates"]["r90"] + p["other"])
             if p.get("startModel"):
-                p60, part = scenarios(p, d, j, starts)
+                p60, part = scenarios(p, d, j, starts, clubs[d["club"]]["weeks"][0]["gw"])
                 tot += p60 * at(d.get("mFull", p["minsMix"]["full"]), 2, 1.0) + part * at(p["minsMix"]["part"], 1, 0.0)
             else:
                 tot += at(d["xMins"], curve(p["appCurve"], d["xMins"], "pts"), curve(p["p60Curve"], d["xMins"], "p"))
@@ -129,7 +133,7 @@ def keepers(p, starts=False):
         if p.get("startModel"):
             out[k["id"]] = 0.0
             for j, f in enumerate(w["fx"]):
-                p60, part = scenarios(p, k, j, starts)
+                p60, part = scenarios(p, k, j, starts, w["gw"])
                 out[k["id"]] += p60 * f["xp"] + part
         else:
             out[k["id"]] = k["xMins"] / 90 * w["xp"]

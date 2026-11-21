@@ -1,0 +1,484 @@
+{
+ "precision": {
+  "base_rate_60_last_game_misses_next": {
+   "n": 36636,
+   "missed": 0.085
+  },
+  "rule": {
+   "n": 351,
+   "missed": 314,
+   "precision": 0.895
+  },
+  "rule_by_kind": {
+   "10th league yellow": {
+    "n": 20,
+    "precision": 0.7
+   },
+   "5th league yellow": {
+    "n": 100,
+    "precision": 0.88
+   },
+   "red card": {
+    "n": 231,
+    "precision": 0.918
+   }
+  },
+  "rule_by_season": {
+   "2526": {
+    "n": 257,
+    "precision": 0.895
+   },
+   "2627": {
+    "n": 94,
+    "precision": 0.894
+   }
+  },
+  "rule_by_days_since_card": {
+   "red card / 0-3 days": {
+    "n": 60,
+    "precision": 0.967
+   },
+   "red card / 4-7": {
+    "n": 152,
+    "precision": 0.914
+   },
+   "red card / 8-13": {
+    "n": 7,
+    "precision": 0.714
+   },
+   "red card / 14+": {
+    "n": 12,
+    "precision": 0.833
+   },
+   "yellow / 0-3 days": {
+    "n": 22,
+    "precision": 0.818
+   },
+   "yellow / 4-7": {
+    "n": 78,
+    "precision": 0.885
+   },
+   "yellow / 8-13": {
+    "n": 10,
+    "precision": 0.8
+   },
+   "yellow / 14+": {
+    "n": 10,
+    "precision": 0.7
+   }
+  },
+  "old_rule_no_cutoff": {
+   "n": 423,
+   "missed": 137,
+   "precision": 0.324
+  }
+ },
+ "snapshots": [
+  {
+   "snapshot": "2026-11-07",
+   "efl_suspended": 9,
+   "rule_named": 14,
+   "caught": 5,
+   "efl_only": [
+    {
+     "id": 209706,
+     "next_minutes": null
+    },
+    {
+     "id": 232903,
+     "next_minutes": 0
+    },
+    {
+     "id": 232951,
+     "next_minutes": null
+    },
+    {
+     "id": 627894,
+     "next_minutes": 0
+    }
+   ],
+   "rule_only": [
+    {
+     "id": 83537,
+     "kind": "red card",
+     "next_minutes": null
+    },
+    {
+     "id": 109633,
+     "kind": "red card",
+     "next_minutes": null
+    },
+    {
+     "id": 175924,
+     "kind": "5th league yellow",
+     "next_minutes": null
+    },
+    {
+     "id": 209409,
+     "kind": "5th league yellow",
+     "next_minutes": 0
+    },
+    {
+     "id": 250429,
+     "kind": "5th league yellow",
+     "next_minutes": 0
+    },
+    {
+     "id": 489452,
+     "kind": "5th league yellow",
+     "next_minutes": 90
+    },
+    {
+     "id": 514287,
+     "kind": "red card",
+     "next_minutes": 90
+    },
+    {
+     "id": 587664,
+     "kind": "5th league yellow",
+     "next_minutes": null
+    },
+    {
+     "id": 630664,
+     "kind": "5th league yellow",
+     "next_minutes": 0
+    }
+   ],
+   "efl_flagged_next_minutes": [
+    null,
+    0,
+    null,
+    0,
+    0,
+    0,
+    null,
+    0,
+    0
+   ]
+  },
+  {
+   "snapshot": "2026-11-09",
+   "efl_suspended": 12,
+   "rule_named": 17,
+   "caught": 8,
+   "efl_only": [
+    {
+     "id": 209706,
+     "next_minutes": null
+    },
+    {
+     "id": 232903,
+     "next_minutes": 0
+    },
+    {
+     "id": 232951,
+     "next_minutes": null
+    },
+    {
+     "id": 627894,
+     "next_minutes": 0
+    }
+   ],
+   "rule_only": [
+    {
+     "id": 83537,
+     "kind": "red card",
+     "next_minutes": null
+    },
+    {
+     "id": 109633,
+     "kind": "red card",
+     "next_minutes": null
+    },
+    {
+     "id": 175924,
+     "kind": "5th league yellow",
+     "next_minutes": null
+    },
+    {
+     "id": 209409,
+     "kind": "5th league yellow",
+     "next_minutes": 0
+    },
+    {
+     "id": 250429,
+     "kind": "5th league yellow",
+     "next_minutes": 0
+    },
+    {
+     "id": 489452,
+     "kind": "5th league yellow",
+     "next_minutes": 90
+    },
+    {
+     "id": 514287,
+     "kind": "red card",
+     "next_minutes": 90
+    },
+    {
+     "id": 587664,
+     "kind": "5th league yellow",
+     "next_minutes": null
+    },
+    {
+     "id": 630664,
+     "kind": "5th league yellow",
+     "next_minutes": 0
+    }
+   ],
+   "efl_flagged_next_minutes": [
+    null,
+    null,
+    null,
+    null,
+    0,
+    null,
+    null,
+    null,
+    null,
+    null,
+    0,
+    0
+   ]
+  },
+  {
+   "snapshot": "2026-11-11",
+   "efl_suspended": 12,
+   "rule_named": 17,
+   "caught": 8,
+   "efl_only": [
+    {
+     "id": 209706,
+     "next_minutes": null
+    },
+    {
+     "id": 232903,
+     "next_minutes": 0
+    },
+    {
+     "id": 232951,
+     "next_minutes": null
+    },
+    {
+     "id": 627894,
+     "next_minutes": 0
+    }
+   ],
+   "rule_only": [
+    {
+     "id": 83537,
+     "kind": "red card",
+     "next_minutes": null
+    },
+    {
+     "id": 109633,
+     "kind": "red card",
+     "next_minutes": null
+    },
+    {
+     "id": 175924,
+     "kind": "5th league yellow",
+     "next_minutes": null
+    },
+    {
+     "id": 209409,
+     "kind": "5th league yellow",
+     "next_minutes": 0
+    },
+    {
+     "id": 250429,
+     "kind": "5th league yellow",
+     "next_minutes": 0
+    },
+    {
+     "id": 489452,
+     "kind": "5th league yellow",
+     "next_minutes": 90
+    },
+    {
+     "id": 514287,
+     "kind": "red card",
+     "next_minutes": 90
+    },
+    {
+     "id": 587664,
+     "kind": "5th league yellow",
+     "next_minutes": null
+    },
+    {
+     "id": 630664,
+     "kind": "5th league yellow",
+     "next_minutes": 0
+    }
+   ],
+   "efl_flagged_next_minutes": [
+    null,
+    null,
+    null,
+    null,
+    0,
+    null,
+    null,
+    null,
+    null,
+    null,
+    0,
+    0
+   ]
+  },
+  {
+   "snapshot": "2026-11-14",
+   "efl_suspended": 20,
+   "rule_named": 17,
+   "caught": 13,
+   "efl_only": [
+    {
+     "id": 208996,
+     "next_minutes": null
+    },
+    {
+     "id": 209706,
+     "next_minutes": null
+    },
+    {
+     "id": 232820,
+     "next_minutes": 0
+    },
+    {
+     "id": 232903,
+     "next_minutes": 0
+    },
+    {
+     "id": 232951,
+     "next_minutes": null
+    },
+    {
+     "id": 457327,
+     "next_minutes": 0
+    },
+    {
+     "id": 627894,
+     "next_minutes": 0
+    }
+   ],
+   "rule_only": [
+    {
+     "id": 83537,
+     "kind": "red card",
+     "next_minutes": null
+    },
+    {
+     "id": 109633,
+     "kind": "red card",
+     "next_minutes": null
+    },
+    {
+     "id": 175924,
+     "kind": "5th league yellow",
+     "next_minutes": null
+    },
+    {
+     "id": 489452,
+     "kind": "5th league yellow",
+     "next_minutes": 90
+    }
+   ],
+   "efl_flagged_next_minutes": [
+    null,
+    null,
+    null,
+    0,
+    null,
+    null,
+    0,
+    0,
+    null,
+    null,
+    0,
+    0,
+    null,
+    90,
+    null,
+    null,
+    null,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "snapshot": "2026-11-21",
+   "efl_suspended": 16,
+   "rule_named": 18,
+   "caught": 12,
+   "efl_only": [
+    {
+     "id": 78154,
+     "next_minutes": null
+    },
+    {
+     "id": 192290,
+     "next_minutes": null
+    },
+    {
+     "id": 209409,
+     "next_minutes": null
+    },
+    {
+     "id": 232820,
+     "next_minutes": null
+    }
+   ],
+   "rule_only": [
+    {
+     "id": 83537,
+     "kind": "red card",
+     "next_minutes": null
+    },
+    {
+     "id": 109633,
+     "kind": "red card",
+     "next_minutes": null
+    },
+    {
+     "id": 156706,
+     "kind": "5th league yellow",
+     "next_minutes": null
+    },
+    {
+     "id": 175924,
+     "kind": "5th league yellow",
+     "next_minutes": null
+    },
+    {
+     "id": 178342,
+     "kind": "5th league yellow",
+     "next_minutes": null
+    },
+    {
+     "id": 587664,
+     "kind": "5th league yellow",
+     "next_minutes": null
+    }
+   ],
+   "efl_flagged_next_minutes": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  }
+ ]
+}

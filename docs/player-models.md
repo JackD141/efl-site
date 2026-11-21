@@ -42,9 +42,27 @@ started / subbed-off history, run of 0-minute games, games at the club, rest day
 P(start), P(60+ | started) (his own: a 90-minute regular is not docked for team-mates' substitutions) and P(comes on |
 not started). A game is then P(full game) = start x P(60+|start) (appearance 2, clean sheet, his usual full-game minutes
 mFull) + P(part game) = start x (1 - P(60+|start)) + (1 - start) x P(comes on) (appearance 1, ~24 minutes).
-- Suspensions are inferred from cards (0 minutes in the 1-3 games after a red, the game after a 5th / 10th / 15th
-  league yellow) and left out of training and of his history: a ban is known at pick time (EFL marks him suspended)
-  and is not being dropped.
+- Suspensions are inferred from cards (0 minutes in the 1-3 games after a red; the next 1 / 2 / 3 games after a 5th /
+  10th / 15th league yellow, only within the cut-offs) and left out of training and of his history: a ban is known at
+  pick time and is not being dropped. **Card rules** (21 Nov 2026; source: The FA, "Essential Information for Media"
+  2025-26 and 2026-27, "Cautions" / "Suspensions"): league yellows count for league bans only; 5 within the club's
+  first 19 league matches -> 1 match, 10 within 37 -> 2, 15 by season end -> 3 (5 after the 19th match: no ban); a red
+  is 1-6 matches, served in all first-team competitions (cups too); "all suspensions are served immediately". Until
+  21 Nov the cut-offs were ignored, so post-cut-off 5th yellows (12% missed the next game vs 88% within the cut-off)
+  were wrongly dropped from training too.
+- **Likely bans at pick time** (`card_bans`, 21 Nov 2026): the EFL's flag can lag (K. Dempsey's 5th yellow on 14 Nov
+  was still unflagged a week later; the model gave him 95%). The same rules on this season's games (a red = 1 match),
+  minus matches already served (0-minute league games since; any appearance ends it; club games played but not yet
+  exported count as served) -> availability 0 for those games, so the club's ten starters redistribute. A one-match
+  ban in a double covers only the first game: the second gets his first-game chance (pStart2c = pStart2n) and the pages
+  count game 1 as 0 even "if he starts" (`banGw`). Shown as a "suspended" tag with the reason on hover. Validation
+  (`exp_card_bans.py`, every 2025/26 + 2026/27 game, only earlier games known): 314 of 351 predicted missed games were
+  missed (89.5%: 5th yellow 88% of 100, 10th 70% of 20, red 92% of 231; base rate for a 60-minute regular 8.5%); the
+  old no-cut-off rule 32%. Against the EFL's own suspended flags (snapshots 7-21 Nov) it names 5 of 9, 8 of 12, 8 of
+  12, 13 of 20 and 12 of 16 flagged players; the rest are later games of multi-match red bans, bans already served
+  that the EFL still lists, and bans without league cards in our data (cup reds, charges). It also names 4-9 players a
+  snapshot the EFL has not flagged; where the game has been played, 3 of 5 missed it. Limitation: a red-card ban can
+  be served in a cup game we cannot see.
 - Doubles: the second game's start chance is predicted as if he started the first (pStart2c) and as if not (pStart2n).
 - Keepers: a club's keepers' start chances are scaled to add up to 1 per game. The second game of a double: one
   common logit shift of the conditional chances so the club's unconditional chances add up to 1 (fixed 21 Nov 2026:

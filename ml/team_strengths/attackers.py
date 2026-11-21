@@ -140,6 +140,7 @@ def build_plan(position, rounds, squads, players, fits, id2fd, book, book_src, m
                else dict(xMins=90 if (avail and p["id"] in starters) else 0)),
             status=p["status"], injury=inj.get("type") if inj else None, injuryStatus=inj.get("status") if inj else None,
             suspended=bool(p.get("suspensionDetails")), startedLast=p["id"] in starters,
+            **(mm.ban_fields(p, players, rounds) if starts is not None else {}),  # likely card ban the EFL has not flagged
             role={st: roles.get(p["id"], {}).get(st, 1.0) for st in art},
             rates=rates.get(p["id"], rate_priors),
             **({"fm": fm.get(p["id"], fm_default), "mates": mates.get(p["id"], {}), "tags": sp_tags.get(p["id"], []),

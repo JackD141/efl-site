@@ -7,8 +7,9 @@ full game, he starts but comes off before 60, he comes off the bench, or he does
 same features: P(start), P(60+ | started) (his own: a 90-minute regular is not docked for team-mates' early substitutions)
 and P(sub appearance | not started) (exp_start.py: better P(60+) log-loss than the ridge +
 isotonic curve for every position, on validation and test). Games he most likely missed through SUSPENSION (inferred
-from red cards and yellow-card milestones, see suspended()) are left out of training and of his history: at pick time a
-ban is known (EFL marks him suspended) and it is not the same as being dropped.
+from red cards and yellow-card milestones under the FA / EFL rules, see suspended()) are left out of training and of his
+history: at pick time a ban is known (EFL marks him suspended, or card_bans() infers it when the EFL has not yet) and it
+is not the same as being dropped.
 Doubles: the chance he starts the second game is predicted twice, as if he started the first and as if he did not.
 A club starts exactly ten outfield players (since 9 Nov 2026, exp_clubstart.py): each club's available defenders,
 midfielders and forwards have their start logits shifted by the same amount so the chances add up to ten. So when
@@ -57,38 +58,101 @@ FULL_EXTRA = {"MID": ["q_hist"], "FWD": ["q_hist"]}
 Q_STARTS, Q_PSEUDO = 10, 3.0
 
 
+# Card bans: The FA, "Essential Information for Media" 2025-26 and 2026-27 editions (thefa.com, player-essentials),
+# sections "Cautions" and "Suspensions"; the EFL rules are the same in both seasons:
+# - league yellow cards count for league suspensions only ("competition-specific"; cup yellows are counted and served in
+#   that cup), with cut-offs counted in the club's league matches: 5 within the first 19 -> one match, 10 within the
+#   first 37 -> two matches, 15 by the end of the regular season -> three matches. Reaching 5 after the 19th match: no ban.
+# - sending-offs: second yellow or denying a goal(-scoring chance) one match, offensive language two, violent conduct /
+#   serious foul play three, spitting six (+1 for each earlier dismissal that season); served in ALL first-team
+#   competitive matches, so a cup game can use up part of a red-card ban (our data has league games only).
+# - "All suspensions are served immediately" (no delay of several days): checked in the data, 88% of 5th-yellow players
+#   missed the next league game even when it was 0-3 days later (n 17), 97% after a red (n 60).
+# The fantasy data records a sending-off as red 1 / yellow 0 (no yellow on any of 238 red rows), so a second-yellow
+# dismissal does not add to the yellow count, as in the FA rule.
+YELLOW_BANS = ((5, 19, 1), (10, 37, 2), (15, 10 ** 6, 3))  # (league yellows, cut-off: club's league match no., matches)
+RED_BAN_TRAIN, RED_BAN_PICK = 3, 1  # training: up to 3 (stops at his next appearance); pick time: the 1 every red gets
+
+
+def card_ban_events(d):
+    """Per row (one player, one league game): (matches banned, reason) from that game's cards under the rules above,
+    red cards counted as RED_BAN_TRAIN. d needs player_id, squad_id, season, date, gameweek, opponent_id, yellow_cards,
+    red_cards. The club's league match number (for the cut-offs) is counted over all rows of d, so d must hold every
+    league game of each club (any one position's rows do: the data lists every registered player)."""
+    cal = d[["season", "squad_id", "date", "opponent_id"]].drop_duplicates().sort_values(["season", "squad_id", "date"])
+    cal["club_match"] = cal.groupby(["season", "squad_id"]).cumcount() + 1
+    cm = d[["season", "squad_id", "date", "opponent_id"]].merge(cal, how="left")["club_match"].to_numpy()
+    # yellows counted in date order per player and season (a player can have two clubs in a season)
+    y = d["yellow_cards"].to_numpy()
+    ycum = d.sort_values(["date", "gameweek"], kind="stable").groupby(["player_id", "season"])["yellow_cards"].cumsum().reindex(d.index).to_numpy()
+    ban = np.where(d["red_cards"].to_numpy() > 0, RED_BAN_TRAIN, 0)
+    why = np.where(ban > 0, "red card", "").astype(object)
+    for k, cut, n in YELLOW_BANS:
+        hit = (ycum >= k) & (ycum - y < k) & (cm <= cut)
+        why = np.where(hit & (n > ban), f"{k}th league yellow", why)
+        ban = np.where(hit, np.maximum(ban, n), ban)
+    return ban, why
+
+
+def ban_walk(d, red_ban=RED_BAN_TRAIN):
+    """Walk each player's league games in date order, carrying the matches he still owes: each 0-minute game serves one;
+    playing a game ends whatever was owed (served elsewhere, e.g. in a cup game, or overturned). Returns (served: row is a
+    game he most likely missed through a ban, owed: matches still owed after his last row (on the last row of each
+    player-season, else 0), why: reason for what is owed, card date), owing: he owed a match entering this row (what the
+    rule would have said at pick time; served = owing and 0 minutes))."""
+    ban, why = card_ban_events(d)
+    ban = np.where(d["red_cards"].to_numpy() > 0, red_ban, ban)  # no yellows on red rows, so no milestone there
+    order = (d[["player_id", "season", "date", "gameweek"]].reset_index(drop=True)
+             .sort_values(["player_id", "season", "date", "gameweek"], kind="stable").index.to_numpy())
+    pid, sea = d["player_id"].to_numpy(), d["season"].to_numpy()
+    mins, dates = d["minutes_played"].to_numpy(), d["date"].to_numpy()
+    served, owing, owed_out = np.zeros(len(d), bool), np.zeros(len(d), bool), np.zeros(len(d), int)
+    why_out = np.full(len(d), None, object)
+    owed, reason, prev = 0, None, None
+    for n_, i in enumerate(order):
+        key = (pid[i], sea[i])
+        if key != prev:
+            owed, reason, prev = 0, None, key
+        if owed > 0:
+            owing[i] = True
+            if mins[i] == 0:
+                served[i], owed = True, owed - 1
+            else:
+                owed = 0
+        if ban[i] > 0:
+            owed, reason = owed + int(ban[i]), (why[i], pd.Timestamp(dates[i]))
+        last = n_ + 1 == len(order) or (pid[order[n_ + 1]], sea[order[n_ + 1]]) != key
+        if last and owed > 0:
+            owed_out[i], why_out[i] = owed, reason
+    return served, owed_out, why_out, owing
+
+
 def suspended(d):
-    """Games a player most likely missed through suspension: 0 minutes in the club's next 1-3 games after a red card
-    (stopping at his first appearance), or the next game after his 5th / 10th / 15th league yellow of the season (the
-    next 2 after the 10th). Checked on 2025/26-26/27: 89% of red-carded players miss the next game, ~45% the next two or
-    three; 29% miss the game after a 5th yellow vs 11% of regulars generally. d sorted by player, club, date."""
-    d = d.copy()
-    # counted in date order: d is sorted by club before date, and a player can have two clubs in a season
-    d["ycum"] = d.sort_values(["date", "gameweek"], kind="stable").groupby(["player_id", "season"])["yellow_cards"].cumsum()
-    milestone = ((d["ycum"] // 5) > ((d["ycum"] - d["yellow_cards"]) // 5)) & (d["ycum"] >= 5)
-    ban = np.maximum(np.where(d["red_cards"] > 0, 3, 0), np.where(milestone, np.where(d["ycum"] >= 10, 2, 1), 0))
-    susp = np.zeros(len(d), bool)
-    keys = (d["player_id"].astype(str) + "|" + d["squad_id"].astype(str)).to_numpy()
-    mins = d["minutes_played"].to_numpy()
-    for i in np.flatnonzero(ban > 0):
-        for j in range(i + 1, min(i + 1 + ban[i], len(d))):
-            if keys[j] != keys[i] or mins[j] > 0:
-                break
-            susp[j] = True
-    return susp
+    """Games a player most likely missed through suspension (ban_walk with the card rules above): 0 minutes in the next
+    1-3 games after a red card (stopping at his first appearance), or the next 1 / 2 / 3 games after his 5th / 10th /
+    15th league yellow of the season when within the cut-off (19 / 37 club league matches / end of season). Checked on
+    2025/26 + 2026/27 (21 Nov 2026): 92% of red-carded players miss the next game, ~45% the next two or three; 88% miss
+    the game after a 5th yellow inside the cut-off (n 100), 12% after it (n 313: no ban, about the 9% of regulars who
+    miss any next game). Until 21 Nov 2026 the cut-offs were ignored, so those 12% were dropped from training too."""
+    return ban_walk(d)[0]
 
 
-def load_rows(position, drop_suspended=True):
-    """Every player-fixture row for the position; inferred suspension games dropped unless drop_suspended=False (the
-    "last 5" display wants them)."""
+def raw_rows(seasons=(("2025_26", "2526"), ("2026_27", "2627"))):
+    """The fantasy per-match stats of all positions (no dates attached)."""
     frames = []
-    for season, tag in (("2025_26", "2526"), ("2026_27", "2627")):
+    for season, tag in seasons:
         for f in sorted((REPO / "data" / season).glob("player_stats_gw*.csv")):
             try:
                 frames.append(pd.read_csv(f).assign(season=tag))
             except pd.errors.EmptyDataError:
                 pass
-    d = pd.concat(frames, ignore_index=True).drop_duplicates(["season", "player_id", "gameweek", "squad_id", "opponent_id"])
+    return pd.concat(frames, ignore_index=True).drop_duplicates(["season", "player_id", "gameweek", "squad_id", "opponent_id"])
+
+
+def load_rows(position, drop_suspended=True):
+    """Every player-fixture row for the position; inferred suspension games dropped unless drop_suspended=False (the
+    "last 5" display wants them)."""
+    d = raw_rows()
     d = attach_fotmob(attach_dates(d[d["position"] == position].copy()))
     if not drop_suspended:
         return d
@@ -250,6 +314,82 @@ def availability(p):
     return 1.0 if p["status"] == "playing" else 0.0
 
 
+_BANS_CACHE = {}
+
+
+def card_bans(players, rounds):
+    """Likely card bans at pick time (21 Nov 2026; the EFL's flag can lag: K. Dempsey's 5th yellow on 14 Nov was not
+    flagged a week later and the model gave him a 95% start chance). The card rules above (YELLOW_BANS, a red card = the
+    one match every red gets) on this season's league games, minus the matches he has already served (0-minute league
+    games since the card; any appearance since ends the ban). Club games already played but not yet in the exported
+    stats count as served (we cannot tell). Returns {player id: dict(games=[True/False for each game of his club's next
+    round, in date order], gw=that round, owed=matches, why=hover text)} for players still owing a match, flagged by the
+    EFL or not."""
+    nxt = _next_fixtures(rounds)
+    key = tuple(sorted((c, tuple(map(str, f))) for c, f in nxt.items()))
+    if key in _BANS_CACHE:
+        return _BANS_CACHE[key]
+    d = attach_dates(raw_rows((("2026_27", "2627"),))).reset_index(drop=True)
+    _, owed, why, _ = ban_walk(d, RED_BAN_PICK)
+    now = pd.Timestamp.now(tz="UTC")
+    played = {}  # club -> dates of league games that have kicked off
+    for r in rounds:
+        if r.get("gameMode", "season") != "season":
+            continue
+        for g in r["games"]:
+            t = pd.Timestamp(g["date"])
+            if t <= now and g.get("status") != "postponed":
+                day = t.tz_convert("Europe/London").tz_localize(None).normalize()
+                for c in (g["homeId"], g["awayId"]):
+                    played.setdefault(c, []).append(day)
+    last_in_data = d.groupby("squad_id")["date"].max().to_dict()
+    club = {p["id"]: p["squadId"] for p in players if p.get("status") != "eliminated"}
+    out = {}
+    for i in np.flatnonzero(owed > 0):
+        pid = int(d.at[i, "player_id"])
+        c = club.get(pid)
+        if c not in nxt:
+            continue
+        last = last_in_data.get(c)
+        n = int(owed[i]) - sum(1 for t in played.get(c, []) if last is None or t > last)
+        if n <= 0:
+            continue
+        what, when = why[i]
+        out[pid] = dict(games=[k < n for k in range(len(nxt[c]))], owed=n, gw=nxt[c][0][0],
+                        why=f"{what} on {when.day} {when:%b}: likely banned" + (f" ({n} games)" if n > 1 else "")
+                        + (" (at least one game)" if what == "red card" else ""))
+    _BANS_CACHE.clear()
+    _BANS_CACHE[key] = out
+    return out
+
+
+def efl_suspended(p):
+    return bool(p.get("suspensionDetails")) or p.get("status") == "suspended"
+
+
+def ban_fields(p, players, rounds):
+    """Page fields for a likely card ban the EFL has not flagged: banWhy (hover text) and banGw (only for a double where
+    he misses just the first game: the gameweek; the pages then count game 1 as 0 even "if he starts", see starts.js
+    startChanceAt). {} if none or if the EFL already lists him suspended."""
+    b = card_bans(players, rounds).get(p["id"])
+    if not b or not b["games"][0] or efl_suspended(p):
+        return {}
+    return dict(banWhy=b["why"], **({"banGw": b["gw"]} if len(b["games"]) > 1 and not b["games"][1] else {}))
+
+
+def pick_availability(players, rounds):
+    """(availability per player for his club's first game this round, players who miss only the first game of a
+    double): the EFL's flags (availability()), plus likely card bans the EFL has not flagged (card_bans) -> 0."""
+    avail = {p["id"]: availability(p) for p in players}
+    late = set()
+    for i, b in card_bans(players, rounds).items():
+        if b["games"][0] and avail.get(i, 0.0) > 0:
+            avail[i] = 0.0
+            if len(b["games"]) > 1 and not b["games"][1]:
+                late.add(i)
+    return avail, late
+
+
 def _shift(f, total):
     """delta with f(delta) = total for an increasing f; +-30 (everybody / nobody) if the total cannot be reached."""
     g = lambda d: float(f(d)) - total
@@ -264,13 +404,15 @@ def shift_to(p, total, a=None):
     return a * expit(z + _shift(lambda d: (a * expit(z + d)).sum(), total))
 
 
-def normalise_club(pred, avail, total=OUTFIELD_STARTERS):
+def normalise_club(pred, avail, total=OUTFIELD_STARTERS, late=()):
     """One club's outfield players: {id: dict(pStart, pSubN, pFull[, pStart2c, pStart2n])} -> the same with the start
     chances adding up to `total` (ten outfield starters). avail {id: availability}: 0 -> out (start / bench chances 0),
     0.5 -> start / bench chances halved. The second game of a double: both conditional chances are shifted so the
-    unconditional chances (as the pages compute them: s1 x c + (1 - s1) x n) add up to `total` as well."""
+    unconditional chances (as the pages compute them: s1 x c + (1 - s1) x n) add up to `total` as well. late: players
+    out of the first game only (a one-match ban in a double; avail 0) who still count in the second game's total (give
+    them pStart2c = pStart2n)."""
     out = {i: dict(v) for i, v in pred.items()}
-    ids = [i for i in pred if avail.get(i, 1.0) > 0]
+    ids = [i for i in pred if avail.get(i, 1.0) > 0 or i in late]
     for i in pred:
         if i not in ids:
             out[i] = {k: (v if k == "pFull" else 0.0) for k, v in pred[i].items()}
@@ -300,15 +442,21 @@ def _model_starts(position, players, rounds):
 
 def predict_starts(position, players, rounds):
     """{player id: dict(pStart, pSubN, pFull[, pStart2c, pStart2n])} for each player's club's next round (pFull: P(60+ |
-    started)). EFL flags: injured / suspended -> 0, "questionable (50%)" -> halved (availability()). Outfield positions:
-    each club's chances add up to ten starters (normalise_club; all three positions are predicted together and cached
-    for the run). Keepers: flags only here; keepers.model_minutes scales each club's keepers to one starter."""
-    avail = {p["id"]: availability(p) for p in players}
+    started)). EFL flags: injured / suspended -> 0, "questionable (50%)" -> halved (availability()); a likely card ban
+    the EFL has not flagged -> 0 as well (card_bans; a one-match ban in a double: 0 for the first game, and the second
+    game's chance is his first-game chance, pStart2c = pStart2n, as the banned game is not in his history). Outfield
+    positions: each club's chances add up to ten starters (normalise_club; all three positions are predicted together
+    and cached for the run). Keepers: flags only here; keepers.model_minutes scales each club's keepers to one starter."""
+    avail, late = pick_availability(players, rounds)
     rnd = lambda out: {k: {kk: round(vv, 4) for kk, vv in v.items()} for k, v in out.items()}
+
+    def late_second(i, pr):  # misses only the first game of a double: the second as if the banned game did not exist
+        return dict(pr, pStart2c=pr["pStart"], pStart2n=pr["pStart"]) if i in late and "pStart2c" in pr else pr
     if position not in OUTFIELD:
         out = _model_starts(position, players, rounds)
-        return rnd({i: {k: (v if k == "pFull" else v * avail.get(i, 1.0)) for k, v in pr.items()} for i, pr in out.items()})
-    key = (tuple(sorted((p["id"], p["squadId"], avail[p["id"]]) for p in players if p["status"] != "eliminated")),
+        return rnd({i: {k: (v if k == "pFull" or (i in late and k in ("pStart2c", "pStart2n")) else v * avail.get(i, 1.0))
+                        for k, v in late_second(i, pr).items()} for i, pr in out.items()})
+    key = (tuple(sorted((p["id"], p["squadId"], avail[p["id"]], p["id"] in late) for p in players if p["status"] != "eliminated")),
            tuple(sorted((c, tuple(map(str, f))) for c, f in _next_fixtures(rounds).items())))
     if key not in _STARTS_CACHE:
         _STARTS_CACHE.clear()
@@ -317,10 +465,10 @@ def predict_starts(position, players, rounds):
         by_club = {}
         for pos in OUTFIELD:
             for i, pr in raw[pos].items():
-                by_club.setdefault(club[i], {})[i] = pr
+                by_club.setdefault(club[i], {})[i] = late_second(i, pr)
         done = {}
         for preds in by_club.values():
-            done.update(normalise_club(preds, avail))
+            done.update(normalise_club(preds, avail, late=late))
         _STARTS_CACHE[key] = {pos: rnd({i: done[i] for i in raw[pos]}) for pos in OUTFIELD}
     return _STARTS_CACHE[key][position]
 

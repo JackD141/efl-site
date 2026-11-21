@@ -33,14 +33,15 @@ function kxp(k, gw, asStarter) {
   const w = weekOf(k.club, gw), p = state.plan;
   if (!w || !w.games) return 0;
   return w.fx.reduce((a, f, j) => {
-    const ps = startChanceAt(k, j, startOf(k), asStarter);
+    const ps = startChanceAt(k, j, startOf(k), asStarter, gw);
     if (!p.startModel) return a + ps * f.xp;
     const s = scenarioProbs(p, k, ps);
     return a + s.pFull * f.xp + s.pPart;
   }, 0);
 }
-// null if he is not expected to be available (injured / suspended)
-const startsXp = (k, gw) => ((k.pStart || 0) > 0 || edited(k) ? kxp(k, gw, true) : null);
+// null if he is not expected to be available (injured / suspended); a ban for the first game of a double only (banGw)
+// still has the second
+const startsXp = (k, gw) => ((k.pStart || 0) > 0 || edited(k) || k.banGw === gw ? kxp(k, gw, true) : null);
 
 /* ---------- tooltip ---------- */
 const tip = document.createElement('div');
@@ -103,6 +104,7 @@ function statusTags(k) {
   const t = [];
   if (k.injury || k.status === 'injured') t.push(`<span class="cp-tag kp-tag-out" title="${esc(k.injuryStatus || '')}">${esc(k.injury || 'injured')}</span>`);
   if (k.suspended) t.push('<span class="cp-tag kp-tag-out">suspended</span>');
+  else if (k.banWhy) t.push(banTagHtml(k));
   if (k.startedLast) t.push('<span class="cp-tag cp-tag-picked" title="Started his club\'s most recent game">started last</span>');
   if (kickedOff(weekOf(k.club, state.gw))) t.push('<span class="cp-tag" title="His club\'s game this gameweek has kicked off, so he is locked">locked</span>');
   return t.join(' ');
@@ -164,7 +166,7 @@ function render() {
         question is what he scores <em>if he starts</em>: his club's first game of the gameweek at 100%, a double's second game at his chance of
         starting it given he started the first. <strong>xP</strong> is the same before team news, with his start chance. Click either heading to sort.</li>
       <li><strong>Start %</strong> is the chance he starts his club's next game (the start model: recent starts, minutes and appearances at his club;
-        a club's keepers add up to at most 100%; 0 if EFL lists him injured or suspended, halved if "questionable"). Historically the last game's starter keeps his place
+        a club's keepers add up to at most 100%; 0 if EFL lists him injured or suspended, or if his cards imply a ban it has not flagged yet (5 league yellows within the club's first 19 league games, 10 within 37, or a red card), halved if "questionable"). Historically the last game's starter keeps his place
         ${pct(plan.constants.pKeep)} of the time. Change it after team news; edits are saved in this browser.</li>
       <li>Saves and goals conceded score in steps, so xP uses the full chances: saves points = 2 × [P(3+ saves) + P(6+) + P(9+) …], not expected saves ÷ 3 × 2.</li>
       <li>Single games are mostly luck: a clean sheet is a weighted coin flip. xP is right on average and ranks fixtures; it does not predict one match.</li>

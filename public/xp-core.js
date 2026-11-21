@@ -104,9 +104,9 @@ function attackerAt(pos, d, f, mins, app) {
 // first game of the gameweek at 100%, a double's second game at his chance of starting it given he started the first)
 function playerWeek(pl, gw, asStarter) {
   const wk = state.week[pl.pos][pl.club] && state.week[pl.pos][pl.club][gw];
-  if (!wk || !wk.games || (pl.start <= 0 && !asStarter)) return { wk, fx: (wk && wk.fx || []).map(f => ({ f, xp: 0 })) };
+  if (!wk || !wk.games || (pl.start <= 0 && !asStarter && pl.raw.banGw !== gw)) return { wk, fx: (wk && wk.fx || []).map(f => ({ f, xp: 0 })) };
   const fx = wk.fx.map((f, j) => {
-    const ps = startChanceAt(pl.raw, j, pl.start, asStarter), plan = state.plans[pl.pos];
+    const ps = startChanceAt(pl.raw, j, pl.start, asStarter, gw), plan = state.plans[pl.pos];
     if (pl.pos === 'GK') {
       const sc = scenarioProbs(plan, pl.raw, ps);
       return { f, xp: sc.pFull * f.xp + sc.pPart };

@@ -229,6 +229,24 @@ def check_model_dates():
            f"{fallback.mean():.1%} fell back" if fallback.any() else "all matched")
 
 
+# ---------- cards: likely bans are inferred from them (minutes_model.card_bans, 21 Nov 2026) ----------
+def check_cards(fantasy):
+    import minutes_model as mm
+    print("cards (likely bans the EFL has not flagged are inferred from them)")
+    y, r = fantasy["yellow_cards"], fantasy["red_cards"]
+    bad = int(((y < 0) | (y > 1) | (r < 0) | (r > 1)).sum())
+    report("FAIL" if bad else "PASS", "yellow / red cards are 0 or 1 per player-game", f"{bad} rows outside" if bad else "")
+    both = int(((y > 0) & (r > 0)).sum())
+    report("WARN" if both else "PASS", "a sending-off is recorded as red 1 / yellow 0 (so second yellows do not count towards five)",
+           f"{both} rows with both: has the EFL changed how it records them? (minutes_model.YELLOW_BANS assumes not)" if both else "")
+    # the rule against what happened this season: a slip in the card columns or the match dates shows up as a collapse
+    d = mm.attach_dates(mm.raw_rows((("2026_27", "2627"),))).reset_index(drop=True)
+    served, _, _, owing = mm.ban_walk(d, mm.RED_BAN_PICK)
+    n, hit = int(owing.sum()), int(served.sum())
+    report("WARN" if n >= 20 and hit / n < 0.75 else "PASS", "players the card rule says are banned really miss the game (2026/27)",
+           f"{hit} of {n} ({hit / max(n, 1):.0%}; 89% on 2025/26 + 2026/27 when built, exp_card_bans.py)")
+
+
 # ---------- outputs: the site JSON ----------
 def check_outputs(rounds, squads, gw):
     print("site data (public/data)")
@@ -284,6 +302,10 @@ def check_outputs(rounds, squads, gw):
     playing = {c for c, v in out_sum.items() if v > 0}
     off = {c: round(out_sum[c], 2) for c in playing if abs(out_sum[c] - 10) > 0.05 and n_out[c] > 10}
     report("FAIL" if off else "PASS", "each club's outfield start chances add up to ten starters", str(list(off.items())[:3]) or f"{len(playing)} clubs")
+    # likely card bans the EFL has not flagged (set to 0 on the site): worth a look at team news before the deadline
+    banned = [f"{x['name']} ({x['banWhy']})" for f, p in plans.items() if f != "club_plan.json"
+              for x in (p.get("keepers") or p.get("defenders") or p.get("players") or []) if x.get("banWhy")]
+    report("WARN" if banned else "PASS", "players ruled out by their cards that the EFL has not flagged (check team news)", "; ".join(banned) or "none")
     m = plans["mid_plan.json"]
     # clubs with a game in the next round x ~3-4 regular midfielders each
     starters = sum(x.get("pStart", 0) >= 0.6 for x in m["players"])
@@ -303,6 +325,7 @@ def run(inputs=True, outputs=True, gw=None, fixtures_csv=None):
         check_football_data(rounds, squads, fixtures_csv or fetch_data.CACHE / "fd_fixtures.csv", gw)
         check_fotmob(rounds, squads, fantasy)
         check_model_dates()
+        check_cards(fantasy)
     if outputs:
         check_outputs(rounds, squads, gw)
     fails = [r for r in RESULTS if r[0] == "FAIL"]

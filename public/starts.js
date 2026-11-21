@@ -16,11 +16,21 @@ function readStore(key) {
 function writeStore(key, v) {
   try { localStorage.setItem(key, JSON.stringify(v)); } catch (e) { /* ignore */ }
 }
-// chance he starts game j (0-based) of a gameweek, given his first-game start chance s1
-function startChanceAt(d, j, s1, asStarter) {
-  const a = asStarter ? 1 : s1;
+// chance he starts game j (0-based) of gameweek gw, given his first-game start chance s1. banGw (minutes_model.ban_fields):
+// a likely one-match ban that covers only the first game of that gameweek's double: game 1 is 0 even "if he starts"
+// (which then means the second game); his pStart2c = pStart2n, so the second game does not depend on the first.
+function startChanceAt(d, j, s1, asStarter, gw) {
+  const banned = d.banGw != null && d.banGw === gw;
+  const a = asStarter ? (banned ? 0 : 1) : s1;
   if (j === 0) return a;
+  if (banned && asStarter) return 1;
   return d.pStart2c == null ? a : a * d.pStart2c + (1 - a) * d.pStart2n;
+}
+// a likely card ban the EFL has not flagged yet, shown like its "suspended" tag, with the reason on hover
+function banTagHtml(d) {
+  if (!d.banWhy) return '';
+  const why = String(d.banWhy).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+  return `<span class="cp-tag kp-tag-out" title="${why}${d.banGw != null ? ' (first game of the double only)' : ''}. Inferred from his cards; the EFL has not flagged it yet.">suspended${d.banGw != null ? ' (1st game)' : ''}</span>`;
 }
 // chance of each minutes scenario in a game he starts with chance ps
 function scenarioProbs(plan, d, ps) {

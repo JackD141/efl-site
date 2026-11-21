@@ -107,12 +107,13 @@ function fixtureXp(d, f, ps) {
 function weekXp(d, gw, asStarter) {
   const w = weekOf(d.club, gw);
   if (!w || !w.games) return { xp: 0, fx: [] };
-  const fx = w.fx.map((f, j) => ({ f, r: fixtureXp(d, f, startChanceAt(d, j, startOf(d), asStarter)) }));
+  const fx = w.fx.map((f, j) => ({ f, r: fixtureXp(d, f, startChanceAt(d, j, startOf(d), asStarter, gw)) }));
   return { xp: fx.reduce((a, x) => a + x.r.xp, 0), fx };
 }
 const pxp = (d, gw) => weekXp(d, gw, false).xp;
-// null if he is not expected to be available (injured / suspended: start and bench chances 0)
-const startsXp = (d, gw) => ((d.pStart || 0) > 0 || edited(d) ? weekXp(d, gw, true).xp : null);
+// null if he is not expected to be available (injured / suspended: start and bench chances 0); a ban for the first game
+// of a double only (banGw) still has the second
+const startsXp = (d, gw) => ((d.pStart || 0) > 0 || edited(d) || d.banGw === gw ? weekXp(d, gw, true).xp : null);
 
 /* ---------- tooltip ---------- */
 const tip = document.createElement('div');
@@ -180,6 +181,7 @@ function tags(d) {
   if (d.job) t.push(`<span class="cp-tag kp-tag-job" title="${esc(d.job.why)}">${esc(d.job.t)}</span>`);
   if (d.injury || d.status === 'injured') t.push(`<span class="cp-tag kp-tag-out" title="${esc(d.injuryStatus || '')}">${esc(d.injury || 'injured')}${/\((\d+)%\)/.test(d.injuryStatus || '') && !/\(0%\)/.test(d.injuryStatus) ? ' ?' : ''}</span>`);
   if (d.suspended) t.push('<span class="cp-tag kp-tag-out">suspended</span>');
+  else if (d.banWhy) t.push(banTagHtml(d));
   if (d.startedLast) t.push('<span class="cp-tag cp-tag-picked" title="Played 60+ minutes in his club\'s latest game">started last</span>');
   if (kickedOff(weekOf(d.club, state.gw))) t.push('<span class="cp-tag" title="His club\'s game this gameweek has kicked off, so he is locked">locked</span>');
   return t.join(' ');
@@ -246,7 +248,7 @@ function render() {
       <tbody>${rows || `<tr><td colspan="${hasInt ? 13 : 12}" class="cp-muted">No ${LABEL.many.toLowerCase()} match.</td></tr>`}</tbody></table></div>
     <div class="cp-caveat"><strong>How to read this</strong><ul>
       <li><strong>Start %</strong> is the chance he starts his club's next game, from a model of his recent starts, minutes and appearances at his
-        club, how long since he last played, whether he is new to the club, rest days and doubles. A club starts ten outfield players, so each club's chances add up to ten: they rise when team-mates are out (0 if EFL lists him injured or suspended, halved if "questionable"; games
+        club, how long since he last played, whether he is new to the club, rest days and doubles. A club starts ten outfield players, so each club's chances add up to ten: they rise when team-mates are out (0 if EFL lists him injured or suspended, or if his cards imply a ban it has not flagged yet (5 league yellows within the club's first 19 league games, 10 within 37, or a red card), halved if "questionable"; games
         he missed through a ban do not count as being dropped). Below it: his minutes if he starts and, in a double, his chance of starting the
         second game. Change it after team news (100 = in the line-up); edits are saved in this browser.</li>
       <li><strong>xP if starts</strong> (the default sort): Fantasy EFL lets you change a player until his game kicks off, so after team news the

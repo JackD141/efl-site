@@ -145,6 +145,7 @@ def build_defender_plan(rounds, squads, players, fits, id2fd, book, book_src, ma
             status=p["status"],
             injury=inj.get("type") if inj else None, injuryStatus=inj.get("status") if inj else None,
             suspended=bool(p.get("suspensionDetails")), startedLast=p["id"] in starters,
+            **(mm.ban_fields(p, players, rounds) if v2 else {}),  # likely card ban the EFL has not flagged (banWhy, banGw)
             role={st: round(roles.get(p["id"], {}).get(st, 1.0), 4) for st in art["stats"]},
             rates={k: round(float(v), 5) for k, v in rr.items()},
             **({"fm": fm.get(p["id"], fm_default), "mates": mates.get(p["id"], {}), "tags": sp_tags.get(p["id"], []),

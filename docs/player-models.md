@@ -46,7 +46,9 @@ mFull) + P(part game) = start x (1 - P(60+|start)) + (1 - start) x P(comes on) (
   league yellow) and left out of training and of his history: a ban is known at pick time (EFL marks him suspended)
   and is not being dropped.
 - Doubles: the second game's start chance is predicted as if he started the first (pStart2c) and as if not (pStart2n).
-- Keepers: a club's keepers' start chances are scaled to add up to 1 per game.
+- Keepers: a club's keepers' start chances are scaled to add up to 1 per game. The second game of a double: one
+  common logit shift of the conditional chances so the club's unconditional chances add up to 1 (fixed 21 Nov 2026:
+  they were scaled by a club total, which gave first-choice keepers ~0.4 for the second game after starting the first).
 - P(60+ | started) for midfielders and forwards also uses his own record: the share of his last 10 starts at the club
   that reached 60 minutes (11 Nov, `exp_p60.py`).
 - Outfield (9 Nov): a club starts ten outfield players, so each club's available defenders, midfielders and forwards

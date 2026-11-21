@@ -113,15 +113,23 @@ def model_minutes(players, rounds):
     for p in players:
         if p["position"] == "GK" and p["id"] in pred:
             by_club.setdefault(p["squadId"], []).append(p["id"])
+    from scipy.special import expit, logit
     out = {}
     for ids in by_club.values():
-        for key in ("pStart", "pStart2c", "pStart2n"):
-            tot = sum(pred[i].get(key, 0.0) for i in ids)
-            for i in ids:
-                if key in pred[i]:
-                    out.setdefault(i, dict(pred[i]))[key] = pred[i][key] / tot if tot > 0 else 0.0
+        tot = sum(pred[i]["pStart"] for i in ids)
         for i in ids:
-            out.setdefault(i, dict(pred[i]))
+            out[i] = dict(pred[i], pStart=pred[i]["pStart"] / tot if tot > 0 else 0.0)
+        # second game of a double: pStart2c / pStart2n are conditional on THIS keeper starting / not starting the first,
+        # so they cannot be scaled by a club total (21 Nov 2026: that gave first-choice keepers ~0.4 for the second game
+        # after starting the first). As for outfield players (minutes_model.normalise_club): one common logit shift of
+        # both so the unconditional chances s1 x c + (1 - s1) x n add up to one keeper.
+        if tot > 0 and all("pStart2c" in pred[i] for i in ids):
+            s1 = np.array([out[i]["pStart"] for i in ids])
+            zc = logit(np.clip([pred[i]["pStart2c"] for i in ids], 1e-6, 1 - 1e-6))
+            zn = logit(np.clip([pred[i]["pStart2n"] for i in ids], 1e-6, 1 - 1e-6))
+            d2 = mm._shift(lambda d: (s1 * expit(zc + d) + (1 - s1) * expit(zn + d)).sum(), 1.0)
+            for i, c, n in zip(ids, expit(zc + d2), expit(zn + d2)):
+                out[i]["pStart2c"], out[i]["pStart2n"] = float(c), float(n)
     return out
 
 
